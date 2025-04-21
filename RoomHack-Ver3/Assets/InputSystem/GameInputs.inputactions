@@ -1,0 +1,34 @@
+{
+    "name": "GameInputs",
+    "maps": [
+        {
+            "name": "Move",
+            "id": "15eedf90-c493-4e77-88d4-d8bf50742324",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Value",
+                    "id": "c7577fbe-2eb7-4c9a-9681-25e4f89b3d49",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b9829e33-a757-46b0-9aa6-047524c16eb4",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
