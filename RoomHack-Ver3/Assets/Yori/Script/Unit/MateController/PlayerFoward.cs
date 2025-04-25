@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitCore : MonoBehaviour
+public class PlayerFoward : MonoBehaviour
 {
-
+    // Start is called before the first frame update
     void Start()
     {
         
@@ -13,6 +13,6 @@ public class UnitCore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 m_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
     }
 }
