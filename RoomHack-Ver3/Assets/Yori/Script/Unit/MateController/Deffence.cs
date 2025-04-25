@@ -15,9 +15,9 @@ public class Deffence : MonoBehaviour,IDamegeable
         NowHP = MAXHP;
     }
 
-    // Ž€
+ 
     public void Die()
     {
-        
+        // Ž€
     }
 }
