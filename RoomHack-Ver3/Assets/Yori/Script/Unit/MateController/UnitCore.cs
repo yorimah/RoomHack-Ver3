@@ -13,6 +13,5 @@ public class UnitCore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 m_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 }
