@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class TestMove : MonoBehaviour
+public class TestMove : MonoBehaviour, IDamegeable
 {
+    public float MAXHP { get; set; }
+    public float NowHP { get; set; }
+    public int HitDamegeLayer { get; set; } = 1;
+
     private MoveInput moveInput;
 
     private Vector2 moveVector;
@@ -13,6 +14,31 @@ public class TestMove : MonoBehaviour
     private float MOVESPEED = 10;
 
     private Vector3 mousePosition;
+
+    [SerializeField, Header("ハッキングレイの始点")]
+    private Transform rayStartTransform;
+
+    [SerializeField, Header("ハッキングレイの長さ")]
+    private float rayDirecition;
+
+    private Vector3 direction;
+
+    [SerializeField, Header("ハックスピード")]
+    private int hackSpeedLevel;
+
+    [SerializeField, Header("ハック下対象に影響を与える時間")]
+    private float hackDamage;
+
+    [SerializeField, Header("ハックできる対象の数")]
+    private int hackParallelism;
+
+    private enum ShotMode
+    {
+        GunMode,
+        HackMode,
+    }
+
+    ShotMode shotMode;
     public void Start()
     {
         moveInput = new MoveInput();
@@ -20,12 +46,49 @@ public class TestMove : MonoBehaviour
         moveInput.Init();
 
         playerRigidbody2D = this.GetComponent<Rigidbody2D>();
+
+        MAXHP = 100;
+        NowHP = MAXHP;
+
+        HitDamegeLayer = 1;
     }
 
     public void Update()
     {
         playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), MOVESPEED);
         PlayerRotation();
+
+        switch (shotMode)
+        {
+            case ShotMode.GunMode:
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    Shot();
+                }
+
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    Debug.Log("切替" + shotMode);
+                    shotMode = ShotMode.HackMode;
+                }
+
+                break;
+            case ShotMode.HackMode:
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    Hack();
+                }
+
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    Debug.Log("切替" + shotMode);
+                    shotMode = ShotMode.GunMode;
+                }
+                break;
+            default:
+                Debug.Log("範囲を出たわよ\n ShotMode:" + shotMode);
+                break;
+        }
     }
 
     public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
@@ -37,15 +100,14 @@ public class TestMove : MonoBehaviour
     private void PlayerRotation()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePosition - this.transform.position;
+        direction = mousePosition - this.transform.position;
 
-        // ベクトルを角度に変換して敵を向く
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.RotateTowards(this.transform.rotation, targetRotation, 5f);
+        transform.rotation = targetRotation;
     }
 
-    [SerializeField,Header("弾のプレハブ")]
+    [SerializeField, Header("弾のプレハブ")]
     private GameObject bulletPrefab;
     [SerializeField, Header("弾のスピード")]
     private float bulletSpeed;
@@ -54,9 +116,52 @@ public class TestMove : MonoBehaviour
     {
         GameObject bulletGameObject = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
-        Rigidbody2D rigidBullet = bulletGameObject.GetComponent<Rigidbody2D>();
+        Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();
+
+        BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
+
+        bulletCore.HitDamegeLayer = this.HitDamegeLayer;
+
+        Vector3 shootDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z) * Vector3.up;
+        bulletRigit.velocity = shootDirection * bulletSpeed;
+        bulletGameObject.transform.up = shootDirection;
+    }
+
+    private void Hack()
+    {
+        RaycastHit2D ray = Physics2D.Raycast(rayStartTransform.position, direction, rayDirecition);
+        Debug.DrawRay(rayStartTransform.position, direction * rayDirecition, Color.red);
+
+        if (ray.collider != null)
+        {
+            Debug.Log(ray.collider.gameObject.name);
+            if (ray.collider.gameObject.TryGetComponent<HackObject>(out var hackObject))
+            {
+                hackObject.HackStart();
+
+            }
+        }
+    }
 
 
-        
+    public double HackSecond(int secLevel)
+    {
+        float curve = 1.5f;
+        float ratio = 3;
+        float levelgap = secLevel - hackSpeedLevel;
+        float hackSecond = Mathf.Pow(curve, levelgap) * ratio;
+        return hackSecond;
+    }
+
+    public float HackInpact(int secLevel)
+    {
+        float intercept = 3;
+        float levelGap = secLevel - hackDamage;
+        float hackInpact = Mathf.Sqrt(levelGap + intercept);
+        return Mathf.Abs(hackInpact);
+    }
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

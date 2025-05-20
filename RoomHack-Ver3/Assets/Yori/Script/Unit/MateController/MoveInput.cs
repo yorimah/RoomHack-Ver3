@@ -7,6 +7,7 @@ public class MoveInput
 
     private Vector2 _moveInputValue;
 
+
     public void Init()
     {
         _gameInputs = new GameInputs();
