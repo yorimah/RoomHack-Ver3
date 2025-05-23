@@ -27,6 +27,7 @@ public class BulletCore : MonoBehaviour, IDamegeable
             {
                  Debug.Log(collision.gameObject.name + "Ç…" + 1 + "ÇÃÉ_ÉÅÅ[ÉW");
                 damage.HitDmg(1);
+                Die();
             }
         }
     }

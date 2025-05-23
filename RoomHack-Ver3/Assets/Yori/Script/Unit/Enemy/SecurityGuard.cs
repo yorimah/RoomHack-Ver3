@@ -2,21 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitCore : MonoBehaviour,IDamegeable
+public class SecurityGuard : MonoBehaviour,HackObject,IDamegeable
 {
-    public float MAXHP { get; set; }
+    public int secLevele { get; set; }
+
+    public float MAXHP { get; set; } = 10;
     public float NowHP { get; set; }
     public int HitDamegeLayer { get; set; } = 2;
-
+    // Start is called before the first frame update
     void Start()
     {
-        MAXHP = 10;
-        NowHP = MAXHP;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        
     }
 
     public void Die()
