@@ -19,5 +19,8 @@ public interface IDamegeable
             Die();
         }
     }
+    /// <summary>
+    /// €‚ñ‚¾‚Æ‚«‚Ìˆ—
+    /// </summary>
     public void Die();
 }

@@ -137,29 +137,14 @@ public class TestMove : MonoBehaviour, IDamegeable
             Debug.Log(ray.collider.gameObject.name);
             if (ray.collider.gameObject.TryGetComponent<HackObject>(out var hackObject))
             {
-                hackObject.HackStart();
+                //hackObject.HackStart();
 
             }
         }
     }
 
 
-    public double HackSecond(int secLevel)
-    {
-        float curve = 1.5f;
-        float ratio = 3;
-        float levelgap = secLevel - hackSpeedLevel;
-        float hackSecond = Mathf.Pow(curve, levelgap) * ratio;
-        return hackSecond;
-    }
-
-    public float HackInpact(int secLevel)
-    {
-        float intercept = 3;
-        float levelGap = secLevel - hackDamage;
-        float hackInpact = Mathf.Sqrt(levelGap + intercept);
-        return Mathf.Abs(hackInpact);
-    }
+   
     public void Die()
     {
         Destroy(gameObject);
