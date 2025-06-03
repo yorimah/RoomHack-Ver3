@@ -25,7 +25,6 @@ public class BulletCore : MonoBehaviour, IDamegeable
              Debug.Log("UŒ‚‚Å‚«‚é" + collision.gameObject.name + "‚É‚ ‚½‚Á‚½");
             if (this.HitDamegeLayer != damage.HitDamegeLayer)
             {
-                 Debug.Log(collision.gameObject.name + "‚É" + 1 + "‚Ìƒ_ƒ[ƒW");
                 damage.HitDmg(1);
                 Die();
             }

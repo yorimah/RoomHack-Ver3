@@ -1,12 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitCore : MonoBehaviour,IDamegeable
+public class UnitCore : MonoBehaviour, IDamegeable
 {
     public float MAXHP { get; set; }
     public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; } = 2;
+    public int HitDamegeLayer { get; set; } = 1;
+
+    public static UnitCore Instance { get; private set; }
+
+    void Awake()
+    {
+        // Singletonチェック
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // 重複を防止
+            return;
+        }
+
+        Instance = this;
+    }
 
     void Start()
     {
@@ -22,5 +34,6 @@ public class UnitCore : MonoBehaviour,IDamegeable
     public void Die()
     {
         Destroy(gameObject);
+        Instance = null;
     }
 }
