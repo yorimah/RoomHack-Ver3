@@ -117,7 +117,6 @@ public class SecurityGuard : MonoBehaviour, HackObject, IDamegeable
                 shotSection = ShotSection.wait;
                 break;
             case ShotSection.wait:
-                Debug.Log("残弾 " + capacity);
                 break;
             case ShotSection.reload:
                 capacity = magazine;
@@ -149,14 +148,13 @@ public class SecurityGuard : MonoBehaviour, HackObject, IDamegeable
             // 弾が0未満だったら
             if (capacity <= 0)
             {
-                Debug.Log("アローリ！");
                 shotSection = ShotSection.reload;
                 yield break;
             }
-            yield return new WaitForSeconds(1 / 3);
+            yield return new WaitForSeconds(1/3f);
 
         }
-        Debug.Log("えいむにれっつごー");
+        yield return new WaitForSeconds(1f);
         shotSection = ShotSection.aim;
         yield return null;
     }
