@@ -1,9 +1,6 @@
 using UnityEngine;
-public class TestMove : MonoBehaviour, IDamegeable
+public class TestMove : MonoBehaviour
 {
-    public float MAXHP { get; set; }
-    public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; } = 1;
 
     private MoveInput moveInput;
 
@@ -32,6 +29,7 @@ public class TestMove : MonoBehaviour, IDamegeable
     [SerializeField, Header("ハックできる対象の数")]
     private int hackParallelism;
 
+
     private enum ShotMode
     {
         GunMode,
@@ -46,11 +44,6 @@ public class TestMove : MonoBehaviour, IDamegeable
         moveInput.Init();
 
         playerRigidbody2D = this.GetComponent<Rigidbody2D>();
-
-        MAXHP = 100;
-        NowHP = MAXHP;
-
-        HitDamegeLayer = 1;
     }
 
     public void Update()
@@ -86,7 +79,7 @@ public class TestMove : MonoBehaviour, IDamegeable
                 }
                 break;
             default:
-                Debug.Log("範囲を出たわよ\n ShotMode:" + shotMode);
+                Debug.LogError("範囲を出たわよ\n ShotMode:" + shotMode);
                 break;
         }
     }
@@ -120,7 +113,7 @@ public class TestMove : MonoBehaviour, IDamegeable
 
         BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
 
-        bulletCore.HitDamegeLayer = this.HitDamegeLayer;
+        bulletCore.HitDamegeLayer = UnitCore.Instance.HitDamegeLayer;
 
         Vector3 shootDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z) * Vector3.up;
         bulletRigit.velocity = shootDirection * bulletSpeed;
@@ -144,7 +137,7 @@ public class TestMove : MonoBehaviour, IDamegeable
     }
 
 
-   
+
     public void Die()
     {
         Destroy(gameObject);
