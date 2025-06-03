@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Deffence : MonoBehaviour,IDamegeable
+public class WallDeffence : MonoBehaviour, IDamegeable
 {
 
     public float MAXHP { get; set; }
     public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; } = 1;
+    public int HitDamegeLayer { get; set; } = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -15,9 +13,12 @@ public class Deffence : MonoBehaviour,IDamegeable
         NowHP = MAXHP;
     }
 
- 
+    public void HitDmg(int dmg)
+    {
+
+    }
     public void Die()
     {
-        // Ž€
+        // •Ç‚ÍŽ€‚È‚È‚¢
     }
 }

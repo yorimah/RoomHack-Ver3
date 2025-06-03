@@ -128,7 +128,7 @@ public class TestMove : MonoBehaviour
         if (ray.collider != null)
         {
             Debug.Log(ray.collider.gameObject.name);
-            if (ray.collider.gameObject.TryGetComponent<HackObject>(out var hackObject))
+            if (ray.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject))
             {
                 //hackObject.HackStart();
 

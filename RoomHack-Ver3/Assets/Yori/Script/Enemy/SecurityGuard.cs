@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class SecurityGuard : MonoBehaviour, HackObject, IDamegeable
+public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 {
     public int secLevele { get; set; }
 
@@ -74,10 +74,10 @@ public class SecurityGuard : MonoBehaviour, HackObject, IDamegeable
 
     void Move()
     {
+
         CalcPosition();
         if (ShotingRay())
         {
-
             actNo = ActNo.shot;
             shotSection = ShotSection.aim;
         }
@@ -104,6 +104,7 @@ public class SecurityGuard : MonoBehaviour, HackObject, IDamegeable
         {
             case ShotSection.aim:
                 timer += Time.deltaTime;
+
                 shootDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z) * Vector3.up;
                 if (aimTime >= timer)
                 {
@@ -151,7 +152,7 @@ public class SecurityGuard : MonoBehaviour, HackObject, IDamegeable
                 shotSection = ShotSection.reload;
                 yield break;
             }
-            yield return new WaitForSeconds(1/3f);
+            yield return new WaitForSeconds(1 / 3f);
 
         }
         yield return new WaitForSeconds(1f);
@@ -224,7 +225,6 @@ public class SecurityGuard : MonoBehaviour, HackObject, IDamegeable
                 break;
             }
         }
-
         Debug.DrawRay(transform.position, playerDirection * playerDistance, Color.red);
         return false;
     }

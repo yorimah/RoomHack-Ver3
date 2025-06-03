@@ -22,7 +22,6 @@ public class BulletCore : MonoBehaviour, IDamegeable
         // IDamegebable‚ª—^‚¦‚ç‚ê‚é‚©’²‚×‚éB—^‚¦‚ç‚ê‚é‚È‚çdmglayer‚ğ’²‚×‚Ä“–‚½‚é‚©”»’f
         if (collision.gameObject.TryGetComponent<IDamegeable>(out var damage))
         {
-             Debug.Log("UŒ‚‚Å‚«‚é" + collision.gameObject.name + "‚É‚ ‚½‚Á‚½");
             if (this.HitDamegeLayer != damage.HitDamegeLayer)
             {
                 damage.HitDmg(1);

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7795670904246218876}
   - component: {fileID: 1645331719487531351}
   - component: {fileID: 7894141138016706641}
-  m_Layer: 0
-  m_Name: Bullet
+  m_Layer: 6
+  m_Name: EnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,8 +182,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2503878258257563640}
   - component: {fileID: 6521638471072904166}
-  m_Layer: 0
-  m_Name: Bullet1_Mate
+  m_Layer: 6
+  m_Name: Bullet1_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +245,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 082ffeb7849d8434b8de89db3acac9ce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 20b6fbc58f7a6134fa19fd92a321ab47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
