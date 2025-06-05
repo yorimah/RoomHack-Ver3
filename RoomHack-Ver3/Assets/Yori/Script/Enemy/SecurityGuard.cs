@@ -1,5 +1,8 @@
 using System.Collections;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 {
@@ -21,26 +24,39 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     public LayerMask obstacleMask;        // 障害物に使うレイヤー
 
     private float angle = 0f;             // 現在の角度
-    private int direction = 1;            // 回転方向（1 or -1）
+    private float direction =1;       
     private float flipTimer = 0f;         // 自動反転用タイマー
-
-    Collider2D selfCollider;
 
     // デリゲード
     // 関数を型にするためのもの
     private delegate void ActFunc();
     // 関数の配列
     private ActFunc[] actFuncTbl;
+
+    ShotSection shotSection;
+    Vector3 shootDirection;
+    float aimTime = 0.5f;
+    float timer = 0;
+    float reloadTime = 2;
+
+
+    private Rigidbody2D secRididBody;
+    // リロードをここに追加
     enum ActNo
     {
         wait,
         move,
         shot,
+        reload,
         num
     }
     ActNo actNo;
-    int magazine = 12;
-    int capacity = 0;
+
+    // ショット関連
+    int MAXMAGAGINE = 12;
+    int nowMagazine = 0;
+
+    float shotIntevalTime = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,12 +65,15 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
         actFuncTbl[(int)ActNo.wait] = Wait;
         actFuncTbl[(int)ActNo.move] = Move;
         actFuncTbl[(int)ActNo.shot] = Shot;
-
-        selfCollider = GetComponent<Collider2D>();
+        actFuncTbl[(int)ActNo.reload] = Reload;
 
         NowHP = MAXHP;
-        magazine = 12;
-        capacity = magazine;
+
+        nowMagazine = MAXMAGAGINE;
+
+        timer = 0;
+
+        secRididBody = GetComponent<Rigidbody2D>();
     }
 
     // プレイヤーを中心として動くときの距離
@@ -63,6 +82,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     {
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
 
+        // 画面内判定　入ったらtrue
         isInside =
             viewportPos.x >= 0 && viewportPos.x <= 1 &&
             viewportPos.y >= 0 && viewportPos.y <= 1;
@@ -74,38 +94,42 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 
     void Move()
     {
-
         CalcPosition();
-        if (ShotingRay())
+        if (WallHitCheack())
         {
             actNo = ActNo.shot;
             shotSection = ShotSection.aim;
         }
     }
 
-
+    void Reload()
+    {
+        nowMagazine = MAXMAGAGINE;
+        timer += Time.deltaTime;
+        if (timer >= reloadTime)
+        {
+            // ショットに移動
+            actNo = ActNo.shot;
+            timer = 0;
+        }
+    }
     enum ShotSection
     {
         aim,
         shot,
-        wait,
-        reload,
+        // 名前変更希望
+        shotInterval,
         sum
     }
-    ShotSection shotSection;
-    Vector3 shootDirection;
-    float aimTime = 0.5f;
-    float timer = 0;
-    float reloadTime = 2;
+
 
     void Shot()
     {
+        // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
             case ShotSection.aim:
                 timer += Time.deltaTime;
-
-                shootDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z) * Vector3.up;
                 if (aimTime >= timer)
                 {
                     shotSection++;
@@ -113,18 +137,22 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
                 }
                 break;
             case ShotSection.shot:
+                shootDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z) * Vector3.up;
+                GunFire();
+                shotSection++;
+                break;
 
-                StartCoroutine("HandGun");
-                shotSection = ShotSection.wait;
-                break;
-            case ShotSection.wait:
-                break;
-            case ShotSection.reload:
-                capacity = magazine;
+            case ShotSection.shotInterval:
                 timer += Time.deltaTime;
-                if (timer >= reloadTime)
+                if (!WallHitCheack())
                 {
+                    timer = 0;
+                    actNo = ActNo.move;
                     shotSection = ShotSection.aim;
+                }
+                if (shotIntevalTime <= timer)
+                {
+                    shotSection = ShotSection.shot;
                     timer = 0;
                 }
                 break;
@@ -132,40 +160,45 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
                 break;
         }
     }
-    IEnumerator HandGun()
+
+    void GunFire()
     {
-        for (int i = 0; i < 3; i++)
+        GameObject bulletGameObject = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+        Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();
+
+        BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
+
+        bulletCore.HitDamegeLayer = this.HitDamegeLayer;
+        bulletRigit.velocity = shootDirection * bulletSpeed;
+        bulletGameObject.transform.up = shootDirection;
+
+        nowMagazine--;
+
+        // 弾が0未満だったらリロードに遷移
+        if (nowMagazine <= 0)
         {
-            GameObject bulletGameObject = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-
-            Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();
-
-            BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
-
-            bulletCore.HitDamegeLayer = this.HitDamegeLayer;
-            bulletRigit.velocity = shootDirection * bulletSpeed;
-            bulletGameObject.transform.up = shootDirection;
-            capacity--;
-            // 弾が0未満だったら
-            if (capacity <= 0)
-            {
-                shotSection = ShotSection.reload;
-                yield break;
-            }
-            yield return new WaitForSeconds(1 / 3f);
-
+            actNo = ActNo.reload;
+            shotSection = ShotSection.aim;
         }
-        yield return new WaitForSeconds(1f);
-        shotSection = ShotSection.aim;
-        yield return null;
     }
     void Update()
     {
         actFuncTbl[(int)actNo]();
         RotationFoward();
-        Debug.Log("shotsection " + shotSection);
-        Debug.Log("actNo " + actNo);
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = Color.white;
+        style.fontSize = 14;
+
+        Handles.Label(transform.position + Vector3.up * 1f, "actNo " + actNo.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 1.5f, "shotSection " + shotSection.ToString(), style);
+    }
+#endif
 
     public void Die()
     {
@@ -179,54 +212,52 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
         flipTimer += Time.deltaTime;
         if (flipTimer >= flipInterval)
         {
-            direction *= -1;
+            direction = Random.value < 0.5f ? -1 : 1;
             flipTimer = 0f;
         }
 
-        //  現在の距離を取得（動的な半径）
-        float radius = Vector3.Distance(transform.position, UnitCore.Instance.transform.position);
+        // プレイヤーとの距離（動的な半径）
+        Vector2 center = UnitCore.Instance.transform.position;
+        float radius = Vector2.Distance(transform.position, center);
 
-        //  次の位置を計算（XY平面で円運動）
+        // 次の目標位置（XY平面で円運動）
         angle += direction * rotationSpeed * Time.deltaTime;
-        Vector3 nextPos = UnitCore.Instance.transform.position + new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0);
+        Vector2 nextPos = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
 
-        //  障害物の検出（Raycastでプレイヤーから次の位置方向へ）
-        Vector3 directionToNext = (nextPos - transform.position).normalized;
-        float checkDistance = Vector3.Distance(transform.position, nextPos);
-        if (Physics.Raycast(transform.position, directionToNext, checkDistance, obstacleMask))
+        // 障害物チェック
+        Vector2 directionToNext = (nextPos - (Vector2)transform.position).normalized;
+        float checkDistance = Vector2.Distance(transform.position, nextPos);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToNext, checkDistance, obstacleMask);
+        if (hit.collider != null)
         {
-            // 障害物に当たったら即反転
+            Debug.Log(hit.collider.name);
             direction *= -1;
             flipTimer = 0f;
-            return; // 今回は移動しない（ぶつかり中）
+            secRididBody.velocity = Vector2.zero;
+            return;
         }
-        transform.position = nextPos;
+
+        // Rigidbody2D で移動
+        secRididBody.velocity = directionToNext * 5;
     }
 
-    bool ShotingRay()
+    /// <Summary>
+    /// レイを飛ばして壁にあったたらfalseあたらなかったらtrue
+    /// </Summary>
+    bool WallHitCheack()
     {
         float playerDistance = Vector2.Distance(transform.position, UnitCore.Instance.transform.position);
         Vector2 playerDirection = (UnitCore.Instance.transform.position - transform.position).normalized;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerDirection, playerDistance, obstacleMask);
 
-        RaycastHit2D[] hits = new RaycastHit2D[10]; // 十分なサイズ
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.NoFilter(); // 全部対象
-        int hitCount = Physics2D.Raycast(transform.position, playerDirection, filter, hits, playerDistance);
-
-        for (int i = 0; i < hitCount; i++)
-        {
-            if (hits[i].collider != selfCollider)
-            {
-                // unitCoreを持ってるオブジェクトにあったたらtureを返す
-                if (hits[i].collider.gameObject.TryGetComponent<UnitCore>(out var playerObject))
-                {
-                    return true;
-                }
-                break;
-            }
-        }
         Debug.DrawRay(transform.position, playerDirection * playerDistance, Color.red);
-        return false;
+
+        if (hit.collider != null)
+        {
+            return false;
+        }
+        return true;
     }
     private void RotationFoward()
     {
