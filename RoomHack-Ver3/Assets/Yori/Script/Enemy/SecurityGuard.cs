@@ -229,6 +229,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
         float checkDistance = Vector2.Distance(transform.position, nextPos);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToNext, checkDistance, obstacleMask);
+        Debug.DrawRay(transform.position, directionToNext * checkDistance, Color.blue);
         if (hit.collider != null)
         {
             Debug.Log(hit.collider.name);
