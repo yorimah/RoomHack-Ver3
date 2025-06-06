@@ -303,6 +303,8 @@ MonoBehaviour:
   hackSpeedLevel: 2
   hackDamage: 2
   hackParallelism: 1
+  MOVESPEED: 3
+  MAXMAGAZINE: 12
   bulletPrefab: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
   bulletSpeed: 10
 --- !u!50 &24237160
@@ -6056,8 +6058,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 793253748}
-  - {fileID: 619394802}
   - {fileID: 1951217721}
+  - {fileID: 619394802}
   - {fileID: 1130855393}
   - {fileID: 24237157}
   - {fileID: 703471643}

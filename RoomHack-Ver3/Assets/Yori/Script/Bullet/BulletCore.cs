@@ -12,6 +12,9 @@ public class BulletCore : MonoBehaviour, IDamegeable
         MAXHP = 1;
         NowHP = MAXHP;
     }
+
+
+
     public void Die()
     {
         Destroy(gameObject);
@@ -19,6 +22,10 @@ public class BulletCore : MonoBehaviour, IDamegeable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.TryGetComponent<BulletCore>(out var bullet))
+        {
+            return;
+        }
         // IDamegebable‚ª—^‚¦‚ç‚ê‚é‚©’²‚×‚éB—^‚¦‚ç‚ê‚é‚È‚çdmglayer‚ğ’²‚×‚Ä“–‚½‚é‚©”»’f
         if (collision.gameObject.TryGetComponent<IDamegeable>(out var damage))
         {

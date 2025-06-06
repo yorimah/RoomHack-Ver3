@@ -1,15 +1,15 @@
 using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public class TestMove : MonoBehaviour
 {
-
     private MoveInput moveInput;
 
     private Vector2 moveVector;
 
     private Rigidbody2D playerRigidbody2D;
 
-    private float MOVESPEED = 10;
 
     private Vector3 mousePosition;
 
@@ -30,11 +30,16 @@ public class TestMove : MonoBehaviour
     [SerializeField, Header("ハックできる対象の数")]
     private int hackParallelism;
 
-
+    [SerializeField, Header("プレイヤースピード")]
+    private float MOVESPEED = 10;
+    [SerializeField, Header("マガジン容量")]
+    private int MAXMAGAZINE;
+    private int nowMagazine;
     private enum ShotMode
     {
         GunMode,
         HackMode,
+        ReloadMode,
     }
 
     ShotMode shotMode;
@@ -45,8 +50,10 @@ public class TestMove : MonoBehaviour
         moveInput.Init();
 
         playerRigidbody2D = this.GetComponent<Rigidbody2D>();
-    }
 
+        nowMagazine = MAXMAGAZINE;
+    }
+    private float reloadTime = 2;
     public void Update()
     {
         playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), MOVESPEED);
@@ -55,9 +62,17 @@ public class TestMove : MonoBehaviour
         switch (shotMode)
         {
             case ShotMode.GunMode:
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (Input.GetKey(KeyCode.Mouse0))
                 {
-                    Shot();
+                    if (nowMagazine > 0)
+                    {
+                        Shot();
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    timer = 0;
+                    shotMode = ShotMode.ReloadMode;
                 }
 
                 if (Input.GetKeyDown(KeyCode.Tab))
@@ -79,12 +94,24 @@ public class TestMove : MonoBehaviour
                     shotMode = ShotMode.GunMode;
                 }
                 break;
+            case ShotMode.ReloadMode:
+                timer += Time.deltaTime;
+                if (reloadTime <= timer)
+                {
+                    Reload();
+                    shotMode = ShotMode.GunMode;
+                }
+
+                break;
             default:
                 Debug.LogError("範囲を出たわよ\n ShotMode:" + shotMode);
                 break;
         }
     }
-
+    private void Reload()
+    {
+        nowMagazine = MAXMAGAZINE;
+    }
     public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
     {
         moveVector = inputMoveVector * moveSpeed;
@@ -106,7 +133,7 @@ public class TestMove : MonoBehaviour
     [SerializeField, Header("弾のスピード")]
     private float bulletSpeed;
 
-    private void Shot()
+    private void GunFire()
     {
         GameObject bulletGameObject = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
@@ -121,6 +148,41 @@ public class TestMove : MonoBehaviour
         bulletGameObject.transform.up = shootDirection;
     }
 
+    enum ShotSection
+    {
+        shot,
+        shotInterval,
+        sum
+    }
+
+    private ShotSection shotSection;
+    float timer = 0;
+
+
+    float shotIntevalTime = 1 / 3f;
+    void Shot()
+    {
+        // 発射レートを設定しその後、発射秒数を決定する。
+        switch (shotSection)
+        {
+            case ShotSection.shot:
+                GunFire();
+                nowMagazine--;
+                shotSection++;
+                break;
+            case ShotSection.shotInterval:
+
+                timer += Time.deltaTime;
+                if (shotIntevalTime <= timer)
+                {
+                    shotSection = ShotSection.shot;
+                    timer = 0;
+                }
+                break;
+            default:
+                break;
+        }
+    }
     private void Hack()
     {
         RaycastHit2D ray = Physics2D.Raycast(rayStartTransform.position, direction, rayDirecition);
@@ -137,7 +199,17 @@ public class TestMove : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = Color.white;
+        style.fontSize = 14;
 
+        Handles.Label(transform.position + Vector3.up * 1f, "HP " + UnitCore.Instance.NowHP.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
+    }
+#endif
 
     public void Die()
     {
