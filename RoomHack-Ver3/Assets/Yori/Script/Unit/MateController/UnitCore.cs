@@ -1,5 +1,7 @@
 using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public class UnitCore : MonoBehaviour, IDamegeable
 {
     public float MAXHP { get; set; }
@@ -30,7 +32,16 @@ public class UnitCore : MonoBehaviour, IDamegeable
     void Update()
     {
     }
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = Color.white;
+        style.fontSize = 14;
 
+        Handles.Label(transform.position + Vector3.up * 1f, "HP " + NowHP.ToString(), style);
+    }
+#endif
     public void Die()
     {
         Destroy(gameObject);

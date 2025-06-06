@@ -197,6 +197,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 
         Handles.Label(transform.position + Vector3.up * 1f, "actNo " + actNo.ToString(), style);
         Handles.Label(transform.position + Vector3.up * 1.5f, "shotSection " + shotSection.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 2f, "HP " + NowHP.ToString(), style);
     }
 #endif
 
