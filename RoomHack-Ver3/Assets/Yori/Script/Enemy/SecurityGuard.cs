@@ -20,9 +20,9 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 
     public float rotationSpeed = 1f;      // 回転速度（ラジアン/秒）
     public float flipInterval = 1f;       // 自動反転の周期
-    public LayerMask obstacleMask;        // 障害物に使うレイヤー
+    [SerializeField,Header("障害物に使うレイヤー")]
+    private LayerMask obstacleMask;        
 
-    private float angle = 0f;             // 現在の角度
     private float direction = 1;
     private float flipTimer = 0f;         // 自動反転用タイマー
 
@@ -37,7 +37,6 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     float aimTime = 0.5f;
     float timer = 0;
     float reloadTime = 2;
-
 
     private Rigidbody2D secRididBody;
     // リロードをここに追加
@@ -55,7 +54,11 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     int MAXMAGAGINE = 12;
     int nowMagazine = 0;
 
-    float shotIntevalTime = 1;
+
+    private int shotRate = 3;
+
+    float shotIntevalTime ;
+    private int shotNum = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +76,8 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
         timer = 0;
 
         secRididBody = GetComponent<Rigidbody2D>();
+
+        shotIntevalTime = 1 / shotRate;
     }
 
     // プレイヤーを中心として動くときの距離
@@ -139,19 +144,20 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
             case ShotSection.shot:
                 shootDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z) * Vector3.up;
                 GunFire();
+                shotNum++;
                 shotSection++;
                 break;
 
             case ShotSection.shotInterval:
                 timer += Time.deltaTime;
-                if (!WallHitCheack())
-                {
-                    timer = 0;
-                    actNo = ActNo.move;
-                    shotSection = ShotSection.aim;
-                }
                 if (shotIntevalTime <= timer)
                 {
+                    if (shotNum<=shotRate)
+                    {
+                        shotNum = 0;
+                        actNo = ActNo.move;
+                        shotSection = ShotSection.aim;
+                    }
                     shotSection = ShotSection.shot;
                     timer = 0;
                 }
