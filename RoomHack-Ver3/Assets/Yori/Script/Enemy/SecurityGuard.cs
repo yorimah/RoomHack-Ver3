@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,7 +7,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 {
     public int secLevele { get; set; }
 
-    public float MAXHP { get; set; } = 100;
+    public float MAXHP { get; set; } = 5;
     public float NowHP { get; set; }
     public int HitDamegeLayer { get; set; } = 2;
 
@@ -24,7 +23,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     public LayerMask obstacleMask;        // 障害物に使うレイヤー
 
     private float angle = 0f;             // 現在の角度
-    private float direction =1;       
+    private float direction = 1;
     private float flipTimer = 0f;         // 自動反転用タイマー
 
     // デリゲード
@@ -129,6 +128,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
         switch (shotSection)
         {
             case ShotSection.aim:
+                secRididBody.velocity = Vector2.zero;
                 timer += Time.deltaTime;
                 if (aimTime >= timer)
                 {
@@ -204,6 +204,9 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     {
         Destroy(gameObject);
     }
+
+    Vector2 emDir;
+    Vector2 nextPos;
     /// <Summary>
     /// オブジェクトの位置を計算するメソッドです。
     /// </Summary>
@@ -218,21 +221,19 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 
         // プレイヤーとの距離（動的な半径）
         Vector2 center = UnitCore.Instance.transform.position;
-        float radius = Vector2.Distance(transform.position, center);
+        Vector2 dir = (Vector2)transform.position - center;
 
-        // 次の目標位置（XY平面で円運動）
-        angle += direction * rotationSpeed * Time.deltaTime;
-        Vector2 nextPos = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+        emDir = new Vector2(-dir.y, dir.x);
+        nextPos = (Vector2)transform.position + (emDir * direction);
 
         // 障害物チェック
         Vector2 directionToNext = (nextPos - (Vector2)transform.position).normalized;
-        float checkDistance = Vector2.Distance(transform.position, nextPos);
+        float checkDistance = 1f;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToNext, checkDistance, obstacleMask);
         Debug.DrawRay(transform.position, directionToNext * checkDistance, Color.blue);
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
             direction *= -1;
             flipTimer = 0f;
             secRididBody.velocity = Vector2.zero;
@@ -240,7 +241,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
         }
 
         // Rigidbody2D で移動
-        secRididBody.velocity = directionToNext * 5;
+        secRididBody.velocity = directionToNext.normalized * 5;
     }
 
     /// <Summary>

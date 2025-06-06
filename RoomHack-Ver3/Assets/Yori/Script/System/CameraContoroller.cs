@@ -19,7 +19,7 @@ public class CameraContoroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        MoveCameraPosition(playerTransform);
     }
 
     void MoveCameraPosition(Transform targetPosition)
