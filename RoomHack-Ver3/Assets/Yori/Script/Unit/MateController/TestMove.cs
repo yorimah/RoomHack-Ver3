@@ -21,12 +21,6 @@ public class TestMove : MonoBehaviour
 
     private Vector3 direction;
 
-    [SerializeField, Header("ハックスピード")]
-    private int hackSpeedLevel;
-
-    [SerializeField, Header("ハック下対象に影響を与える時間")]
-    private float hackDamage;
-
     [SerializeField, Header("ハックできる対象の数")]
     private int hackParallelism;
 
@@ -43,6 +37,13 @@ public class TestMove : MonoBehaviour
     }
 
     ShotMode shotMode;
+
+    // ハッキングステータス
+    private int hackSpeed = 1;
+    private int hackRecast = 1;
+    private int hackRam = 10;
+    private int hackRecover = 1;
+    private int hackDamage = 10;
     public void Start()
     {
         moveInput = new MoveInput();
@@ -185,18 +186,23 @@ public class TestMove : MonoBehaviour
     }
     private void Hack()
     {
-        RaycastHit2D ray = Physics2D.Raycast(rayStartTransform.position, direction, rayDirecition);
-        Debug.DrawRay(rayStartTransform.position, direction * rayDirecition, Color.red);
+        Vector2 origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (ray.collider != null)
+        // 下方向にレイを飛ばす（距離10）
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector2.down, 10f);
+
+        foreach (RaycastHit2D hit in hits)
         {
-            Debug.Log(ray.collider.gameObject.name);
-            if (ray.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject))
+            if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject))
             {
-                //hackObject.HackStart();
-
+                if (!hackObject.hacked)
+                {
+                    hackObject.HackStart(hackSpeed, hackDamage);
+                }
+                Debug.Log("ハックできるオブジェクト : " + hit.collider.name+" にあたりました");
             }
         }
+
     }
 
 #if UNITY_EDITOR
@@ -206,7 +212,10 @@ public class TestMove : MonoBehaviour
         style.normal.textColor = Color.white;
         style.fontSize = 14;
 
-        Handles.Label(transform.position + Vector3.up * 1f, "HP " + UnitCore.Instance.NowHP.ToString(), style);
+        if (UnitCore.Instance != null)
+        {
+            Handles.Label(transform.position + Vector3.up * 1f, "HP " + UnitCore.Instance.NowHP.ToString(), style);
+        }          
         Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
     }
 #endif

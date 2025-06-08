@@ -20,8 +20,8 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 
     public float rotationSpeed = 1f;      // 回転速度（ラジアン/秒）
     public float flipInterval = 1f;       // 自動反転の周期
-    [SerializeField,Header("障害物に使うレイヤー")]
-    private LayerMask obstacleMask;        
+    [SerializeField, Header("障害物に使うレイヤー")]
+    private LayerMask obstacleMask;
 
     private float direction = 1;
     private float flipTimer = 0f;         // 自動反転用タイマー
@@ -57,9 +57,9 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 
     private int shotRate = 3;
 
-    float shotIntevalTime ;
+    float shotIntevalTime = 0;
     private int shotNum = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         actNo = ActNo.wait;
@@ -77,7 +77,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 
         secRididBody = GetComponent<Rigidbody2D>();
 
-        shotIntevalTime = 1 / shotRate;
+        shotIntevalTime = 1f / shotRate;
     }
 
     // プレイヤーを中心として動くときの距離
@@ -121,12 +121,9 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     {
         aim,
         shot,
-        // 名前変更希望
         shotInterval,
         sum
     }
-
-
     void Shot()
     {
         // 発射レートを設定しその後、発射秒数を決定する。
@@ -152,15 +149,16 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
                 timer += Time.deltaTime;
                 if (shotIntevalTime <= timer)
                 {
-                    if (shotNum<=shotRate)
+                    timer = 0;
+                    if (shotNum >= shotRate)
                     {
                         shotNum = 0;
                         actNo = ActNo.move;
                         shotSection = ShotSection.aim;
                     }
                     shotSection = ShotSection.shot;
-                    timer = 0;
                 }
+
                 break;
             default:
                 break;
@@ -192,6 +190,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     {
         actFuncTbl[(int)actNo]();
         RotationFoward();
+        Hacking();
     }
 
 #if UNITY_EDITOR
@@ -204,6 +203,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
         Handles.Label(transform.position + Vector3.up * 1f, "actNo " + actNo.ToString(), style);
         Handles.Label(transform.position + Vector3.up * 1.5f, "shotSection " + shotSection.ToString(), style);
         Handles.Label(transform.position + Vector3.up * 2f, "HP " + NowHP.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 2.5f, "shotIntevalTime " + shotIntevalTime.ToString(), style);
     }
 #endif
 
@@ -226,8 +226,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
             flipTimer = 0f;
         }
 
-        // プレイヤーとの距離（動的な半径）
-        Vector2 center = UnitCore.Instance.transform.position;
+        Vector2 center = PlayerPosition();
         Vector2 dir = (Vector2)transform.position - center;
 
         emDir = new Vector2(-dir.y, dir.x);
@@ -246,7 +245,6 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
             secRididBody.velocity = Vector2.zero;
             return;
         }
-
         // Rigidbody2D で移動
         secRididBody.velocity = directionToNext.normalized * 5;
     }
@@ -256,8 +254,9 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     /// </Summary>
     bool WallHitCheack()
     {
-        float playerDistance = Vector2.Distance(transform.position, UnitCore.Instance.transform.position);
-        Vector2 playerDirection = (UnitCore.Instance.transform.position - transform.position).normalized;
+        Vector2 playerPosition = PlayerPosition();
+        float playerDistance = Vector2.Distance(transform.position, playerPosition);
+        Vector2 playerDirection = (playerPosition - (Vector2)transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, playerDirection, playerDistance, obstacleMask);
 
         Debug.DrawRay(transform.position, playerDirection * playerDistance, Color.red);
@@ -270,11 +269,50 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     }
     private void RotationFoward()
     {
-        Vector3 playerPosition = UnitCore.Instance.transform.position;
+        Vector3 playerPosition = PlayerPosition();
         Vector2 direction = playerPosition - this.transform.position;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = targetRotation;
+    }
+
+    Vector2 PlayerPosition()
+    {
+        if (UnitCore.Instance != null)
+        {
+            return UnitCore.Instance.transform.position;
+        }
+        Debug.LogError("playerみつかんないよ～ん");
+        return Vector2.zero;
+    }
+    public bool hacked { get; set; } = false;
+    float hackSpeed = 0;
+    float hackDamage = 0;
+    float hackTimer = 0;
+    public void HackStart(int _hackSpeed, int _hackDamage)
+    {
+        hacked = true;
+        hackSpeed = _hackSpeed;
+        hackDamage = _hackDamage;
+        hackTimer = 0;
+    }
+
+    void Hacking()
+    {
+        if (hacked)
+        {
+            hackTimer += Time.deltaTime;
+            if (hackSpeed <= hackTimer)
+            {
+                shotIntevalTime = 2f / shotRate;
+            }
+            if (hackDamage <= hackTimer)
+            {
+                shotIntevalTime = 1f / shotRate;
+                hacked = false;
+            }
+        }
+
     }
 }

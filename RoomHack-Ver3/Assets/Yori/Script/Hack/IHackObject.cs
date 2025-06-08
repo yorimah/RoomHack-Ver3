@@ -6,22 +6,8 @@ public interface IHackObject
 {
     public int secLevele { set; get; }
 
+    public bool hacked { get; set; }
 
+    public void HackStart(int hackSpeedLevel, int hackDamage);
 
-    float HackSecond(int hackSpeedLevel)
-    {
-        float curve = 1.5f;
-        float ratio = 3;
-        float levelgap = secLevele - hackSpeedLevel;
-        float hackSecond = Mathf.Pow(curve, levelgap) * ratio;
-        return hackSecond;
-    }
-
-    float HackInpact(int hackDamage)
-    {
-        float intercept = 3;
-        float levelGap = secLevele - hackDamage;
-        float hackInpact = Mathf.Sqrt(levelGap + intercept);
-        return Mathf.Abs(hackInpact);
-    }
 }
