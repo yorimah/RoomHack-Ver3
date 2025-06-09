@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4284795803810962128}
   - component: {fileID: 6344382606971202883}
   - component: {fileID: 8750277083236451650}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerVierMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class TestTriangle : MonoBehaviour
 {
     List<Mesh> mesh = new List<Mesh>();
