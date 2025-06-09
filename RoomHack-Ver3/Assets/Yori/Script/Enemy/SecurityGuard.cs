@@ -132,7 +132,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
             case ShotSection.aim:
                 secRididBody.velocity = Vector2.zero;
                 timer += Time.deltaTime;
-                if (aimTime >= timer)
+                if (aimTime <= timer)
                 {
                     shotSection++;
                     timer = 0;
@@ -144,7 +144,6 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
                 shotNum++;
                 shotSection++;
                 break;
-
             case ShotSection.shotInterval:
                 timer += Time.deltaTime;
                 if (shotIntevalTime <= timer)
@@ -158,7 +157,6 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
                     }
                     shotSection = ShotSection.shot;
                 }
-
                 break;
             default:
                 break;
@@ -186,7 +184,7 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
             shotSection = ShotSection.aim;
         }
     }
-    void Update()
+    void FixedUpdate()
     {
         actFuncTbl[(int)actNo]();
         RotationFoward();
