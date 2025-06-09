@@ -79,9 +79,13 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
 
         shotIntevalTime = 1f / shotRate;
     }
+    void FixedUpdate()
+    {
+        actFuncTbl[(int)actNo]();
+        RotationFoward();
+        Hacking();
+    }
 
-    // プレイヤーを中心として動くときの距離
-    public float radius = 3f;
     void Wait()
     {
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
@@ -183,12 +187,6 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
             actNo = ActNo.reload;
             shotSection = ShotSection.aim;
         }
-    }
-    void FixedUpdate()
-    {
-        actFuncTbl[(int)actNo]();
-        RotationFoward();
-        Hacking();
     }
 
 #if UNITY_EDITOR
