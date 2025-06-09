@@ -13,6 +13,7 @@ public interface IDamegeable
 
     public void HitDmg(int dmg)
     {
+        HitStopper.Instance.StopTime(0.1f);
         NowHP -= dmg;
         if (NowHP <= 0)
         {

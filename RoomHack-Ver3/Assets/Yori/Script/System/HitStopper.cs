@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class HitStopper : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static HitStopper Instance { get; private set; }
+
+    private void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StopTime(float duration)
     {
-        
+        Debug.Log("ヒットストップ!");
+        StartCoroutine(HitStopCoroutine(duration));
+    }
+
+    private IEnumerator HitStopCoroutine(float duration)
+    {
+        float originalTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(duration); 
+        Time.timeScale = originalTimeScale;
     }
 }
