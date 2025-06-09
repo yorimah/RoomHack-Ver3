@@ -40,9 +40,9 @@ public class TestMove : MonoBehaviour
 
     // ハッキングステータス
     private int hackSpeed = 1;
-    private int hackRecast = 1;
-    private int hackRam = 10;
-    private int hackRecover = 1;
+    //private int hackRecast = 1;
+    //private int hackRam = 10;
+    //private int hackRecover = 1;
     private int hackDamage = 10;
     public void Start()
     {
