@@ -300,8 +300,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayStartTransform: {fileID: 24237157}
   rayDirecition: 10
-  hackSpeedLevel: 2
-  hackDamage: 2
   hackParallelism: 1
   MOVESPEED: 3
   MAXMAGAZINE: 12
@@ -1245,7 +1243,6 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 128
-  radius: 10
 --- !u!61 &656806030
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1565,7 +1562,71 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 128
-  radius: 10
+--- !u!1001 &734385900
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6793346986793332688, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: endObject
+      value: 
+      objectReference: {fileID: 703471638}
+    - target: {fileID: 6793346986793332688, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: startObject
+      value: 
+      objectReference: {fileID: 24237155}
+    - target: {fileID: 8534658095207642612, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_Name
+      value: Line
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.2691517
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.7298546
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714257847417223956, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 308c7e2c16c2148458e53675a7111747, type: 3}
 --- !u!1 &744987343
 GameObject:
   m_ObjectHideFlags: 0
@@ -5912,7 +5973,6 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 128
-  radius: 10
 --- !u!61 &2145379622
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6069,3 +6129,4 @@ SceneRoots:
   - {fileID: 1377830922}
   - {fileID: 1217506600}
   - {fileID: 117558886}
+  - {fileID: 734385900}
