@@ -1,34 +1,90 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class TestTriangle : MonoBehaviour
 {
-    [SerializeField]
-    float[] a = new float[3];
+    List<Mesh> mesh = new List<Mesh>();
 
-    Mesh mesh;
+    [SerializeField]
+    GameObject triangle;
+
+    List<GameObject> triangles = new List<GameObject>();
+
+    [SerializeField]
+    float rayRot = 360;
+    [SerializeField]
+    int rayValue = 36;
+    [SerializeField]
+    float rayLen = 5;
+
+    [SerializeField]
+    LayerMask targetLm;
+    List<Vector2> Items = new List<Vector2>();
 
     private void Awake()
     {
-        mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
+        //mesh = new Mesh();
+        //triangle.GetComponent<MeshFilter>().mesh = mesh;
+        // GeneradeTriangle(new Vector3(0, 0, 0), new Vector3(1, 1, 0), new Vector3(1, 0, 0));
+        for (int i = 0; i < rayValue; i++)
+        {
+            mesh.Add(new Mesh());
+            triangles.Add(Instantiate(triangle, Vector2.zero, Quaternion.identity));
+            triangles[i].GetComponent<MeshFilter>().mesh = mesh[i];
+        }
     }
 
     private void Update()
     {
-        Vector3[] vertices = new Vector3[3];
-        int[] triangles = new int[3];
-        for (int i = 0; i < 3; i++)
+        PlayeViewer();
+    }
+
+    public void GeneradeTriangle(Vector3 _playerOrigin, Vector3 _hitPointFirst, Vector3 _hitpointSecond, int index)
+    {
+        Debug.Log("éOäpê∂ê¨íÜ" + _playerOrigin + "," + _hitPointFirst + "," + _hitpointSecond);
+        Vector3[] vertices = new Vector3[] {
+            _playerOrigin,
+            _hitPointFirst,
+            _hitpointSecond
+        };
+        int[] triangles = new int[] { 0, 1, 2 };
+
+        mesh[index].vertices = vertices;
+        mesh[index].triangles = triangles;
+        mesh[index].RecalculateNormals();
+    }
+
+    public void PlayeViewer()
+    {
+        Vector3 startPos = this.transform.position;
+        float partRot = rayRot / (rayValue - 1);
+        float nowRot = 0;
+
+        for (int i = 0; i < rayValue; i++)
         {
-            //    float angle = i * 120f * Mathf.Deg2Rad;
+            Vector3 rayPos = new Vector3(rayLen * Mathf.Cos(nowRot * Mathf.Deg2Rad), rayLen * Mathf.Sin(nowRot * Mathf.Deg2Rad), 0);
+            RaycastHit2D result = Physics2D.Linecast(startPos, startPos + rayPos, targetLm);
+            Debug.DrawLine(startPos, startPos + rayPos, color: Color.red);
 
-            float angle = a[i] * Mathf.Deg2Rad;
-            vertices[i] = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle), 0);
+            if (result.collider != null)
+            {
+                Items.Add(result.point);
+                //if (Items.Count >= 2)
+                //{
+                //    Debug.Log("éOäpê∂ê¨íÜ" + Items[Items.Count - 1]);
+                //   // GeneradeTriangle(Items[Items.Count - 1], startPos, Items[Items.Count - 2], i);
+                //}
+            }
+            else
+            {
+            }
+            nowRot -= partRot;
         }
-        triangles = new int[3] { 0, 1, 2 };
-
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.RecalculateNormals();
+        for (int i = 1; i < Items.Count ; i++)
+        {
+            GeneradeTriangle(Items[i], startPos, Items[i - 1], i - 1);
+        }
+        Items.Clear();
     }
 }
