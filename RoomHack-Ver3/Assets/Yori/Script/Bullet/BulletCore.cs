@@ -7,6 +7,10 @@ public class BulletCore : MonoBehaviour, IDamegeable
     public float NowHP { get; set; }
     public int HitDamegeLayer { get; set; }
 
+    public int power;
+
+    public float hitStop;
+
     public void Start()
     {
         MAXHP = 1;
@@ -31,7 +35,7 @@ public class BulletCore : MonoBehaviour, IDamegeable
         {
             if (this.HitDamegeLayer != damage.HitDamegeLayer)
             {
-                damage.HitDmg(1);
+                damage.HitDmg(power,hitStop);
                 Die();
             }
         }

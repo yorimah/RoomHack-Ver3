@@ -24,7 +24,7 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
     void Start()
     {
-        MAXHP = 10;
+        MAXHP = 100;
         NowHP = MAXHP;
     }
 

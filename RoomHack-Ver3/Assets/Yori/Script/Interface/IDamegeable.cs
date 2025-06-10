@@ -11,9 +11,9 @@ public interface IDamegeable
     /// </summary>
     public int HitDamegeLayer { get; set; }
 
-    public void HitDmg(int dmg)
+    public void HitDmg(int dmg,float hitStop)
     {
-        HitStopper.Instance.StopTime(0.1f);
+        HitStopper.Instance.StopTime(hitStop);
         NowHP -= dmg;
         if (NowHP <= 0)
         {

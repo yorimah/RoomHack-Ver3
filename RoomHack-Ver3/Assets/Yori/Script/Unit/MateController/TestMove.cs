@@ -142,6 +142,8 @@ public class TestMove : MonoBehaviour
 
         BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
 
+        bulletCore.power = 40;
+        bulletCore.hitStop = 0.1f;
         bulletCore.HitDamegeLayer = UnitCore.Instance.HitDamegeLayer;
 
         Vector3 shootDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z) * Vector3.up;

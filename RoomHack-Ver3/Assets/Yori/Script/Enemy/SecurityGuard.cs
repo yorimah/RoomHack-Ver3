@@ -176,6 +176,8 @@ public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
         BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
 
         bulletCore.HitDamegeLayer = this.HitDamegeLayer;
+        bulletCore.power = 40;
+        bulletCore.hitStop = 0.1f;
         bulletRigit.velocity = shootDirection * bulletSpeed;
         bulletGameObject.transform.up = shootDirection;
 

@@ -13,7 +13,7 @@ public class WallDeffence : MonoBehaviour, IDamegeable
         NowHP = MAXHP;
     }
 
-    public void HitDmg(int dmg)
+    public void HitDmg(int dmg,float hit)
     {
 
     }
