@@ -17,7 +17,6 @@ public class HitStopper : MonoBehaviour
 
     public void StopTime(float duration)
     {
-        Debug.Log("ヒットストップ!");
         StartCoroutine(HitStopCoroutine(duration));
     }
 

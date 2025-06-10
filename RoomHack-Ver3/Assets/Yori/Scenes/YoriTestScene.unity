@@ -330,7 +330,7 @@ MonoBehaviour:
   triangle: {fileID: 6475485672598014900, guid: 6427a631fa3fd1a40813c07b51324ac1, type: 3}
   rayRot: 360
   rayValue: 180
-  rayLen: 100
+  rayLen: 30
   targetLm:
     serializedVersion: 2
     m_Bits: 128
@@ -715,7 +715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &656806029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,7 +894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &703471639
 Rigidbody2D:
   serializedVersion: 4
@@ -4113,7 +4113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471711492e3a2a249bf3fee281c9aa1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 2029867561}
 --- !u!4 &2021197442
 Transform:
   m_ObjectHideFlags: 0
@@ -4220,7 +4220,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2145379621
 MonoBehaviour:
   m_ObjectHideFlags: 0

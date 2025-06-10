@@ -23,9 +23,10 @@ public class TestTriangle : MonoBehaviour
 
     private void Awake()
     {
-        //mesh = new Mesh();
-        //triangle.GetComponent<MeshFilter>().mesh = mesh;
-        // GeneradeTriangle(new Vector3(0, 0, 0), new Vector3(1, 1, 0), new Vector3(1, 0, 0));
+        Instriangle();
+    }
+    void Instriangle()
+    {
         for (int i = 0; i < rayValue; i++)
         {
             mesh.Add(new Mesh());
@@ -33,15 +34,13 @@ public class TestTriangle : MonoBehaviour
             triangles[i].GetComponent<MeshFilter>().mesh = mesh[i];
         }
     }
-
     private void Update()
     {
         PlayeViewer();
     }
 
-    public void GeneradeTriangle(Vector3 _playerOrigin, Vector3 _hitPointFirst, Vector3 _hitpointSecond, int index)
+    public void GeneradeTriangle(Vector2 _playerOrigin, Vector2 _hitPointFirst, Vector2 _hitpointSecond, int index)
     {
-        Debug.Log("éOäpê∂ê¨íÜ" + _playerOrigin + "," + _hitPointFirst + "," + _hitpointSecond);
         Vector3[] vertices = new Vector3[] {
             _playerOrigin,
             _hitPointFirst,
@@ -56,30 +55,23 @@ public class TestTriangle : MonoBehaviour
 
     public void PlayeViewer()
     {
-        Vector3 startPos = this.transform.position;
+        Vector2 startPos = this.transform.position;
         float partRot = rayRot / (rayValue - 1);
         float nowRot = 0;
 
+        // é¸ÇËÇ…ÉåÉCÇîÚÇŒÇ∑
         for (int i = 0; i < rayValue; i++)
         {
-            Vector3 rayPos = new Vector3(rayLen * Mathf.Cos(nowRot * Mathf.Deg2Rad), rayLen * Mathf.Sin(nowRot * Mathf.Deg2Rad), 0);
+            Vector2 rayPos = new Vector2(rayLen * Mathf.Cos(nowRot * Mathf.Deg2Rad), rayLen * Mathf.Sin(nowRot * Mathf.Deg2Rad));
             RaycastHit2D result = Physics2D.Linecast(startPos, startPos + rayPos, targetLm);
-            Debug.DrawLine(startPos, startPos + rayPos, color: Color.red);
 
             if (result.collider != null)
             {
                 Items.Add(result.point);
-                //if (Items.Count >= 2)
-                //{
-                //    Debug.Log("éOäpê∂ê¨íÜ" + Items[Items.Count - 1]);
-                //   // GeneradeTriangle(Items[Items.Count - 1], startPos, Items[Items.Count - 2], i);
-                //}
-            }
-            else
-            {
             }
             nowRot -= partRot;
         }
+
         for (int i = 1; i < Items.Count ; i++)
         {
             GeneradeTriangle(Items[i], startPos, Items[i - 1], i - 1);
