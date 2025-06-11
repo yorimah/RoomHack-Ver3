@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class TestTriangle : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class TestTriangle : MonoBehaviour
     int rayValue = 36;
     [SerializeField]
     float rayLen = 5;
+    [SerializeField]
+    float rayOffset = 0;
 
     [SerializeField]
     LayerMask targetLm;
@@ -41,7 +44,7 @@ public class TestTriangle : MonoBehaviour
 
     public void GeneradeTriangle(Vector3 _playerOrigin, Vector3 _hitPointFirst, Vector3 _hitpointSecond, int index)
     {
-        Debug.Log("éOäpê∂ê¨íÜ" + _playerOrigin + "," + _hitPointFirst + "," + _hitpointSecond);
+        //Debug.Log("éOäpê∂ê¨íÜ" + _playerOrigin + "," + _hitPointFirst + "," + _hitpointSecond);
         Vector3[] vertices = new Vector3[] {
             _playerOrigin,
             _hitPointFirst,
@@ -58,13 +61,14 @@ public class TestTriangle : MonoBehaviour
     {
         Vector3 startPos = this.transform.position;
         float partRot = rayRot / (rayValue - 1);
-        float nowRot = 0;
+        float nowRot = rayOffset;
 
+        Profiler.BeginSample("ray");
         for (int i = 0; i < rayValue; i++)
         {
             Vector3 rayPos = new Vector3(rayLen * Mathf.Cos(nowRot * Mathf.Deg2Rad), rayLen * Mathf.Sin(nowRot * Mathf.Deg2Rad), 0);
             RaycastHit2D result = Physics2D.Linecast(startPos, startPos + rayPos, targetLm);
-            Debug.DrawLine(startPos, startPos + rayPos, color: Color.red);
+            //Debug.DrawLine(startPos, startPos + rayPos, color: Color.red);
 
             if (result.collider != null)
             {
@@ -75,15 +79,17 @@ public class TestTriangle : MonoBehaviour
                 //   // GeneradeTriangle(Items[Items.Count - 1], startPos, Items[Items.Count - 2], i);
                 //}
             }
-            else
-            {
-            }
-            nowRot -= partRot;
+            nowRot += partRot;
         }
+        Profiler.EndSample();
+
+        Profiler.BeginSample("generade");
         for (int i = 1; i < Items.Count ; i++)
         {
-            GeneradeTriangle(Items[i], startPos, Items[i - 1], i - 1);
+            GeneradeTriangle(Items[i-1], startPos, Items[i], i - 1);
         }
+        Profiler.EndSample();
+
         Items.Clear();
     }
 }
