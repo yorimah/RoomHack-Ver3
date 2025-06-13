@@ -1,13 +1,13 @@
-public interface IDamegeable
+ï»¿public interface IDamegeable
 {
     public float MAXHP { get; }
 
     public float NowHP { get; set; }
 
     /// <summary>
-    /// 1   ƒvƒŒƒCƒ„[
-    /// ‚Q@“G
-    /// ‚R@•Ç
+    /// 1   ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+    /// ï¼’ã€€æ•µ
+    /// ï¼“ã€€å£
     /// </summary>
     public int HitDamegeLayer { get; set; }
 
@@ -21,7 +21,7 @@ public interface IDamegeable
         }
     }
     /// <summary>
-    /// €‚ñ‚¾‚Æ‚«‚Ìˆ—
+    /// æ­»ã‚“ã ã¨ãã®å‡¦ç†
     /// </summary>
     public void Die();
 }

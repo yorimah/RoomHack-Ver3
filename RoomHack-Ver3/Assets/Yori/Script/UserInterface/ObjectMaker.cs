@@ -1,19 +1,19 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectMarker : MonoBehaviour
 {
-    // ƒIƒuƒWƒFƒNƒg‚ğ‰f‚·ƒJƒƒ‰
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ˜ ã™ã‚«ãƒ¡ãƒ©
     [SerializeField] private Camera _targetCamera;
 
-    // UI‚ğ•\¦‚³‚¹‚é‘ÎÛƒIƒuƒWƒFƒNƒg
+    // UIã‚’è¡¨ç¤ºã•ã›ã‚‹å¯¾è±¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     [SerializeField] private Transform _target;
 
-    // •\¦‚·‚éUI
+    // è¡¨ç¤ºã™ã‚‹UI
     [SerializeField] private Transform _targetUI;
 
-    // ƒIƒuƒWƒFƒNƒgˆÊ’u‚ÌƒIƒtƒZƒbƒg
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä½ç½®ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
     [SerializeField] private Vector3 _worldOffset;
 
     private RectTransform _parentUI;
@@ -26,27 +26,27 @@ public class ObjectMarker : MonoBehaviour
     }
     private void Awake()
     {
-        // ƒJƒƒ‰‚ªw’è‚³‚ê‚Ä‚¢‚È‚¯‚ê‚ÎƒƒCƒ“ƒJƒƒ‰‚É‚·‚é
+        // ã‚«ãƒ¡ãƒ©ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã‘ã‚Œã°ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ã«ã™ã‚‹
         if (_targetCamera == null)
             _targetCamera = Camera.main;
     }
 
-    // UI‚ÌˆÊ’u‚ğ–ˆƒtƒŒ[ƒ€XV
+    // UIã®ä½ç½®ã‚’æ¯ãƒ•ãƒ¬ãƒ¼ãƒ æ›´æ–°
     private void Update()
     {
         OnUpdatePosition();
     }
 
-    // UI‚ÌˆÊ’u‚ğXV‚·‚é
+    // UIã®ä½ç½®ã‚’æ›´æ–°ã™ã‚‹
     private void OnUpdatePosition()
     {
-        // ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®
         var targetWorldPos = _target.position + _worldOffset;
 
-        // ƒIƒuƒWƒFƒNƒg‚Ìƒ[ƒ‹ƒhÀ•W¨ƒXƒNƒŠ[ƒ“À•W•ÏŠ·
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™â†’ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™å¤‰æ›
         var targetScreenPos = _targetCamera.WorldToScreenPoint(targetWorldPos);
 
-        // ƒXƒNƒŠ[ƒ“À•W•ÏŠ·¨UIƒ[ƒJƒ‹À•W•ÏŠ·
+        // ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™å¤‰æ›â†’UIãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™å¤‰æ›
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _parentUI,
             targetScreenPos,
@@ -54,7 +54,7 @@ public class ObjectMarker : MonoBehaviour
             out var uiLocalPos
         );
 
-        // RectTransform‚Ìƒ[ƒJƒ‹À•W‚ğXV
+        // RectTransformã®ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã‚’æ›´æ–°
         _targetUI.localPosition = uiLocalPos;
     }
 }

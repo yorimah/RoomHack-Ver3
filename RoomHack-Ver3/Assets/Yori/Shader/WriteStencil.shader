@@ -1,4 +1,4 @@
-Shader "Custom/WriteStencil"
+ï»¿Shader "Custom/WriteStencil"
 {
     SubShader
     {
@@ -13,7 +13,7 @@ Shader "Custom/WriteStencil"
                 Pass replace
             }
 
-            ColorMask 0 // F‚Í•`‚©‚È‚¢iƒXƒeƒ“ƒVƒ‹‚¾‚¯‘‚­j
+            ColorMask 0 // è‰²ã¯æã‹ãªã„ï¼ˆã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã ã‘æ›¸ãï¼‰
         }
     }
 }

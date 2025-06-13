@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CameraContoroller : MonoBehaviour
 {
-    [SerializeField, Header("ƒvƒŒƒCƒ„[‚ÌÀ•W")]
+    [SerializeField, Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™")]
     private Transform playerTransform;
 
     private float zCameraPosition;

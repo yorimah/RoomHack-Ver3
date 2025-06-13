@@ -1,4 +1,4 @@
-Shader "Custom/StencilMaskCover"
+ï»¿Shader "Custom/StencilMaskCover"
 {
     SubShader
     {
@@ -40,7 +40,7 @@ Shader "Custom/StencilMaskCover"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                return fixed4(0, 0, 0, 1); // •‚Å“h‚è‚Â‚Ô‚·
+                return fixed4(0, 0, 0, 1); // é»’ã§å¡—ã‚Šã¤ã¶ã™
             }
             ENDHLSL
         }

@@ -1,316 +1,35 @@
+ï»¿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
-public class SecurityGuard : MonoBehaviour, IHackObject, IDamegeable
+public class SecurityGuard : MonoBehaviour
 {
-    public int secLevele { get; set; }
+    private IState currentState;
+    public float moveSpeed = 3f;
 
-    public float MAXHP { get; set; } = 5;
-    public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; } = 2;
-
-    [SerializeField, Header("’e‚ÌƒvƒŒƒnƒu")]
-    private GameObject bulletPrefab;
-    [SerializeField, Header("’e‚ÌƒXƒs[ƒh")]
-    private float bulletSpeed;
-
-    bool isInside;
-
-    public float rotationSpeed = 1f;      // ‰ñ“]‘¬“xiƒ‰ƒWƒAƒ“/•bj
-    public float flipInterval = 1f;       // ©“®”½“]‚ÌüŠú
-    [SerializeField, Header("áŠQ•¨‚Ég‚¤ƒŒƒCƒ„[")]
+    [SerializeField, Header("éšœå®³ç‰©ã«ä½¿ã†ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     private LayerMask obstacleMask;
-
-    private float direction = 1;
-    private float flipTimer = 0f;         // ©“®”½“]—pƒ^ƒCƒ}[
-
-    // ƒfƒŠƒQ[ƒh
-    // ŠÖ”‚ğŒ^‚É‚·‚é‚½‚ß‚Ì‚à‚Ì
-    private delegate void ActFunc();
-    // ŠÖ”‚Ì”z—ñ
-    private ActFunc[] actFuncTbl;
-
-    ShotSection shotSection;
-    Vector3 shootDirection;
-    float aimTime = 0.5f;
-    float timer = 0;
-    float reloadTime = 2;
-
-    private Rigidbody2D secRididBody;
-    // ƒŠƒ[ƒh‚ğ‚±‚±‚É’Ç‰Á
-    enum ActNo
-    {
-        wait,
-        move,
-        shot,
-        reload,
-        num
-    }
-    ActNo actNo;
-
-    // ƒVƒ‡ƒbƒgŠÖ˜A
-    int MAXMAGAGINE = 12;
-    int nowMagazine = 0;
-
-
-    private int shotRate = 3;
-
-    float shotIntevalTime = 0;
-    private int shotNum = 0;
 
     void Start()
     {
-        actNo = ActNo.wait;
-        actFuncTbl = new ActFunc[(int)ActNo.num];
-        actFuncTbl[(int)ActNo.wait] = Wait;
-        actFuncTbl[(int)ActNo.move] = Move;
-        actFuncTbl[(int)ActNo.shot] = Shot;
-        actFuncTbl[(int)ActNo.reload] = Reload;
-
-        NowHP = MAXHP;
-
-        nowMagazine = MAXMAGAGINE;
-
-        timer = 0;
-
-        secRididBody = GetComponent<Rigidbody2D>();
-
-        shotIntevalTime = 1f / shotRate;
-    }
-    void FixedUpdate()
-    {
-        actFuncTbl[(int)actNo]();
-        RotationFoward();
-        Hacking();
+        ChangeState(new IdleState(this));
     }
 
-    void Wait()
+    void Update()
     {
-        Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
-
-        // ‰æ–Ê“à”»’è@“ü‚Á‚½‚çtrue
-        isInside =
-            viewportPos.x >= 0 && viewportPos.x <= 1 &&
-            viewportPos.y >= 0 && viewportPos.y <= 1;
-        if (isInside)
-        {
-            actNo = ActNo.move;
-        }
+        currentState?.Execute();
+        Debug.Log(currentState.ToString()+"ä¸­");
     }
 
-    void Move()
+    public void ChangeState(IState newState)
     {
-        CalcPosition();
-        if (WallHitCheack())
-        {
-            actNo = ActNo.shot;
-            shotSection = ShotSection.aim;
-        }
+        currentState?.Exit();
+        currentState = newState;
+        currentState?.Enter();
     }
 
-    void Reload()
+    public LayerMask GetObstacleMask()
     {
-        nowMagazine = MAXMAGAGINE;
-        timer += Time.deltaTime;
-        if (timer >= reloadTime)
-        {
-            // ƒVƒ‡ƒbƒg‚ÉˆÚ“®
-            actNo = ActNo.shot;
-            timer = 0;
-        }
-    }
-    enum ShotSection
-    {
-        aim,
-        shot,
-        shotInterval,
-        sum
-    }
-    void Shot()
-    {
-        // ”­ËƒŒ[ƒg‚ğİ’è‚µ‚»‚ÌŒãA”­Ë•b”‚ğŒˆ’è‚·‚éB
-        switch (shotSection)
-        {
-            case ShotSection.aim:
-                secRididBody.velocity = Vector2.zero;
-                timer += Time.deltaTime;
-                if (aimTime <= timer)
-                {
-                    shotSection++;
-                    timer = 0;
-                }
-                break;
-            case ShotSection.shot:
-                shootDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z) * Vector3.up;
-                GunFire();
-                shotNum++;
-                shotSection++;
-                break;
-            case ShotSection.shotInterval:
-                timer += Time.deltaTime;
-                if (shotIntevalTime <= timer)
-                {
-                    timer = 0;
-                    if (shotNum >= shotRate)
-                    {
-                        shotNum = 0;
-                        actNo = ActNo.move;
-                        shotSection = ShotSection.aim;
-                    }
-                    shotSection = ShotSection.shot;
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    void GunFire()
-    {
-        GameObject bulletGameObject = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-
-        Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();
-
-        BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
-
-        bulletCore.HitDamegeLayer = this.HitDamegeLayer;
-        bulletCore.power = 40;
-        bulletCore.hitStop = 0.1f;
-        bulletRigit.velocity = shootDirection * bulletSpeed;
-        bulletGameObject.transform.up = shootDirection;
-
-        nowMagazine--;
-
-        // ’e‚ª0–¢–‚¾‚Á‚½‚çƒŠƒ[ƒh‚É‘JˆÚ
-        if (nowMagazine <= 0)
-        {
-            actNo = ActNo.reload;
-            shotSection = ShotSection.aim;
-        }
-    }
-
-#if UNITY_EDITOR
-    void OnDrawGizmos()
-    {
-        GUIStyle style = new GUIStyle();
-        style.normal.textColor = Color.white;
-        style.fontSize = 14;
-
-        Handles.Label(transform.position + Vector3.up * 1f, "actNo " + actNo.ToString(), style);
-        Handles.Label(transform.position + Vector3.up * 1.5f, "shotSection " + shotSection.ToString(), style);
-        Handles.Label(transform.position + Vector3.up * 2f, "HP " + NowHP.ToString(), style);
-        Handles.Label(transform.position + Vector3.up * 2.5f, "shotIntevalTime " + shotIntevalTime.ToString(), style);
-    }
-#endif
-
-    public void Die()
-    {
-        Destroy(gameObject);
-    }
-
-    Vector2 emDir;
-    Vector2 nextPos;
-    /// <Summary>
-    /// ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğŒvZ‚·‚éƒƒ\ƒbƒh‚Å‚·B
-    /// </Summary>
-    void CalcPosition()
-    {
-        flipTimer += Time.deltaTime;
-        if (flipTimer >= flipInterval)
-        {
-            direction = Random.value < 0.5f ? -1 : 1;
-            flipTimer = 0f;
-        }
-
-        Vector2 center = PlayerPosition();
-        Vector2 dir = (Vector2)transform.position - center;
-
-        emDir = new Vector2(-dir.y, dir.x);
-        nextPos = (Vector2)transform.position + (emDir * direction);
-
-        // áŠQ•¨ƒ`ƒFƒbƒN
-        Vector2 directionToNext = (nextPos - (Vector2)transform.position).normalized;
-        float checkDistance = 1f;
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToNext, checkDistance, obstacleMask);
-        Debug.DrawRay(transform.position, directionToNext * checkDistance, Color.blue);
-        if (hit.collider != null)
-        {
-            direction *= -1;
-            flipTimer = 0f;
-            secRididBody.velocity = Vector2.zero;
-            return;
-        }
-        // Rigidbody2D ‚ÅˆÚ“®
-        secRididBody.velocity = directionToNext.normalized * 5;
-    }
-
-    /// <Summary>
-    /// ƒŒƒC‚ğ”ò‚Î‚µ‚Ä•Ç‚É‚ ‚Á‚½‚½‚çfalse‚ ‚½‚ç‚È‚©‚Á‚½‚çtrue
-    /// </Summary>
-    bool WallHitCheack()
-    {
-        Vector2 playerPosition = PlayerPosition();
-        float playerDistance = Vector2.Distance(transform.position, playerPosition);
-        Vector2 playerDirection = (playerPosition - (Vector2)transform.position).normalized;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerDirection, playerDistance, obstacleMask);
-
-        Debug.DrawRay(transform.position, playerDirection * playerDistance, Color.red);
-
-        if (hit.collider != null)
-        {
-            return false;
-        }
-        return true;
-    }
-    private void RotationFoward()
-    {
-        Vector3 playerPosition = PlayerPosition();
-        Vector2 direction = playerPosition - this.transform.position;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = targetRotation;
-    }
-
-    Vector2 PlayerPosition()
-    {
-        if (UnitCore.Instance != null)
-        {
-            return UnitCore.Instance.transform.position;
-        }
-        Debug.LogError("player‚İ‚Â‚©‚ñ‚È‚¢‚æ`‚ñ");
-        return Vector2.zero;
-    }
-    public bool hacked { get; set; } = false;
-    float hackSpeed = 0;
-    float hackDamage = 0;
-    float hackTimer = 0;
-    public void HackStart(int _hackSpeed, int _hackDamage)
-    {
-        hacked = true;
-        hackSpeed = _hackSpeed;
-        hackDamage = _hackDamage;
-        hackTimer = 0;
-    }
-
-    void Hacking()
-    {
-        if (hacked)
-        {
-            hackTimer += Time.deltaTime;
-            if (hackSpeed <= hackTimer)
-            {
-                shotIntevalTime = 2f / shotRate;
-            }
-            if (hackDamage <= hackTimer)
-            {
-                shotIntevalTime = 1f / shotRate;
-                hacked = false;
-            }
-        }
-
+        return obstacleMask;
     }
 }

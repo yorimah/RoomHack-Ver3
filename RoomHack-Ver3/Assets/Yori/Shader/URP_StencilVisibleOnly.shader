@@ -1,4 +1,4 @@
-Shader "Custom/URP_StencilVisibleOnly"
+﻿Shader "Custom/URP_StencilVisibleOnly"
 {
     Properties
     {

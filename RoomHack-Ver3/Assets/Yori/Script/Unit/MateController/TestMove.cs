@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -13,20 +13,20 @@ public class TestMove : MonoBehaviour
 
     private Vector3 mousePosition;
 
-    [SerializeField, Header("ƒnƒbƒLƒ“ƒOƒŒƒC‚Ìn“_")]
+    [SerializeField, Header("ãƒãƒƒã‚­ãƒ³ã‚°ãƒ¬ã‚¤ã®å§‹ç‚¹")]
     private Transform rayStartTransform;
 
-    [SerializeField, Header("ƒnƒbƒLƒ“ƒOƒŒƒC‚Ì’·‚³")]
+    [SerializeField, Header("ãƒãƒƒã‚­ãƒ³ã‚°ãƒ¬ã‚¤ã®é•·ã•")]
     private float rayDirecition;
 
     private Vector3 direction;
 
-    [SerializeField, Header("ƒnƒbƒN‚Å‚«‚é‘ÎÛ‚Ì”")]
+    [SerializeField, Header("ãƒãƒƒã‚¯ã§ãã‚‹å¯¾è±¡ã®æ•°")]
     private int hackParallelism;
 
-    [SerializeField, Header("ƒvƒŒƒCƒ„[ƒXƒs[ƒh")]
+    [SerializeField, Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     private float MOVESPEED = 10;
-    [SerializeField, Header("ƒ}ƒKƒWƒ“—e—Ê")]
+    [SerializeField, Header("ãƒã‚¬ã‚¸ãƒ³å®¹é‡")]
     private int MAXMAGAZINE;
     private int nowMagazine;
     private enum ShotMode
@@ -38,7 +38,7 @@ public class TestMove : MonoBehaviour
 
     ShotMode shotMode;
 
-    // ƒnƒbƒLƒ“ƒOƒXƒe[ƒ^ƒX
+    // ãƒãƒƒã‚­ãƒ³ã‚°ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
     private int hackSpeed = 1;
     //private int hackRecast = 1;
     //private int hackRam = 10;
@@ -78,7 +78,7 @@ public class TestMove : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    Debug.Log("Ø‘Ö" + shotMode);
+                    Debug.Log("åˆ‡æ›¿" + shotMode);
                     shotMode = ShotMode.HackMode;
                 }
 
@@ -91,7 +91,7 @@ public class TestMove : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    Debug.Log("Ø‘Ö" + shotMode);
+                    Debug.Log("åˆ‡æ›¿" + shotMode);
                     shotMode = ShotMode.GunMode;
                 }
                 break;
@@ -105,7 +105,7 @@ public class TestMove : MonoBehaviour
 
                 break;
             default:
-                Debug.LogError("”ÍˆÍ‚ğo‚½‚í‚æ\n ShotMode:" + shotMode);
+                Debug.LogError("ç¯„å›²ã‚’å‡ºãŸã‚ã‚ˆ\n ShotMode:" + shotMode);
                 break;
         }
     }
@@ -129,9 +129,9 @@ public class TestMove : MonoBehaviour
         transform.rotation = targetRotation;
     }
 
-    [SerializeField, Header("’e‚ÌƒvƒŒƒnƒu")]
+    [SerializeField, Header("å¼¾ã®ãƒ—ãƒ¬ãƒãƒ–")]
     private GameObject bulletPrefab;
-    [SerializeField, Header("’e‚ÌƒXƒs[ƒh")]
+    [SerializeField, Header("å¼¾ã®ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     private float bulletSpeed;
 
     private void GunFire()
@@ -165,7 +165,7 @@ public class TestMove : MonoBehaviour
     float shotIntevalTime = 1 / 3f;
     void Shot()
     {
-        // ”­ËƒŒ[ƒg‚ğİ’è‚µ‚»‚ÌŒãA”­Ë•b”‚ğŒˆ’è‚·‚éB
+        // ç™ºå°„ãƒ¬ãƒ¼ãƒˆã‚’è¨­å®šã—ãã®å¾Œã€ç™ºå°„ç§’æ•°ã‚’æ±ºå®šã™ã‚‹ã€‚
         switch (shotSection)
         {
             case ShotSection.shot:
@@ -190,7 +190,7 @@ public class TestMove : MonoBehaviour
     {
         Vector2 origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // ‰º•ûŒü‚ÉƒŒƒC‚ğ”ò‚Î‚·i‹——£10j
+        // ä¸‹æ–¹å‘ã«ãƒ¬ã‚¤ã‚’é£›ã°ã™ï¼ˆè·é›¢10ï¼‰
         RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector2.down, 10f);
 
         foreach (RaycastHit2D hit in hits)
@@ -201,7 +201,7 @@ public class TestMove : MonoBehaviour
                 {
                     hackObject.HackStart(hackSpeed, hackDamage);
                 }
-                Debug.Log("ƒnƒbƒN‚Å‚«‚éƒIƒuƒWƒFƒNƒg : " + hit.collider.name+" ‚É‚ ‚½‚è‚Ü‚µ‚½");
+                Debug.Log("ãƒãƒƒã‚¯ã§ãã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ : " + hit.collider.name+" ã«ã‚ãŸã‚Šã¾ã—ãŸ");
             }
         }
 
@@ -218,7 +218,7 @@ public class TestMove : MonoBehaviour
         {
             Handles.Label(transform.position + Vector3.up * 1f, "HP " + UnitCore.Instance.NowHP.ToString(), style);
         }          
-        Handles.Label(transform.position + Vector3.up * 1.5f, "c’e " + nowMagazine.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 1.5f, "æ®‹å¼¾ " + nowMagazine.ToString(), style);
     }
 #endif
 

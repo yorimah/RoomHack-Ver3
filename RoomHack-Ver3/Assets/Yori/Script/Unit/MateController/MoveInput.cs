@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MoveInput
@@ -12,7 +12,7 @@ public class MoveInput
     {
         _gameInputs = new GameInputs();
 
-        // ActionƒCƒxƒ“ƒg“o˜^
+        // Actionã‚¤ãƒ™ãƒ³ãƒˆç™»éŒ²
         _gameInputs.Player.Move.started += OnMove;
         _gameInputs.Player.Move.performed += OnMove;
         _gameInputs.Player.Move.canceled += OnMove;
@@ -20,7 +20,7 @@ public class MoveInput
     }
     private void OnMove(InputAction.CallbackContext context)
     {
-        // MoveƒAƒNƒVƒ‡ƒ“‚Ì“ü—Íæ“¾
+        // Moveã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã®å…¥åŠ›å–å¾—
         _moveInputValue = context.ReadValue<Vector2>();
     }
 
@@ -31,8 +31,8 @@ public class MoveInput
 
     public void OnDestroy()
     {
-        // ©g‚ÅƒCƒ“ƒXƒ^ƒ“ƒX‰»‚µ‚½ActionƒNƒ‰ƒX‚ÍIDisposable‚ğÀ‘•‚µ‚Ä‚¢‚é‚Ì‚ÅA
-        // •K‚¸Dispose‚·‚é•K—v‚ª‚ ‚é
+        // è‡ªèº«ã§ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã—ãŸActionã‚¯ãƒ©ã‚¹ã¯IDisposableã‚’å®Ÿè£…ã—ã¦ã„ã‚‹ã®ã§ã€
+        // å¿…ãšDisposeã™ã‚‹å¿…è¦ãŒã‚ã‚‹
         _gameInputs?.Dispose();
     }
 

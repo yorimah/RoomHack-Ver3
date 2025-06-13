@@ -1,4 +1,4 @@
-public interface IUnitHackeable
+﻿public interface IUnitHackeable
 {
     public bool Hacked { get; set; }
     void StatusDisp();
