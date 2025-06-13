@@ -1,19 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ShotState : MonoBehaviour
+public class ShotState : IState
 {
-    // うつすてーとだよ～～ん
-
-    void Start()
+    private SecurityGuard _securityGuard;
+    public ShotState(SecurityGuard securityGuard)
     {
-        
+        _securityGuard = securityGuard;
+    }
+    public void Enter()
+    {
+        Debug.Log("ShotState: Enter");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Execute()
     {
-        
+        Debug.Log("ShotState: Execute");
+    }
+
+    public void Exit()
+    {
+        Debug.Log("ShotState: Exit");
     }
 }

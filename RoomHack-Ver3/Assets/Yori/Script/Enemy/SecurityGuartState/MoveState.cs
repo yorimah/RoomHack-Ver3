@@ -12,12 +12,9 @@ public class MoveState : IState
 
     private int direction = 1;
 
-    private int layerId;
-
     public MoveState(SecurityGuard securityGuard)
     {
         _securityGuard = securityGuard;
-        layerId = LayerMask.NameToLayer("Wall");
     }
 
     public void Enter()

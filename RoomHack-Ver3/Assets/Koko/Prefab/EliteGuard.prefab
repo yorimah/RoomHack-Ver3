@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &1315130662473983822
 GameObject:
@@ -179,7 +179,6 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 128
-  radius: 10
 --- !u!1 &4123748375298095038
 GameObject:
   m_ObjectHideFlags: 0
