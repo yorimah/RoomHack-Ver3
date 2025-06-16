@@ -11,7 +11,7 @@ public class IdleState : IState
 
     public void Enter()
     {
-        Debug.Log("IdleState: Enter");
+        
     }
 
     public void Execute()
@@ -24,13 +24,13 @@ public class IdleState : IState
             viewportPos.y >= 0 && viewportPos.y <= 1;
         if (isInside)
         {
-            _securityGuard.ChangeState(new MoveState(_securityGuard));
+            _securityGuard.ChangeState(SecurityGuard.StateType.Move);
         }
     }
 
     public void Exit()
     {
-        Debug.Log("IdleState: Exit");
+       
     }
 }
 

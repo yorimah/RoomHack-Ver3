@@ -9,7 +9,7 @@ public class SecurityGuard : MonoBehaviour
     [SerializeField, Header("障害物に使うレイヤー")]
     private LayerMask obstacleMask;
 
-    enum StateType
+    public enum StateType
     {
         Idle,
         Move,
@@ -17,10 +17,12 @@ public class SecurityGuard : MonoBehaviour
         Reload,
         num
     }
-    StateType statetype;
+    public StateType statetype;
     private Dictionary<StateType, IState> states;
 
-    void Start()
+    private Rigidbody2D secRigidBody;
+
+    void Awake()
     {
         states = new Dictionary<StateType, IState>()
     {
@@ -29,23 +31,31 @@ public class SecurityGuard : MonoBehaviour
         { StateType.Shot, new ShotState(this) }
     };
         statetype = StateType.Idle;
+        currentState = states[statetype];
+
+        secRigidBody = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         currentState?.Execute();
-        //Debug.Log(currentState.ToString() + "中");
+        Debug.Log(currentState.ToString() + "中");
     }
 
-    public void ChangeState(IState newState)
+    public void ChangeState(StateType type)
     {
         currentState?.Exit();
-        currentState = states[statetype];
+        currentState = states[type];
         currentState?.Enter();
     }
 
     public LayerMask GetObstacleMask()
     {
         return obstacleMask;
+    }
+
+    public Rigidbody2D GetRigidbody2D()
+    {
+        return secRigidBody;
     }
 }

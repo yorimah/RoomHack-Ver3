@@ -15,12 +15,12 @@ public class MoveState : IState
     public MoveState(SecurityGuard securityGuard)
     {
         _securityGuard = securityGuard;
+        secRididBody = _securityGuard.GetComponent<Rigidbody2D>();
     }
 
     public void Enter()
     {
-        Debug.Log("MoveState: Enter");
-        secRididBody = _securityGuard.GetComponent<Rigidbody2D>();
+      
         flipTimer = 0;
 
         flipInterval = 1;
@@ -63,7 +63,7 @@ public class MoveState : IState
 
     public void Exit()
     {
-        Debug.Log("MoveState: Exit");
+       
     }
 }
 
