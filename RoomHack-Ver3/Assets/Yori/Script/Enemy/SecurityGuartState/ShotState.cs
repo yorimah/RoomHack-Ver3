@@ -3,11 +3,18 @@
 public class ShotState : IState
 {
     private SecurityGuard _securityGuard;
-    public ShotState(SecurityGuard securityGuard)
-    {
-        _securityGuard = securityGuard;
-    }
 
+    // GunData
+    private GunData gundata;
+    private float aimTime = 0.5f;
+    private float timer;
+    private int MaxMagazine;
+    private int nowMagazine;
+    private int shotRate;
+    private float bulletSpeed;
+    // ShotSection
+    private float shotIntevalTime = 0;
+    private int shotNum = 0;
     enum ShotSection
     {
         aim,
@@ -15,27 +22,31 @@ public class ShotState : IState
         shotInterval,
         sum
     }
-
     private ShotSection shotSection;
 
     private Rigidbody2D secRigidBody2D;
 
-    Vector3 shootDirection;
-    float aimTime = 0.5f;
-    float timer = 0;
-    float reloadTime = 2;
+    private BulletGeneratar bulletGeneratar;
+    public ShotState(SecurityGuard securityGuard)
+    {
+        _securityGuard = securityGuard;
+        secRigidBody2D = _securityGuard.GetComponent<Rigidbody2D>();
 
-    int MAXMAGAGINE = 12;
-    int nowMagazine = 0;
+        // GunData初期化
+        gundata = _securityGuard.gundata;
+        shotRate = gundata.rate;
+        MaxMagazine = gundata.MaxMagazine;
+        nowMagazine = MaxMagazine;
+        shotIntevalTime = 1f / shotRate;
 
+        bulletSpeed = gundata.bulletSpeed;
+        bulletGeneratar = _securityGuard.gameObject.GetComponent<BulletGeneratar>();
+    }
 
-    private int shotRate = 3;
-
-    float shotIntevalTime = 0;
-    private int shotNum = 0;
     public void Enter()
     {
-        secRigidBody2D = _securityGuard.GetRigidbody2D();
+        shotSection = ShotSection.aim;
+        timer = 0;
     }
 
     public void Execute()
@@ -53,12 +64,18 @@ public class ShotState : IState
                 }
                 break;
             case ShotSection.shot:
-                shootDirection = Quaternion.Euler(0, 0, _securityGuard.transform.eulerAngles.z) * Vector3.up;
-                //GunFire();
+                bulletGeneratar.GunFire(bulletSpeed, _securityGuard.HitDamegeLayer);
+                nowMagazine--;
                 shotNum++;
                 shotSection++;
                 break;
             case ShotSection.shotInterval:
+                if (nowMagazine <= 0)
+                {
+                    // 弾0
+                    _securityGuard.ChangeState(SecurityGuard.StateType.Reload);
+                    return;
+                }
                 timer += Time.deltaTime;
                 if (shotIntevalTime <= timer)
                 {
@@ -66,10 +83,13 @@ public class ShotState : IState
                     if (shotNum >= shotRate)
                     {
                         shotNum = 0;
-                        
+
                         shotSection = ShotSection.aim;
                     }
-                    shotSection = ShotSection.shot;
+                    else
+                    {
+                        shotSection = ShotSection.shot;
+                    }
                 }
                 break;
             default:

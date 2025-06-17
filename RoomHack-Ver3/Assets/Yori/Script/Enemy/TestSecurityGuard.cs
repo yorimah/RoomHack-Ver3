@@ -103,7 +103,7 @@ public class TestSecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     void Move()
     {
         CalcPosition();
-        if (WallHitCheack())
+        if (PlayerHitCheck())
         {
             actNo = ActNo.shot;
             shotSection = ShotSection.aim;
@@ -250,7 +250,7 @@ public class TestSecurityGuard : MonoBehaviour, IHackObject, IDamegeable
     /// <Summary>
     /// レイを飛ばして壁にあったたらfalseあたらなかったらtrue
     /// </Summary>
-    bool WallHitCheack()
+    bool PlayerHitCheck()
     {
         Vector2 playerPosition = PlayerPosition();
         float playerDistance = Vector2.Distance(transform.position, playerPosition);

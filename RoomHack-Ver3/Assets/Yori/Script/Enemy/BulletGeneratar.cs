@@ -4,7 +4,8 @@ public class BulletGeneratar : MonoBehaviour
 {
     [SerializeField, Header("撃つ弾のプレハブ")]
     private GameObject bulletPrefab;
-    public void GunFire(int HitDamageLayer, Vector2 shotDirecition, float bulletSpeed)
+
+    public void GunFire(float bulletSpeed,int hitLayer)
     {
         GameObject bulletGameObject = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
@@ -12,10 +13,11 @@ public class BulletGeneratar : MonoBehaviour
 
         BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
 
-        bulletCore.HitDamegeLayer = HitDamageLayer;
-        bulletCore.power = 40;
+        Vector2 shotDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z) * Vector3.up;
+
+        bulletCore.HitDamegeLayer = hitLayer;
         bulletCore.hitStop = 0.1f;
-        bulletRigit.velocity = shotDirecition * bulletSpeed;
-        bulletGameObject.transform.up = shotDirecition;
+        bulletRigit.velocity = shotDirection * bulletSpeed;
+        bulletGameObject.transform.up = shotDirection;
     }
 }

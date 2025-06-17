@@ -1,26 +1,30 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SecurityGuard : MonoBehaviour
+public class SecurityGuard : MonoBehaviour, IDamegeable
 {
+    public float MAXHP { get; set; } = 5;
+    public float NowHP { get; set; }
+    public int HitDamegeLayer { get; set; } = 2;
     private IState currentState;
     public float moveSpeed = 3f;
 
     [SerializeField, Header("障害物に使うレイヤー")]
     private LayerMask obstacleMask;
 
+    [SerializeField, Header("GunData")]
+    public GunData gundata;
     public enum StateType
     {
         Idle,
         Move,
         Shot,
         Reload,
+        Die,
         num
     }
     public StateType statetype;
     private Dictionary<StateType, IState> states;
-
-    private Rigidbody2D secRigidBody;
 
     void Awake()
     {
@@ -28,18 +32,20 @@ public class SecurityGuard : MonoBehaviour
     {
         { StateType.Idle, new IdleState(this) },
         { StateType.Move, new MoveState(this) },
-        { StateType.Shot, new ShotState(this) }
+        { StateType.Shot, new ShotState(this) },
+        { StateType.Reload, new ReloadState(this) },
+        { StateType.Die, new DieState(this) },
     };
-        statetype = StateType.Idle;
+        statetype = StateType.Shot;
         currentState = states[statetype];
 
-        secRigidBody = GetComponent<Rigidbody2D>();
+
     }
 
     void Update()
     {
         currentState?.Execute();
-        Debug.Log(currentState.ToString() + "中");
+        Debug.Log(gameObject.name + "は" + currentState.ToString() + "を実行中");
     }
 
     public void ChangeState(StateType type)
@@ -54,8 +60,8 @@ public class SecurityGuard : MonoBehaviour
         return obstacleMask;
     }
 
-    public Rigidbody2D GetRigidbody2D()
+    public void Die()
     {
-        return secRigidBody;
+        ChangeState(StateType.Die);
     }
 }

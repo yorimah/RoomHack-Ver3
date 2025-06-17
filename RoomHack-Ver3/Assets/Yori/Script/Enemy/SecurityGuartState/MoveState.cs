@@ -20,12 +20,11 @@ public class MoveState : IState
 
     public void Enter()
     {
-      
         flipTimer = 0;
 
         flipInterval = 1;
 
-        direction = 1;
+        direction = Random.value < 0.5f ? -1 : 1;
     }
 
     public void Execute()
@@ -48,7 +47,7 @@ public class MoveState : IState
         Vector2 directionToNext = (nextPos - nowPosition).normalized;
         float checkDistance = 1f;
 
-        RaycastHit2D hit = Physics2D.Raycast(nowPosition, directionToNext, checkDistance,_securityGuard.GetObstacleMask());
+        RaycastHit2D hit = Physics2D.Raycast(nowPosition, directionToNext, checkDistance, _securityGuard.GetObstacleMask());
         //Debug.DrawRay(nowPosition, directionToNext * checkDistance, Color.blue);
         if (hit.collider != null)
         {
@@ -57,13 +56,13 @@ public class MoveState : IState
             secRididBody.velocity = Vector2.zero;
             return;
         }
-        // Rigidbody2D で移動
+        // Rigidbody2Dで移動
         secRididBody.velocity = directionToNext.normalized * 5;
     }
 
     public void Exit()
     {
-       
+
     }
 }
 
