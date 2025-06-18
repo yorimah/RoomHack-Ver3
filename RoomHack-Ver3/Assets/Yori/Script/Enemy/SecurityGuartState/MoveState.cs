@@ -12,10 +12,12 @@ public class MoveState : IState
 
     private int direction = 1;
 
+    private PlayerCheack playerCheack;
     public MoveState(SecurityGuard securityGuard)
     {
         _securityGuard = securityGuard;
         secRididBody = _securityGuard.GetComponent<Rigidbody2D>();
+        playerCheack = _securityGuard.playerCheack;
     }
 
     public void Enter()
@@ -29,6 +31,10 @@ public class MoveState : IState
 
     public void Execute()
     {
+        if (playerCheack.PlayerRayHitCheack(_securityGuard.transform, _securityGuard.GetObstacleMask()))
+        {
+            _securityGuard.ChangeState(SecurityGuard.StateType.Shot);
+        }
         Vector2 nowPosition = _securityGuard.transform.position;
         flipTimer += Time.deltaTime;
         if (flipTimer >= flipInterval)

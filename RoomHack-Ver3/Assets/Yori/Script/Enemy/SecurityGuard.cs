@@ -14,6 +14,10 @@ public class SecurityGuard : MonoBehaviour, IDamegeable
 
     [SerializeField, Header("GunData")]
     public GunData gundata;
+
+    public PlayerCheack playerCheack;
+
+    public int nowMagazine;
     public enum StateType
     {
         Idle,
@@ -28,6 +32,10 @@ public class SecurityGuard : MonoBehaviour, IDamegeable
 
     void Awake()
     {
+        playerCheack = new PlayerCheack();
+
+        nowMagazine = gundata.MaxMagazine;
+
         states = new Dictionary<StateType, IState>()
     {
         { StateType.Idle, new IdleState(this) },
@@ -36,10 +44,8 @@ public class SecurityGuard : MonoBehaviour, IDamegeable
         { StateType.Reload, new ReloadState(this) },
         { StateType.Die, new DieState(this) },
     };
-        statetype = StateType.Shot;
+        statetype = StateType.Idle;
         currentState = states[statetype];
-
-
     }
 
     void Update()

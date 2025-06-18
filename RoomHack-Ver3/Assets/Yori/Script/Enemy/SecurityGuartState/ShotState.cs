@@ -27,6 +27,9 @@ public class ShotState : IState
     private Rigidbody2D secRigidBody2D;
 
     private BulletGeneratar bulletGeneratar;
+
+    // Player情報
+    private PlayerCheack playerCheack;
     public ShotState(SecurityGuard securityGuard)
     {
         _securityGuard = securityGuard;
@@ -41,20 +44,26 @@ public class ShotState : IState
 
         bulletSpeed = gundata.bulletSpeed;
         bulletGeneratar = _securityGuard.gameObject.GetComponent<BulletGeneratar>();
+
+        // プレイヤー情報初期化
+        playerCheack = _securityGuard.playerCheack;
     }
 
     public void Enter()
     {
         shotSection = ShotSection.aim;
         timer = 0;
+        nowMagazine = _securityGuard.nowMagazine;
     }
 
     public void Execute()
     {
+        playerCheack.RotationFoward(_securityGuard.transform);
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
             case ShotSection.aim:
+
                 secRigidBody2D.velocity = Vector2.zero;
                 timer += Time.deltaTime;
                 if (aimTime <= timer)
@@ -64,18 +73,17 @@ public class ShotState : IState
                 }
                 break;
             case ShotSection.shot:
+                if (nowMagazine <= 0)
+                {
+                    _securityGuard.ChangeState(SecurityGuard.StateType.Reload);
+                    return;
+                }
                 bulletGeneratar.GunFire(bulletSpeed, _securityGuard.HitDamegeLayer);
                 nowMagazine--;
                 shotNum++;
                 shotSection++;
                 break;
             case ShotSection.shotInterval:
-                if (nowMagazine <= 0)
-                {
-                    // 弾0
-                    _securityGuard.ChangeState(SecurityGuard.StateType.Reload);
-                    return;
-                }
                 timer += Time.deltaTime;
                 if (shotIntevalTime <= timer)
                 {
@@ -83,8 +91,15 @@ public class ShotState : IState
                     if (shotNum >= shotRate)
                     {
                         shotNum = 0;
+                        if (playerCheack.PlayerRayHitCheack(_securityGuard.transform, _securityGuard.GetObstacleMask()))
+                        {
+                            shotSection = ShotSection.aim;
+                        }
+                        else
+                        {
+                            _securityGuard.ChangeState(SecurityGuard.StateType.Move);
+                        }
 
-                        shotSection = ShotSection.aim;
                     }
                     else
                     {
@@ -99,6 +114,6 @@ public class ShotState : IState
 
     public void Exit()
     {
-
+        _securityGuard.nowMagazine = nowMagazine;
     }
 }
