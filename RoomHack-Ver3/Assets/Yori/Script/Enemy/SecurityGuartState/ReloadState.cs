@@ -2,10 +2,10 @@
 
 public class ReloadState : IState
 {
-    private SecurityGuard _securityGuard;
-    public ReloadState(SecurityGuard securityGuard)
+    private Enemy enemy;
+    public ReloadState(Enemy _enemy)
     {
-        _securityGuard = securityGuard;
+        enemy = _enemy;
     }
 
     private float timer = 0;
@@ -19,13 +19,13 @@ public class ReloadState : IState
         timer += Time.deltaTime;
         if (timer >= 1)
         {
-            _securityGuard.ChangeState(SecurityGuard.StateType.Shot);
+            enemy.ChangeState(SecurityGuard.StateType.Shot);
             timer = 0;
         }
     }
 
     public void Exit()
     {
-        _securityGuard.nowMagazine = _securityGuard.gundata.MaxMagazine;
+        enemy.nowMagazine = enemy.gundata.MaxMagazine;
     }
 }

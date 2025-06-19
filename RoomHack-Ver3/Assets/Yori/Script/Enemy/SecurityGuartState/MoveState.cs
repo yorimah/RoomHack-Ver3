@@ -2,7 +2,7 @@
 
 public class MoveState : IState
 {
-    private SecurityGuard _securityGuard;
+    private Enemy enemy;
 
     private Rigidbody2D secRididBody;
 
@@ -13,11 +13,11 @@ public class MoveState : IState
     private int direction = 1;
 
     private PlayerCheack playerCheack;
-    public MoveState(SecurityGuard securityGuard)
+    public MoveState(Enemy _enemy)
     {
-        _securityGuard = securityGuard;
-        secRididBody = _securityGuard.GetComponent<Rigidbody2D>();
-        playerCheack = _securityGuard.playerCheack;
+        enemy = _enemy;
+        secRididBody = enemy.GetComponent<Rigidbody2D>();
+        playerCheack = enemy.playerCheack;
     }
 
     public void Enter()
@@ -31,11 +31,11 @@ public class MoveState : IState
 
     public void Execute()
     {
-        if (playerCheack.PlayerRayHitCheack(_securityGuard.transform, _securityGuard.GetObstacleMask()))
+        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
         {
-            _securityGuard.ChangeState(SecurityGuard.StateType.Shot);
+            enemy.ChangeState(Enemy.StateType.Shot);
         }
-        Vector2 nowPosition = _securityGuard.transform.position;
+        Vector2 nowPosition = enemy.transform.position;
         flipTimer += Time.deltaTime;
         if (flipTimer >= flipInterval)
         {
@@ -53,7 +53,7 @@ public class MoveState : IState
         Vector2 directionToNext = (nextPos - nowPosition).normalized;
         float checkDistance = 1f;
 
-        RaycastHit2D hit = Physics2D.Raycast(nowPosition, directionToNext, checkDistance, _securityGuard.GetObstacleMask());
+        RaycastHit2D hit = Physics2D.Raycast(nowPosition, directionToNext, checkDistance, enemy.GetObstacleMask());
         //Debug.DrawRay(nowPosition, directionToNext * checkDistance, Color.blue);
         if (hit.collider != null)
         {
