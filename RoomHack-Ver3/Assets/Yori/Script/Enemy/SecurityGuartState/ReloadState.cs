@@ -5,12 +5,13 @@ public class ReloadState : IState
     private Enemy enemy;
     public ReloadState(Enemy _enemy)
     {
-        enemy = _enemy;
+        enemy = _enemy;        
     }
 
     private float timer = 0;
     public void Enter()
     {
+        enemy.nowMagazine = enemy.MaxMagazine;
         timer = 0;
     }
 

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-public class Enemy: MonoBehaviour, IDamegeable
+public class Enemy : MonoBehaviour, IDamegeable
 {
     public float MAXHP { get; set; } = 5;
     public float NowHP { get; set; }
     public int HitDamegeLayer { get; set; } = 2;
 
     protected IState currentState;
-    
+
     public float moveSpeed = 3f;
 
     [SerializeField, Header("障害物に使うレイヤー")]
@@ -18,7 +18,16 @@ public class Enemy: MonoBehaviour, IDamegeable
 
     public PlayerCheack playerCheack;
 
+    [HideInInspector]
+    public float aimTime = 0.5f;
+    [HideInInspector]
+    public int MaxMagazine;
+    [HideInInspector]
     public int nowMagazine;
+    [HideInInspector]
+    public int shotRate;
+    [HideInInspector]
+    public float bulletSpeed;
     public enum StateType
     {
         Idle,
@@ -29,8 +38,16 @@ public class Enemy: MonoBehaviour, IDamegeable
         num
     }
 
+    public void Start()
+    {
+        shotRate = gundata.rate;
+        MaxMagazine = gundata.MaxMagazine;
+        nowMagazine = MaxMagazine;
+        bulletSpeed = gundata.bulletSpeed;
+    }
+
     public StateType statetype;
-    public Dictionary<StateType, IState> states;  
+    public Dictionary<StateType, IState> states;
 
     void Update()
     {

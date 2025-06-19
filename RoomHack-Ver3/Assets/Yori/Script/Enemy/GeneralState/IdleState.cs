@@ -2,21 +2,21 @@
 
 public class IdleState : IState
 {
-    private SecurityGuard _securityGuard;
+    private Enemy enemy;
 
-    public IdleState(SecurityGuard securityGuard)
+    public IdleState(Enemy _enemy)
     {
-        _securityGuard = securityGuard;
+        enemy = _enemy;
     }
 
     public void Enter()
     {
-        
+
     }
 
     public void Execute()
     {
-        Vector3 viewportPos = Camera.main.WorldToViewportPoint(_securityGuard.transform.position);
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(enemy.transform.position);
 
         // 画面内判定　入ったらtrue
         bool isInside =
@@ -24,13 +24,13 @@ public class IdleState : IState
             viewportPos.y >= 0 && viewportPos.y <= 1;
         if (isInside)
         {
-            _securityGuard.ChangeState(SecurityGuard.StateType.Move);
+            enemy.ChangeState(Enemy.StateType.Move);
         }
     }
 
     public void Exit()
     {
-       
+
     }
 }
 

@@ -51,19 +51,24 @@ public class StateCreator : EditorWindow
 
 public class {name} : IState
 {{
+    private Enemy enemy;
+    public {name}(Enemy _enemy)
+    {{
+        enemy = _enemy;
+    }}
     public void Enter()
     {{
-        Debug.Log(""{name}: Enter"");
+        
     }}
 
     public void Execute()
     {{
-        Debug.Log(""{name}: Execute"");
+        
     }}
 
     public void Exit()
     {{
-        Debug.Log(""{name}: Exit"");
+        
     }}
 }}";
 
