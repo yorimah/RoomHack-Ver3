@@ -10,6 +10,7 @@ public class DroneMoveState : IState
     private float flipInterval = 1;
 
     private int direction = 1;
+    private float moveDire;
     private Rigidbody2D enemyRigidBody2D;
     public DroneMoveState(Enemy _enemy)
     {
@@ -22,13 +23,14 @@ public class DroneMoveState : IState
         moveDire = Random.value < 0.5f ? -1 : 1;
         direction = Random.value < 0.5f ? -1 : 1;
     }
-    float moveDire;
+
     public void Execute()
     {
+        playerCheack.RotationFoward(enemy.transform);
         // レイを飛ばして射線が通たらショットに遷移
         if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
         {
-            //enemy.ChangeState(Enemy.StateType.Shot);
+            enemy.ChangeState(Enemy.StateType.Shot);
         }
         Vector2 nowPosition = enemy.transform.position;
         flipTimer += Time.deltaTime;

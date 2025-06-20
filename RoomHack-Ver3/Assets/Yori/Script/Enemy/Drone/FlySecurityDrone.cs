@@ -14,11 +14,11 @@ public class FlySecurityDrone : Enemy
     {
         { StateType.Idle, new IdleState(this) },
         { StateType.Move, new DroneMoveState(this) },
-        { StateType.Shot, new ShotState(this) },
+        { StateType.Shot, new DroneShotState(this) },
         { StateType.Reload, new ReloadState(this) },
         { StateType.Die, new DieState(this) },
     };
-        statetype = StateType.Move;
+        statetype = StateType.Idle;
         currentState = states[statetype];
     }
 }

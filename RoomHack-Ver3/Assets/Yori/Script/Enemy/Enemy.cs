@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour, IDamegeable
 
     protected IState currentState;
 
+    [SerializeField, Header("動く速さ")]
     public float moveSpeed = 3f;
 
     [SerializeField, Header("障害物に使うレイヤー")]
@@ -16,6 +17,8 @@ public class Enemy : MonoBehaviour, IDamegeable
     [SerializeField, Header("GunData")]
     public GunData gundata;
 
+    [SerializeField,Header("HP")]
+    private float  MaxHP;
     public PlayerCheack playerCheack;
 
     [HideInInspector]
@@ -40,6 +43,8 @@ public class Enemy : MonoBehaviour, IDamegeable
 
     public void Start()
     {
+        MAXHP = MaxHP;
+        NowHP = MAXHP;
         shotRate = gundata.rate;
         MaxMagazine = gundata.MaxMagazine;
         nowMagazine = MaxMagazine;
