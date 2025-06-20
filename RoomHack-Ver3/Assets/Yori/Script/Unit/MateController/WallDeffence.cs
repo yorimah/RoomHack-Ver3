@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WallDeffence : MonoBehaviour, IDamegeable
 {
@@ -19,6 +19,6 @@ public class WallDeffence : MonoBehaviour, IDamegeable
     }
     public void Die()
     {
-        // �ǂ͎��ȂȂ�
+        // 壁は死なない
     }
 }

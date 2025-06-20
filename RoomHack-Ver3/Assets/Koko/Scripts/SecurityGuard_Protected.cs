@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -11,25 +11,25 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
     public float NowHP { get; set; }
     public int HitDamegeLayer { get; set; } = 2;
 
-    [SerializeField, Header("’e‚ÌƒvƒŒƒnƒu")]
+    [SerializeField, Header("å¼¾ã®ãƒ—ãƒ¬ãƒãƒ–")]
     private GameObject bulletPrefab;
-    [SerializeField, Header("’e‚ÌƒXƒs[ƒh")]
+    [SerializeField, Header("å¼¾ã®ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     private float bulletSpeed;
 
     bool isInside;
 
-    public float rotationSpeed = 1f;      // ‰ñ“]‘¬“xiƒ‰ƒWƒAƒ“/•bj
-    public float flipInterval = 1f;       // ©“®”½“]‚ÌüŠú
-    [SerializeField, Header("áŠQ•¨‚Ég‚¤ƒŒƒCƒ„[")]
+    public float rotationSpeed = 1f;      // å›è»¢é€Ÿåº¦ï¼ˆãƒ©ã‚¸ã‚¢ãƒ³/ç§’ï¼‰
+    public float flipInterval = 1f;       // è‡ªå‹•åè»¢ã®å‘¨æœŸ
+    [SerializeField, Header("éšœå®³ç‰©ã«ä½¿ã†ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     private LayerMask obstacleMask;
 
     private float direction = 1;
-    private float flipTimer = 0f;         // ©“®”½“]—pƒ^ƒCƒ}[
+    private float flipTimer = 0f;         // è‡ªå‹•åè»¢ç”¨ã‚¿ã‚¤ãƒãƒ¼
 
-    // ƒfƒŠƒQ[ƒh
-    // ŠÖ”‚ğŒ^‚É‚·‚é‚½‚ß‚Ì‚à‚Ì
+    // ãƒ‡ãƒªã‚²ãƒ¼ãƒ‰
+    // é–¢æ•°ã‚’å‹ã«ã™ã‚‹ãŸã‚ã®ã‚‚ã®
     private delegate void ActFunc();
-    // ŠÖ”‚Ì”z—ñ
+    // é–¢æ•°ã®é…åˆ—
     private ActFunc[] actFuncTbl;
 
     ShotSection shotSection;
@@ -39,7 +39,7 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
     float reloadTime = 2;
 
     private Rigidbody2D secRididBody;
-    // ƒŠƒ[ƒh‚ğ‚±‚±‚É’Ç‰Á
+    // ãƒªãƒ­ãƒ¼ãƒ‰ã‚’ã“ã“ã«è¿½åŠ 
     enum ActNo
     {
         wait,
@@ -50,7 +50,7 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
     }
     ActNo actNo;
 
-    // ƒVƒ‡ƒbƒgŠÖ˜A
+    // ã‚·ãƒ§ãƒƒãƒˆé–¢é€£
     int MAXMAGAGINE = 12;
     int nowMagazine = 0;
 
@@ -90,7 +90,7 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
     {
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
 
-        // ‰æ–Ê“à”»’è@“ü‚Á‚½‚çtrue
+        // ç”»é¢å†…åˆ¤å®šã€€å…¥ã£ãŸã‚‰true
         isInside =
             viewportPos.x >= 0 && viewportPos.x <= 1 &&
             viewportPos.y >= 0 && viewportPos.y <= 1;
@@ -116,7 +116,7 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
         timer += Time.deltaTime;
         if (timer >= reloadTime)
         {
-            // ƒVƒ‡ƒbƒg‚ÉˆÚ“®
+            // ã‚·ãƒ§ãƒƒãƒˆã«ç§»å‹•
             actNo = ActNo.shot;
             timer = 0;
         }
@@ -130,7 +130,7 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
     }
     void Shot()
     {
-        // ”­ËƒŒ[ƒg‚ğİ’è‚µ‚»‚ÌŒãA”­Ë•b”‚ğŒˆ’è‚·‚éB
+        // ç™ºå°„ãƒ¬ãƒ¼ãƒˆã‚’è¨­å®šã—ãã®å¾Œã€ç™ºå°„ç§’æ•°ã‚’æ±ºå®šã™ã‚‹ã€‚
         switch (shotSection)
         {
             case ShotSection.aim:
@@ -181,7 +181,7 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
 
         nowMagazine--;
 
-        // ’e‚ª0–¢–‚¾‚Á‚½‚çƒŠƒ[ƒh‚É‘JˆÚ
+        // å¼¾ãŒ0æœªæº€ã ã£ãŸã‚‰ãƒªãƒ­ãƒ¼ãƒ‰ã«é·ç§»
         if (nowMagazine <= 0)
         {
             actNo = ActNo.reload;
@@ -211,7 +211,7 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
     Vector2 emDir;
     Vector2 nextPos;
     /// <Summary>
-    /// ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğŒvZ‚·‚éƒƒ\ƒbƒh‚Å‚·B
+    /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’è¨ˆç®—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã§ã™ã€‚
     /// </Summary>
     void CalcPosition()
     {
@@ -228,7 +228,7 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
         emDir = new Vector2(-dir.y, dir.x);
         nextPos = (Vector2)transform.position + (emDir * direction);
 
-        // áŠQ•¨ƒ`ƒFƒbƒN
+        // éšœå®³ç‰©ãƒã‚§ãƒƒã‚¯
         Vector2 directionToNext = (nextPos - (Vector2)transform.position).normalized;
         float checkDistance = 1f;
 
@@ -241,12 +241,12 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
             secRididBody.velocity = Vector2.zero;
             return;
         }
-        // Rigidbody2D ‚ÅˆÚ“®
+        // Rigidbody2D ã§ç§»å‹•
         secRididBody.velocity = directionToNext.normalized * 5;
     }
 
     /// <Summary>
-    /// ƒŒƒC‚ğ”ò‚Î‚µ‚Ä•Ç‚É‚ ‚Á‚½‚½‚çfalse‚ ‚½‚ç‚È‚©‚Á‚½‚çtrue
+    /// ãƒ¬ã‚¤ã‚’é£›ã°ã—ã¦å£ã«ã‚ã£ãŸãŸã‚‰falseã‚ãŸã‚‰ãªã‹ã£ãŸã‚‰true
     /// </Summary>
     bool WallHitCheack()
     {
@@ -279,7 +279,7 @@ public class SecurityGuard_Protected : MonoBehaviour, IHackObject, IDamegeable
         {
             return UnitCore.Instance.transform.position;
         }
-        Debug.LogError("player‚İ‚Â‚©‚ñ‚È‚¢‚æ`‚ñ");
+        Debug.LogError("playerã¿ã¤ã‹ã‚“ãªã„ã‚ˆï½ã‚“");
         return Vector2.zero;
     }
     public bool hacked { get; set; } = false;

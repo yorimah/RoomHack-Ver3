@@ -157,6 +157,7 @@ MonoBehaviour:
   rayRot: 360
   rayValue: 90
   rayLen: 100
+  rayOffset: 0
   targetLm:
     serializedVersion: 2
     m_Bits: 128

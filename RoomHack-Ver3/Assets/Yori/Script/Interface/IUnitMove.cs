@@ -1,4 +1,4 @@
-public interface IUnitMove
+﻿public interface IUnitMove
 {
     public float MoveSpeed { get; set; }
 

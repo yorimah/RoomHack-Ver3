@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class BulletCore : MonoBehaviour, IDamegeable
 {
@@ -30,7 +30,7 @@ public class BulletCore : MonoBehaviour, IDamegeable
         {
             return;
         }
-        // IDamegebable‚ª—^‚¦‚ç‚ê‚é‚©’²‚×‚éB—^‚¦‚ç‚ê‚é‚È‚çdmglayer‚ğ’²‚×‚Ä“–‚½‚é‚©”»’f
+        // IDamegebableãŒä¸ãˆã‚‰ã‚Œã‚‹ã‹èª¿ã¹ã‚‹ã€‚ä¸ãˆã‚‰ã‚Œã‚‹ãªã‚‰dmglayerã‚’èª¿ã¹ã¦å½“ãŸã‚‹ã‹åˆ¤æ–­
         if (collision.gameObject.TryGetComponent<IDamegeable>(out var damage))
         {
             if (this.HitDamegeLayer != damage.HitDamegeLayer)

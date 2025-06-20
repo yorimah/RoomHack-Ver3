@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-public class TestTriangle : MonoBehaviour
+public class PlayerViewMesh : MonoBehaviour
 {
     List<Mesh> mesh = new List<Mesh>();
 
@@ -26,9 +26,6 @@ public class TestTriangle : MonoBehaviour
 
     private void Awake()
     {
-        //mesh = new Mesh();
-        //triangle.GetComponent<MeshFilter>().mesh = mesh;
-        // GeneradeTriangle(new Vector3(0, 0, 0), new Vector3(1, 1, 0), new Vector3(1, 0, 0));
         for (int i = 0; i < rayValue; i++)
         {
             mesh.Add(new Mesh());
@@ -44,7 +41,6 @@ public class TestTriangle : MonoBehaviour
 
     public void GeneradeTriangle(Vector3 _playerOrigin, Vector3 _hitPointFirst, Vector3 _hitpointSecond, int index)
     {
-        //Debug.Log("éOäpê∂ê¨íÜ" + _playerOrigin + "," + _hitPointFirst + "," + _hitpointSecond);
         Vector3[] vertices = new Vector3[] {
             _playerOrigin,
             _hitPointFirst,
@@ -73,11 +69,6 @@ public class TestTriangle : MonoBehaviour
             if (result.collider != null)
             {
                 Items.Add(result.point);
-                //if (Items.Count >= 2)
-                //{
-                //    Debug.Log("éOäpê∂ê¨íÜ" + Items[Items.Count - 1]);
-                //   // GeneradeTriangle(Items[Items.Count - 1], startPos, Items[Items.Count - 2], i);
-                //}
             }
             nowRot += partRot;
         }

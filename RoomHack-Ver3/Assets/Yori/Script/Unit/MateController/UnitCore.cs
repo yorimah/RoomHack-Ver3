@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -12,10 +12,10 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
     void Awake()
     {
-        // Singletonƒ`ƒFƒbƒN
+        // Singletonãƒã‚§ãƒƒã‚¯
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // d•¡‚ğ–h~
+            Destroy(gameObject); // é‡è¤‡ã‚’é˜²æ­¢
             return;
         }
 
