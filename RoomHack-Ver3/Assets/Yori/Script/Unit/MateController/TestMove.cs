@@ -21,9 +21,6 @@ public class TestMove : MonoBehaviour
 
     private Vector3 direction;
 
-    [SerializeField, Header("ハックできる対象の数")]
-    private int hackParallelism;
-
     [SerializeField, Header("プレイヤースピード")]
     private float MOVESPEED = 10;
     [SerializeField, Header("マガジン容量")]
@@ -39,11 +36,9 @@ public class TestMove : MonoBehaviour
     ShotMode shotMode;
 
     // ハッキングステータス
-    private int hackSpeed = 1;
-    //private int hackRecast = 1;
-    //private int hackRam = 10;
-    //private int hackRecover = 1;
-    private int hackDamage = 10;
+    [SerializeField, Header("ぶりーちぱわー")]
+    private float breachPower;
+
     public void Start()
     {
         moveInput = new MoveInput();
@@ -197,9 +192,9 @@ public class TestMove : MonoBehaviour
         {
             if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject))
             {
-                if (!hackObject.hacked)
+                if (!hackObject.clacked)
                 {
-                    hackObject.HackStart(hackSpeed, hackDamage);
+                    hackObject.Clack(breachPower);
                 }
                 Debug.Log("ハックできるオブジェクト : " + hit.collider.name+" にあたりました");
             }
