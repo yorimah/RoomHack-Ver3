@@ -9,6 +9,8 @@
 
     public float FireWallCapacity { get; set; }
 
+    public float FireWallRecovaryNum { get; set; }
+
     public void Clack(float BreachPower)
     {
         NowFireWall -= BreachPower;
@@ -19,4 +21,6 @@
     }
 
     public void CapacityOver();
+
+    public void FireWallRecavary();
 }

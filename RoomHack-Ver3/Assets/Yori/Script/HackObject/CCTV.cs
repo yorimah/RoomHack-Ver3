@@ -11,6 +11,7 @@ public class CCTV : MonoBehaviour, IHackObject
     public float MaxFireWall { get; set; }
     public float NowFireWall { get; set; }
 
+    public float FireWallRecovaryNum { get; set; }
     List<Mesh> mesh = new List<Mesh>();
 
     [SerializeField]
@@ -30,7 +31,8 @@ public class CCTV : MonoBehaviour, IHackObject
     [SerializeField]
     LayerMask targetLm;
     List<Vector2> Items = new List<Vector2>();
-
+    [SerializeField, Header("HackData")]
+    private HackData hackData;
     private void Awake()
     {
         for (int i = 0; i < rayValue; i++)
@@ -40,9 +42,15 @@ public class CCTV : MonoBehaviour, IHackObject
             triangles[i].GetComponent<MeshFilter>().mesh = mesh[i];
         }
 
+        // HackData初期化
+        MaxFireWall = hackData.MaxFireWall;
         NowFireWall = MaxFireWall;
+        FireWallRecovaryNum = hackData.FireWallRecovaryNum;
+
         clack().Forget();
     }
+
+    // 三角形の頂点設定
     public void GeneradeTriangle(Vector3 _playerOrigin, Vector3 _hitPointFirst, Vector3 _hitpointSecond, int index)
     {
         Vector3[] vertices = new Vector3[] {
@@ -57,6 +65,7 @@ public class CCTV : MonoBehaviour, IHackObject
         mesh[index].RecalculateNormals();
     }
 
+    // 頂点を計算して、設定する。
     public void CameraViewer()
     {
         Vector3 startPos = gameObject.transform.position;
@@ -84,10 +93,18 @@ public class CCTV : MonoBehaviour, IHackObject
 
     public void CapacityOver() => clacked = true;
 
+    public void FireWallRecavary()
+    {
+        if (NowFireWall >= FireWallCapacity)
+        {
+            clacked = false;
+        }
+    }
     async UniTask clack()
     {
         while (true)
         {
+            FireWallRecavary();
             await UniTask.WaitUntil(() => clacked);
             CameraViewer();
             await UniTask.Yield();
