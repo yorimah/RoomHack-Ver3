@@ -15,7 +15,6 @@ public class DroneShotState : IState
 
     // ShotSection
     private float shotIntevalTime = 0;
-    private int shotNum = 0;
     enum ShotSection
     {
         aim,

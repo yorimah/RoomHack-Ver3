@@ -1,13 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IHackObject 
+﻿public interface IHackObject
 {
     public int secLevele { set; get; }
 
-    public bool hacked { get; set; }
+    public bool clacked { get; set; }
 
-    public void HackStart(int hackSpeedLevel, int hackDamage);
+    public float MaxFireWall { get; set; }
+    public float NowFireWall { get; set; }
 
+    public float FireWallCapacity { get; set; }
+
+    public float FireWallRecovaryNum { get; set; }
+
+    public void Clack(float BreachPower)
+    {
+        NowFireWall -= BreachPower;
+        if (NowFireWall <= FireWallCapacity)
+        {
+            CapacityOver();
+        }
+    }
+
+    public void CapacityOver();
+
+    public void FireWallRecavary();
 }
