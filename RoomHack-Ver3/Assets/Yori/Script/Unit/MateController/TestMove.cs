@@ -73,8 +73,8 @@ public class TestMove : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    Debug.Log("切替" + shotMode);
                     shotMode = ShotMode.HackMode;
+                    Debug.Log("切替" + shotMode);
                 }
 
                 break;
@@ -86,8 +86,8 @@ public class TestMove : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    Debug.Log("切替" + shotMode);
                     shotMode = ShotMode.GunMode;
+                    Debug.Log("切替" + shotMode);
                 }
                 break;
             case ShotMode.ReloadMode:
@@ -196,7 +196,7 @@ public class TestMove : MonoBehaviour
                 {
                     hackObject.Clack(breachPower);
                 }
-                Debug.Log("ハックできるオブジェクト : " + hit.collider.name+" にあたりました");
+                Debug.Log("ハックできるオブジェクト : " + hit.collider.name + " にあたりました");
             }
         }
 
@@ -212,7 +212,7 @@ public class TestMove : MonoBehaviour
         if (UnitCore.Instance != null)
         {
             Handles.Label(transform.position + Vector3.up * 1f, "HP " + UnitCore.Instance.NowHP.ToString(), style);
-        }          
+        }
         Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
     }
 #endif

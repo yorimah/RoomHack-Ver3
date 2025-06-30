@@ -182,8 +182,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 995719265
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a2c4cef5057702c4f8373eb39041ddc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -228,7 +228,7 @@ MonoBehaviour:
   rayDirecition: 10
   MOVESPEED: 3
   MAXMAGAZINE: 12
-  breachPower: 0
+  breachPower: 10
   bulletPrefab: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
   bulletSpeed: 10
 --- !u!50 &24237160
@@ -657,7 +657,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -3125,8 +3125,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 995719265
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 48fbfec27453a9646a513bbd25654956, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3148,7 +3148,7 @@ Transform:
   m_GameObject: {fileID: 1542353461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 6.61, y: 2.96, z: 0}
+  m_LocalPosition: {x: 6.596, y: 2.717, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3239,13 +3239,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triangle: {fileID: 6475485672598014900, guid: 6427a631fa3fd1a40813c07b51324ac1, type: 3}
-  rayRot: 180
-  rayValue: 180
-  rayLen: 5
-  rayOffset: 0
+  rayRot: 120
+  rayValue: 120
+  rayLen: 100
+  rayOffset: -60
   targetLm:
     serializedVersion: 2
     m_Bits: 128
+  hackData: {fileID: 11400000, guid: 5951e540787dcc34da052f914097d759, type: 2}
 --- !u!1 &1563056118
 GameObject:
   m_ObjectHideFlags: 0
@@ -3263,7 +3264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &1563056119
 MeshRenderer:
   m_ObjectHideFlags: 0

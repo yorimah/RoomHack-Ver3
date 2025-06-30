@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CCTV : MonoBehaviour, IHackObject
@@ -33,12 +34,18 @@ public class CCTV : MonoBehaviour, IHackObject
     List<Vector2> Items = new List<Vector2>();
     [SerializeField, Header("HackData")]
     private HackData hackData;
+    private GameObject viewMeshs;
     private void Awake()
     {
+        // 空のゲームオブジェクトを生成
+        viewMeshs = new GameObject(gameObject.name + "ViewMehs");
+
+        viewMeshs.transform.SetParent(this.transform);
+        viewMeshs.transform.position = Vector2.zero;
         for (int i = 0; i < rayValue; i++)
         {
             mesh.Add(new Mesh());
-            triangles.Add(Instantiate(triangle, Vector2.zero, Quaternion.identity));
+            triangles.Add(Instantiate(triangle, Vector2.zero, Quaternion.identity, viewMeshs.transform));
             triangles[i].GetComponent<MeshFilter>().mesh = mesh[i];
         }
 
@@ -46,7 +53,7 @@ public class CCTV : MonoBehaviour, IHackObject
         MaxFireWall = hackData.MaxFireWall;
         NowFireWall = MaxFireWall;
         FireWallRecovaryNum = hackData.FireWallRecovaryNum;
-
+        FireWallCapacity = hackData.FireWallCapacity;
         clack().Forget();
     }
 
@@ -91,12 +98,17 @@ public class CCTV : MonoBehaviour, IHackObject
         Items.Clear();
     }
 
-    public void CapacityOver() => clacked = true;
-
+    public void CapacityOver()
+    {
+        clacked = true;
+        viewMeshs.SetActive(true);
+    }
     public void FireWallRecavary()
     {
+        NowFireWall += Time.deltaTime * FireWallRecovaryNum;
         if (NowFireWall >= FireWallCapacity)
         {
+            viewMeshs.SetActive(false);
             clacked = false;
         }
     }
@@ -104,10 +116,25 @@ public class CCTV : MonoBehaviour, IHackObject
     {
         while (true)
         {
-            FireWallRecavary();
             await UniTask.WaitUntil(() => clacked);
             CameraViewer();
+            FireWallRecavary();
             await UniTask.Yield();
         }
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = Color.white;
+        style.fontSize = 14;
+
+        if (UnitCore.Instance != null)
+        {
+            Handles.Label(transform.position + Vector3.up * 1f, "NowFireWall " + NowFireWall.ToString(), style);
+        }
+        Handles.Label(transform.position + Vector3.up * 1.5f, "Claked " + clacked.ToString(), style);
+    }
+#endif
 }

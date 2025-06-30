@@ -14,7 +14,7 @@
     public void Clack(float BreachPower)
     {
         NowFireWall -= BreachPower;
-        if (NowFireWall <= FireWallCapacity)
+        if (NowFireWall < FireWallCapacity)
         {
             CapacityOver();
         }
