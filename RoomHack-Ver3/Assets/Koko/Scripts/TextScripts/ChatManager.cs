@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,21 +19,24 @@ public class ChatManager : MonoBehaviour
 
     [SerializeField] GameObject boxPrefab;
 
+    [SerializeField] GameObject nameTextBox;
+
     Text text_L;
     Text text_R;
 
-    GameObject nowBox;
-
+    GameObject nowTextBox;
+    Vector2 textBoxSize = Vector2.zero;
     int nowLine = 0;
 
-    string nowText = null;
+    GameObject nowNameBox;
 
+
+    string nowText = null;
     int textIndex;
 
     float timer = 0;
     [SerializeField] float textSpeed = 0.1f;
     bool textSkip = false;
-    Vector2 textBoxSize = Vector2.zero;
 
     private void Start()
     {
@@ -43,40 +46,39 @@ public class ChatManager : MonoBehaviour
         text_L.text = null;
         text_R.text = null;
 
-        // ŠJn‚ÉˆêŒÂ–Ú‚Ìƒ`ƒƒƒbƒg‚ªo‚é‚æ‚¤‚É
+        // é–‹å§‹æ™‚ã«ä¸€å€‹ç›®ã®ãƒãƒ£ãƒƒãƒˆãŒå‡ºã‚‹ã‚ˆã†ã«
         LineBreak(2);
         nowText = chatText[chatNumber];
 
-        nowBox = Instantiate(boxPrefab, gameObject.transform.position, Quaternion.identity, this.transform);
-        nowBox.transform.SetAsFirstSibling();
+        nowTextBox = Instantiate(boxPrefab, gameObject.transform.position + Vector3.up * 10, Quaternion.identity, this.transform);
+        nowTextBox.transform.SetAsFirstSibling();
 
         textBoxSize.y++;
     }
 
     private void Update()
     {
-        // ƒ`ƒƒƒbƒgŠJn
+        // ãƒãƒ£ãƒƒãƒˆé–‹å§‹
         if (chatNumber < chatText.Count)
         {
-            // ‘Ò‹@’†
+            // å¾…æ©Ÿä¸­
             if (nowText == null)
             {
-                // ƒNƒŠƒbƒN‚ÉƒeƒLƒXƒgƒXƒ^[ƒg
+                // ã‚¯ãƒªãƒƒã‚¯æ™‚ã«ãƒ†ã‚­ã‚¹ãƒˆã‚¹ã‚¿ãƒ¼ãƒˆ
                 if (Input.GetMouseButtonDown(0))
                 {
-                    chatNumber++;
 
-                    // ƒTƒCƒh‚Ì•ÏXŠm”F
-                    if (chatNumber != 0 && chatSide[chatNumber] != chatSide[chatNumber-1])
+                    // ã‚µã‚¤ãƒ‰ã®å¤‰æ›´ç¢ºèª
+                    if (chatNumber != 0 && chatSide[chatNumber] != chatSide[chatNumber - 1])
                     {
-                        Debug.Log("Œğ‘ãI");
-
                         LineBreak(1);
 
                         textBoxSize = Vector2.zero;
 
-                        nowBox = Instantiate(boxPrefab, gameObject.transform.position, Quaternion.identity, this.transform);
-                        nowBox.transform.SetAsFirstSibling();
+                        nowTextBox = Instantiate(boxPrefab, gameObject.transform.position, Quaternion.identity, this.transform);
+                        nowTextBox.transform.SetAsFirstSibling();
+
+
                     }
 
                     textBoxSize.y++;
@@ -87,7 +89,7 @@ public class ChatManager : MonoBehaviour
             }
             else
             {
-                // ƒeƒLƒXƒg‘Å‚¿‚İ
+                // ãƒ†ã‚­ã‚¹ãƒˆæ‰“ã¡è¾¼ã¿
 
                 timer += Time.deltaTime;
 
@@ -105,34 +107,38 @@ public class ChatManager : MonoBehaviour
                     timer = 0;
                     textIndex++;
 
-                    // ƒeƒLƒXƒgƒ{ƒbƒNƒX‚Ì‰¡•‘‰Á
-                    // indezÅ‘å’l‚Í’´‚¦‚È‚¢
+                    // ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã®æ¨ªå¹…å¢—åŠ 
+                    // indezæœ€å¤§å€¤ã¯è¶…ãˆãªã„
                     if (textIndex > textBoxSize.x)
                     {
                         textBoxSize.x = textIndex;
                     }
                 }
 
-                // ƒNƒŠƒbƒN‚ÅƒeƒLƒXƒgƒXƒLƒbƒv
+                NowBoxRectSet(nowTextBox, chatNumber, nowLine - (int)textBoxSize.y + 1, textBoxSize);
+
+                // ã‚¯ãƒªãƒƒã‚¯ã§ãƒ†ã‚­ã‚¹ãƒˆã‚¹ã‚­ãƒƒãƒ—
                 if (Input.GetMouseButtonDown(0))
                 {
                     textSkip = true;
                 }
 
-                // ƒeƒLƒXƒg‘Å‚¿‚İI—¹•¶
+                // ãƒ†ã‚­ã‚¹ãƒˆæ‰“ã¡è¾¼ã¿çµ‚äº†æ–‡
                 if (textIndex >= nowText.Length)
                 {
+                    chatNumber++;
+
                     textSkip = false;
 
                     nowText = null;
                 }
-            }
 
-            NowBoxRectSet(nowBox, chatNumber, nowLine - (int)textBoxSize.y + 1, textBoxSize);
+
+            }
         }
         else
         {
-            // ƒ`ƒƒƒbƒgI—¹
+            // ãƒãƒ£ãƒƒãƒˆçµ‚äº†
             if (timer >= 1f)
             {
                 chatEndObject.SetActive(true);
@@ -150,7 +156,7 @@ public class ChatManager : MonoBehaviour
         }
     }
 
-    // ‰üs
+    // æ”¹è¡Œ
     void LineBreak(int value)
     {
         for (int i = 0; i < value; i++)
@@ -161,11 +167,11 @@ public class ChatManager : MonoBehaviour
         }
     }
 
-    // ƒeƒLƒXƒgƒ{ƒbƒNƒX‚ÌˆÊ’uA‘å‚«‚³
+    // ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã®ä½ç½®ã€å¤§ãã•
     void NowBoxRectSet(GameObject _nowBox, int _chatNumber, int _line, Vector2 _boxSize)
     {
         Vector2 textSize = new Vector2(50, 55);
-        float flameSize = 10;
+        float flameSize = 20;
 
         RectTransform nowBoxRect = _nowBox.GetComponent<RectTransform>();
 
