@@ -10,7 +10,6 @@ public class TestMove : MonoBehaviour
 
     private Rigidbody2D playerRigidbody2D;
 
-
     private Vector3 mousePosition;
 
     [SerializeField, Header("ハッキングレイの始点")]
@@ -52,12 +51,13 @@ public class TestMove : MonoBehaviour
     private float reloadTime = 2;
     public void Update()
     {
-        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), MOVESPEED);
+        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), MOVESPEED) * GameTimer.Instance.customTimeScale;
         PlayerRotation();
 
         switch (shotMode)
         {
             case ShotMode.GunMode:
+                GameTimer.Instance.SetTimeScale(1);
                 if (Input.GetKey(KeyCode.Mouse0))
                 {
                     if (nowMagazine > 0)
@@ -79,6 +79,7 @@ public class TestMove : MonoBehaviour
 
                 break;
             case ShotMode.HackMode:
+                GameTimer.Instance.SetTimeScale(0.1f);
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     Hack();
