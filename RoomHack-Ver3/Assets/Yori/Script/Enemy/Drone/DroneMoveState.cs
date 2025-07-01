@@ -60,7 +60,7 @@ public class DroneMoveState : IState
             return;
         }
         // Rigidbody2Dで移動
-        enemyRigidBody2D.velocity = directionToNext.normalized * 5;
+        enemyRigidBody2D.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.ScaledDeltaTime;
     }
 
     public void Exit()
