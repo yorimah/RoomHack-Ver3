@@ -13,14 +13,15 @@ public class BulletCore : MonoBehaviour, IDamegeable
 
     private Rigidbody2D rb;
 
+    private Vector2 initVel;
     public void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
         MAXHP = 1;
         NowHP = MAXHP;
+
+        initVel = rb.velocity;
     }
-
-
 
     public void Die()
     {
@@ -28,8 +29,8 @@ public class BulletCore : MonoBehaviour, IDamegeable
     }
     private void Update()
     {
-        rb.velocity = GameTimer.Instance.customTimeScale * rb.velocity;
-        Debug.Log(rb.velocity);
+        // タイムスケールが1より大きいならそのままの速度、小さいならGameTimer.Instance.customTimeScale分遅くなる
+        rb.velocity = 1 < GameTimer.Instance.customTimeScale ? initVel : initVel * GameTimer.Instance.customTimeScale;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,11 +43,9 @@ public class BulletCore : MonoBehaviour, IDamegeable
         {
             if (this.HitDamegeLayer != damage.HitDamegeLayer)
             {
-                damage.HitDmg(power,hitStop);
+                damage.HitDmg(power, hitStop);
                 Die();
             }
         }
     }
-
-
 }
