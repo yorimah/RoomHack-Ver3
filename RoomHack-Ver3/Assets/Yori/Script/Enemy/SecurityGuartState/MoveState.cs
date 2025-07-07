@@ -4,7 +4,7 @@ public class MoveState : IState
 {
     private Enemy enemy;
 
-    private Rigidbody2D secRididBody;
+    private Rigidbody2D enemyRididBody;
 
     private float flipTimer = 0;
 
@@ -16,7 +16,7 @@ public class MoveState : IState
     public MoveState(Enemy _enemy)
     {
         enemy = _enemy;
-        secRididBody = enemy.GetComponent<Rigidbody2D>();
+        enemyRididBody = enemy.GetComponent<Rigidbody2D>();
         playerCheack = enemy.playerCheack;
     }
 
@@ -59,11 +59,11 @@ public class MoveState : IState
         {
             direction *= -1;
             flipTimer = 0f;
-            secRididBody.velocity = Vector2.zero;
+            enemyRididBody.velocity = Vector2.zero;
             return;
         }
         // Rigidbody2Dで移動
-        secRididBody.velocity = directionToNext.normalized * 5;
+        enemyRididBody.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.ScaledDeltaTime;
     }
 
     public void Exit()

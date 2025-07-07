@@ -24,12 +24,16 @@ public class PlayerViewMesh : MonoBehaviour
     LayerMask targetLm;
     List<Vector2> Items = new List<Vector2>();
 
+    private GameObject viewMeshs;
     private void Awake()
     {
+        // 空のゲームオブジェクトを生成
+        viewMeshs = new GameObject(gameObject.name + "ViewMehs");
+        viewMeshs.transform.position = Vector2.zero;
         for (int i = 0; i < rayValue; i++)
         {
             mesh.Add(new Mesh());
-            triangles.Add(Instantiate(triangle, Vector2.zero, Quaternion.identity));
+            triangles.Add(Instantiate(triangle, Vector2.zero, Quaternion.identity, viewMeshs.transform));
             triangles[i].GetComponent<MeshFilter>().mesh = mesh[i];
         }
     }

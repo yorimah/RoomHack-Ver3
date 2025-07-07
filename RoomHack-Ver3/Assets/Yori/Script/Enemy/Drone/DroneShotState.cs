@@ -78,7 +78,7 @@ public class DroneShotState : IState
             return;
         }
         // Rigidbody2Dで移動
-        enemyRigidBody2D.velocity = (directionToNext.normalized * enemy.moveSpeed) / 2;
+        enemyRigidBody2D.velocity = (directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.ScaledDeltaTime) / 2;
 
         playerCheack.RotationFoward(enemy.transform);
         // 発射レートを設定しその後、発射秒数を決定する。
@@ -87,7 +87,7 @@ public class DroneShotState : IState
             case ShotSection.aim:
 
                 enemyRigidBody2D.velocity = Vector2.zero;
-                timer += Time.deltaTime;
+                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (enemy.aimTime <= timer)
                 {
                     shotSection++;
@@ -99,7 +99,7 @@ public class DroneShotState : IState
                 shotSection++;
                 break;
             case ShotSection.shotInterval:
-                timer += Time.deltaTime;
+                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (shotIntevalTime <= timer)
                 {
                     timer = 0;

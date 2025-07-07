@@ -55,7 +55,7 @@ public class ShotState : IState
             case ShotSection.aim:
 
                 EnemyRigidBody2D.velocity = Vector2.zero;
-                timer += Time.deltaTime;
+                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (enemy.aimTime <= timer)
                 {
                     shotSection++;
@@ -74,7 +74,7 @@ public class ShotState : IState
                 shotSection++;
                 break;
             case ShotSection.shotInterval:
-                timer += Time.deltaTime;
+                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (shotIntevalTime <= timer)
                 {
                     timer = 0;

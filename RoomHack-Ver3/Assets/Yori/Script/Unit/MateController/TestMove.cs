@@ -10,7 +10,6 @@ public class TestMove : MonoBehaviour
 
     private Rigidbody2D playerRigidbody2D;
 
-
     private Vector3 mousePosition;
 
     [SerializeField, Header("ハッキングレイの始点")]
@@ -26,6 +25,12 @@ public class TestMove : MonoBehaviour
     [SerializeField, Header("マガジン容量")]
     private int MAXMAGAZINE;
     private int nowMagazine;
+
+    [SerializeField, Header("ハック描画カメラ")]
+    private GameObject hackCamera;
+
+    [SerializeField, Header("通常描画カメラ")]
+    private GameObject nomalCamera;
     private enum ShotMode
     {
         GunMode,
@@ -41,6 +46,8 @@ public class TestMove : MonoBehaviour
 
     public void Start()
     {
+        hackCamera.SetActive(false);
+        nomalCamera.SetActive(true);
         moveInput = new MoveInput();
 
         moveInput.Init();
@@ -52,12 +59,16 @@ public class TestMove : MonoBehaviour
     private float reloadTime = 2;
     public void Update()
     {
-        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), MOVESPEED);
+        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), MOVESPEED) * GameTimer.Instance.customTimeScale;
         PlayerRotation();
 
+
+        //  銃を撃つモードはタイムスケールは１、ハックモードは1/10
         switch (shotMode)
         {
             case ShotMode.GunMode:
+               
+                GameTimer.Instance.SetTimeScale(1);
                 if (Input.GetKey(KeyCode.Mouse0))
                 {
                     if (nowMagazine > 0)
@@ -73,12 +84,15 @@ public class TestMove : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    Debug.Log("切替" + shotMode);
+                    hackCamera.SetActive(true);
+                    nomalCamera.SetActive(false);
                     shotMode = ShotMode.HackMode;
+                    Debug.Log("切替" + shotMode);
                 }
 
                 break;
             case ShotMode.HackMode:
+                GameTimer.Instance.SetTimeScale(0.1f);
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     Hack();
@@ -86,8 +100,10 @@ public class TestMove : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    Debug.Log("切替" + shotMode);
+                    hackCamera.SetActive(false);
+                    nomalCamera.SetActive(true);
                     shotMode = ShotMode.GunMode;
+                    Debug.Log("切替" + shotMode);
                 }
                 break;
             case ShotMode.ReloadMode:
@@ -196,10 +212,9 @@ public class TestMove : MonoBehaviour
                 {
                     hackObject.Clack(breachPower);
                 }
-                Debug.Log("ハックできるオブジェクト : " + hit.collider.name+" にあたりました");
+                Debug.Log("ハックできるオブジェクト : " + hit.collider.name + " にあたりました");
             }
         }
-
     }
 
 #if UNITY_EDITOR
@@ -212,7 +227,7 @@ public class TestMove : MonoBehaviour
         if (UnitCore.Instance != null)
         {
             Handles.Label(transform.position + Vector3.up * 1f, "HP " + UnitCore.Instance.NowHP.ToString(), style);
-        }          
+        }
         Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
     }
 #endif
