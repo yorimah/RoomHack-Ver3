@@ -25,6 +25,12 @@ public class TestMove : MonoBehaviour
     [SerializeField, Header("マガジン容量")]
     private int MAXMAGAZINE;
     private int nowMagazine;
+
+    [SerializeField, Header("ハック描画カメラ")]
+    private GameObject hackCamera;
+
+    [SerializeField, Header("通常描画カメラ")]
+    private GameObject nomalCamera;
     private enum ShotMode
     {
         GunMode,
@@ -40,6 +46,8 @@ public class TestMove : MonoBehaviour
 
     public void Start()
     {
+        hackCamera.SetActive(false);
+        nomalCamera.SetActive(true);
         moveInput = new MoveInput();
 
         moveInput.Init();
@@ -54,9 +62,12 @@ public class TestMove : MonoBehaviour
         playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), MOVESPEED) * GameTimer.Instance.customTimeScale;
         PlayerRotation();
 
+
+        //  銃を撃つモードはタイムスケールは１、ハックモードは1/10
         switch (shotMode)
         {
             case ShotMode.GunMode:
+               
                 GameTimer.Instance.SetTimeScale(1);
                 if (Input.GetKey(KeyCode.Mouse0))
                 {
@@ -73,6 +84,8 @@ public class TestMove : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
+                    hackCamera.SetActive(true);
+                    nomalCamera.SetActive(false);
                     shotMode = ShotMode.HackMode;
                     Debug.Log("切替" + shotMode);
                 }
@@ -87,6 +100,8 @@ public class TestMove : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
+                    hackCamera.SetActive(false);
+                    nomalCamera.SetActive(true);
                     shotMode = ShotMode.GunMode;
                     Debug.Log("切替" + shotMode);
                 }
