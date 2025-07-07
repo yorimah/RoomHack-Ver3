@@ -1,7 +1,20 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-public class Enemy : MonoBehaviour, IDamegeable
+public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 {
+    // ハック関連
+    public int secLevele { set; get; }
+
+    public bool clacked { get; set; }
+
+    public float MaxFireWall { get; set; }
+    public float NowFireWall { get; set; }
+
+    public float FireWallCapacity { get; set; }
+
+    public float FireWallRecovaryNum { get; set; }
+
+    // ダメージ関連
     public float MAXHP { get; set; } = 5;
     public float NowHP { get; set; }
     public int HitDamegeLayer { get; set; } = 2;
@@ -17,8 +30,8 @@ public class Enemy : MonoBehaviour, IDamegeable
     [SerializeField, Header("GunData")]
     public GunData gundata;
 
-    [SerializeField,Header("HP")]
-    private float  MaxHP;
+    [SerializeField, Header("HP")]
+    private float MaxHP;
     public PlayerCheack playerCheack;
 
     [HideInInspector]
@@ -38,6 +51,7 @@ public class Enemy : MonoBehaviour, IDamegeable
         Shot,
         Reload,
         Die,
+        Clack,
         num
     }
 
@@ -75,5 +89,14 @@ public class Enemy : MonoBehaviour, IDamegeable
     public void Die()
     {
         ChangeState(StateType.Die);
+    }
+
+    public void CapacityOver()
+    {
+        ChangeState(StateType.Clack);
+    }
+    public void FireWallRecavary()
+    {
+
     }
 }

@@ -15,6 +15,7 @@ public class SecurityGuard : Enemy
         { StateType.Move, new MoveState(this) },
         { StateType.Shot, new ShotState(this) },
         { StateType.Reload, new ReloadState(this) },
+        //{ StateType.Clack, new SecurtyGuradClackState(this) },
         { StateType.Die, new DieState(this) },
     };
         statetype = StateType.Idle;
