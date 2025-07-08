@@ -67,14 +67,11 @@ public class TestMove : MonoBehaviour
         switch (shotMode)
         {
             case ShotMode.GunMode:
-               
+
                 GameTimer.Instance.SetTimeScale(1);
-                if (Input.GetKey(KeyCode.Mouse0))
+                if (nowMagazine > 0)
                 {
-                    if (nowMagazine > 0)
-                    {
-                        Shot();
-                    }
+                    Shot();
                 }
                 if (Input.GetKeyDown(KeyCode.R))
                 {
@@ -180,12 +177,14 @@ public class TestMove : MonoBehaviour
         switch (shotSection)
         {
             case ShotSection.shot:
-                GunFire();
-                nowMagazine--;
-                shotSection++;
+                if (Input.GetKey(KeyCode.Mouse0))
+                {
+                    GunFire();
+                    shotSection++;
+                    nowMagazine--;
+                }
                 break;
             case ShotSection.shotInterval:
-
                 timer += Time.deltaTime;
                 if (shotIntevalTime <= timer)
                 {
