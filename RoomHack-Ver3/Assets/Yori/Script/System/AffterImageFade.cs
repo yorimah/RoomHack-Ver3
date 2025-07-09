@@ -3,11 +3,13 @@
 public class AffterImageFade : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
-    Color fadeColor = new Color(0, 0, 0, 0.8f);
+    private float fadeColorAlpha = 0.7f;
+    Color fadeColor = new Color(0, 0, 0, 0);
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        fadeColor.a = fadeColorAlpha;
     }
 
     // Update is called once per frame

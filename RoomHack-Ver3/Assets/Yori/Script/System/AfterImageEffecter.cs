@@ -1,18 +1,13 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AfterImageEffecter : MonoBehaviour
 {
     private Sprite affterImageSprite;
     private SpriteRenderer affterImageSpriteRender;
     private Color initColor;
-
-
     private float timer = 0;
     private float generateEffectTime = 0.2f;
-
     private GameObject affterImageObject;
-
 
     void Start()
     {
@@ -20,15 +15,18 @@ public class AfterImageEffecter : MonoBehaviour
         initColor = this.GetComponent<SpriteRenderer>().color;
         initColor.a = 0.5f;
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (GameTimer.Instance.customTimeScale < 1)
         {
-            timer += GameTimer.Instance.ScaledDeltaTime;
             if (timer >= generateEffectTime)
             {
                 GenerateAffterImage();
+            }
+            else
+            {
+                timer += GameTimer.Instance.ScaledDeltaTime;
             }
         }
     }

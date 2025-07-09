@@ -71,7 +71,6 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     void Update()
     {
         currentState?.Execute();
-        Debug.Log(gameObject.name + "は" + currentState.ToString() + "を実行中");
     }
 
     public void ChangeState(StateType type)
