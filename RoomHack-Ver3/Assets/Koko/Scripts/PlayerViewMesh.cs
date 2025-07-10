@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 public class PlayerViewMesh : MonoBehaviour
 {
@@ -29,11 +28,12 @@ public class PlayerViewMesh : MonoBehaviour
     {
         // 空のゲームオブジェクトを生成
         viewMeshs = new GameObject(gameObject.name + "ViewMehs");
-        viewMeshs.transform.position = Vector2.zero;
-        for (int i = 0; i < rayValue; i++)
+        viewMeshs.transform.parent = this.transform;
+        for (int i = 0; i < rayValue - 1; i++)
         {
             mesh.Add(new Mesh());
-            triangles.Add(Instantiate(triangle, Vector2.zero, Quaternion.identity, viewMeshs.transform));
+            triangles.Add(Instantiate(triangle, viewMeshs.transform));
+            triangles[i].transform.localPosition = Vector3.zero;
             triangles[i].GetComponent<MeshFilter>().mesh = mesh[i];
         }
     }
@@ -45,15 +45,19 @@ public class PlayerViewMesh : MonoBehaviour
 
     public void GeneradeTriangle(Vector3 _playerOrigin, Vector3 _hitPointFirst, Vector3 _hitpointSecond, int index)
     {
-        Vector3[] vertices = new Vector3[] {
-            _playerOrigin,
-            _hitPointFirst,
-            _hitpointSecond
+        // 親オブジェクトのローカル空間に変換
+        Transform t = triangles[index].transform;
+        Vector3[] vertices = new Vector3[]
+        {
+        t.InverseTransformPoint(_playerOrigin),
+        t.InverseTransformPoint(_hitPointFirst),
+        t.InverseTransformPoint(_hitpointSecond)
         };
-        int[] triangles = new int[] { 0, 1, 2 };
 
+        int[] trianglesIndex = new int[] { 0, 1, 2 };
+        mesh[index].Clear();
         mesh[index].vertices = vertices;
-        mesh[index].triangles = triangles;
+        mesh[index].triangles = trianglesIndex;
         mesh[index].RecalculateNormals();
     }
 
@@ -62,8 +66,6 @@ public class PlayerViewMesh : MonoBehaviour
         Vector3 startPos = this.transform.position;
         float partRot = rayRot / (rayValue - 1);
         float nowRot = rayOffset;
-
-        Profiler.BeginSample("ray");
         for (int i = 0; i < rayValue; i++)
         {
             Vector3 rayPos = new Vector3(rayLen * Mathf.Cos(nowRot * Mathf.Deg2Rad), rayLen * Mathf.Sin(nowRot * Mathf.Deg2Rad), 0);
@@ -76,15 +78,10 @@ public class PlayerViewMesh : MonoBehaviour
             }
             nowRot += partRot;
         }
-        Profiler.EndSample();
-
-        Profiler.BeginSample("generade");
-        for (int i = 1; i < Items.Count ; i++)
+        for (int i = 1; i < Items.Count; i++)
         {
-            GeneradeTriangle(Items[i-1], startPos, Items[i], i - 1);
+            GeneradeTriangle(Items[i - 1], startPos, Items[i], i - 1);
         }
-        Profiler.EndSample();
-
         Items.Clear();
     }
 }
