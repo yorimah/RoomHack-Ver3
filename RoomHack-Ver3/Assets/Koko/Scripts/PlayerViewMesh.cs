@@ -68,13 +68,18 @@ public class PlayerViewMesh : MonoBehaviour
         float nowRot = rayOffset;
         for (int i = 0; i < rayValue; i++)
         {
-            Vector3 rayPos = new Vector3(rayLen * Mathf.Cos(nowRot * Mathf.Deg2Rad), rayLen * Mathf.Sin(nowRot * Mathf.Deg2Rad), 0);
-            RaycastHit2D result = Physics2D.Linecast(startPos, startPos + rayPos, targetLm);
+            Vector3 rayDir = new Vector3(rayLen * Mathf.Cos(nowRot * Mathf.Deg2Rad), rayLen * Mathf.Sin(nowRot * Mathf.Deg2Rad), 0);
+            Vector3 rayEnd = startPos + rayDir * rayLen;
+            RaycastHit2D result = Physics2D.Linecast(startPos, rayEnd, targetLm);
             //Debug.DrawLine(startPos, startPos + rayPos, color: Color.red);
 
             if (result.collider != null)
             {
                 Items.Add(result.point);
+            }
+            else
+            {
+                Items.Add(rayEnd);
             }
             nowRot += partRot;
         }
