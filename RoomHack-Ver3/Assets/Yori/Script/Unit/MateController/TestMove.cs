@@ -54,6 +54,8 @@ public class TestMove : MonoBehaviour
 
         playerRigidbody2D = this.GetComponent<Rigidbody2D>();
 
+
+
         nowMagazine = MAXMAGAZINE;
     }
     private float reloadTime = 2;
@@ -90,11 +92,13 @@ public class TestMove : MonoBehaviour
                 break;
             case ShotMode.HackMode:
                 GameTimer.Instance.SetTimeScale(0.1f);
+
+
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     Hack();
                 }
-
+                
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
                     hackCamera.SetActive(false);
@@ -198,10 +202,8 @@ public class TestMove : MonoBehaviour
     }
     private void Hack()
     {
-        Vector2 origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         // 下方向にレイを飛ばす（距離10）
-        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector2.down, 10f);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.transform.position, Vector2.down, 10f);
 
         foreach (RaycastHit2D hit in hits)
         {

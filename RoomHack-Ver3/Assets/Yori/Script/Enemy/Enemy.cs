@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 {
     // ハック関連
@@ -55,7 +58,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         num
     }
 
-    public void Start()
+    public void Awake()
     {
         MAXHP = MaxHP;
         NowHP = MAXHP;
@@ -98,4 +101,20 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     {
 
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = Color.white;
+        style.fontSize = 14;
+        Handles.Label(transform.position + Vector3.up * 1f, "HP " + NowHP.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
+        if (currentState != null)
+        {
+            Handles.Label(transform.position + Vector3.up * 2f, "実行ステート " + currentState.ToString(), style);
+        }
+
+    }
+#endif
 }

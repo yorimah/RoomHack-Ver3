@@ -17,10 +17,10 @@ public class ReloadState : IState
 
     public void Execute()
     {
-        timer += Time.deltaTime;
+        timer += GameTimer.Instance.ScaledDeltaTime;
         if (timer >= 1)
         {
-            enemy.ChangeState(SecurityGuard.StateType.Shot);
+            enemy.ChangeState(Enemy.StateType.Idle);
             timer = 0;
         }
     }

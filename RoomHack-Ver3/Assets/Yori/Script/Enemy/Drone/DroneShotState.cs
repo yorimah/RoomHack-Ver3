@@ -46,7 +46,6 @@ public class DroneShotState : IState
 
     public void Execute()
     {
-        Debug.Log(shotSection);
         if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
         {
             enemy.ChangeState(Enemy.StateType.Move);
@@ -78,7 +77,7 @@ public class DroneShotState : IState
             return;
         }
         // Rigidbody2Dで移動
-        enemyRigidBody2D.velocity = (directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.ScaledDeltaTime) / 2;
+        enemyRigidBody2D.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale / 2;
 
         playerCheack.RotationFoward(enemy.transform);
         // 発射レートを設定しその後、発射秒数を決定する。

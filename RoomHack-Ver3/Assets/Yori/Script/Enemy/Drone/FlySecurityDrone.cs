@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlySecurityDrone : Enemy
 {
-    void Awake()
+    void Start()
     {
         playerCheack = new PlayerCheack();
 
@@ -16,6 +16,7 @@ public class FlySecurityDrone : Enemy
         { StateType.Move, new DroneMoveState(this) },
         { StateType.Shot, new DroneShotState(this) },
         { StateType.Reload, new ReloadState(this) },
+        { StateType.Clack, new DroneClackState(this) },
         { StateType.Die, new DieState(this) },
     };
         statetype = StateType.Idle;

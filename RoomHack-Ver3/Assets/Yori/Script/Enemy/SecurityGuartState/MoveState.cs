@@ -63,7 +63,7 @@ public class MoveState : IState
             return;
         }
         // Rigidbody2Dで移動
-        enemyRididBody.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.ScaledDeltaTime;
+        enemyRididBody.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
     }
 
     public void Exit()

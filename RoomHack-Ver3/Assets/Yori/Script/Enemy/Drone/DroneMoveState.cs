@@ -12,6 +12,7 @@ public class DroneMoveState : IState
     private int direction = 1;
     private float moveDire;
     private Rigidbody2D enemyRigidBody2D;
+
     public DroneMoveState(Enemy _enemy)
     {
         enemy = _enemy;
@@ -60,7 +61,7 @@ public class DroneMoveState : IState
             return;
         }
         // Rigidbody2Dで移動
-        enemyRigidBody2D.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.ScaledDeltaTime;
+        enemyRigidBody2D.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
     }
 
     public void Exit()

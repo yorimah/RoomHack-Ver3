@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SecurityGuard : Enemy
 {
-    void Awake()
+    void Start()
     {
         playerCheack = new PlayerCheack();
 

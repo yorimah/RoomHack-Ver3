@@ -71,7 +71,6 @@ public class PlayerViewMesh : MonoBehaviour
             Vector3 rayDir = new Vector3(rayLen * Mathf.Cos(nowRot * Mathf.Deg2Rad), rayLen * Mathf.Sin(nowRot * Mathf.Deg2Rad), 0);
             Vector3 rayEnd = startPos + rayDir * rayLen;
             RaycastHit2D result = Physics2D.Linecast(startPos, rayEnd, targetLm);
-            //Debug.DrawLine(startPos, startPos + rayPos, color: Color.red);
 
             if (result.collider != null)
             {
