@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayStartTransform: {fileID: 24237157}
   rayDirecition: 10
-  MOVESPEED: 3
+  moveSpeed: 5
   MAXMAGAZINE: 12
   hackCamera: {fileID: 1466058118}
   nomalCamera: {fileID: 1466058119}

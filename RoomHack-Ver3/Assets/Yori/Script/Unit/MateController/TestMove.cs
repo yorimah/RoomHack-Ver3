@@ -2,6 +2,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using UnityEngine.SceneManagement;
 public class TestMove : MonoBehaviour
 {
     private MoveInput moveInput;
@@ -21,7 +22,7 @@ public class TestMove : MonoBehaviour
     private Vector3 direction;
 
     [SerializeField, Header("プレイヤースピード")]
-    private float MOVESPEED = 10;
+    private float moveSpeed = 5;
     [SerializeField, Header("マガジン容量")]
     private int MAXMAGAZINE;
     private int nowMagazine;
@@ -43,27 +44,37 @@ public class TestMove : MonoBehaviour
     // ハッキングステータス
     [SerializeField, Header("ぶりーちぱわー")]
     private float breachPower;
+    SaveManager saveManager;
 
+    PlayerSaveData data;
     public void Start()
     {
         hackCamera.SetActive(false);
         nomalCamera.SetActive(true);
-        moveInput = new MoveInput();
+        moveInput = new();
+        
+        saveManager = new();
 
         moveInput.Init();
 
         playerRigidbody2D = this.GetComponent<Rigidbody2D>();
 
+        data = saveManager.Load();
 
+        moveSpeed += data.plusMoveSpeed;
+        breachPower += data.plusBreachPower;
 
         nowMagazine = MAXMAGAZINE;
     }
     private float reloadTime = 2;
     public void Update()
     {
-        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), MOVESPEED) * GameTimer.Instance.customTimeScale;
+        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed) * GameTimer.Instance.customTimeScale;
         PlayerRotation();
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("UpgradeTest");
+        }
 
         //  銃を撃つモードはタイムスケールは１、ハックモードは1/10
         switch (shotMode)
@@ -229,7 +240,10 @@ public class TestMove : MonoBehaviour
         {
             Handles.Label(transform.position + Vector3.up * 1f, "HP " + UnitCore.Instance.NowHP.ToString(), style);
         }
+
         Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 2.0f, "ブリ―チパワー " + breachPower.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 2.5f, "移動速度" + moveSpeed.ToString(), style);
     }
 #endif
 

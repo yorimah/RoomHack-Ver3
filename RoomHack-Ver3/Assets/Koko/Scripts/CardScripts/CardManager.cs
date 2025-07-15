@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CardManager : MonoBehaviour
 {
     public List<GameObject> cardList = new List<GameObject>();
+
+    public SaveManager saveManager;
 
     [SerializeField]
     CardType nowCard;
@@ -18,9 +19,17 @@ public class CardManager : MonoBehaviour
     float timer;
     [SerializeField]
     float changeTime = 1;
-
+    PlayerSaveData data;
     private void Start()
     {
+        saveManager = new();
+
+        data = saveManager.Load();
+
+        // 反映
+        Debug.Log($"現在ステージ: {data.stage}, 攻撃力+: {data.plusBreachPower}");
+
+
         float x = -5;
 
         for (int i = 0; i < 3; i++)
@@ -59,33 +68,35 @@ public class CardManager : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         Debug.Log("カードゲットだお : " + nowCard.card);
+                        data.stage++;
 
                         // 効果適用
                         if (nowCard.card == CardType.Card.BP)
                         {
-
+                            data.plusBreachPower += 2;
                         }
 
                         if (nowCard.card == CardType.Card.MH)
                         {
-
+                            data.pulusMaxHitpoint += 20;
                         }
 
                         if (nowCard.card == CardType.Card.MS)
                         {
-
+                            data.plusMoveSpeed += 0.5f;
                         }
 
                         if (nowCard.card == CardType.Card.RC)
                         {
-
+                            data.plusRamCapacity += 1;
                         }
 
                         if (nowCard.card == CardType.Card.RR)
                         {
-
+                            data.plusRamRecovery += 0.2f;
                         }
-
+                        // 保存
+                        saveManager.Save(data);
                         nextSceneFrag = true;
                     }
                 }
