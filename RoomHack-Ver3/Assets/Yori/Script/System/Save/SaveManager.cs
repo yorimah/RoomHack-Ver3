@@ -2,8 +2,26 @@
 using UnityEngine;
 
 public class SaveManager 
-{ 
-    private string SaveFilePath => Path.Combine(Application.persistentDataPath, "player_save.json");
+{
+    public static string GetSavePath(string fileName)
+    {
+#if UNITY_EDITOR
+        string editorFolder = Path.Combine(Application.dataPath, "EditorSaves");
+        if (!Directory.Exists(editorFolder))
+        {
+            Directory.CreateDirectory(editorFolder);
+        }
+        return Path.Combine(editorFolder, fileName);
+#else
+        string runtimeFolder = Application.persistentDataPath;
+        if (!Directory.Exists(runtimeFolder))
+        {
+            Directory.CreateDirectory(runtimeFolder);
+        }
+        return Path.Combine(runtimeFolder, fileName);
+#endif
+    }
+    private string SaveFilePath => GetSavePath("player_save.json");
 
     public void Save(PlayerSaveData data)
     {
