@@ -128,7 +128,9 @@ public class TestMove : MonoBehaviour
                 }
                 break;
             case ShotMode.ReloadMode:
-                timer += Time.deltaTime;
+                playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed) * GameTimer.Instance.customTimeScale;
+
+                timer += GameTimer.Instance.customTimeScale;
                 if (reloadTime <= timer)
                 {
                     Reload();
