@@ -3,6 +3,7 @@
 using UnityEditor;
 #endif
 using UnityEngine.SceneManagement;
+using Cinemachine;
 public class TestMove : MonoBehaviour
 {
     private MoveInput moveInput;
@@ -29,9 +30,14 @@ public class TestMove : MonoBehaviour
 
     [SerializeField, Header("ハック描画カメラ")]
     private GameObject hackCamera;
+    private Rigidbody2D vCameraRB;
 
     [SerializeField, Header("通常描画カメラ")]
     private GameObject nomalCamera;
+
+    [SerializeField, Header("VCamera")]
+    private GameObject vCameraObj;
+    private CinemachineVirtualCamera vCameraCM;
     private enum ShotMode
     {
         GunMode,
@@ -52,13 +58,15 @@ public class TestMove : MonoBehaviour
         hackCamera.SetActive(false);
         nomalCamera.SetActive(true);
         moveInput = new();
-        
+
         saveManager = new();
 
         moveInput.Init();
 
         playerRigidbody2D = this.GetComponent<Rigidbody2D>();
 
+        vCameraRB = vCameraObj.GetComponent<Rigidbody2D>();
+        vCameraCM = vCameraObj.GetComponent<CinemachineVirtualCamera>();
         data = saveManager.Load();
 
         moveSpeed += data.plusMoveSpeed;
@@ -69,7 +77,6 @@ public class TestMove : MonoBehaviour
     private float reloadTime = 2;
     public void Update()
     {
-        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed) * GameTimer.Instance.customTimeScale;
         PlayerRotation();
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -80,8 +87,8 @@ public class TestMove : MonoBehaviour
         switch (shotMode)
         {
             case ShotMode.GunMode:
+                playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed) * GameTimer.Instance.customTimeScale;
 
-                GameTimer.Instance.SetTimeScale(1);
                 if (nowMagazine > 0)
                 {
                     Shot();
@@ -94,27 +101,29 @@ public class TestMove : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
+                    GameTimer.Instance.SetTimeScale(0.1f);
                     hackCamera.SetActive(true);
                     nomalCamera.SetActive(false);
                     shotMode = ShotMode.HackMode;
+                    vCameraCM.Follow = null;
                     Debug.Log("切替" + shotMode);
                 }
 
                 break;
             case ShotMode.HackMode:
-                GameTimer.Instance.SetTimeScale(0.1f);
+                playerRigidbody2D.velocity *= 0.95f;
 
+                vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
 
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    Hack();
-                }
+                Hack();
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
                     hackCamera.SetActive(false);
                     nomalCamera.SetActive(true);
                     shotMode = ShotMode.GunMode;
+                    vCameraCM.Follow = this.gameObject.transform;
+                    GameTimer.Instance.SetTimeScale(1);
                     Debug.Log("切替" + shotMode);
                 }
                 break;
@@ -224,7 +233,6 @@ public class TestMove : MonoBehaviour
                 {
                     hackObject.Clack(breachPower);
                 }
-                Debug.Log("ハックできるオブジェクト : " + hit.collider.name + " にあたりました");
             }
         }
     }
