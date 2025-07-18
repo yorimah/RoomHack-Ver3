@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverSceneManager : MonoBehaviour
 {
@@ -17,8 +18,19 @@ public class GameOverSceneManager : MonoBehaviour
 
     float moveValue;
 
+    SaveManager saveManager;
+    PlayerSaveData data;
+
     private void Start()
     {
+        // セーブデータ読み込み
+        saveManager = new SaveManager();
+        data = saveManager.Load();
+
+        GameOverText[2].GetComponent<Text>().text = "stage : " + data.score_Stage;
+        GameOverText[3].GetComponent<Text>().text = "destroy : " + data.score_DestoryEnemy;
+
+        // コルーチン起動
         GameOverSequence().Forget();
     }
 
@@ -43,6 +55,7 @@ public class GameOverSceneManager : MonoBehaviour
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
         GameOverText[2].SetActive(true);
         GameOverText[3].SetActive(true);
+
     }
 
     private void Update()
