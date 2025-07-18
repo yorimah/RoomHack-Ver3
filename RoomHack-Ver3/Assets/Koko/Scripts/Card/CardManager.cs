@@ -27,7 +27,6 @@ public class CardManager : MonoBehaviour
         data = saveManager.Load();
 
         // 反映
-        Debug.Log($"現在ステージ: {data.stage}, 攻撃力+: {data.plusBreachPower}");
 
 
         float x = -5;
@@ -68,7 +67,7 @@ public class CardManager : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         Debug.Log("カードゲットだお : " + nowCard.card);
-                        data.stage++;
+                        data.score_Stage++;
 
                         // 効果適用
                         if (nowCard.card == CardType.Card.BP)

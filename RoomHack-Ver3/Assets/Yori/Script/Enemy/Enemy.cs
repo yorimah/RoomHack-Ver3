@@ -99,7 +99,8 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     }
     public void FireWallRecavary()
     {
-
+        NowFireWall++;
+        
     }
 
 #if UNITY_EDITOR
