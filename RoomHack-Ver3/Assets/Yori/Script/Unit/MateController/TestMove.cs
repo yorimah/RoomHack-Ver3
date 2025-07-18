@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-#if UNITY_EDITOR
+﻿#if UNITY_EDITOR
 using UnityEditor;
 #endif
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+
 public class TestMove : MonoBehaviour
 {
     private MoveInput moveInput;
@@ -77,7 +78,7 @@ public class TestMove : MonoBehaviour
     private float reloadTime = 2;
     public void Update()
     {
-        PlayerRotation();
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene("UpgradeTest");
@@ -87,6 +88,7 @@ public class TestMove : MonoBehaviour
         switch (shotMode)
         {
             case ShotMode.GunMode:
+                PlayerRotation();
                 playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed) * GameTimer.Instance.customTimeScale;
 
                 if (nowMagazine > 0)
@@ -111,7 +113,7 @@ public class TestMove : MonoBehaviour
 
                 break;
             case ShotMode.HackMode:
-                playerRigidbody2D.velocity *= 0.95f;
+                playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale; 
 
                 vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
 
@@ -128,7 +130,10 @@ public class TestMove : MonoBehaviour
                 }
                 break;
             case ShotMode.ReloadMode:
-                timer += Time.deltaTime;
+                PlayerRotation();
+                playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed) * GameTimer.Instance.customTimeScale;
+
+                timer += GameTimer.Instance.customTimeScale;
                 if (reloadTime <= timer)
                 {
                     Reload();
