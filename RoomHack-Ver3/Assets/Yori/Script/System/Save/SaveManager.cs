@@ -1,45 +1,40 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json;
+using System.IO;
 using UnityEngine;
 
-public class SaveManager 
+public class SaveManager
 {
-    public static string GetSavePath(string fileName)
-    {
-#if UNITY_EDITOR
-        string editorFolder = Path.Combine(Application.dataPath, "EditorSaves");
-        if (!Directory.Exists(editorFolder))
-        {
-            Directory.CreateDirectory(editorFolder);
-        }
-        return Path.Combine(editorFolder, fileName);
-#else
-        string runtimeFolder = Application.persistentDataPath;
-        if (!Directory.Exists(runtimeFolder))
-        {
-            Directory.CreateDirectory(runtimeFolder);
-        }
-        return Path.Combine(runtimeFolder, fileName);
-#endif
-    }
-    private string SaveFilePath => GetSavePath("player_save.json");
+    private static SaveManager _instance;
+    public static SaveManager Instance => _instance ??= new SaveManager();
+
+    private string SaveFilePath => SavePathProvider.GetSavePath("player_save.json");
 
     public void Save(PlayerSaveData data)
     {
-        string json = JsonUtility.ToJson(data, true); // trueで整形出力
+        if (data == null)
+        {
+            Debug.LogError("保存しようとしているデータが null です！");
+            return;
+        }
+
+        var json = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(SaveFilePath, json);
-        Debug.Log("保存成功：" + SaveFilePath);
+        Debug.Log("保存完了：" + SaveFilePath + "\n内容:\n" + json);
     }
 
     public PlayerSaveData Load()
     {
         if (!File.Exists(SaveFilePath))
         {
-            Debug.Log("セーブファイルが見つかりません。新規作成。");
-            return new PlayerSaveData(); // 新規データ
+            Debug.Log("新規データを作成します。");
+            PlayerSaveData newsave = InitializeSaveData();
+            Save(newsave);
+            return newsave;
         }
+        Debug.Log("ロードちゅー");
+        var json = File.ReadAllText(SaveFilePath);
+        return JsonConvert.DeserializeObject<PlayerSaveData>(json);
 
-        string json = File.ReadAllText(SaveFilePath);
-        return JsonUtility.FromJson<PlayerSaveData>(json);
     }
 
     public void DeleteSave()
@@ -47,7 +42,21 @@ public class SaveManager
         if (File.Exists(SaveFilePath))
         {
             File.Delete(SaveFilePath);
-            Debug.Log("セーブファイルを削除しました。");
+            Debug.Log("セーブデータを削除しました。");
         }
+    }
+
+    private PlayerSaveData InitializeSaveData()
+    {
+        return new PlayerSaveData
+        {
+            score_Stage = 0,
+            score_DestoryEnemy = 0,
+            plusBreachPower = 0,
+            pulusMaxHitpoint = 0,
+            plusMoveSpeed = 0,
+            plusRamCapacity = 0,
+            plusRamRecovery = 0
+        };
     }
 }

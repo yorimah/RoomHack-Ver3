@@ -6,8 +6,6 @@ public class CardManager : MonoBehaviour
 {
     public List<GameObject> cardList = new List<GameObject>();
 
-    public SaveManager saveManager;
-
     [SerializeField]
     CardType nowCard;
 
@@ -22,9 +20,8 @@ public class CardManager : MonoBehaviour
     PlayerSaveData data;
     private void Start()
     {
-        saveManager = new();
 
-        data = saveManager.Load();
+        data = SaveManager.Instance.Load();
 
         // 反映
 
@@ -95,7 +92,7 @@ public class CardManager : MonoBehaviour
                             data.plusRamRecovery += 0.2f;
                         }
                         // 保存
-                        saveManager.Save(data);
+                        SaveManager.Instance.Save(data);
                         nextSceneFrag = true;
                     }
                 }

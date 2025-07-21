@@ -52,15 +52,17 @@ public class TestMove : MonoBehaviour
     [SerializeField, Header("ぶりーちぱわー")]
     private float breachPower;
 
-    private SaveManager saveManager;
     PlayerSaveData data;
+    public void Awake()
+    {
+    }
     public void Start()
     {
         hackCamera.SetActive(false);
         nomalCamera.SetActive(true);
         moveInput = new();
 
-        saveManager = new();
+        
 
         moveInput.Init();
 
@@ -68,7 +70,7 @@ public class TestMove : MonoBehaviour
 
         vCameraRB = vCameraObj.GetComponent<Rigidbody2D>();
         vCameraCM = vCameraObj.GetComponent<CinemachineVirtualCamera>();
-        data = saveManager.Load();
+        data = SaveManager.Instance.Load();
 
         moveSpeed += data.plusMoveSpeed;
         breachPower += data.plusBreachPower;
@@ -262,9 +264,5 @@ public class TestMove : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("死");
-        saveManager.Save(data);
-        SceneManager.LoadScene("GameOverDemoScene");
-        Destroy(gameObject);
     }
 }

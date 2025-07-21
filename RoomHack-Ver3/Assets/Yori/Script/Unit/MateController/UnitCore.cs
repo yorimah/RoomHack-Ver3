@@ -15,7 +15,6 @@ public class UnitCore : MonoBehaviour, IDamegeable
     PlayerSaveData data;
     void Awake()
     {
-        saveManager = new();
         // Singletonチェック
         if (Instance != null && Instance != this)
         {
@@ -40,8 +39,6 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
     public void Die()
     {
-        saveManager.Save(data);
         SceneManager.LoadScene("GameOverDemoScene");
-        Destroy(gameObject);
     }
 }

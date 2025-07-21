@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GameOverSceneManager : MonoBehaviour
 {
-    float timer = 0;
 
     [SerializeField]
     RectTransform redScreen_Up;
@@ -18,22 +17,21 @@ public class GameOverSceneManager : MonoBehaviour
 
     float moveValue;
 
-    SaveManager saveManager;
     PlayerSaveData data;
 
     private void Start()
     {
         // セーブデータ読み込み
-        saveManager = new SaveManager();
-        data = saveManager.Load();
+        data = SaveManager.Instance.Load();
 
         GameOverText[2].GetComponent<Text>().text = "stage : " + data.score_Stage;
         GameOverText[3].GetComponent<Text>().text = "destroy : " + data.score_DestoryEnemy;
 
         // コルーチン起動
+
+        // 遷移完了してからGameOverSequenceを呼ぶ
         GameOverSequence().Forget();
     }
-
     async UniTask GameOverSequence()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(1));
@@ -55,6 +53,7 @@ public class GameOverSceneManager : MonoBehaviour
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
         GameOverText[2].SetActive(true);
         GameOverText[3].SetActive(true);
+
 
     }
 
@@ -85,6 +84,4 @@ public class GameOverSceneManager : MonoBehaviour
         //    GameOverText[2].SetActive(true);
         //}
     }
-
-
 }
