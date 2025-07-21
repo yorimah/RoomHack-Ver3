@@ -47,6 +47,8 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     public int shotRate;
     [HideInInspector]
     public float bulletSpeed;
+    [HideInInspector]
+    public int stoppingPower;
     public enum StateType
     {
         Idle,
@@ -66,6 +68,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         MaxMagazine = gundata.MaxMagazine;
         nowMagazine = MaxMagazine;
         bulletSpeed = gundata.bulletSpeed;
+        stoppingPower = gundata.power;
     }
 
     public StateType statetype;

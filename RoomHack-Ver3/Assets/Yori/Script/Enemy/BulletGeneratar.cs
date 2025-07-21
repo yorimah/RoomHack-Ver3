@@ -5,7 +5,7 @@ public class BulletGeneratar : MonoBehaviour
     [SerializeField, Header("撃つ弾のプレハブ")]
     private GameObject bulletPrefab;
 
-    public void GunFire(float bulletSpeed,int hitLayer)
+    public void GunFire(float bulletSpeed,int hitLayer,int power)
     {
         GameObject bulletGameObject = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
@@ -17,6 +17,7 @@ public class BulletGeneratar : MonoBehaviour
 
         bulletCore.HitDamegeLayer = hitLayer;
         bulletCore.hitStop = 0.1f;
+        bulletCore.power = power;
         bulletRigit.velocity = shotDirection * bulletSpeed;
         bulletGameObject.transform.up = shotDirection;
     }

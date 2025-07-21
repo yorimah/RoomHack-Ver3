@@ -2,6 +2,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using UnityEngine.SceneManagement;
 public class UnitCore : MonoBehaviour, IDamegeable
 {
     public float MAXHP { get; set; }
@@ -10,8 +11,11 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
     public static UnitCore Instance { get; private set; }
 
+    SaveManager saveManager;
+    PlayerSaveData data;
     void Awake()
     {
+        saveManager = new();
         // Singletonチェック
         if (Instance != null && Instance != this)
         {
@@ -31,11 +35,13 @@ public class UnitCore : MonoBehaviour, IDamegeable
     // Update is called once per frame
     void Update()
     {
+
     }
 
     public void Die()
     {
+        saveManager.Save(data);
+        SceneManager.LoadScene("GameOverDemoScene");
         Destroy(gameObject);
-        Instance = null;
     }
 }

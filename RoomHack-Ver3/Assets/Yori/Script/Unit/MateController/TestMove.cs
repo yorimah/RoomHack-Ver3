@@ -51,8 +51,8 @@ public class TestMove : MonoBehaviour
     // ハッキングステータス
     [SerializeField, Header("ぶりーちぱわー")]
     private float breachPower;
-    SaveManager saveManager;
 
+    private SaveManager saveManager;
     PlayerSaveData data;
     public void Start()
     {
@@ -262,6 +262,9 @@ public class TestMove : MonoBehaviour
 
     public void Die()
     {
+        Debug.Log("死");
+        saveManager.Save(data);
+        SceneManager.LoadScene("GameOverDemoScene");
         Destroy(gameObject);
     }
 }

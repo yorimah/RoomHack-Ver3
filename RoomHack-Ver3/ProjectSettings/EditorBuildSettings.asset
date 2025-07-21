@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Yori/Scenes/Test/UpgradeTest.unity
     guid: 5c7164800dbdc8c4fa2490945f7dd403
+  - enabled: 1
+    path: Assets/Koko/Scenes/GameOverDemoScene.unity
+    guid: 3291f3e674e41aa4a9c1ae753294b92c
   m_configObjects: {}

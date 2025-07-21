@@ -94,7 +94,7 @@ public class DroneShotState : IState
                 }
                 break;
             case ShotSection.shot:
-                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer);
+                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer,enemy.stoppingPower);
                 shotSection++;
                 break;
             case ShotSection.shotInterval:
