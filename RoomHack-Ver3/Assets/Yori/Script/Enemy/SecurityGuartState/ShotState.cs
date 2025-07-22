@@ -68,7 +68,7 @@ public class ShotState : IState
                     enemy.ChangeState(Enemy.StateType.Reload);
                     return;
                 }
-                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer);
+                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer,enemy.stoppingPower);
                 enemy.nowMagazine--;
                 shotNum++;
                 shotSection++;

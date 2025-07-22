@@ -1,6 +1,7 @@
 ﻿public class DieState : IState
 {
     private Enemy enemy;
+    PlayerSaveData data;
     public DieState(Enemy _enemy)
     {
         enemy = _enemy;
@@ -16,5 +17,6 @@
 
     public void Exit()
     {
+
     }
 }

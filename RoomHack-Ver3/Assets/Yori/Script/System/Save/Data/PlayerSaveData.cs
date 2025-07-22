@@ -1,7 +1,4 @@
-﻿using System;
-
-[Serializable]
-public class PlayerSaveData
+﻿public class PlayerSaveData
 {
     public int score_Stage;
     public int score_DestoryEnemy;

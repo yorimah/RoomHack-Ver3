@@ -51,16 +51,16 @@ public class TestMove : MonoBehaviour
     // ハッキングステータス
     [SerializeField, Header("ぶりーちぱわー")]
     private float breachPower;
-    SaveManager saveManager;
 
     PlayerSaveData data;
+    public void Awake()
+    {
+    }
     public void Start()
     {
         hackCamera.SetActive(false);
         nomalCamera.SetActive(true);
         moveInput = new();
-
-        saveManager = new();
 
         moveInput.Init();
 
@@ -68,7 +68,7 @@ public class TestMove : MonoBehaviour
 
         vCameraRB = vCameraObj.GetComponent<Rigidbody2D>();
         vCameraCM = vCameraObj.GetComponent<CinemachineVirtualCamera>();
-        data = saveManager.Load();
+        data = SaveManager.Instance.Load();
 
         moveSpeed += data.plusMoveSpeed;
         breachPower += data.plusBreachPower;
@@ -78,10 +78,10 @@ public class TestMove : MonoBehaviour
     private float reloadTime = 2;
     public void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("UpgradeTest");
+            
         }
 
         //  銃を撃つモードはタイムスケールは１、ハックモードは1/10
@@ -113,7 +113,7 @@ public class TestMove : MonoBehaviour
 
                 break;
             case ShotMode.HackMode:
-                playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale; 
+                playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale;
 
                 vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
 
@@ -259,9 +259,4 @@ public class TestMove : MonoBehaviour
         Handles.Label(transform.position + Vector3.up * 2.5f, "移動速度" + moveSpeed.ToString(), style);
     }
 #endif
-
-    public void Die()
-    {
-        Destroy(gameObject);
-    }
 }

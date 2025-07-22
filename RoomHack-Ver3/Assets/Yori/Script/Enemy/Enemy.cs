@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     public float NowHP { get; set; }
     public int HitDamegeLayer { get; set; } = 2;
 
-    protected IState currentState;
+    public IState currentState;
 
     [SerializeField, Header("動く速さ")]
     public float moveSpeed = 3f;
@@ -47,6 +47,9 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     public int shotRate;
     [HideInInspector]
     public float bulletSpeed;
+    [HideInInspector]
+    public int stoppingPower;
+    public bool died = false;
     public enum StateType
     {
         Idle,
@@ -66,6 +69,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         MaxMagazine = gundata.MaxMagazine;
         nowMagazine = MaxMagazine;
         bulletSpeed = gundata.bulletSpeed;
+        stoppingPower = gundata.power;
     }
 
     public StateType statetype;
@@ -90,6 +94,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 
     public void Die()
     {
+        died = true;
         ChangeState(StateType.Die);
     }
 
