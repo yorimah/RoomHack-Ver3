@@ -23,7 +23,7 @@ public class TitleSceneManager : MonoBehaviour
         {
             if (sequenceEnd == true)
             {
-                SceneManager.LoadScene("CardTestScene");
+                SceneManager.LoadScene("UpgradeTest");
             }
             else
             {

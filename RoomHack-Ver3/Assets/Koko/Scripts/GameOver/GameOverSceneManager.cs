@@ -75,6 +75,7 @@ public class GameOverSceneManager : MonoBehaviour
         {
             if (sequenceEnd == true)
             {
+                saveManager.DeleteSave();
                 SceneManager.LoadScene("TitleDemoScene");
             }
             else
