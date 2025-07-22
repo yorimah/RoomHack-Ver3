@@ -1,12 +1,11 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverSceneManager : MonoBehaviour
 {
-    float timer = 0;
-
     [SerializeField]
     RectTransform redScreen_Up;
 
@@ -20,6 +19,9 @@ public class GameOverSceneManager : MonoBehaviour
 
     SaveManager saveManager;
     PlayerSaveData data;
+
+    bool sequenceEnd;
+    int skipValue = 1;
 
     private void Start()
     {
@@ -36,30 +38,53 @@ public class GameOverSceneManager : MonoBehaviour
 
     async UniTask GameOverSequence()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(1));
+        await UniTask.Delay(TimeSpan.FromSeconds(skipValue));
 
-        for (int i = 0; i < 140; i++)
+        for (int i = 0; i < 100; i++)
         {
             moveValue++;
-            redScreen_Up.anchoredPosition = new Vector2(0, 270 + moveValue * 3);
-            redScreen_Down.anchoredPosition = new Vector2(0, -270 - moveValue * 3);
-            await UniTask.Yield();
+            redScreen_Up.anchoredPosition = new Vector2(0, 270 + moveValue * 4);
+            redScreen_Down.anchoredPosition = new Vector2(0, -270 - moveValue * 4);
+            if (skipValue == 1)
+            {
+                await UniTask.Yield();
+            }
         }
 
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
         GameOverText[0].SetActive(true);
 
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        await UniTask.Delay(TimeSpan.FromSeconds(1f * skipValue));
         GameOverText[1].SetActive(true);
 
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
         GameOverText[2].SetActive(true);
+
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
         GameOverText[3].SetActive(true);
 
+        await UniTask.Delay(TimeSpan.FromSeconds(1f * skipValue));
+        GameOverText[4].SetActive(true);
+
+        sequenceEnd = true;
     }
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (sequenceEnd == true)
+            {
+                SceneManager.LoadScene("TitleDemoScene");
+            }
+            else
+            {
+                skipValue = 0;
+            }
+        }
+
+
+
         //timer += Time.deltaTime;
 
         //if (timer > 1 && timer <= 2)
