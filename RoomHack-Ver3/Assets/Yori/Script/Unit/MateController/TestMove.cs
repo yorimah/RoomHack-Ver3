@@ -62,8 +62,6 @@ public class TestMove : MonoBehaviour
         nomalCamera.SetActive(true);
         moveInput = new();
 
-        
-
         moveInput.Init();
 
         playerRigidbody2D = this.GetComponent<Rigidbody2D>();
@@ -80,10 +78,10 @@ public class TestMove : MonoBehaviour
     private float reloadTime = 2;
     public void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("UpgradeTest");
+            
         }
 
         //  銃を撃つモードはタイムスケールは１、ハックモードは1/10
@@ -115,7 +113,7 @@ public class TestMove : MonoBehaviour
 
                 break;
             case ShotMode.HackMode:
-                playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale; 
+                playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale;
 
                 vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
 
@@ -261,8 +259,4 @@ public class TestMove : MonoBehaviour
         Handles.Label(transform.position + Vector3.up * 2.5f, "移動速度" + moveSpeed.ToString(), style);
     }
 #endif
-
-    public void Die()
-    {
-    }
 }
