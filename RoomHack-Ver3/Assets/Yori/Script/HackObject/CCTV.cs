@@ -105,7 +105,7 @@ public class CCTV : MonoBehaviour, IHackObject
     }
     public void FireWallRecavary()
     {
-        NowFireWall += Time.deltaTime * FireWallRecovaryNum;
+        NowFireWall += GameTimer.Instance.ScaledDeltaTime * FireWallRecovaryNum;
         if (NowFireWall >= FireWallCapacity)
         {
             viewMeshs.SetActive(false);

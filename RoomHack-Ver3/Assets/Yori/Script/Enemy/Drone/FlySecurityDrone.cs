@@ -8,8 +8,6 @@ public class FlySecurityDrone : Enemy
     {
         playerCheack = new PlayerCheack();
 
-        nowMagazine = gundata.MaxMagazine;
-
         states = new Dictionary<StateType, IState>()
     {
         { StateType.Idle, new IdleState(this) },

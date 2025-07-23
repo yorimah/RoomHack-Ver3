@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using System.Threading;
 
 public class SecurityGuard : Enemy
 {
@@ -7,18 +8,28 @@ public class SecurityGuard : Enemy
     {
         playerCheack = new PlayerCheack();
 
-        nowMagazine = gundata.MaxMagazine;
-
         states = new Dictionary<StateType, IState>()
     {
         { StateType.Idle, new IdleState(this) },
         { StateType.Move, new MoveState(this) },
         { StateType.Shot, new ShotState(this) },
         { StateType.Reload, new ReloadState(this) },
-        //{ StateType.Clack, new SecurtyGuradClackState(this) },
         { StateType.Die, new DieState(this) },
     };
         statetype = StateType.Idle;
         currentState = states[statetype];
+        clack().AttachExternalCancellation(token).Forget();
+    }
+    async UniTask clack()
+    {
+        await UniTask.WaitUntil(() => clacked);
+        shotIntervalTime = 0.5f;
+        while (true)
+        {
+            FireWallRecavary();
+            await UniTask.Yield();
+        }
+
+        
     }
 }

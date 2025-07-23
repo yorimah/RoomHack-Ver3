@@ -3,6 +3,7 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using System.Threading;
 public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 {
     // ハック関連
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     private float MaxHP;
     public PlayerCheack playerCheack;
 
+    // ガンデータ
     [HideInInspector]
     public float aimTime = 0.5f;
     [HideInInspector]
@@ -49,7 +51,11 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     public float bulletSpeed;
     [HideInInspector]
     public int stoppingPower;
+
+    // 死亡フラグ
     public bool died = false;
+
+    public float shotIntervalTime;
     public enum StateType
     {
         Idle,
@@ -60,7 +66,8 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         Clack,
         num
     }
-
+    public CancellationToken token;
+    CancellationTokenSource cts;
     public void Awake()
     {
         MAXHP = MaxHP;
@@ -70,6 +77,11 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         nowMagazine = MaxMagazine;
         bulletSpeed = gundata.bulletSpeed;
         stoppingPower = gundata.power;
+        shotIntervalTime = 1f / shotRate;
+
+
+        cts = new CancellationTokenSource();
+        token = cts.Token;
     }
 
     public StateType statetype;
@@ -100,12 +112,13 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 
     public void CapacityOver()
     {
-        ChangeState(StateType.Clack);
+        clacked = true;
     }
     public void FireWallRecavary()
     {
+        cts.Cancel();
+        Debug.Log(gameObject.name + "クラック中");
         NowFireWall++;
-        
     }
 
 #if UNITY_EDITOR
@@ -120,7 +133,6 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         {
             Handles.Label(transform.position + Vector3.up * 2f, "実行ステート " + currentState.ToString(), style);
         }
-
     }
 #endif
 }
