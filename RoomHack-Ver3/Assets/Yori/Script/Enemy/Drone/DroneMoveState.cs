@@ -51,7 +51,6 @@ public class DroneMoveState : IState
         float checkDistance = 1f;
 
         RaycastHit2D hit = Physics2D.Raycast(nowPosition, directionToNext, checkDistance, enemy.GetObstacleMask());
-        //Debug.DrawRay(nowPosition, directionToNext * checkDistance, Color.blue);
         if (hit.collider != null)
         {
             direction *= -1;

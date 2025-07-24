@@ -7,7 +7,6 @@ public class ShotState : IState
     // GunData
 
     // ShotSection
-    private float shotIntevalTime = 0;
     private int shotNum = 0;
     enum ShotSection
     {
@@ -36,8 +35,6 @@ public class ShotState : IState
 
         // プレイヤー情報初期化
         playerCheack = enemy.playerCheack;
-
-        shotIntevalTime = 1f / enemy.shotRate;
     }
 
     public void Enter()
@@ -75,7 +72,7 @@ public class ShotState : IState
                 break;
             case ShotSection.shotInterval:
                 timer += GameTimer.Instance.ScaledDeltaTime;
-                if (shotIntevalTime <= timer)
+                if (enemy.shotIntervalTime <= timer)
                 {
                     timer = 0;
                     if (shotNum >= enemy.shotRate)

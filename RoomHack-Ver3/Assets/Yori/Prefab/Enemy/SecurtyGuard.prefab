@@ -216,12 +216,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   gundata: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
+  hackdata: {fileID: 11400000, guid: 7ea1ebf0c3a018f48b527af28fb3a428, type: 2}
   MaxHP: 100
   aimTime: 0.5
   MaxMagazine: 0
   nowMagazine: 0
   shotRate: 0
   bulletSpeed: 0
+  stoppingPower: 0
+  died: 0
+  shotIntervalTime: 0
   statetype: 0
 --- !u!50 &7672276052945768558
 Rigidbody2D:

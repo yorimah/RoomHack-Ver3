@@ -3,6 +3,7 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using System.Threading;
 public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 {
     // ハック関連
@@ -32,11 +33,13 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 
     [SerializeField, Header("GunData")]
     public GunData gundata;
-
+    [SerializeField, Header("GunData")]
+    public HackData hackdata;
     [SerializeField, Header("HP")]
     private float MaxHP;
     public PlayerCheack playerCheack;
 
+    // ガンデータ
     [HideInInspector]
     public float aimTime = 0.5f;
     [HideInInspector]
@@ -49,7 +52,11 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     public float bulletSpeed;
     [HideInInspector]
     public int stoppingPower;
+
+    // 死亡フラグ
     public bool died = false;
+
+    public float shotIntervalTime;
     public enum StateType
     {
         Idle,
@@ -60,7 +67,8 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         Clack,
         num
     }
-
+    public CancellationToken token;
+    CancellationTokenSource cts;
     public void Awake()
     {
         MAXHP = MaxHP;
@@ -70,6 +78,13 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         nowMagazine = MaxMagazine;
         bulletSpeed = gundata.bulletSpeed;
         stoppingPower = gundata.power;
+        shotIntervalTime = 1f / shotRate;
+
+        MaxFireWall = hackdata.MaxFireWall;
+        NowFireWall = hackdata.MaxFireWall;
+        FireWallRecovaryNum = hackdata.FireWallRecovaryNum;
+        cts = new CancellationTokenSource();
+        token = cts.Token;
     }
 
     public StateType statetype;
@@ -94,18 +109,19 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 
     public void Die()
     {
+        cts.Cancel();
         died = true;
         ChangeState(StateType.Die);
     }
 
     public void CapacityOver()
     {
-        ChangeState(StateType.Clack);
+        clacked = true;
     }
     public void FireWallRecavary()
     {
-        NowFireWall++;
-        
+        Debug.Log(gameObject.name + "クラック中");
+        NowFireWall += FireWallRecovaryNum * GameTimer.Instance.ScaledDeltaTime;
     }
 
 #if UNITY_EDITOR
@@ -120,7 +136,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         {
             Handles.Label(transform.position + Vector3.up * 2f, "実行ステート " + currentState.ToString(), style);
         }
-
+        Handles.Label(transform.position + Vector3.up * 2.5f, "NowFireWall " + NowFireWall.ToString(), style);
     }
 #endif
 }
