@@ -1,9 +1,9 @@
 {
-  "score_Stage": 15,
-  "score_DestoryEnemy": 18,
+  "score_Stage": 16,
+  "score_DestoryEnemy": 20,
   "plusBreachPower": 4.0,
   "pulusMaxHitpoint": 40.0,
-  "plusMoveSpeed": 2.0,
+  "plusMoveSpeed": 2.5,
   "plusRamCapacity": 3.0,
   "plusRamRecovery": 0.8
 }

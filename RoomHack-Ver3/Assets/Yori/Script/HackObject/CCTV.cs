@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using System.Threading;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -35,6 +36,9 @@ public class CCTV : MonoBehaviour, IHackObject
     [SerializeField, Header("HackData")]
     private HackData hackData;
     private GameObject viewMeshs;
+
+    public CancellationToken token;
+    CancellationTokenSource cts;
     private void Awake()
     {
         // 空のゲームオブジェクトを生成
@@ -54,7 +58,10 @@ public class CCTV : MonoBehaviour, IHackObject
         NowFireWall = MaxFireWall;
         FireWallRecovaryNum = hackData.FireWallRecovaryNum;
         FireWallCapacity = hackData.FireWallCapacity;
-        clack().Forget();
+
+        cts = new CancellationTokenSource();
+        token = cts.Token;
+        clack().AttachExternalCancellation(token).Forget();
     }
 
     // 三角形の頂点設定

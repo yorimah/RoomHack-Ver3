@@ -2,7 +2,6 @@
 using UnityEditor;
 #endif
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Cinemachine;
 
 public class TestMove : MonoBehaviour
@@ -78,12 +77,6 @@ public class TestMove : MonoBehaviour
     private float reloadTime = 2;
     public void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            
-        }
-
         //  銃を撃つモードはタイムスケールは１、ハックモードは1/10
         switch (shotMode)
         {
@@ -113,18 +106,22 @@ public class TestMove : MonoBehaviour
 
                 break;
             case ShotMode.HackMode:
+                // 徐々に減速
                 playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale;
 
+                // カメラを動かすように
                 vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
 
                 Hack();
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
+                    // カメラを元に戻して、followをプレイヤーへ
                     hackCamera.SetActive(false);
                     nomalCamera.SetActive(true);
-                    shotMode = ShotMode.GunMode;
                     vCameraCM.Follow = this.gameObject.transform;
+                    // 銃モードへ切り替えて時間を元に戻す
+                    shotMode = ShotMode.GunMode;
                     GameTimer.Instance.SetTimeScale(1);
                     Debug.Log("切替" + shotMode);
                 }
@@ -228,13 +225,14 @@ public class TestMove : MonoBehaviour
     private void Hack()
     {
         // 下方向にレイを飛ばす（距離10）
-        RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.transform.position, Vector2.down, 10f);
-
-        foreach (RaycastHit2D hit in hits)
+        //RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.transform.position, Vector2.down, 10f);
+        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.transform.position, Vector2.one, 0f, Vector2.down, 0.1f);
+        foreach (RaycastHit2D hit in hitsss)
         {
             if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject))
             {
-                if (!hackObject.clacked)
+                vCameraCM.Follow = hit.collider.gameObject.transform;
+                if (Input.GetKeyDown(KeyCode.Mouse0) && !hackObject.clacked)
                 {
                     hackObject.Clack(breachPower);
                 }
