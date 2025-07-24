@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
-using System.Threading;
 
 public class SecurityGuard : Enemy
 {
@@ -22,14 +21,27 @@ public class SecurityGuard : Enemy
     }
     async UniTask clack()
     {
-        await UniTask.WaitUntil(() => clacked);
-        shotIntervalTime = 0.5f;
         while (true)
         {
-            FireWallRecavary();
+            // クラックされるまで待機
+            await UniTask.WaitUntil(() => clacked);
+            // nowfirewallが下限突破してたら戻す
+            if (NowFireWall <= 0)
+            {
+                NowFireWall = 0;
+            }
+            // ハックした内容
+            shotIntervalTime = 0.5f;
+            // リカバリが終わるまでここでループ
+            while (NowFireWall <= MaxFireWall)
+            {
+                FireWallRecavary();
+                await UniTask.Yield();
+            }
+            // ループが終わったら初期状態に戻す
+            shotIntervalTime = 1f / shotRate;
+            clacked = false;
             await UniTask.Yield();
         }
-
-        
     }
 }

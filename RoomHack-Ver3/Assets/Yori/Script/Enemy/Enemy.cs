@@ -33,7 +33,8 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 
     [SerializeField, Header("GunData")]
     public GunData gundata;
-
+    [SerializeField, Header("GunData")]
+    public HackData hackdata;
     [SerializeField, Header("HP")]
     private float MaxHP;
     public PlayerCheack playerCheack;
@@ -79,7 +80,9 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         stoppingPower = gundata.power;
         shotIntervalTime = 1f / shotRate;
 
-
+        MaxFireWall = hackdata.MaxFireWall;
+        NowFireWall = hackdata.MaxFireWall;
+        FireWallRecovaryNum = hackdata.FireWallRecovaryNum;
         cts = new CancellationTokenSource();
         token = cts.Token;
     }
@@ -106,6 +109,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 
     public void Die()
     {
+        cts.Cancel();
         died = true;
         ChangeState(StateType.Die);
     }
@@ -116,9 +120,8 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     }
     public void FireWallRecavary()
     {
-        cts.Cancel();
         Debug.Log(gameObject.name + "クラック中");
-        NowFireWall++;
+        NowFireWall += FireWallRecovaryNum * GameTimer.Instance.ScaledDeltaTime;
     }
 
 #if UNITY_EDITOR
@@ -133,6 +136,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         {
             Handles.Label(transform.position + Vector3.up * 2f, "実行ステート " + currentState.ToString(), style);
         }
+        Handles.Label(transform.position + Vector3.up * 2.5f, "NowFireWall " + NowFireWall.ToString(), style);
     }
 #endif
 }
