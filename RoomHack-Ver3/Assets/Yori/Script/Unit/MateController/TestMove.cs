@@ -77,6 +77,47 @@ public class TestMove : MonoBehaviour
     private float reloadTime = 2;
     public void Update()
     {
+        ShotState();
+        ramRecovar();
+    }
+    public void ramRecovar()
+    {
+        if (UnitCore.Instance.nowRam < UnitCore.Instance.ramCapacity)
+        {
+            UnitCore.Instance.nowRam += UnitCore.Instance.ramRecovary * GameTimer.Instance.ScaledDeltaTime;
+        }
+        else
+        {
+            UnitCore.Instance.nowRam = UnitCore.Instance.ramCapacity;
+        }
+    }
+    private void Reload()
+    {
+        nowMagazine = MAXMAGAZINE;
+    }
+    public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
+    {
+        moveVector = inputMoveVector * moveSpeed;
+        return moveVector;
+    }
+
+    private void PlayerRotation()
+    {
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        direction = mousePosition - this.transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = targetRotation;
+    }
+
+    [SerializeField, Header("弾のプレハブ")]
+    private GameObject bulletPrefab;
+    [SerializeField, Header("弾のスピード")]
+    private float bulletSpeed;
+
+    private void ShotState()
+    {
         //  銃を撃つモードはタイムスケールは１、ハックモードは1/10
         switch (shotMode)
         {
@@ -109,8 +150,6 @@ public class TestMove : MonoBehaviour
                 // 徐々に減速
                 playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale;
 
-
-
                 Hack();
 
                 if (Input.GetKeyDown(KeyCode.Tab))
@@ -142,30 +181,6 @@ public class TestMove : MonoBehaviour
                 break;
         }
     }
-    private void Reload()
-    {
-        nowMagazine = MAXMAGAZINE;
-    }
-    public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
-    {
-        moveVector = inputMoveVector * moveSpeed;
-        return moveVector;
-    }
-
-    private void PlayerRotation()
-    {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = mousePosition - this.transform.position;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = targetRotation;
-    }
-
-    [SerializeField, Header("弾のプレハブ")]
-    private GameObject bulletPrefab;
-    [SerializeField, Header("弾のスピード")]
-    private float bulletSpeed;
 
     private void GunFire()
     {
@@ -226,7 +241,6 @@ public class TestMove : MonoBehaviour
         // カメラを動かすように
         vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
         // 下方向にレイを飛ばす（距離10）
-
         RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.transform.position, new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
         foreach (RaycastHit2D hit in hitsss)
         {
@@ -239,7 +253,17 @@ public class TestMove : MonoBehaviour
                 }
                 if (Input.GetKeyDown(KeyCode.Mouse0) && !hackObject.clacked)
                 {
-                    hackObject.Clack(breachPower);
+                    Debug.Log("ハック挑戦！");
+                    if (0 < UnitCore.Instance.nowRam)
+                    {
+                        UnitCore.Instance.nowRam--;
+                        hackObject.Clack(breachPower);
+                    }
+                    else
+                    {
+                        // ハックできないときの処理
+                        Debug.Log("ハックできないにょ～～～ん");
+                    }
                 }
             }
         }
@@ -255,11 +279,11 @@ public class TestMove : MonoBehaviour
         if (UnitCore.Instance != null)
         {
             Handles.Label(transform.position + Vector3.up * 1f, "HP " + UnitCore.Instance.NowHP.ToString(), style);
+            Handles.Label(transform.position + Vector3.up * 2.5f, "nowRam" + UnitCore.Instance.nowRam.ToString(), style);
         }
 
         Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
         Handles.Label(transform.position + Vector3.up * 2.0f, "ブリ―チパワー " + breachPower.ToString(), style);
-        Handles.Label(transform.position + Vector3.up * 2.5f, "移動速度" + moveSpeed.ToString(), style);
     }
 #endif
 }
