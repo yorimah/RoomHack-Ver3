@@ -35,7 +35,6 @@ public class DroneShotState : IState
 
         bulletGeneratar = enemy.gameObject.GetComponent<BulletGeneratar>();
 
-
         shotIntevalTime = 1f / enemy.gundata.rate;
 
     }

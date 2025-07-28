@@ -109,8 +109,7 @@ public class TestMove : MonoBehaviour
                 // 徐々に減速
                 playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale;
 
-                // カメラを動かすように
-                vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
+
 
                 Hack();
 
@@ -224,14 +223,20 @@ public class TestMove : MonoBehaviour
     }
     private void Hack()
     {
+        // カメラを動かすように
+        vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
         // 下方向にレイを飛ばす（距離10）
-        //RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.transform.position, Vector2.down, 10f);
-        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.transform.position, Vector2.one, 0f, Vector2.down, 0.1f);
+
+        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.transform.position, new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
         foreach (RaycastHit2D hit in hitsss)
         {
             if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject))
             {
-                vCameraCM.Follow = hit.collider.gameObject.transform;
+                if (vCameraRB.velocity == Vector2.zero)
+                {
+                    Vector3 enemyPos = new Vector3(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y, vCameraCM.transform.position.z);
+                    vCameraCM.transform.position = enemyPos;
+                }
                 if (Input.GetKeyDown(KeyCode.Mouse0) && !hackObject.clacked)
                 {
                     hackObject.Clack(breachPower);
