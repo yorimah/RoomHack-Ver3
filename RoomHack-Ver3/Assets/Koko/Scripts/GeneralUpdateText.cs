@@ -10,9 +10,9 @@ public class GeneralUpdateText : MonoBehaviour
     [SerializeField, Tooltip("テキスト開始スイッチ")]
     public bool isRunning = false;
 
-    // アクティブ状態になると動作開始
-    //[SerializeField, Tooltip("アクティブ時に起動するかどうか")]
-    //bool activeStart = true;
+    //アクティブ状態になると動作開始
+    [SerializeField, Tooltip("アクティブ時に起動するかどうか")]
+    bool activeStart = true;
 
     int timer = 0;
 
@@ -31,32 +31,31 @@ public class GeneralUpdateText : MonoBehaviour
     
     void Update()
     {
-        //if (activeStart)
-        //{
-        //    isRunning = this.gameObject.activeInHierarchy;
-        //}
+        if (this.gameObject.activeInHierarchy && !isRunning)
+        {
+            isRunning = true;
+            textIndex = 0;
+        }
 
         // 起動中
         if (isRunning)
         {
-            // ディレイ0なら即座に全文出る
-            if (delay == 0)
-            {
-                textIndex = inputText.Length;
-                dispText.text = inputText.Substring(0, textIndex);
-            }
-
-            // 
+            // テキスト送り
             if (textIndex < inputText.Length)
             {
                 if (timer >= delay)
                 {
                     textIndex++;
-                    dispText.text = inputText.Substring(0, textIndex);
                     timer = 0;
                 }
 
                 timer++;
+            }
+
+            // ディレイ0なら即座に全文出る
+            if (delay == 0)
+            {
+                textIndex = inputText.Length;
             }
 
         }
@@ -64,5 +63,8 @@ public class GeneralUpdateText : MonoBehaviour
         {
             textIndex = 0;
         }
+
+        // テキスト表示
+        dispText.text = inputText.Substring(0, textIndex);
     }
 }
