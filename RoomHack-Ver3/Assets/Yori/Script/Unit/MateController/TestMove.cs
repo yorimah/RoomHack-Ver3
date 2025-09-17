@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Cinemachine;
 
-public class TestMove : MonoBehaviour
+public class TestMove : UnitCore
 {
     private MoveInput moveInput;
 
@@ -24,9 +24,7 @@ public class TestMove : MonoBehaviour
 
     [SerializeField, Header("プレイヤースピード")]
     private float moveSpeed = 5;
-    [SerializeField, Header("マガジン容量")]
-    private int MAXMAGAZINE;
-    private int nowMagazine;
+   
 
     [SerializeField, Header("ハック描画カメラ")]
     private GameObject hackCamera;
@@ -51,7 +49,6 @@ public class TestMove : MonoBehaviour
     [SerializeField, Header("ぶりーちぱわー")]
     private float breachPower;
 
-    PlayerSaveData data;
     public void Awake()
     {
     }

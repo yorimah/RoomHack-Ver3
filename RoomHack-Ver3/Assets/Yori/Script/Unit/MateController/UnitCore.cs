@@ -9,7 +9,9 @@ public class UnitCore : MonoBehaviour, IDamegeable
     public int HitDamegeLayer { get; set; } = 1;
 
     public static UnitCore Instance { get; private set; }
-
+    [SerializeField, Header("マガジン容量")]
+    public int MAXMAGAZINE;
+    public int nowMagazine;
     public PlayerSaveData data;
 
     // ハックデータ
@@ -22,6 +24,8 @@ public class UnitCore : MonoBehaviour, IDamegeable
     private int initRamCapacity = 10;
     private int initRamRecovary = 1;
 
+    public int MAXBULLET;
+    public int NOWBULLET;
     void Awake()
     {
         data = SaveManager.Instance.Load();
