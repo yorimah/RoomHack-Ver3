@@ -32,6 +32,10 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
         MAXHP = initMaxHp + data.pulusMaxHitpoint;
         NowHP = MAXHP;
+
+        MAXMAGAZINE = 10;
+        nowMagazine = MAXMAGAZINE;
+
         ramCapacity = initRamCapacity + data.plusRamCapacity;
         nowRam = ramCapacity;
         ramRecovary = initRamRecovary + data.plusRamRecovery;
