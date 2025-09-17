@@ -269,6 +269,11 @@ public class TestMove : MonoBehaviour
         }
     }
 
+    public void DataInit()
+    {
+
+    }
+
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
