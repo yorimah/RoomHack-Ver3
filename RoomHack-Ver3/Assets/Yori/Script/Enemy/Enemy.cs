@@ -71,18 +71,10 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     CancellationTokenSource cts;
     public void Awake()
     {
-        MAXHP = MaxHP;
-        NowHP = MAXHP;
-        shotRate = gundata.rate;
-        MaxMagazine = gundata.MaxMagazine;
-        nowMagazine = MaxMagazine;
-        bulletSpeed = gundata.bulletSpeed;
-        stoppingPower = gundata.power;
-        shotIntervalTime = 1f / shotRate;
+        GunDataInit();
 
-        MaxFireWall = hackdata.MaxFireWall;
-        NowFireWall = hackdata.MaxFireWall;
-        FireWallRecovaryNum = hackdata.FireWallRecovaryNum;
+        FireWallDataInit();
+
         cts = new CancellationTokenSource();
         token = cts.Token;
     }
@@ -122,6 +114,25 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     {
         Debug.Log(gameObject.name + "クラック中");
         NowFireWall += FireWallRecovaryNum * GameTimer.Instance.ScaledDeltaTime;
+    }
+
+    public void GunDataInit()
+    {
+        MAXHP = MaxHP;
+        NowHP = MAXHP;
+        shotRate = gundata.rate;
+        MaxMagazine = gundata.MaxMagazine;
+        nowMagazine = MaxMagazine;
+        bulletSpeed = gundata.bulletSpeed;
+        stoppingPower = gundata.power;
+        shotIntervalTime = 1f / shotRate;
+    }
+
+    public void FireWallDataInit()
+    {
+        MaxFireWall = hackdata.MaxFireWall;
+        NowFireWall = hackdata.MaxFireWall;
+        FireWallRecovaryNum = hackdata.FireWallRecovaryNum;
     }
 
 #if UNITY_EDITOR

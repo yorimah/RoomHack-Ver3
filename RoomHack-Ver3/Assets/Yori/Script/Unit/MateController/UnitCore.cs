@@ -10,13 +10,14 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
     public static UnitCore Instance { get; private set; }
 
-    private PlayerSaveData data;
+    public PlayerSaveData data;
 
+    // ハックデータ
     public float ramCapacity;
     public float nowRam;
     public float ramRecovary;
 
-
+    // プレイヤー初期値
     private int initMaxHp = 100;
     private int initRamCapacity = 10;
     private int initRamRecovary = 1;
