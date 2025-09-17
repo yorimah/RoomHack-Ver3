@@ -2,7 +2,7 @@
 using UnityEditor;
 #endif
 using UnityEngine;
-using Cinemachine;
+
 
 public class TestMove : UnitCore
 {
@@ -33,9 +33,7 @@ public class TestMove : UnitCore
     [SerializeField, Header("通常描画カメラ")]
     private GameObject nomalCamera;
 
-    [SerializeField, Header("VCamera")]
-    private GameObject vCameraObj;
-    private CinemachineVirtualCamera vCameraCM;
+    
     private enum ShotMode
     {
         GunMode,
@@ -45,9 +43,7 @@ public class TestMove : UnitCore
 
     ShotMode shotMode;
 
-    // ハッキングステータス
-    [SerializeField, Header("ぶりーちぱわー")]
-    private float breachPower;
+  
 
     public void Awake()
     {
@@ -62,14 +58,13 @@ public class TestMove : UnitCore
 
         playerRigidbody2D = this.GetComponent<Rigidbody2D>();
 
-        vCameraRB = vCameraObj.GetComponent<Rigidbody2D>();
-        vCameraCM = vCameraObj.GetComponent<CinemachineVirtualCamera>();
+      
         data = SaveManager.Instance.Load();
 
         moveSpeed += data.plusMoveSpeed;
-        breachPower += data.plusBreachPower;
+       
 
-        nowMagazine = MAXMAGAZINE;
+        NOWBULLET = MAXBULLET;
     }
     private float reloadTime = 2;
     public void Update()
@@ -90,7 +85,7 @@ public class TestMove : UnitCore
     }
     private void Reload()
     {
-        nowMagazine = MAXMAGAZINE;
+        NOWBULLET = MAXBULLET;
     }
     public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
     {
@@ -122,7 +117,7 @@ public class TestMove : UnitCore
                 PlayerRotation();
                 playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed) * GameTimer.Instance.customTimeScale;
 
-                if (nowMagazine > 0)
+                if (NOWBULLET > 0)
                 {
                     Shot();
                 }
@@ -147,7 +142,7 @@ public class TestMove : UnitCore
                 // 徐々に減速
                 playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale;
 
-                Hack();
+               // Hack();
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
@@ -218,7 +213,7 @@ public class TestMove : UnitCore
                 {
                     GunFire();
                     shotSection++;
-                    nowMagazine--;
+                    NOWBULLET--;
                 }
                 break;
             case ShotSection.shotInterval:
@@ -233,38 +228,7 @@ public class TestMove : UnitCore
                 break;
         }
     }
-    private void Hack()
-    {
-        // カメラを動かすように
-        vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
-        // 下方向にレイを飛ばす（距離10）
-        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.transform.position, new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
-        foreach (RaycastHit2D hit in hitsss)
-        {
-            if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject))
-            {
-                if (vCameraRB.velocity == Vector2.zero)
-                {
-                    Vector3 enemyPos = new Vector3(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y, vCameraCM.transform.position.z);
-                    vCameraCM.transform.position = enemyPos;
-                }
-                if (Input.GetKeyDown(KeyCode.Mouse0) && !hackObject.clacked)
-                {
-                    Debug.Log("ハック挑戦！");
-                    if (0 < UnitCore.Instance.nowRam)
-                    {
-                        UnitCore.Instance.nowRam--;
-                        hackObject.Clack(breachPower);
-                    }
-                    else
-                    {
-                        // ハックできないときの処理
-                        Debug.Log("ハックできないにょ～～～ん");
-                    }
-                }
-            }
-        }
-    }
+    
 
     public void DataInit()
     {
@@ -284,8 +248,8 @@ public class TestMove : UnitCore
             Handles.Label(transform.position + Vector3.up * 2.5f, "nowRam" + UnitCore.Instance.nowRam.ToString(), style);
         }
 
-        Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
-        Handles.Label(transform.position + Vector3.up * 2.0f, "ブリ―チパワー " + breachPower.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + NOWBULLET.ToString(), style);
+        //Handles.Label(transform.position + Vector3.up * 2.0f, "ブリ―チパワー " + breachPower.ToString(), style);
     }
 #endif
 }

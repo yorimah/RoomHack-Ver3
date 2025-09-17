@@ -10,8 +10,8 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
     public static UnitCore Instance { get; private set; }
     [SerializeField, Header("マガジン容量")]
-    public int MAXMAGAZINE;
-    public int nowMagazine;
+    public int MAXBULLET;
+    public int NOWBULLET;
     public PlayerSaveData data;
 
     // ハックデータ
@@ -24,8 +24,6 @@ public class UnitCore : MonoBehaviour, IDamegeable
     private int initRamCapacity = 10;
     private int initRamRecovary = 1;
 
-    public int MAXBULLET;
-    public int NOWBULLET;
     void Awake()
     {
         data = SaveManager.Instance.Load();
@@ -33,8 +31,8 @@ public class UnitCore : MonoBehaviour, IDamegeable
         MAXHP = initMaxHp + data.pulusMaxHitpoint;
         NowHP = MAXHP;
 
-        MAXMAGAZINE = 10;
-        nowMagazine = MAXMAGAZINE;
+        MAXBULLET = 10;
+        NOWBULLET = MAXBULLET;
 
         ramCapacity = initRamCapacity + data.plusRamCapacity;
         nowRam = ramCapacity;
@@ -49,17 +47,6 @@ public class UnitCore : MonoBehaviour, IDamegeable
         }
 
         Instance = this;
-    }
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void Die()
