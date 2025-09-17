@@ -2,7 +2,6 @@
 using UnityEditor;
 #endif
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Cinemachine;
 
 public class TestMove : MonoBehaviour
@@ -78,12 +77,47 @@ public class TestMove : MonoBehaviour
     private float reloadTime = 2;
     public void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        ShotState();
+        ramRecovar();
+    }
+    public void ramRecovar()
+    {
+        if (UnitCore.Instance.nowRam < UnitCore.Instance.ramCapacity)
         {
-            
+            UnitCore.Instance.nowRam += UnitCore.Instance.ramRecovary * GameTimer.Instance.ScaledDeltaTime;
         }
+        else
+        {
+            UnitCore.Instance.nowRam = UnitCore.Instance.ramCapacity;
+        }
+    }
+    private void Reload()
+    {
+        nowMagazine = MAXMAGAZINE;
+    }
+    public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
+    {
+        moveVector = inputMoveVector * moveSpeed;
+        return moveVector;
+    }
 
+    private void PlayerRotation()
+    {
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        direction = mousePosition - this.transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = targetRotation;
+    }
+
+    [SerializeField, Header("弾のプレハブ")]
+    private GameObject bulletPrefab;
+    [SerializeField, Header("弾のスピード")]
+    private float bulletSpeed;
+
+    private void ShotState()
+    {
         //  銃を撃つモードはタイムスケールは１、ハックモードは1/10
         switch (shotMode)
         {
@@ -113,18 +147,19 @@ public class TestMove : MonoBehaviour
 
                 break;
             case ShotMode.HackMode:
+                // 徐々に減速
                 playerRigidbody2D.velocity *= 0.95f * GameTimer.Instance.customTimeScale;
-
-                vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
 
                 Hack();
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
+                    // カメラを元に戻して、followをプレイヤーへ
                     hackCamera.SetActive(false);
                     nomalCamera.SetActive(true);
-                    shotMode = ShotMode.GunMode;
                     vCameraCM.Follow = this.gameObject.transform;
+                    // 銃モードへ切り替えて時間を元に戻す
+                    shotMode = ShotMode.GunMode;
                     GameTimer.Instance.SetTimeScale(1);
                     Debug.Log("切替" + shotMode);
                 }
@@ -146,30 +181,6 @@ public class TestMove : MonoBehaviour
                 break;
         }
     }
-    private void Reload()
-    {
-        nowMagazine = MAXMAGAZINE;
-    }
-    public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
-    {
-        moveVector = inputMoveVector * moveSpeed;
-        return moveVector;
-    }
-
-    private void PlayerRotation()
-    {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = mousePosition - this.transform.position;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = targetRotation;
-    }
-
-    [SerializeField, Header("弾のプレハブ")]
-    private GameObject bulletPrefab;
-    [SerializeField, Header("弾のスピード")]
-    private float bulletSpeed;
 
     private void GunFire()
     {
@@ -227,19 +238,40 @@ public class TestMove : MonoBehaviour
     }
     private void Hack()
     {
+        // カメラを動かすように
+        vCameraRB.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed - data.plusMoveSpeed);
         // 下方向にレイを飛ばす（距離10）
-        RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.transform.position, Vector2.down, 10f);
-
-        foreach (RaycastHit2D hit in hits)
+        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.transform.position, new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
+        foreach (RaycastHit2D hit in hitsss)
         {
             if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject))
             {
-                if (!hackObject.clacked)
+                if (vCameraRB.velocity == Vector2.zero)
                 {
-                    hackObject.Clack(breachPower);
+                    Vector3 enemyPos = new Vector3(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y, vCameraCM.transform.position.z);
+                    vCameraCM.transform.position = enemyPos;
+                }
+                if (Input.GetKeyDown(KeyCode.Mouse0) && !hackObject.clacked)
+                {
+                    Debug.Log("ハック挑戦！");
+                    if (0 < UnitCore.Instance.nowRam)
+                    {
+                        UnitCore.Instance.nowRam--;
+                        hackObject.Clack(breachPower);
+                    }
+                    else
+                    {
+                        // ハックできないときの処理
+                        Debug.Log("ハックできないにょ～～～ん");
+                    }
                 }
             }
         }
+    }
+
+    public void DataInit()
+    {
+
     }
 
 #if UNITY_EDITOR
@@ -252,11 +284,11 @@ public class TestMove : MonoBehaviour
         if (UnitCore.Instance != null)
         {
             Handles.Label(transform.position + Vector3.up * 1f, "HP " + UnitCore.Instance.NowHP.ToString(), style);
+            Handles.Label(transform.position + Vector3.up * 2.5f, "nowRam" + UnitCore.Instance.nowRam.ToString(), style);
         }
 
         Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
         Handles.Label(transform.position + Vector3.up * 2.0f, "ブリ―チパワー " + breachPower.ToString(), style);
-        Handles.Label(transform.position + Vector3.up * 2.5f, "移動速度" + moveSpeed.ToString(), style);
     }
 #endif
 }

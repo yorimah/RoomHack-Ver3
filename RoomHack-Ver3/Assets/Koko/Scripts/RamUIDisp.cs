@@ -19,6 +19,7 @@ public class RamUIDisp : MonoBehaviour
 
     private void Start()
     {
+        maxRamCap = (int)UnitCore.Instance.ramCapacity;
         // rmaxRamCapの値だけUI生成
         for (int i = 0; i < maxRamCap; i++)
         {
@@ -35,7 +36,7 @@ public class RamUIDisp : MonoBehaviour
     private void Update()
     {
 
-        //plRam = UnitCore.Instance.ramCap;
+        plRam = (int)UnitCore.Instance.nowRam;
 
         // 現在のramの値が変わると
         if (plRam != nowRamCap)
