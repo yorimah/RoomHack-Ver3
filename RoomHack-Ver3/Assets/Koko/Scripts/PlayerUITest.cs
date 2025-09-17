@@ -11,9 +11,18 @@ public class PlayerUITest : MonoBehaviour
     float nowHp = 1;
 
     [SerializeField]
-    GameObject healthBar;
+    GameObject hpBar;
 
     [SerializeField]
+    float maxBullet = 1;
+
+    [SerializeField]
+    float nowBullet = 1;
+
+    [SerializeField]
+    GameObject bulletBar;
+
+    [SerializeField, Tooltip("Playerオブジェクトアタッチ必須")]
     GameObject player;
 
     private void Start()
@@ -24,13 +33,21 @@ public class PlayerUITest : MonoBehaviour
 
     private void Update()
     {
+        // Playerに追従
         this.transform.position = player.transform.position;
 
+        // 現在HP取得
         nowHp = UnitCore.Instance.NowHP;
 
-        Vector3 scale = healthBar.gameObject.transform.localScale;
-        scale.x = nowHp / maxHp;
-        healthBar.gameObject.transform.localScale = scale;
+        // HPバーサイズ変更
+        Vector3 hpScale = hpBar.gameObject.transform.localScale;
+        hpScale.x = nowHp / maxHp;
+        hpBar.gameObject.transform.localScale = hpScale;
+
+        // 残弾バーサイズ変更
+        Vector3 bulletScale = hpBar.gameObject.transform.localScale;
+        bulletScale.x = nowHp / maxHp;
+        hpBar.gameObject.transform.localScale = bulletScale;
 
     }
 }
