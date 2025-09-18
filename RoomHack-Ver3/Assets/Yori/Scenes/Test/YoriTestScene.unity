@@ -145,7 +145,6 @@ GameObject:
   - component: {fileID: 24237156}
   - component: {fileID: 24237164}
   - component: {fileID: 24237161}
-  - component: {fileID: 24237159}
   - component: {fileID: 24237160}
   - component: {fileID: 24237162}
   - component: {fileID: 24237163}
@@ -224,28 +223,6 @@ Transform:
   - {fileID: 1771017513}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &24237159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24237155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af3b58bc9c34ac3489367058ca832d22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rayStartTransform: {fileID: 24237157}
-  rayDirecition: 10
-  moveSpeed: 5
-  MAXMAGAZINE: 12
-  hackCamera: {fileID: 7922336810736480253}
-  nomalCamera: {fileID: 5223816973047781243}
-  vCameraObj: {fileID: 2029867560}
-  breachPower: 10
-  bulletPrefab: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
-  bulletSpeed: 10
 --- !u!50 &24237160
 Rigidbody2D:
   serializedVersion: 4
@@ -288,6 +265,16 @@ MonoBehaviour:
   ramCapacity: 0
   nowRam: 0
   ramRecovary: 0
+  gundata: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
+  aimTime: 0.5
+  MaxMagazine: 0
+  nowMagazine: 0
+  shotRate: 0
+  bulletSpeed: 0
+  stoppingPower: 0
+  shotIntervalTime: 0
+  bulletPrefab: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
+  statetype: 0
 --- !u!61 &24237162
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -626,6 +613,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RamUICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8605444582476318228, guid: ff81a2ef4db046747af88ab170f69c27, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -865,6 +856,10 @@ PrefabInstance:
     - target: {fileID: 7554511116041994133, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
       propertyPath: m_Name
       value: PlayerDataUITest
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554511116041994133, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7557431831620123614, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
       propertyPath: m_LocalPosition.x

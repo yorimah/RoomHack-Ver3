@@ -29,7 +29,7 @@ public class PlayerUITest : MonoBehaviour
     {
         maxHp = UnitCore.Instance.MAXHP;
 
-        maxBullet = UnitCore.Instance.MAXMAGAZINE;
+        maxBullet = UnitCore.Instance.MAXBULLET;
 
     }
 
@@ -47,7 +47,7 @@ public class PlayerUITest : MonoBehaviour
         hpBar.gameObject.transform.localScale = hpScale;
 
         // 現在残弾取得
-        nowBullet = UnitCore.Instance.nowMagazine;
+        nowBullet = UnitCore.Instance.NOWBULLET;
 
         // 残弾バーサイズ変更
         Vector3 bulletScale = bulletBar.gameObject.transform.localScale;
