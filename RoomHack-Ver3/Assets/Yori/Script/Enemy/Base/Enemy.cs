@@ -77,6 +77,9 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 
         cts = new CancellationTokenSource();
         token = cts.Token;
+
+        MAXHP = MaxHP;
+        NowHP = MAXHP;
     }
 
     public StateType statetype;
@@ -118,8 +121,6 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
 
     public void GunDataInit()
     {
-        MAXHP = MaxHP;
-        NowHP = MAXHP;
         shotRate = gundata.rate;
         MaxMagazine = gundata.MaxMagazine;
         nowMagazine = MaxMagazine;
