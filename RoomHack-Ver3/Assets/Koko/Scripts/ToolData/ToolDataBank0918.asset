@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0240386103e3b849a8a3cb124dc14c0, type: 3}
+  m_Name: ToolDataBank0918
+  m_EditorClassIdentifier: 
+  toolDataList:
+  - toolName: none
+    toolCost: 0
+    toolText: "\u30AB\u30FC\u30C9\u756A\u53F70\u756A\u3001\u3053\u308C\u3067\u305F\u3089\u3070\u3050\u3060\u304A"
+    toolSprite: {fileID: 21300000, guid: 37cf029df0fdf0448aa70effa1d96172, type: 3}
+  - toolName: CCTVHack
+    toolCost: 2
+    toolText: "\u5BFE\u8C61\u306E\u30AB\u30E1\u30E9\u8996\u754C\u3092\u5F97\u308B\u30021\u30C9\u30ED\u30FC\u3002"
+    toolSprite: {fileID: 21300000, guid: dc877e4278bc9244bb021e7fd6ddb09c, type: 3}
+  - toolName: Bind
+    toolCost: 3
+    toolText: "\u5BFE\u8C61\u306F5\u79D2\u9593\u3001\u79FB\u52D5\u3067\u304D\u306A\u3044\u3002"
+    toolSprite: {fileID: 21300000, guid: 37cf029df0fdf0448aa70effa1d96172, type: 3}
+  - toolName: Blind
+    toolCost: 4
+    toolText: "\u5BFE\u8C61\u306F5\u79D2\u9593\u3001\u653B\u6483\u3067\u304D\u306A\u3044\u3002"
+    toolSprite: {fileID: 21300000, guid: 4b9df3055ba897c46a2ebc2f3accd81a, type: 3}
+  - toolName: OverHeat
+    toolCost: 5
+    toolText: "\u5BFE\u8C61\u306F5\u79D2\u9593\u3001\u7D99\u7D9A\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B\u3002"
+    toolSprite: {fileID: 21300000, guid: 2d4c190f58cc1b04dbd1c8393b149f3c, type: 3}
+  - toolName: Detonation
+    toolCost: 7
+    toolText: "\u5BFE\u8C61\u3092\u81EA\u7206\u3055\u305B\u308B\u3002"
+    toolSprite: {fileID: 21300000, guid: 43bcae9f8abfb3242bbec41cfe743268, type: 3}
