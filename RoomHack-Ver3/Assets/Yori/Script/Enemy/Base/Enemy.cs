@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     public float FireWallRecovaryNum { get; set; }
 
     // ダメージ関連
-    public float MAXHP { get; set; } = 5;
+    public float MAXHP { get; private set; } = 5;
     public float NowHP { get; set; }
     public int HitDamegeLayer { get; set; } = 2;
 
@@ -31,21 +31,25 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     [SerializeField, Header("障害物に使うレイヤー")]
     private LayerMask obstacleMask;
 
-    [SerializeField, Header("GunData")]
-    public GunData gundata;
-    [SerializeField, Header("GunData")]
+
+    [SerializeField, Header("HackData")]
     public HackData hackdata;
     [SerializeField, Header("HP")]
     private float MaxHP;
+
+    // プレイヤーとの間に障害物があるか判別するスクリプト
     public PlayerCheack playerCheack;
 
-    // ガンデータ
-    [HideInInspector]
+    [SerializeField, Header("予備動作")]
     public float aimTime = 0.5f;
+
+    // GUNDATA
+    [SerializeField, Header("GunData")]
+    public GunData gundata;
     [HideInInspector]
-    public int MaxMagazine;
+    public int MAXBULLET;
     [HideInInspector]
-    public int nowMagazine;
+    public int NOWBULLET;
     [HideInInspector]
     public int shotRate;
     [HideInInspector]
@@ -67,8 +71,8 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         Clack,
         num
     }
-    public CancellationToken token;
-    CancellationTokenSource cts;
+    protected CancellationToken token;
+    private CancellationTokenSource cts;
     public void Awake()
     {
         GunDataInit();
@@ -82,8 +86,8 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         NowHP = MAXHP;
     }
 
-    public StateType statetype;
-    public Dictionary<StateType, IState> states;
+    protected StateType statetype;
+    protected Dictionary<StateType, IState> states;
 
     void Update()
     {
@@ -122,28 +126,30 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     public void GunDataInit()
     {
         shotRate = gundata.rate;
-        MaxMagazine = gundata.MaxMagazine;
-        nowMagazine = MaxMagazine;
+        MAXBULLET = gundata.MaxMagazine;
+        NOWBULLET = MAXBULLET;
         bulletSpeed = gundata.bulletSpeed;
         stoppingPower = gundata.power;
         shotIntervalTime = 1f / shotRate;
+        moveSpeed += gundata.Maneuverability;
     }
 
     public void FireWallDataInit()
     {
-        MaxFireWall = hackdata.MaxFireWall;
-        NowFireWall = hackdata.MaxFireWall;
-        FireWallRecovaryNum = hackdata.FireWallRecovaryNum;
+        //MaxFireWall = hackdata.MaxFireWall;
+        //NowFireWall = MaxFireWall;
+        //FireWallRecovaryNum = hackdata.FireWallRecovaryNum;
     }
 
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
+        // デバッグ用表示
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.white;
         style.fontSize = 14;
         Handles.Label(transform.position + Vector3.up * 1f, "HP " + NowHP.ToString(), style);
-        Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + nowMagazine.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + NOWBULLET.ToString(), style);
         if (currentState != null)
         {
             Handles.Label(transform.position + Vector3.up * 2f, "実行ステート " + currentState.ToString(), style);
