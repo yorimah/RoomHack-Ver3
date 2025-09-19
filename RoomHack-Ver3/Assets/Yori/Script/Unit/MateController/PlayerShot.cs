@@ -3,13 +3,11 @@
 public class PlayerShot
 {
     private UnitCore unitCore;
-
-
     enum ShotSection
     {
         shot,
-        shotInterval
-
+        shotInterval,
+        Reload,
     }
 
     ShotSection shotSection;
@@ -37,11 +35,15 @@ public class PlayerShot
     }
     public void Shot()
     {
+        if (Input.GetKeyDown(KeyCode.R) && shotSection != ShotSection.Reload)
+        {
+            shotSection = ShotSection.Reload;
+        }
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
             case ShotSection.shot:
-                if (unitCore.NOWBULLET<=0)
+                if (unitCore.NOWBULLET <= 0)
                 {
                     return;
                 }
@@ -53,11 +55,20 @@ public class PlayerShot
                 }
                 break;
             case ShotSection.shotInterval:
-                timer += Time.deltaTime;
+                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (unitCore.shotIntervalTime <= timer)
                 {
                     shotSection = ShotSection.shot;
                     timer = 0;
+                }
+                break;
+            case ShotSection.Reload:
+                timer += GameTimer.Instance.ScaledDeltaTime;
+                if (unitCore.reloadTime <= timer)
+                {
+                    unitCore.NOWBULLET = unitCore.MAXBULLET;
+                    timer = 0;
+                    shotSection = ShotSection.shot;
                 }
                 break;
             default:

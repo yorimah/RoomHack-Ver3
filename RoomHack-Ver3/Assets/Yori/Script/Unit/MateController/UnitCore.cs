@@ -39,6 +39,8 @@ public class UnitCore : MonoBehaviour, IDamegeable
     public int stoppingPower;
     [HideInInspector]
     public float shotIntervalTime;
+    [HideInInspector]
+    public float reloadTime;
 
     [SerializeField, Header("弾")]
     public GameObject bulletPrefab;
@@ -108,7 +110,7 @@ public class UnitCore : MonoBehaviour, IDamegeable
         bulletSpeed = gundata.bulletSpeed;
         stoppingPower = gundata.power;
         shotIntervalTime = 1f / shotRate;
-
+        reloadTime = gundata.reload;
     }
     public void Die()
     {
