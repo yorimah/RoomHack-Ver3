@@ -43,11 +43,7 @@ public class PlayerShot
         switch (shotSection)
         {
             case ShotSection.shot:
-                if (unitCore.NOWBULLET <= 0)
-                {
-                    return;
-                }
-                if (Input.GetKey(KeyCode.Mouse0))
+                if (Input.GetKey(KeyCode.Mouse0) && unitCore.NOWBULLET > 0)
                 {
                     GunFire();
                     shotSection++;

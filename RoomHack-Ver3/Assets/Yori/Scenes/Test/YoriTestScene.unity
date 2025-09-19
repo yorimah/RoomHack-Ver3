@@ -267,12 +267,11 @@ MonoBehaviour:
   ramRecovary: 0
   gundata: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
   aimTime: 0.5
-  MaxMagazine: 0
-  nowMagazine: 0
   shotRate: 0
   bulletSpeed: 0
   stoppingPower: 0
   shotIntervalTime: 0
+  reloadTime: 0
   bulletPrefab: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
   statetype: 0
 --- !u!61 &24237162
@@ -615,7 +614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8605444582476318228, guid: ff81a2ef4db046747af88ab170f69c27, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -859,7 +858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7554511116041994133, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7557431831620123614, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
       propertyPath: m_LocalPosition.x
