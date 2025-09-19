@@ -11,7 +11,7 @@ public class ReloadState : IState
     private float timer = 0;
     public void Enter()
     {
-        enemy.nowMagazine = enemy.MaxMagazine;
+        enemy.NOWBULLET = enemy.MAXBULLET;
         timer = 0;
     }
 
@@ -27,6 +27,6 @@ public class ReloadState : IState
 
     public void Exit()
     {
-        enemy.nowMagazine = enemy.gundata.MaxMagazine;
+        enemy.NOWBULLET = enemy.gundata.MaxMagazine;
     }
 }

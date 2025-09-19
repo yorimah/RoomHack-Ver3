@@ -8,4 +8,5 @@ public class GunData : ScriptableObject
     public int MaxMagazine;
     public float reload;
     public float bulletSpeed;
+    public float Maneuverability;
 }

@@ -60,13 +60,13 @@ public class ShotState : IState
                 }
                 break;
             case ShotSection.shot:
-                if (enemy.nowMagazine <= 0)
+                if (enemy.NOWBULLET <= 0)
                 {
                     enemy.ChangeState(Enemy.StateType.Reload);
                     return;
                 }
                 bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer,enemy.stoppingPower);
-                enemy.nowMagazine--;
+                enemy.NOWBULLET--;
                 shotNum++;
                 shotSection++;
                 break;

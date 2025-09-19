@@ -2,7 +2,6 @@
 #if UNITY_EDITOR
 #endif
 using UnityEngine.SceneManagement;
-using System.Threading;
 using System.Collections.Generic;
 public class UnitCore : MonoBehaviour, IDamegeable
 {

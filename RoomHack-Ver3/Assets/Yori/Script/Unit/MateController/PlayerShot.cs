@@ -37,6 +37,7 @@ public class PlayerShot
     {
         if (Input.GetKeyDown(KeyCode.R) && shotSection != ShotSection.Reload)
         {
+            unitCore.NOWBULLET = 0;
             shotSection = ShotSection.Reload;
         }
         // 発射レートを設定しその後、発射秒数を決定する。
