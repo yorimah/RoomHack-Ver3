@@ -6,12 +6,15 @@ public class ToolDeskUIDisp : MonoBehaviour
     [SerializeField]
     ToolDataBank toolDataBank;
 
-    int toolCost;
+    [SerializeField]
+    int toolID;
 
-    private void Start()
+
+    private void Update()
     {
-        Debug.Log(toolDataBank.toolDataList[0].toolName);
-        Debug.Log(toolDataBank.toolDataList[0].toolCost);
-        Debug.Log(toolDataBank.toolDataList[0].toolText);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(toolDataBank.toolDataList[toolID].toolEvent);
+        }
     }
 }
