@@ -65,6 +65,8 @@ public class UnitCore : MonoBehaviour, IDamegeable
         currentState?.Exit();
         currentState = states[type];
         currentState?.Enter();
+
+        statetype = type;
     }
     void Awake()
     {
