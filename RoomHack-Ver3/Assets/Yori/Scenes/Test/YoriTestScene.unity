@@ -4453,6 +4453,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlyDrone
       objectReference: {fileID: 0}
+    - target: {fileID: 9203542283971984070, guid: b413a7ce4e7891049b1b002513c95d39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4893,6 +4897,7 @@ MonoBehaviour:
   stoppingPower: 0
   died: 0
   shotIntervalTime: 0
+  escapeMode: 0
 --- !u!1 &4821191494485698162
 GameObject:
   m_ObjectHideFlags: 0
