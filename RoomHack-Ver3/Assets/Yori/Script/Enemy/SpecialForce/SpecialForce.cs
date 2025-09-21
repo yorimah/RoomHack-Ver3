@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpecialForce : Enemy
 {
+    public bool escapeMode;
     void Start()
     {
         playerCheack = new PlayerCheack();
@@ -12,8 +13,8 @@ public class SpecialForce : Enemy
     {
         { StateType.Idle, new IdleState(this) },
         { StateType.Move, new SpecialForceMoveState(this) },
-        { StateType.Shot, new ShotState(this) },
-        { StateType.Reload, new ReloadState(this) },
+        { StateType.Shot, new SpecialForceShotState(this) },
+        { StateType.Reload, new SpecialForceReloadState(this) },
         { StateType.Die, new DieState(this) },
     };
         statetype = StateType.Idle;

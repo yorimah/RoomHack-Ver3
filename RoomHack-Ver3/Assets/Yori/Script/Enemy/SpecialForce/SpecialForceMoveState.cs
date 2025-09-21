@@ -9,10 +9,12 @@ public class SpecialForceMoveState : IState
     private float flipTimer = 0;
 
     private float flipInterval = 0.5f;
+    private int forwardDir = 1;
 
     private int direction = 1;
 
     private PlayerCheack playerCheack;
+
     public SpecialForceMoveState(Enemy _enemy)
     {
         enemy = _enemy;
@@ -26,45 +28,74 @@ public class SpecialForceMoveState : IState
 
     public void Execute()
     {
-        Vector2 nowPosition = enemy.transform.position;
-        // 反転タイミングになったら左右どっちに反転するか決める。
-        flipTimer += Time.deltaTime;
-        if (flipTimer >= flipInterval)
+        if (enemy.NOWBULLET > 0)
         {
-            direction = Random.value < 0.5f ? -1 : 1;
-            flipTimer = 0f;
-            // プレイヤーとの間に障害物があるかチェック ないならショット移動
-            if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+            flipTimer += GameTimer.Instance.ScaledDeltaTime;
+            // 反転タイミングになったら前後どっちに反転するか決める。
+            if (flipTimer >= flipInterval)
             {
-                enemy.ChangeState(Enemy.StateType.Shot);
+                forwardDir = Random.value < 0.5f ? -1 : 1;
+                flipTimer = 0f;
+                // プレイヤーとの間に障害物があるかチェック ないならショット移動
+                if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+                {
+                    enemy.ChangeState(Enemy.StateType.Shot);
+                }
+            }
+        }
+        else 
+        {
+            forwardDir = 1;
+            if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+            {
+                enemy.ChangeState(Enemy.StateType.Reload);
             }
         }
 
+        Vector2 nowPosition = enemy.transform.position;
         Vector2 center = UnitCore.Instance.transform.position;
-        Vector2 dir = nowPosition - center;
+        Vector2 toEnemy = nowPosition - center;
+        Vector2 radialDir = toEnemy.normalized;
 
-        Vector2 emDir = new Vector2(-dir.y, dir.x);
-        Vector2 nextPos = (nowPosition + (emDir * direction));
+        // 横移動
+        Vector2 tangentDir = new Vector2(-radialDir.y, radialDir.x) * direction;
 
-        // 移動先の障害物チェック
-        Vector2 directionToNext = (nextPos - nowPosition).normalized;
-        float checkDistance = 1f;
-        RaycastHit2D hit = Physics2D.Raycast(nowPosition, directionToNext, checkDistance, enemy.GetObstacleMask());
-        // ぶつかったら反対に移動する。
+        // 縦移動
+        Vector2 forwardMove = radialDir * forwardDir;
+
+        // 方向合成
+        Vector2 moveDir = (tangentDir + forwardMove*2).normalized;
+        // 障害物チェック
+        float checkDistance = 0.5f;
+
+        RaycastHit2D hit = Physics2D.Raycast(nowPosition, moveDir, checkDistance, enemy.GetObstacleMask());
+        //Debug.DrawRay(nowPosition, directionToNext * checkDistance, Color.blue);
         if (hit.collider != null)
         {
             direction *= -1;
+            forwardDir *= -1;
             flipTimer = 0f;
             enemyRididBody.velocity = Vector2.zero;
             return;
         }
-
         // Rigidbody2Dで移動
-        enemyRididBody.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
+        enemyRididBody.velocity = moveDir.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
+
+        enemy.transform.rotation = MoveForwadRotation(nowPosition + moveDir);
     }
 
     public void Exit()
     {
 
+    }
+
+    public Quaternion MoveForwadRotation(Vector3 _nextPos)
+    {
+        Vector3 nextPos = _nextPos;
+        Vector2 direction = nextPos - enemy.transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        return targetRotation;
     }
 }

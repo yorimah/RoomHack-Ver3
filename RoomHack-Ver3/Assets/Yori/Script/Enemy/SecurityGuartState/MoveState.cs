@@ -64,11 +64,23 @@ public class MoveState : IState
         }
         // Rigidbody2Dで移動
         enemyRididBody.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
+
+        enemy.transform.rotation= MoveForwadRotation(nextPos);
     }
 
     public void Exit()
     {
 
+    }
+
+    public Quaternion MoveForwadRotation(Vector3 _nextPos)
+    {
+        Vector3 nextPos = _nextPos;
+        Vector2 direction = nextPos - enemy.transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        return targetRotation;
     }
 }
 
