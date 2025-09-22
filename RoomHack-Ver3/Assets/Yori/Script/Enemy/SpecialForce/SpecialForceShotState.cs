@@ -36,16 +36,23 @@ public class SpecialForceShotState : IState
         // プレイヤー情報初期化
         playerCheack = enemy.playerCheack;
     }
+    float nowHP;
 
+    private float diffusionRate = 0;
     public void Enter()
     {
         shotSection = ShotSection.aim;
         timer = 0;
-        Debug.Log(enemy.NOWBULLET);
+        nowHP = enemy.NowHP;
+        diffusionRate = 0;
     }
 
     public void Execute()
     {
+        if (nowHP != enemy.NowHP)
+        {
+            enemy.ChangeState(Enemy.StateType.Move);
+        }
         playerCheack.RotationFoward(enemy.transform);
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
@@ -66,7 +73,10 @@ public class SpecialForceShotState : IState
                     enemy.ChangeState(Enemy.StateType.Move);
                     return;
                 }
-                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower);
+                diffusionRate += enemy.recoil;
+                Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
+                Debug.Log(diffusionRate);
+                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower, diffusionRate);
                 enemy.NOWBULLET--;
                 shotNum++;
                 shotSection++;
@@ -94,5 +104,6 @@ public class SpecialForceShotState : IState
 
     public void Exit()
     {
+        timer = 0;
     }
 }

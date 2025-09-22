@@ -9,13 +9,22 @@ public class PlayerShot
         shotInterval,
         Reload,
     }
-
+    Mesh mesh;
     ShotSection shotSection;
 
     private float timer = 0;
+    private float diffusionRate;
+
+    private GameObject shotRange;
     public PlayerShot(UnitCore _unitCore)
     {
         unitCore = _unitCore;
+        mesh = new Mesh();
+        shotRange = new GameObject(unitCore.gameObject.name + "shotRangge");
+        shotRange.AddComponent<MeshRenderer>();
+        shotRange.AddComponent<MeshFilter>();
+        shotRange.transform.localPosition = Vector3.zero;
+        shotRange.GetComponent<MeshFilter>().mesh = mesh;
     }
     private void GunFire()
     {
@@ -29,12 +38,20 @@ public class PlayerShot
         bulletCore.hitStop = 0.1f;
         bulletCore.HitDamegeLayer = unitCore.HitDamegeLayer;
 
-        Vector3 shootDirection = Quaternion.Euler(0, 0, unitCore.transform.eulerAngles.z) * Vector3.up;
-        bulletRigit.velocity = shootDirection * unitCore.bulletSpeed;
-        bulletGameObject.transform.up = shootDirection;
+
+        float rand = Random.Range(-diffusionRate, diffusionRate);
+
+
+        Vector2 shotDirection = Quaternion.Euler(0, 0, unitCore.transform.eulerAngles.z + rand) * Vector3.up;
+        bulletRigit.velocity = shotDirection * unitCore.bulletSpeed;
+        bulletGameObject.transform.up = shotDirection;
     }
     public void Shot()
     {
+
+        ShotRangeView(unitCore.transform.position, Vector2.zero);
+        diffusionRate = Mathf.Clamp(diffusionRate, unitCore.minDiffusionRate, unitCore.maxDiffusionRate);
+
         if (Input.GetKeyDown(KeyCode.R) && shotSection != ShotSection.Reload)
         {
             unitCore.NOWBULLET = 0;
@@ -49,27 +66,64 @@ public class PlayerShot
                     GunFire();
                     shotSection++;
                     unitCore.NOWBULLET--;
+                    diffusionRate += unitCore.recoil;
+                }
+                else if (unitCore.NOWBULLET <= 0)
+                {
+                    unitCore.NOWBULLET = 0;
+                    shotSection = ShotSection.Reload;
+                }
+                else
+                {
+                    diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
+                    Debug.Log(diffusionRate);
                 }
                 break;
             case ShotSection.shotInterval:
-                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (unitCore.shotIntervalTime <= timer)
                 {
                     shotSection = ShotSection.shot;
                     timer = 0;
                 }
+                else
+                {
+                    timer += GameTimer.Instance.ScaledDeltaTime;
+                }
                 break;
             case ShotSection.Reload:
-                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (unitCore.reloadTime <= timer)
                 {
                     unitCore.NOWBULLET = unitCore.MAXBULLET;
                     timer = 0;
                     shotSection = ShotSection.shot;
                 }
+                else
+                {
+                    timer += GameTimer.Instance.ScaledDeltaTime;
+                }
                 break;
             default:
                 break;
         }
+    }
+    public void ShotRangeView(Vector3 _playerOrigin, Vector3 _hitpointSecond)
+    {
+        float x = 4 * Mathf.Cos(diffusionRate * 2);
+        float y = 4 * Mathf.Sin(diffusionRate * 2);
+
+        // 親オブジェクトのローカル空間に変換
+        Transform t = unitCore.transform;
+        Vector3[] vertices = new Vector3[]
+        {
+        t.InverseTransformPoint(_playerOrigin),
+        t.InverseTransformPoint(new Vector2(x,y)),
+        t.InverseTransformPoint(_hitpointSecond)
+        };
+
+        int[] trianglesIndex = new int[] { 0, 1, 2 };
+        mesh.Clear();
+        mesh.vertices = vertices;
+        mesh.triangles = trianglesIndex;
+        mesh.RecalculateNormals();
     }
 }

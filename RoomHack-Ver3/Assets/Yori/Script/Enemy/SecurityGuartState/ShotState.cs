@@ -24,6 +24,8 @@ public class ShotState : IState
     private float timer;
     // Player情報
     private PlayerCheack playerCheack;
+
+    private float diffusionRate;
     public ShotState(Enemy _enemy)
     {
         enemy = _enemy;
@@ -65,7 +67,9 @@ public class ShotState : IState
                     enemy.ChangeState(Enemy.StateType.Reload);
                     return;
                 }
-                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer,enemy.stoppingPower);
+                diffusionRate += enemy.recoil;
+                Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
+                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer,enemy.stoppingPower,diffusionRate);
                 enemy.NOWBULLET--;
                 shotNum++;
                 shotSection++;

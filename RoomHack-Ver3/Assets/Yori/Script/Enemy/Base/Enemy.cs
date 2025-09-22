@@ -56,6 +56,15 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     public float bulletSpeed;
     [HideInInspector]
     public int stoppingPower;
+    [HideInInspector]
+    public float recoil;
+    [HideInInspector]
+    public float maxDiffusionRate=15;
+    [HideInInspector]
+    public float minDiffusionRate = 1;
+
+
+
 
     // 死亡フラグ
     public bool died = false;
@@ -126,12 +135,13 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     public void GunDataInit()
     {
         shotRate = gundata.rate;
-        MAXBULLET = gundata.MaxMagazine;
+        MAXBULLET = gundata.MAXMAGAZINE;
         NOWBULLET = MAXBULLET;
         bulletSpeed = gundata.bulletSpeed;
         stoppingPower = gundata.power;
         shotIntervalTime = 1f / shotRate;
         moveSpeed += gundata.Maneuverability;
+        recoil = gundata.recoil;
     }
 
     public void FireWallDataInit()

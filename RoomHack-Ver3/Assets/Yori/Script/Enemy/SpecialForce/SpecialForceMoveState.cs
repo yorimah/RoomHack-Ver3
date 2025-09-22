@@ -7,10 +7,9 @@ public class SpecialForceMoveState : IState
     private Rigidbody2D enemyRididBody;
 
     private float flipTimer = 0;
-
     private float flipInterval = 0.5f;
-    private int forwardDir = 1;
 
+    private int forwardDir = 1;
     private int direction = 1;
 
     private PlayerCheack playerCheack;
@@ -43,7 +42,7 @@ public class SpecialForceMoveState : IState
                 }
             }
         }
-        else 
+        else
         {
             forwardDir = 1;
             if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
@@ -64,7 +63,7 @@ public class SpecialForceMoveState : IState
         Vector2 forwardMove = radialDir * forwardDir;
 
         // 方向合成
-        Vector2 moveDir = (tangentDir + forwardMove*2).normalized;
+        Vector2 moveDir = (tangentDir + forwardMove * 2).normalized;
         // 障害物チェック
         float checkDistance = 0.5f;
 

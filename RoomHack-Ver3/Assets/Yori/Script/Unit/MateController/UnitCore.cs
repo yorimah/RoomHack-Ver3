@@ -40,6 +40,12 @@ public class UnitCore : MonoBehaviour, IDamegeable
     public float shotIntervalTime;
     [HideInInspector]
     public float reloadTime;
+    [HideInInspector]
+    public float maxDiffusionRate = 15;
+    [HideInInspector]
+    public float minDiffusionRate = 1;
+    [HideInInspector]
+    public float recoil;
 
     [SerializeField, Header("弾")]
     public GameObject bulletPrefab;
@@ -106,12 +112,13 @@ public class UnitCore : MonoBehaviour, IDamegeable
     private void GunDataInit()
     {
         shotRate = gundata.rate;
-        MAXBULLET = gundata.MaxMagazine;
+        MAXBULLET = gundata.MAXMAGAZINE;
         NOWBULLET = MAXBULLET;
         bulletSpeed = gundata.bulletSpeed;
         stoppingPower = gundata.power;
         shotIntervalTime = 1f / shotRate;
         reloadTime = gundata.reload;
+        recoil = gundata.recoil;
     }
     public void Die()
     {

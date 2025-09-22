@@ -27,6 +27,8 @@ public class DroneShotState : IState
     private BulletGeneratar bulletGeneratar;
 
     private float timer;
+
+    private float diffusionRate;
     public DroneShotState(Enemy _enemy)
     {
         enemy = _enemy;
@@ -93,7 +95,9 @@ public class DroneShotState : IState
                 }
                 break;
             case ShotSection.shot:
-                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer,enemy.stoppingPower);
+                diffusionRate += enemy.recoil;
+                Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
+                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer,enemy.stoppingPower, diffusionRate);
                 shotSection++;
                 break;
             case ShotSection.shotInterval:

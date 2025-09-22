@@ -27,6 +27,6 @@ public class ReloadState : IState
 
     public void Exit()
     {
-        enemy.NOWBULLET = enemy.gundata.MaxMagazine;
+        enemy.NOWBULLET = enemy.gundata.MAXMAGAZINE;
     }
 }
