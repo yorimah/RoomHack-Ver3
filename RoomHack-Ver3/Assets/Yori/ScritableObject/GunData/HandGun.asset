@@ -16,4 +16,5 @@ MonoBehaviour:
   rate: 3
   MaxMagazine: 12
   reload: 2
-  bulletSpeed: 10
+  bulletSpeed: 20
+  Maneuverability: 0

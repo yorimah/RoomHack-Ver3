@@ -553,6 +553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1073476625}
   - component: {fileID: 1073476626}
+  - component: {fileID: 1073476627}
   m_Layer: 0
   m_Name: HackCameraController
   m_TagString: Untagged
@@ -587,6 +588,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1605968b08ac00149a3466ba3f6145fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hackTargetObject: {fileID: 0}
+--- !u!114 &1073476627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073476624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f13180a1270f98489a28e5ae724e500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
+  setList: {fileID: 11400000, guid: 86b0905979c4c3d418cae8286f3b5576, type: 2}
+  toolDeck: 
+  toolDesk: 
+  deskSize: 5
+  toolTrash: 
 --- !u!1 &1217506597
 GameObject:
   m_ObjectHideFlags: 0

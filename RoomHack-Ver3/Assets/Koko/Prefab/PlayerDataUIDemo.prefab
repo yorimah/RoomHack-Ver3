@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 7557431831620123614}
   - component: {fileID: 7632210068158088353}
   m_Layer: 0
-  m_Name: PlayerDataUITest
+  m_Name: PlayerDataUIDemo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
