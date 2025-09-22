@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName ="ToolData")]
+[CreateAssetMenu(menuName = "ToolData")]
 
 public class ToolDataBank : ScriptableObject
 {
@@ -19,7 +18,7 @@ public class ToolData
     public GameObject toolEvent;
 }
 
-enum tool
+public enum tool
 {
     none,
     CCTVHack,
