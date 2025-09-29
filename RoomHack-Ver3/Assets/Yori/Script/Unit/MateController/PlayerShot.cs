@@ -18,9 +18,10 @@ public class PlayerShot
 
     private GameObject shotRange;
 
-    public float viewAngle = 90f;
-    public float viewDistance = 3f;
-    public int segment = 20;
+    // 長さ
+    private float viewDistance = 3f;
+    // 分割数
+    private int segment = 20;
     public PlayerShot(UnitCore _unitCore)
     {
         unitCore = _unitCore;
@@ -28,14 +29,13 @@ public class PlayerShot
         shotRange = new GameObject(unitCore.gameObject.name + "shotRangge");
         shotRange.AddComponent<MeshRenderer>();
         shotRange.AddComponent<MeshFilter>();
-        //shotRange.transform.parent = unitCore.transform;
-        shotRange.transform.localPosition =Vector2.zero;
-        //shotRange.GetComponent<MeshFilter>().mesh = mesh;
+        shotRange.transform.localPosition = Vector2.zero;
 
         mesh = new Mesh();
         shotRange.GetComponent<MeshFilter>().mesh = mesh;
 
         var mr = shotRange.GetComponent<MeshRenderer>();
+        // 仮の色
         mr.material = new Material(Shader.Find("Unlit/Color"));
         mr.material.color = new Color(1, 1, 0, 0.3f); // 半透明黄色
         mr.sortingOrder = 10;
@@ -129,27 +129,27 @@ public class PlayerShot
 
         vertices[0] = unitCore.transform.position;
 
-        float halfAngle = diffusionRate * 2f;
+        float angle = diffusionRate * 2f;
 
         for (int i = 0; i <= segment; i++)
         {
-            float angle = -diffusionRate + (halfAngle / segment) * i;
+            float diffusionAngle = -diffusionRate + (angle / segment) * i;
 
-            Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
+            Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
             Vector3 dir = rot * unitCore.transform.up;
 
             Vector3 point = unitCore.transform.position + dir * viewDistance;
-            //float rad = angle * Mathf.Deg2Rad;
-
-            //Vector3 dir = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0);
 
             vertices[i + 1] = point;
 
             if (i < segment)
             {
                 int start = i * 3;
+                // 中心
                 triangles[start] = 0;
+                // 左上
                 triangles[start + 1] = i + 2;
+                // 右上
                 triangles[start + 2] = i + 1;
             }
         }
