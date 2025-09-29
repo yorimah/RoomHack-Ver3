@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class PlayerShot
 {
     private UnitCore unitCore;
@@ -16,15 +17,28 @@ public class PlayerShot
     private float diffusionRate;
 
     private GameObject shotRange;
+
+    public float viewAngle = 90f;
+    public float viewDistance = 3f;
+    public int segment = 20;
     public PlayerShot(UnitCore _unitCore)
     {
         unitCore = _unitCore;
-        mesh = new Mesh();
+        //mesh = new Mesh();
         shotRange = new GameObject(unitCore.gameObject.name + "shotRangge");
         shotRange.AddComponent<MeshRenderer>();
         shotRange.AddComponent<MeshFilter>();
-        shotRange.transform.localPosition = Vector3.zero;
+        //shotRange.transform.parent = unitCore.transform;
+        shotRange.transform.localPosition =Vector2.zero;
+        //shotRange.GetComponent<MeshFilter>().mesh = mesh;
+
+        mesh = new Mesh();
         shotRange.GetComponent<MeshFilter>().mesh = mesh;
+
+        var mr = shotRange.GetComponent<MeshRenderer>();
+        mr.material = new Material(Shader.Find("Unlit/Color"));
+        mr.material.color = new Color(1, 1, 0, 0.3f); // 半透明黄色
+        mr.sortingOrder = 10;
     }
     private void GunFire()
     {
@@ -49,7 +63,7 @@ public class PlayerShot
     public void Shot()
     {
 
-        ShotRangeView(unitCore.transform.position, Vector2.zero);
+        ShotRangeView();
         diffusionRate = Mathf.Clamp(diffusionRate, unitCore.minDiffusionRate, unitCore.maxDiffusionRate);
 
         if (Input.GetKeyDown(KeyCode.R) && shotSection != ShotSection.Reload)
@@ -106,24 +120,42 @@ public class PlayerShot
                 break;
         }
     }
-    public void ShotRangeView(Vector3 _playerOrigin, Vector3 _hitpointSecond)
+    public void ShotRangeView()
     {
-        float x = 4 * Mathf.Cos(diffusionRate * 2);
-        float y = 4 * Mathf.Sin(diffusionRate * 2);
-
-        // 親オブジェクトのローカル空間に変換
-        Transform t = unitCore.transform;
-        Vector3[] vertices = new Vector3[]
-        {
-        t.InverseTransformPoint(_playerOrigin),
-        t.InverseTransformPoint(new Vector2(x,y)),
-        t.InverseTransformPoint(_hitpointSecond)
-        };
-
-        int[] trianglesIndex = new int[] { 0, 1, 2 };
         mesh.Clear();
+
+        Vector3[] vertices = new Vector3[segment + 2];
+        int[] triangles = new int[segment * 3];
+
+        vertices[0] = unitCore.transform.position;
+
+        float halfAngle = diffusionRate * 2f;
+
+        for (int i = 0; i <= segment; i++)
+        {
+            float angle = -diffusionRate + (halfAngle / segment) * i;
+
+            Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
+            Vector3 dir = rot * unitCore.transform.up;
+
+            Vector3 point = unitCore.transform.position + dir * viewDistance;
+            //float rad = angle * Mathf.Deg2Rad;
+
+            //Vector3 dir = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0);
+
+            vertices[i + 1] = point;
+
+            if (i < segment)
+            {
+                int start = i * 3;
+                triangles[start] = 0;
+                triangles[start + 1] = i + 2;
+                triangles[start + 2] = i + 1;
+            }
+        }
+
         mesh.vertices = vertices;
-        mesh.triangles = trianglesIndex;
+        mesh.triangles = triangles;
         mesh.RecalculateNormals();
     }
 }

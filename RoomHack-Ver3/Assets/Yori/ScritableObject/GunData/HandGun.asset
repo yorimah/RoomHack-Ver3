@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 40
   rate: 3
-  MaxMagazine: 12
+  MAXMAGAZINE: 10
   reload: 2
   bulletSpeed: 20
   Maneuverability: 0
+  recoil: 2

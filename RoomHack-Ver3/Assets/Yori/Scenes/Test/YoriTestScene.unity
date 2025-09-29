@@ -272,6 +272,9 @@ MonoBehaviour:
   stoppingPower: 0
   shotIntervalTime: 0
   reloadTime: 0
+  maxDiffusionRate: 15
+  minDiffusionRate: 1
+  recoil: 0
   bulletPrefab: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
   statetype: 0
 --- !u!61 &24237162
@@ -4588,7 +4591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &3424323345007524162
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4896,6 +4899,8 @@ MonoBehaviour:
   bulletSpeed: 0
   stoppingPower: 0
   recoil: 0
+  maxDiffusionRate: 15
+  minDiffusionRate: 1
   died: 0
   shotIntervalTime: 0
   escapeMode: 0
