@@ -65,6 +65,7 @@ public class PlayerShot
 
         ShotRangeView();
         diffusionRate = Mathf.Clamp(diffusionRate, unitCore.minDiffusionRate, unitCore.maxDiffusionRate);
+        diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
 
         if (Input.GetKeyDown(KeyCode.R) && shotSection != ShotSection.Reload)
         {
@@ -86,11 +87,6 @@ public class PlayerShot
                 {
                     unitCore.NOWBULLET = 0;
                     shotSection = ShotSection.Reload;
-                }
-                else
-                {
-                    diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
-                    Debug.Log(diffusionRate);
                 }
                 break;
             case ShotSection.shotInterval:
@@ -127,6 +123,7 @@ public class PlayerShot
         Vector3[] vertices = new Vector3[segment + 2];
         int[] triangles = new int[segment * 3];
 
+        // 中心はプレイヤー
         vertices[0] = unitCore.transform.position;
 
         float angle = diffusionRate * 2f;

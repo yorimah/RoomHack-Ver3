@@ -117,7 +117,7 @@ public class UnitCore : MonoBehaviour, IDamegeable
         bulletSpeed = gundata.bulletSpeed;
         stoppingPower = gundata.power;
         shotIntervalTime = 1f / shotRate;
-        reloadTime = gundata.reload;
+        reloadTime = gundata.reloadTime;
         recoil = gundata.recoil;
     }
     public void Die()

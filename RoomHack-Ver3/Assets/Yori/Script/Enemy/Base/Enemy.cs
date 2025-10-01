@@ -63,9 +63,6 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     [HideInInspector]
     public float minDiffusionRate = 1;
 
-
-
-
     // 死亡フラグ
     public bool died = false;
 
