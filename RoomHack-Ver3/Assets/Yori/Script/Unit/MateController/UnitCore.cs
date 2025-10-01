@@ -49,6 +49,11 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
     [SerializeField, Header("弾")]
     public GameObject bulletPrefab;
+
+    [SerializeField, Header("プレイヤー基礎スピード")]
+    private float moveBasicSpeed = 5;
+
+    public float moveSpeed;
     public enum StateType
     {
         Action,
@@ -88,7 +93,7 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
         moveInput = new MoveInput();
         moveInput.Init();
-
+        moveSpeed = moveBasicSpeed + data.plusMoveSpeed;
         // Singletonチェック
         if (Instance != null && Instance != this)
         {

@@ -9,7 +9,7 @@ public class TurretGun : Enemy
         states = new Dictionary<StateType, IState>()
     {
         { StateType.Idle, new IdleState(this) },
-        { StateType.Move, new MoveState(this) },
+        { StateType.Move, new TurretGunMoveState(this) },
         { StateType.Shot, new TurretGunShotState(this) },
         { StateType.Die, new DieState(this) },
     };
