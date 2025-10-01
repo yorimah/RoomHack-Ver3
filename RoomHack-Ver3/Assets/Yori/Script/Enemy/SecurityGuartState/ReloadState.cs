@@ -18,15 +18,15 @@ public class ReloadState : IState
     public void Execute()
     {
         timer += GameTimer.Instance.ScaledDeltaTime;
-        if (timer >= 1)
+        if (timer >= enemy.gundata.reloadTime)
         {
-            enemy.ChangeState(Enemy.StateType.Idle);
+            enemy.ChangeState(Enemy.StateType.Move);
             timer = 0;
         }
     }
 
     public void Exit()
     {
-        enemy.NOWBULLET = enemy.gundata.MaxMagazine;
+        enemy.NOWBULLET = enemy.gundata.MAXMAGAZINE;
     }
 }

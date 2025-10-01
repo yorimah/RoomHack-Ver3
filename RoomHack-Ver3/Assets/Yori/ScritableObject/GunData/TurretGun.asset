@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e71c88a32e5a64dbfa1892ce95088c, type: 3}
-  m_Name: HandGun
+  m_Name: TurretGun
   m_EditorClassIdentifier: 
-  power: 40
-  rate: 3
+  power: 50
+  rate: 10
   MAXMAGAZINE: 10
-  reload: 2
-  bulletSpeed: 20
+  reload: 0
+  bulletSpeed: 40
   Maneuverability: 0
-  recoil: 2
+  recoil: 0

@@ -15,8 +15,7 @@ public class PlayerMove
 
     private Vector3 direction;
 
-    [SerializeField, Header("プレイヤースピード")]
-    private float moveSpeed = 5;
+    
     public PlayerMove(UnitCore _unitCore)
     {
         unitCore = _unitCore;
@@ -42,6 +41,6 @@ public class PlayerMove
     public void PlMove()
     {
         PlayerRotation();
-        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), moveSpeed) * GameTimer.Instance.customTimeScale;
+        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), unitCore.moveSpeed) * GameTimer.Instance.customTimeScale;
     }
 }

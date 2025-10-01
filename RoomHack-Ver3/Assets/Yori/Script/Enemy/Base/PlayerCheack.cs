@@ -38,8 +38,9 @@ public class PlayerCheack
         {
             return;
         }
-        Vector3 playerPosition = UnitCore.Instance.transform.position;
-        Vector2 direction = playerPosition - transform.position;
+        Vector2 playerPosition = UnitCore.Instance.transform.position;
+        Vector2 playerNextPosition = playerPosition + UnitCore.Instance.GetComponent<Rigidbody2D>().velocity.normalized;
+        Vector2 direction = playerNextPosition - (Vector2)transform.position;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);

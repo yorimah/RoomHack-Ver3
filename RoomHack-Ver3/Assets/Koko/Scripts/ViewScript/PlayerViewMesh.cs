@@ -24,6 +24,8 @@ public class PlayerViewMesh : MonoBehaviour
     List<Vector2> Items = new List<Vector2>();
 
     private GameObject viewMeshs;
+
+
     private void Awake()
     {
         // 空のゲームオブジェクトを生成
@@ -36,11 +38,13 @@ public class PlayerViewMesh : MonoBehaviour
             triangles[i].transform.localPosition = Vector3.zero;
             triangles[i].GetComponent<MeshFilter>().mesh = mesh[i];
         }
+        //CustumInit();
     }
 
     private void Update()
     {
         PlayeViewer();
+        //PlayerViewerCustum();
     }
 
     public void GeneradeTriangle(Vector3 _playerOrigin, Vector3 _hitPointFirst, Vector3 _hitpointSecond, int index)
@@ -87,5 +91,57 @@ public class PlayerViewMesh : MonoBehaviour
             GeneradeTriangle(Items[i - 1], startPos, Items[i], i - 1);
         }
         Items.Clear();
+    }
+    // 長さ
+    private float viewDistance = 3f;
+    // 分割数
+    private int segment = 360;
+    private void PlayerViewerCustum()
+    {
+        custumMesh.Clear();
+
+        Vector3[] vertices = new Vector3[segment + 2];
+        int[] triangles = new int[segment * 3];
+
+        // 中心はプレイヤー
+        vertices[0] = this.transform.position;
+
+        float halfAngle = 360 * 0.5f;
+
+        for (int i = 0; i <= segment; i++)
+        {
+            float diffusionAngle = -360 + (halfAngle / segment) * i;
+
+            Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
+            Vector3 dir = rot * transform.up;
+
+            Vector3 point = transform.position + dir * viewDistance;
+
+            vertices[i + 1] = point;
+
+            if (i < segment)
+            {
+                int start = i * 3;
+                // 中心
+                triangles[start] = 0;
+                // 左上
+                triangles[start + 1] = i + 2;
+                // 右上
+                triangles[start + 2] = i + 1;
+            }
+        }
+        custumMesh.vertices = vertices;
+        custumMesh.triangles = triangles;
+        custumMesh.RecalculateNormals();
+    }
+    private Mesh custumMesh;
+    private GameObject meshObject;
+    private void CustumInit()
+    {
+        meshObject=Instantiate(triangle,transform);
+        meshObject.transform.localPosition = Vector2.zero;
+
+        custumMesh = new Mesh();
+        meshObject.GetComponent<MeshFilter>().mesh = custumMesh;
     }
 }

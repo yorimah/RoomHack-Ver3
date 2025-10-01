@@ -40,9 +40,20 @@ public class UnitCore : MonoBehaviour, IDamegeable
     public float shotIntervalTime;
     [HideInInspector]
     public float reloadTime;
+    [HideInInspector]
+    public float maxDiffusionRate = 15;
+    [HideInInspector]
+    public float minDiffusionRate = 1;
+    [HideInInspector]
+    public float recoil;
 
     [SerializeField, Header("弾")]
     public GameObject bulletPrefab;
+
+    [SerializeField, Header("プレイヤー基礎スピード")]
+    private float moveBasicSpeed = 5;
+
+    public float moveSpeed;
     public enum StateType
     {
         Action,
@@ -82,7 +93,7 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
         moveInput = new MoveInput();
         moveInput.Init();
-
+        moveSpeed = moveBasicSpeed + data.plusMoveSpeed;
         // Singletonチェック
         if (Instance != null && Instance != this)
         {
@@ -106,12 +117,13 @@ public class UnitCore : MonoBehaviour, IDamegeable
     private void GunDataInit()
     {
         shotRate = gundata.rate;
-        MAXBULLET = gundata.MaxMagazine;
+        MAXBULLET = gundata.MAXMAGAZINE;
         NOWBULLET = MAXBULLET;
         bulletSpeed = gundata.bulletSpeed;
         stoppingPower = gundata.power;
         shotIntervalTime = 1f / shotRate;
-        reloadTime = gundata.reload;
+        reloadTime = gundata.reloadTime;
+        recoil = gundata.recoil;
     }
     public void Die()
     {

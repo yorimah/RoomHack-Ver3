@@ -3,9 +3,6 @@
 public class ShotState : IState
 {
     private Enemy enemy;
-
-    // GunData
-
     // ShotSection
     private int shotNum = 0;
     enum ShotSection
@@ -19,17 +16,20 @@ public class ShotState : IState
 
     private Rigidbody2D EnemyRigidBody2D;
 
+    // 射撃用スクリプト
     private BulletGeneratar bulletGeneratar;
 
+    // 汎用タイマー
     private float timer;
     // Player情報
     private PlayerCheack playerCheack;
+
+    // 射撃拡散率
+    private float diffusionRate;
     public ShotState(Enemy _enemy)
     {
         enemy = _enemy;
         EnemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
-
-        // GunData初期化
 
         bulletGeneratar = enemy.gameObject.GetComponent<BulletGeneratar>();
 
@@ -45,18 +45,21 @@ public class ShotState : IState
 
     public void Execute()
     {
+        // プレイヤー方向に向く
         playerCheack.RotationFoward(enemy.transform);
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
             case ShotSection.aim:
-
-                EnemyRigidBody2D.velocity = Vector2.zero;
-                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (enemy.aimTime <= timer)
                 {
                     shotSection++;
                     timer = 0;
+                }
+                else
+                {
+                    EnemyRigidBody2D.velocity = Vector2.zero;
+                    timer += GameTimer.Instance.ScaledDeltaTime;
                 }
                 break;
             case ShotSection.shot:
@@ -65,19 +68,29 @@ public class ShotState : IState
                     enemy.ChangeState(Enemy.StateType.Reload);
                     return;
                 }
-                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer,enemy.stoppingPower);
-                enemy.NOWBULLET--;
-                shotNum++;
-                shotSection++;
+                else
+                {
+                    // 拡散率加算
+                    diffusionRate += enemy.recoil;
+                    // 拡散率を固定、下限enemy.minDiffusionRate、上限 enemy.maxDiffusionRate
+                    Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
+                    // 射撃
+                    bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower, diffusionRate);
+
+                    enemy.NOWBULLET--;
+                    shotNum++;
+                    shotSection++;
+                }
                 break;
             case ShotSection.shotInterval:
-                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (enemy.shotIntervalTime <= timer)
                 {
                     timer = 0;
                     if (shotNum >= enemy.shotRate)
                     {
                         shotNum = 0;
+                        // プレイヤーが射線上にいたら射撃予備動作へ
+                        // いなかったら移動へ
                         if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
                         {
                             shotSection = ShotSection.aim;
@@ -91,6 +104,10 @@ public class ShotState : IState
                     {
                         shotSection = ShotSection.shot;
                     }
+                }
+                else
+                {
+                    timer += GameTimer.Instance.ScaledDeltaTime;
                 }
                 break;
             default:

@@ -1,13 +1,8 @@
 ﻿using UnityEngine;
 
-public class SpecialForceShotState : IState
+public class TurretGunShotState : IState
 {
     private Enemy enemy;
-
-    // GunData
-
-    // ShotSection
-    private int shotNum = 0;
     enum ShotSection
     {
         aim,
@@ -19,82 +14,79 @@ public class SpecialForceShotState : IState
 
     private Rigidbody2D EnemyRigidBody2D;
 
+    // 射撃用スクリプト
     private BulletGeneratar bulletGeneratar;
 
+    // 汎用タイマー
     private float timer;
     // Player情報
     private PlayerCheack playerCheack;
-    public SpecialForceShotState(Enemy _enemy)
+
+    // 射撃拡散率
+    private float diffusionRate;
+    public TurretGunShotState(Enemy _enemy)
     {
         enemy = _enemy;
         EnemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
-
-        // GunData初期化
 
         bulletGeneratar = enemy.gameObject.GetComponent<BulletGeneratar>();
 
         // プレイヤー情報初期化
         playerCheack = enemy.playerCheack;
     }
-    float nowHP;
-
-    private float diffusionRate = 0;
     public void Enter()
     {
         shotSection = ShotSection.aim;
         timer = 0;
-        nowHP = enemy.NowHP;
-        diffusionRate = 0;
     }
 
     public void Execute()
     {
-        if (nowHP != enemy.NowHP)
-        {
-            enemy.ChangeState(Enemy.StateType.Move);
-        }
+        //プレイヤー方向に向く
         playerCheack.RotationFoward(enemy.transform);
-        // 発射レートを設定しその後、発射秒数を決定する。
+        //発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
             case ShotSection.aim:
-
-                EnemyRigidBody2D.velocity = Vector2.zero;
-                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (enemy.aimTime <= timer)
                 {
                     shotSection++;
                     timer = 0;
                 }
+                else
+                {
+                    EnemyRigidBody2D.velocity = Vector2.zero;
+                    timer += GameTimer.Instance.ScaledDeltaTime;
+                }
                 break;
             case ShotSection.shot:
-                if (enemy.NOWBULLET <= 0)
-                {
-                    enemy.ChangeState(Enemy.StateType.Move);
-                    return;
-                }
+                // 拡散率加算
                 diffusionRate += enemy.recoil;
+                // 拡散率を固定、下限enemy.minDiffusionRate、上限enemy.maxDiffusionRate
                 Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
-                Debug.Log(diffusionRate);
+                // 射撃
                 bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower, diffusionRate);
-                enemy.NOWBULLET--;
-                shotNum++;
+
                 shotSection++;
+
                 break;
             case ShotSection.shotInterval:
-                timer += GameTimer.Instance.ScaledDeltaTime;
                 if (enemy.shotIntervalTime <= timer)
                 {
-                    timer = 0;
-                    if (shotNum >= enemy.shotRate)
-                    {
-                        shotNum = 0;
-                        enemy.ChangeState(Enemy.StateType.Move);
-                    }
-                    else
+                    // プレイヤーが射線上にいたら射撃へ
+                    // いなかったら移動へ
+                    if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
                     {
                         shotSection = ShotSection.shot;
                     }
+                    else
+                    {
+                        enemy.ChangeState(Enemy.StateType.Move);
+                    }
+                }
+                else
+                {
+                    timer += GameTimer.Instance.ScaledDeltaTime;
                 }
                 break;
             default:
@@ -104,6 +96,5 @@ public class SpecialForceShotState : IState
 
     public void Exit()
     {
-        timer = 0;
     }
 }
