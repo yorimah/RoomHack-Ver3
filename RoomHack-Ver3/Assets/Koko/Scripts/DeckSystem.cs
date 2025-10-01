@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class DeckSystem : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField, Header("ToolDataBankをアタッチしてね")]
     ToolDataBank toolDataBank;
 
-    [SerializeField]
+    [SerializeField, Header("DeckListをアタッチしてね")]
     ToolDeckList setList;
 
-    [SerializeField]
-    List<tool> toolDeck = new List<tool>();
+    public List<tool> toolDeck = new List<tool>();
+
+    public List<tool> toolDesk = new List<tool>();
 
     [SerializeField]
-    List<tool> toolDesk = new List<tool>();
+    int handSize = 5;
 
-    [SerializeField]
-    int deskSize = 5;
-
-    [SerializeField]
-    List<tool> toolTrash = new List<tool>();
+    public List<tool> toolTrash = new List<tool>();
 
     private void Start()
     {
         DeckGenerate();
-
     }
 
     private void Update()
@@ -37,36 +33,34 @@ public class DeckSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            DeskPlay(0);
-            DeskTrash(0);
+            HandPlay(0);
+            HandTrash(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            DeskPlay(1);
-            DeskTrash(1);
+            HandPlay(1);
+            HandTrash(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            DeskPlay(2);
-            DeskTrash(2);
+            HandPlay(2);
+            HandTrash(2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            DeskPlay(3);
-            DeskTrash(3);
+            HandPlay(3);
+            HandTrash(3);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            DeskPlay(4);
-            DeskTrash(4);
+            HandPlay(4);
+            HandTrash(4);
         }
-
-
     }
 
     void DeckGenerate()
     {
-        Debug.Log("デッキ生成！");
+        //Debug.Log("デッキ生成！");
         toolDeck.AddRange(setList.deckList);
         Shuffle(toolDeck);
     }
@@ -90,31 +84,31 @@ public class DeckSystem : MonoBehaviour
 
     void DeckDraw()
     {
-        if (deskSize <= toolDesk.Count)
+        if (handSize <= toolDesk.Count)
         {
-            Debug.Log("ハンドがあふれちまうおー");
+            //Debug.Log("ハンドがあふれちまうおー");
         }
         else
         {
             if (toolDeck.Count <= 0)
             {
-                Debug.Log("デッキ切れ！リフレッシュ！");
+                //Debug.Log("デッキ切れ！リフレッシュ！");
                 toolDeck.AddRange(toolTrash);
                 toolTrash.Clear();
                 Shuffle(toolDeck);
             }
 
-            Debug.Log("ドロー！" + toolDeck[0]);
+            //Debug.Log("ドロー！" + toolDeck[0]);
             toolDesk.Add(toolDeck[0]);
             toolDeck.RemoveAt(0);
         }
     }
 
-    void DeskTrash(int index)
+    void HandTrash(int index)
     {
         if (index >= toolDesk.Count)
         {
-            Debug.Log("そんなカードはDeskにゃないぜ！");
+            //Debug.Log("そんなカードはDeskにゃないぜ！");
         }
         else
         {
@@ -124,15 +118,15 @@ public class DeckSystem : MonoBehaviour
         }
     }
 
-    void DeskPlay(int index)
+    void HandPlay(int index)
     {
         if (index >= toolDesk.Count)
         {
-            Debug.Log("そんなカードはDeskにゃないぜ！");
+            //Debug.Log("そんなカードはDeskにゃないぜ！");
         }
         else
         {
-            Debug.Log("プレイ！" + toolDesk[index]);
+            //Debug.Log("プレイ！" + toolDesk[index]);
 
             Instantiate(toolDataBank.toolDataList[(int)toolDesk[index]].toolEvent);
         }
