@@ -28,6 +28,11 @@ public class PlayerViewMesh : MonoBehaviour
 
     private void Awake()
     {
+        //Init();
+        CustumInit();
+    }
+    private void Init()
+    {
         // 空のゲームオブジェクトを生成
         viewMeshs = new GameObject(gameObject.name + "ViewMehs");
         viewMeshs.transform.parent = this.transform;
@@ -38,13 +43,11 @@ public class PlayerViewMesh : MonoBehaviour
             triangles[i].transform.localPosition = Vector3.zero;
             triangles[i].GetComponent<MeshFilter>().mesh = mesh[i];
         }
-        //CustumInit();
     }
-
     private void Update()
     {
-        PlayeViewer();
-        //PlayerViewerCustum();
+        //PlayeViewer();
+        PlayerViewerCustum();
     }
 
     public void GeneradeTriangle(Vector3 _playerOrigin, Vector3 _hitPointFirst, Vector3 _hitpointSecond, int index)
@@ -92,8 +95,6 @@ public class PlayerViewMesh : MonoBehaviour
         }
         Items.Clear();
     }
-    // 長さ
-    private float viewDistance = 3f;
     // 分割数
     private int segment = 360;
     private void PlayerViewerCustum()
@@ -104,29 +105,41 @@ public class PlayerViewMesh : MonoBehaviour
         int[] triangles = new int[segment * 3];
 
         // 中心はプレイヤー
-        vertices[0] = this.transform.position;
+        vertices[0] = UnitCore.Instance.transform.position;
 
-        float halfAngle = 360 * 0.5f;
-
-        for (int i = 0; i <= segment; i++)
+        for (int i = 0; i < segment; i++)
         {
-            float diffusionAngle = -360 + (halfAngle / segment) * i;
+            float angle = (360f / segment) * i;
+            float rad = angle * Mathf.Deg2Rad;
+            float radius = 15f;
+            Vector3 dir = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0);
 
-            Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
-            Vector3 dir = rot * transform.up;
+            RaycastHit2D hit = Physics2D.Raycast(UnitCore.Instance.transform.position, dir, radius, targetLm);
+            if (hit.collider != null)
+            {
+                // 障害物に当たったらその地点を頂点にする
+                vertices[i + 1] = hit.point;
+            }
+            else
+            {
+                // 何もなければ円周上の点
+                vertices[i + 1] = UnitCore.Instance.transform.position + dir * radius;
+            }
 
-            Vector3 point = transform.position + dir * viewDistance;
-
-            vertices[i + 1] = point;
-
-            if (i < segment)
+            // 三角形の設定
+            if (i < segment - 1)
             {
                 int start = i * 3;
-                // 中心
                 triangles[start] = 0;
-                // 左上
                 triangles[start + 1] = i + 2;
-                // 右上
+                triangles[start + 2] = i + 1;
+            }
+            else
+            {
+                // 最後は1番目の点とつなげる
+                int start = i * 3;
+                triangles[start] = 0;
+                triangles[start + 1] = 1;
                 triangles[start + 2] = i + 1;
             }
         }
@@ -138,7 +151,7 @@ public class PlayerViewMesh : MonoBehaviour
     private GameObject meshObject;
     private void CustumInit()
     {
-        meshObject=Instantiate(triangle,transform);
+        meshObject = Instantiate(triangle);
         meshObject.transform.localPosition = Vector2.zero;
 
         custumMesh = new Mesh();

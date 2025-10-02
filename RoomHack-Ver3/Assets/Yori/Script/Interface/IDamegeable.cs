@@ -5,14 +5,15 @@
     public float NowHP { get; set; }
 
     /// <summary>
-    /// 1   プレイヤー
-    /// ２　敵
-    /// ３　壁
+    /// 1  プレイヤー
+    /// 2　敵
+    /// 2　壁
+    /// 4  爆発
     /// </summary>
     public int HitDamegeLayer { get; set; }
 
-    public void HitDmg(int dmg,float hitStop)
-    {        
+    public void HitDmg(int dmg, float hitStop)
+    {
         NowHP -= dmg;
         if (NowHP <= 0)
         {
