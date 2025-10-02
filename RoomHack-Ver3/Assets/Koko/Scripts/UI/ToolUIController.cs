@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ToolUIController : MonoBehaviour
 {
@@ -23,22 +24,52 @@ public class ToolUIController : MonoBehaviour
     float handSpace = 200;
 
     [SerializeField]
-    List<GameObject> toolDeskUIList = new List<GameObject>();
+    List<GameObject> toolHandUIList = new List<GameObject>();
+
+    private void Start()
+    {
+        GameObject newToolUI = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
+        newToolUI.GetComponent<RectTransform>().localPosition = deckPos;
+        newToolUI.GetComponent<ToolUI>().toMovePosition = deckPos;
+        newToolUI.GetComponent<ToolUI>().thisTool = tool.none;
+        newToolUI.GetComponent<ToolUI>().isOpen = false;
+    }
 
     private void Update()
     {
-        if (deckSystem.toolDesk.Count != toolDeskUIList.Count)
+        // カウントが変わったら追加、追加しかできん
+        if (deckSystem.toolDesk.Count != toolHandUIList.Count)
         {
-            GameObject newToolUI = Instantiate(toolUIPrefab, deckPos, Quaternion.identity, this.transform);
-            toolDeskUIList.Add(newToolUI);
+            GameObject newToolUI = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
+            newToolUI.GetComponent<RectTransform>().localPosition = deckPos;
+            toolHandUIList.Add(newToolUI);
         }
 
-        for (int i = 0; i < toolDeskUIList.Count; i++)
+        // ハンドのToolの位置修正プログラム
+        for (int i = 0; i < toolHandUIList.Count; i++)
         {
-            float firstHandPos = (toolDeskUIList.Count - 1) * -(handSpace / 2);
-            toolDeskUIList[i].GetComponent<ToolUI>().toMovePosition = handPos + new Vector2(firstHandPos + handSpace * i, 0);
-            toolDeskUIList[i].GetComponent<ToolUI>().thisTool = deckSystem.toolDesk[i];
-            toolDeskUIList[i].GetComponent<ToolUI>().isOpen = true;
+            ToolUI hand = toolHandUIList[i].GetComponent<ToolUI>();
+
+            Vector2 firstHandPos;
+            firstHandPos.x = ((toolHandUIList.Count - 1) * -(handSpace / 2)) + handSpace * i;
+            if (hand.isPointerOn == true)
+            {
+                firstHandPos.y = 100;
+                hand.toScale = new Vector2(1.2f, 1.2f);
+            }
+            else
+            {
+                firstHandPos.y = 0;
+                hand.toScale = new Vector2(1f, 1f);
+            }
+            hand.toMovePosition = handPos + firstHandPos;
+
+            hand.isTextDisp = hand.isPointerOn;
+
+            hand.thisTool = deckSystem.toolDesk[i];
+            hand.isOpen = true;
         }
+
     }
+
 }
