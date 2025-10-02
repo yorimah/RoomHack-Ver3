@@ -24,11 +24,11 @@ public class CameraPositionController : MonoBehaviour
 
         if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
         {
-            Debug.Log("はっくなう");
+            //Debug.Log("はっくなう");
 
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("くりくなう");
+                //Debug.Log("くりくなう");
 
                 // タゲリセット
                 targetObject = null;
