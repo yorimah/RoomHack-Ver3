@@ -53,6 +53,7 @@ public class UnitCore : MonoBehaviour, IDamegeable
     [SerializeField, Header("プレイヤー基礎スピード")]
     private float moveBasicSpeed = 5;
 
+    [HideInInspector]
     public float moveSpeed;
     public enum StateType
     {
