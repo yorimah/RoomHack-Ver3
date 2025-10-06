@@ -22,10 +22,10 @@ public class PlayerShot
     private float viewDistance = 3f;
     // 分割数
     private int segment = 20;
+
     public PlayerShot(UnitCore _unitCore)
     {
         unitCore = _unitCore;
-        //mesh = new Mesh();
         shotRange = new GameObject(unitCore.gameObject.name + "shotRangge");
         shotRange.AddComponent<MeshRenderer>();
         shotRange.AddComponent<MeshFilter>();
