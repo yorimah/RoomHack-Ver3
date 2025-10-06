@@ -1,13 +1,7 @@
 ﻿using UnityEngine;
 
-public class GranadeCore : MonoBehaviour, IDamegeable
+public class GranadeCore : MonoBehaviour
 {
-    public float MAXHP { get; set; }
-    public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; } = 4;
-
-    public float hitStop;
-
     [SerializeField, Header("爆発までの秒数")]
     private float explosionTimer = 3;
     [SerializeField, Header("爆発半径")]
@@ -30,67 +24,62 @@ public class GranadeCore : MonoBehaviour, IDamegeable
 
     [SerializeField]
     LayerMask targetLm;
+
+    private int HitDamegeLayer = 4;
+
+    public float hitStop;
+
+    private CircleCollider2D granadeCollider;
+
     public void Start()
     {
-        MAXHP = 1;
-        NowHP = MAXHP;
         granadeCollider = GetComponent<CircleCollider2D>();
         spriteRen = GetComponent<SpriteRenderer>();
         color = spriteRen.color;
+        granadeCollider.isTrigger = false;
         MeshInit();
     }
-
-    private CircleCollider2D granadeCollider;
     private void Update()
     {
         // 爆発範囲表示
         ExplosionRadius();
+
         if (timer >= explosionTimer)
         {
             //爆発
-            if (granadeCollider.radius >= explosionRadial)
-            {
-
-            }
-            else
-            {
-                granadeCollider.radius += 2 * GameTimer.Instance.ScaledDeltaTime;
-            }
+            colorAlpha = 1;
+            Destroy(gameObject, 1f);
+            Destroy(meshObject, 1f);
+            granadeCollider.isTrigger = true;
+            granadeCollider.radius = explosionRadial;
         }
         else
         {
             timer += GameTimer.Instance.ScaledDeltaTime;
             colorAlpha = Mathf.Sin(Mathf.Pow(4, timer));
         }
+
         // 点滅        
         color.a = colorAlpha;
         spriteRen.color = color;
     }
 
-    public void Die()
-    {
-        Destroy(gameObject);
-        Destroy(meshObject);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
         if (collision.gameObject.TryGetComponent<IDamegeable>(out var damage))
         {
-            Debug.Log("ダメージを与えられる" + collision.gameObject.name + "と接触");
-            if (this.HitDamegeLayer != damage.HitDamegeLayer)
+            if (HitDamegeLayer != damage.HitDamegeLayer)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position);
-                Debug.Log(hit.collider.gameObject.name);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position - transform.position);
+                Debug.DrawRay(transform.position, collision.transform.position - transform.position);
                 if (hit.collider.gameObject == collision.gameObject)
                 {
-                    Debug.Log("グレネード");
                     damage.HitDmg(explosionPower, hitStop);
                 }
             }
         }
     }
-
     // 爆発範囲表示
     private void MeshInit()
     {
@@ -98,13 +87,14 @@ public class GranadeCore : MonoBehaviour, IDamegeable
         meshObject.AddComponent<MeshFilter>();
         var mr = meshObject.AddComponent<MeshRenderer>();
         // メッシュの色設定、ここでいじれる
-        mr.material = new Material(Shader.Find("Unlit/Color"));
-        mr.material.color = new Color(0, 1, 0, 0.1f); // 半透明緑
+        mr.material = new Material(Shader.Find("Custom/URP_SpriteSimple"));
+        mr.material.color = new Color(0.75f, 0, 0, 0.5f); 
         mr.sortingOrder = -1;
         mesh = new Mesh();
         meshObject.GetComponent<MeshFilter>().mesh = mesh;
     }
 
+    // 爆発範囲表示
     private void ExplosionRadius()
     {
         mesh.Clear();
