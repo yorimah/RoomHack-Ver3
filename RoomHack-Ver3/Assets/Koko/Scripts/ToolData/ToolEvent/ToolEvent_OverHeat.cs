@@ -23,7 +23,7 @@ public class ToolEvent_OverHeat : ToolEvent
 
         if (timer < 0)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 

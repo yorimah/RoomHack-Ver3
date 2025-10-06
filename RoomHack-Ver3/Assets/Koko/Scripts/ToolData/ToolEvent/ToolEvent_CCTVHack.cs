@@ -12,6 +12,6 @@ public class ToolEvent_CCTVHack : ToolEvent
     public override void ToolAction()
     {
         Debug.Log("かめらはっきんぐしたおー");
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }

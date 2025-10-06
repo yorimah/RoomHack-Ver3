@@ -15,7 +15,7 @@ public class DeckSystem : MonoBehaviour
     public List<tool> toolHand = new List<tool>();
 
     [SerializeField]
-    int handSize = 5;
+    public int handSize = 5;
 
     public List<tool> toolTrash = new List<tool>();
 
@@ -132,7 +132,7 @@ public class DeckSystem : MonoBehaviour
         else
         {
             trashTool = toolHand[index];
-            Debug.Log("トラッシュ！" + trashTool);
+            //Debug.Log("トラッシュ！" + trashTool);
             toolTrash.Add(toolHand[index]);
             toolHand.RemoveAt(index);
         }
@@ -160,4 +160,27 @@ public class DeckSystem : MonoBehaviour
         return playTool;
     }
 
+    public int ReturnToolCost(tool _tool)
+    {
+        return toolDataBank.toolDataList[(int)_tool].toolCost;
+    }
+
+    public string ReturnToolText(tool _tool)
+    {
+        return toolDataBank.toolDataList[(int)_tool].toolText;
+    }
+
+    public bool RamUse(int num)
+    {
+        if (UnitCore.Instance.nowRam >= num)
+        {
+            UnitCore.Instance.nowRam -= num;
+            return true;
+        }
+        else
+        {
+            Debug.LogError("コスト足りひんぞ！");
+            return false;
+        }
+    }
 }

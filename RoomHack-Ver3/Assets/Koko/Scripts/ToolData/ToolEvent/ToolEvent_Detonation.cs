@@ -15,6 +15,6 @@ public class ToolEvent_Detonation : ToolEvent
     public override void ToolAction()
     {
         Debug.Log("グレネード設置！");
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }

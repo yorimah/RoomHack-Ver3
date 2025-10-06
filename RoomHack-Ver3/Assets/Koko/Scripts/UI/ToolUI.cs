@@ -16,11 +16,9 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     float reverseNum = -1;
     Image thisImage;
 
-    // 効果表示変数
-    public bool isTextDisp;
-
     // 移動変数
     public Vector2 toMovePosition;
+    public bool isMove;
 
     // サイズ変数
     public Vector2 toScale = new Vector2(1, 1);
@@ -33,7 +31,11 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField]Text nameText;
     [SerializeField]Text costText;
     [SerializeField]Text effectText;
-    bool nameCostDisp = false;
+
+    // 効果表示変数
+    bool isNameCostDisp = false;
+    public bool isTextDisp = false;
+    public bool isBlackOut = false;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -55,15 +57,15 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         ReverseProcess();
 
-        TextDisp();
+        ToolDisp();
 
         MoveProcess();
 
         ScaleProcess();
 
 
-        nameText.gameObject.SetActive(nameCostDisp);
-        costText.gameObject.SetActive(nameCostDisp);
+        nameText.gameObject.SetActive(isNameCostDisp);
+        costText.gameObject.SetActive(isNameCostDisp);
     }
 
     void ReverseProcess()
@@ -92,7 +94,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //Debug.Log("表");
             thisImage.sprite = toolDataBank.toolDataList[(int)thisTool].toolSprite;
 
-            nameCostDisp = true;
+            isNameCostDisp = true;
 
             nameText.text = toolDataBank.toolDataList[(int)thisTool].toolName;
             costText.text = toolDataBank.toolDataList[(int)thisTool].toolCost.ToString();
@@ -102,24 +104,33 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //Debug.Log("裏");
             thisImage.sprite = toolDataBank.toolDataList[(int)tool.none].toolSprite;
 
-            nameCostDisp = false;
+            isNameCostDisp = false;
         }
     }
 
-    void TextDisp()
+    void ToolDisp()
     {
         if (isTextDisp)
         {
-            nameCostDisp = false;
+            //isNameCostDisp = false;
             effectText.gameObject.SetActive(true);
             effectText.text = toolDataBank.toolDataList[(int)thisTool].toolText;
-            GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
         }
         else
         {
             effectText.gameObject.SetActive(false);
+        }
+
+        if (isBlackOut)
+        {
+            GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        }
+        else
+        {
             GetComponent<Image>().color = new Color(1, 1, 1, 1f);
         }
+
+
     }
 
     void MoveProcess()
@@ -127,6 +138,16 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Vector2 moveVec = (toMovePosition - (Vector2)rect.localPosition) / 10;
 
         rect.localPosition += (Vector3)moveVec;
+
+        // 移動してるか否か
+        if (Mathf.Abs(moveVec.x) > 0.1f || Mathf.Abs(moveVec.y) > 0.1f)
+        {
+            isMove = true;
+        }
+        else
+        {
+            isMove = false;
+        }
     }
 
     void ScaleProcess()

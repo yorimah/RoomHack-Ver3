@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class RamUIDisp : MonoBehaviour
 {
+    public int willUseRam = 0;
+
     [SerializeField]
     int maxRamCap;
     [SerializeField]
@@ -12,10 +15,13 @@ public class RamUIDisp : MonoBehaviour
     GameObject ramUIPrefab;
 
     [SerializeField]
-    List<GameObject> ramUIList = new List<GameObject>();
-
+    Sprite ramFill;
     [SerializeField]
-    int plRam = 1;
+    Sprite ramUsed;
+    [SerializeField]
+    Sprite ramWillUse;
+
+    List<GameObject> ramUIList = new List<GameObject>();
 
     private void Start()
     {
@@ -36,25 +42,44 @@ public class RamUIDisp : MonoBehaviour
     private void Update()
     {
 
-        plRam = (int)UnitCore.Instance.nowRam;
+        nowRamCap = (int)UnitCore.Instance.nowRam;
 
-        // 現在のramの値が変わると
-        if (plRam != nowRamCap)
+        for (int i = 0; i < maxRamCap; i++)
         {
-            nowRamCap = plRam;
-
-            // 表示切替
-            for (int i = 0; i < maxRamCap; i++)
+            if (nowRamCap > i)
             {
-                if(i < nowRamCap)
+                if (nowRamCap - willUseRam <= i)
                 {
-                    ramUIList[i].transform.GetChild(0).gameObject.SetActive(true);
+                    ramUIList[i].GetComponent<Image>().sprite = ramWillUse;
                 }
                 else
                 {
-                    ramUIList[i].transform.GetChild(0).gameObject.SetActive(false);
+                    ramUIList[i].GetComponent<Image>().sprite = ramFill;
                 }
             }
+            else
+            {
+                ramUIList[i].GetComponent<Image>().sprite = ramUsed;
+            }
         }
+
+        // 現在のramの値が変わると
+        //if (plRam != nowRamCap)
+        //{
+        //    nowRamCap = plRam;
+
+        //    // 表示切替
+        //    for (int i = 0; i < maxRamCap; i++)
+        //    {
+        //        if(i < nowRamCap)
+        //        {
+        //            ramUIList[i].transform.GetChild(0).gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            ramUIList[i].transform.GetChild(0).gameObject.SetActive(false);
+        //        }
+        //    }
+        //}
     }
 }

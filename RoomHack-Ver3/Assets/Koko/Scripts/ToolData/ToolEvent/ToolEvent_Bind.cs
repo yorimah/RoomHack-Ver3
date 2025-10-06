@@ -13,7 +13,7 @@ public class ToolEvent_Bind : ToolEvent
 
         if (timer < 0)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 
