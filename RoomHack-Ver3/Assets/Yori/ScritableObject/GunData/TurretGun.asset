@@ -15,7 +15,7 @@ MonoBehaviour:
   power: 50
   rate: 10
   MAXMAGAZINE: 10
-  reload: 0
-  bulletSpeed: 40
+  reloadTime: 0
+  bulletSpeed: 25
   Maneuverability: 0
   recoil: 0

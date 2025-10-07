@@ -19,26 +19,22 @@ public class UpgradeChoice : MonoBehaviour
     float changeTime = 1;
     PlayerSaveData data;
 
-    // 各要素の重みリスト
-    private float[] _weights;
 
     // 重みの総和（初期化時に計算される）
     private float _totalWeight;
     private void Start()
     {
-
         data = SaveManager.Instance.Load();
 
         for (int i = 0; i < cardList.Count; i++)
         {
-            _weights[i] = cardList[i].GetComponent<ICardType>().cardWeight;
+            _totalWeight +=  cardList[i].GetComponent<ICardType>().cardWeight;
         }
 
         float x = -5;
 
         for (int i = 0; i < 3; i++)
         {
-
             Instantiate(cardList[Choose()], new Vector3(x, 0, 0), Quaternion.identity);
             x += 5;
         }
@@ -51,10 +47,10 @@ public class UpgradeChoice : MonoBehaviour
 
         // 乱数値が属する要素を先頭から順に選択
         var currentWeight = 0f;
-        for (var i = 0; i < _weights.Length; i++)
+        for (var i = 0; i < cardList.Count; i++)
         {
             // 現在要素までの重みの総和を求める
-            currentWeight += _weights[i];
+            currentWeight += cardList[i].GetComponent<ICardType>().cardWeight;
 
             // 乱数値が現在要素の範囲内かチェック
             if (randomPoint < currentWeight)
@@ -64,7 +60,7 @@ public class UpgradeChoice : MonoBehaviour
         }
 
         // 乱数値が重みの総和以上なら末尾要素とする
-        return _weights.Length - 1;
+        return cardList.Count - 1;
     }
     private void Update()
     {
@@ -106,7 +102,7 @@ public class UpgradeChoice : MonoBehaviour
         }
     }
 
-   
+
     private Vector3 MousePos()
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
