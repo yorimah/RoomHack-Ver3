@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMove
 {
@@ -15,7 +14,6 @@ public class PlayerMove
 
     private Vector3 direction;
 
-    
     public PlayerMove(UnitCore _unitCore)
     {
         unitCore = _unitCore;

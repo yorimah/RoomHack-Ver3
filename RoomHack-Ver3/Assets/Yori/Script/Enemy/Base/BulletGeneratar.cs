@@ -12,16 +12,9 @@ public class BulletGeneratar : MonoBehaviour
 
         BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
 
-
         // 拡散の値決定
 
         float rand = Random.Range(-diffusionRate, diffusionRate);
-
-        float playerMoveSpeed = UnitCore.Instance.moveSpeed;
-        Vector3 playerMoveVector = UnitCore.Instance.GetComponent<Rigidbody2D>().velocity;
-        Vector3 plNextPos = UnitCore.Instance.transform.position + playerMoveVector;
-
-
 
         Vector2 shotDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z + rand) * Vector3.up;
 

@@ -65,7 +65,7 @@ public class MoveState : IState
         // Rigidbody2Dで移動
         enemyRididBody.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
 
-        enemy.transform.rotation= MoveForwadRotation(nextPos);
+        enemy.transform.rotation = MoveForwadRotation(nextPos);
     }
 
     public void Exit()
