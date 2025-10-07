@@ -5,5 +5,16 @@
   "pulusMaxHitpoint": 0.0,
   "plusMoveSpeed": 0.0,
   "plusRamCapacity": 0.0,
-  "plusRamRecovery": 0.0
+  "plusRamRecovery": 0.0,
+  "deckList": [
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    3,
+    3,
+    4
+  ]
 }

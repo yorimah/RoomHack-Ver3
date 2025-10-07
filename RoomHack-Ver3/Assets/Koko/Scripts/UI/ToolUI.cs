@@ -7,7 +7,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField, Header("仮でアタッチするンゴ、どっかにまとめときてえな")]
     ToolDataBank toolDataBank;
 
-    public tool thisTool;
+    public toolTag thisTool;
 
     RectTransform rect;
 
@@ -102,7 +102,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         else
         {
             //Debug.Log("裏");
-            thisImage.sprite = toolDataBank.toolDataList[(int)tool.none].toolSprite;
+            thisImage.sprite = toolDataBank.toolDataList[(int)toolTag.none].toolSprite;
 
             isNameCostDisp = false;
         }

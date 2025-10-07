@@ -7,20 +7,22 @@ public class DeckSystem : MonoBehaviour
     [SerializeField, Header("ToolDataBankをアタッチしてね")]
     ToolDataBank toolDataBank;
 
-    [SerializeField, Header("DeckListをアタッチしてね")]
-    ToolDeckList setList;
+    [SerializeField, Header("saveから拾ったリスト")]
+    List<toolTag> setList = new List<toolTag>();
 
-    public List<tool> toolDeck = new List<tool>();
+    public List<toolTag> toolDeck = new List<toolTag>();
 
-    public List<tool> toolHand = new List<tool>();
+    public List<toolTag> toolHand = new List<toolTag>();
 
     [SerializeField]
     public int handSize = 5;
 
-    public List<tool> toolTrash = new List<tool>();
+    public List<toolTag> toolTrash = new List<toolTag>();
 
     private void Start()
     {
+        setList = IntToDeck(UnitCore.Instance.data.deckList);
+
         DeckGenerate();
     }
 
@@ -61,13 +63,13 @@ public class DeckSystem : MonoBehaviour
     public void DeckGenerate()
     {
         //Debug.Log("デッキ生成！");
-        toolDeck.AddRange(setList.deckList);
+        toolDeck.AddRange(setList);
         Shuffle(toolDeck);
     }
 
-    public void Shuffle(List<tool> tools)
+    public void Shuffle(List<toolTag> tools)
     {
-        List<tool> processingList = new List<tool>();
+        List<toolTag> processingList = new List<toolTag>();
 
         for (int i = 0; i < tools.Count; i++)
         {
@@ -90,21 +92,21 @@ public class DeckSystem : MonoBehaviour
         Shuffle(toolDeck);
     }
 
-    public tool DeckDraw()
+    public toolTag DeckDraw()
     {
-        tool drawTool;
+        toolTag drawTool;
 
         if (handSize <= toolHand.Count)
         {
             //Debug.Log("ハンドがあふれちまうおー");
-            drawTool = tool.none;
+            drawTool = toolTag.none;
         }
         else
         {
             if (toolDeck.Count <= 0)
             {
                 //Debug.Log("デッキ切れ");
-                drawTool = tool.none;
+                drawTool = toolTag.none;
             }
             else
             {
@@ -120,14 +122,14 @@ public class DeckSystem : MonoBehaviour
         return drawTool;
     }
 
-    public tool HandTrash(int index)
+    public toolTag HandTrash(int index)
     {
-        tool trashTool;
+        toolTag trashTool;
 
         if (index >= toolHand.Count)
         {
             //Debug.Log("そんなカードはDeskにゃないぜ！");
-            trashTool = tool.none;
+            trashTool = toolTag.none;
         }
         else
         {
@@ -140,14 +142,14 @@ public class DeckSystem : MonoBehaviour
         return trashTool;
     }
 
-    public tool HandPlay(int index)
+    public toolTag HandPlay(int index)
     {
-        tool playTool;
+        toolTag playTool;
 
         if (index >= toolHand.Count)
         {
             //Debug.Log("そんなカードはDeskにゃないぜ！");
-            playTool = tool.none;
+            playTool = toolTag.none;
         }
         else
         {
@@ -160,12 +162,12 @@ public class DeckSystem : MonoBehaviour
         return playTool;
     }
 
-    public int ReturnToolCost(tool _tool)
+    public int ReturnToolCost(toolTag _tool)
     {
         return toolDataBank.toolDataList[(int)_tool].toolCost;
     }
 
-    public string ReturnToolText(tool _tool)
+    public string ReturnToolText(toolTag _tool)
     {
         return toolDataBank.toolDataList[(int)_tool].toolText;
     }
@@ -182,5 +184,17 @@ public class DeckSystem : MonoBehaviour
             Debug.LogError("コスト足りひんぞ！");
             return false;
         }
+    }
+
+    public List<toolTag> IntToDeck(List<int> _list)
+    {
+        List<toolTag> toolDeckList = new List<toolTag>();
+
+        for (int i = 0; i < _list.Count; i++)
+        {
+            toolDeckList.Add(toolDataBank.toolDataList[_list[i]].toolTag);
+        }
+
+        return toolDeckList;
     }
 }
