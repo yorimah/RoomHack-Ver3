@@ -3,10 +3,11 @@ public class PlayerSaveData
 {
     public int score_Stage;
     public int score_DestoryEnemy;
-    public float plusBreachPower;
+    public int gun;
     public float pulusMaxHitpoint;
     public float plusMoveSpeed;
     public float plusRamCapacity;
     public float plusRamRecovery;
+    public int plusHand;
     public List<int> deckList;
 }

@@ -254,7 +254,6 @@ MonoBehaviour:
   ramCapacity: 0
   nowRam: 0
   ramRecovary: 0
-  gundata: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
   aimTime: 0.5
   shotRate: 0
   bulletSpeed: 0
@@ -267,7 +266,13 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
   moveBasicSpeed: 5
   moveSpeed: 0
+  gundata:
+  - {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
+  - {fileID: 11400000, guid: 19d80b9e332ea9c4081425aec2446032, type: 2}
+  - {fileID: 11400000, guid: 24120d6ede1e00c4f9136736fa46adf0, type: 2}
+  - {fileID: 11400000, guid: 954bfb21ea026874185eb83efcba5612, type: 2}
   statetype: 0
+  isRebooting: 0
 --- !u!61 &24237162
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -601,7 +606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &743701790
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4125,11 +4130,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50f45b40762de44db9da4bc6457bebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willUseRam: 0
   maxRamCap: 10
   nowRamCap: 0
   ramUIPrefab: {fileID: 2770302743126207244, guid: af512b21cdfb75b4db1b7fa2b0fa5fd2, type: 3}
-  ramUIList: []
-  plRam: 10
+  ramFill: {fileID: 0}
+  ramUsed: {fileID: 0}
+  ramWillUse: {fileID: 0}
 --- !u!4 &934748798872832840
 Transform:
   m_ObjectHideFlags: 0
