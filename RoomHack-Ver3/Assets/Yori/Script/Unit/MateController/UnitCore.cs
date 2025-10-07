@@ -66,9 +66,13 @@ public class UnitCore : MonoBehaviour, IDamegeable
     public IState currentState;
     public StateType statetype;
     public Dictionary<StateType, IState> states;
+
+
     void Update()
     {
         currentState?.Execute();
+
+        RamUpdate();
     }
 
     public void ChangeState(StateType type)
@@ -129,5 +133,27 @@ public class UnitCore : MonoBehaviour, IDamegeable
     public void Die()
     {
         SceneManager.LoadScene("GameOverDemoScene");
+    }
+
+
+    // Ram回復系 by koko
+    // Update呼び出し
+    public bool isRebooting = false;
+    public float rebootTimer { get; private set; } = 0;
+    private void RamUpdate()
+    {
+        if (isRebooting)
+        {
+            nowRam = 0;
+            rebootTimer += GameTimer.Instance.ScaledDeltaTime;
+
+            if (rebootTimer >= ramRecovary)
+            {
+                nowRam = ramCapacity;
+
+                rebootTimer = 0;
+                isRebooting = false;
+            }
+        }
     }
 }
