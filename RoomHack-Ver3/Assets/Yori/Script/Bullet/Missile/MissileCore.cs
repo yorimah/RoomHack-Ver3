@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MissileCore : MonoBehaviour
+public class MissileCore : MonoBehaviour, IDamegeable
 {
     [SerializeField, Header("爆発までの秒数")]
     private float explosionTimer = 3;
@@ -9,6 +9,12 @@ public class MissileCore : MonoBehaviour
     [SerializeField, Header("爆発威力")]
     private int explosionPower;
 
+    public float MAXHP { get; set; }
+
+    public float NowHP { get; set; }
+    public int HitDamegeLayer { get; set; }
+
+    public float hitStop { get; set; }
     // 汎用タイマー
     private float timer = 0;
 
@@ -25,10 +31,6 @@ public class MissileCore : MonoBehaviour
     [SerializeField, Header("壁")]
     private LayerMask targetLm;
 
-    private int HitDamegeLayer = 2;
-
-    public float hitStop;
-
     private CircleCollider2D missileCol;
 
     private Rigidbody2D rb;
@@ -37,6 +39,7 @@ public class MissileCore : MonoBehaviour
     private float missileSpeed;
 
     private bool isFire;
+
 
     public void Start()
     {
@@ -47,6 +50,7 @@ public class MissileCore : MonoBehaviour
         missileCol.isTrigger = false;
         MeshInit();
         timer = 0;
+        NowHP = MAXHP;
     }
 
     private void Update()
@@ -57,17 +61,13 @@ public class MissileCore : MonoBehaviour
         if (isFire)
         {
             // 爆発
-            rb.velocity = Vector2.zero;
-            colorAlpha = 0;
-            Destroy(gameObject, 0.5f);
-            Destroy(meshObject, 0.5f);
-            missileCol.isTrigger = true;
-            missileCol.radius = explosionRadial;
+            Explosion();
+            Die();
         }
         else
         {
             // 追尾移動
-            HomingMissile();
+            MissileMove();
 
             if (timer >= explosionTimer)
             {
@@ -77,9 +77,6 @@ public class MissileCore : MonoBehaviour
             {
                 timer += GameTimer.Instance.ScaledDeltaTime;
             }
-
-            // プレイヤーの方に向く
-            RotationForward();
 
             // 点滅処理
             colorAlpha = Mathf.Sin(Mathf.Pow(4, timer));
@@ -94,22 +91,6 @@ public class MissileCore : MonoBehaviour
 
     [SerializeField, Header("最初の減速")]
     private float deceleration;
-    private void HomingMissile()
-    {
-        // 最初は遅い
-        if (timer <= boostTime)
-        {
-            boost = deceleration;
-        }
-        // 通常
-        else
-        {
-            boost = 1;
-        }
-
-
-        rb.velocity = Vector3.up * missileSpeed * boost * GameTimer.Instance.customTimeScale;
-    }
 
     //  爆風
     private void OnTriggerStay2D(Collider2D collision)
@@ -205,15 +186,49 @@ public class MissileCore : MonoBehaviour
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
     }
-
-    private void RotationForward()
+    [Range(0f, 1f)]
+    public float inertia = 0.9f;       // 慣性の強さ（大きいほど鈍い）
+    private void MissileMove()
     {
-        Vector2 playerPosition = UnitCore.Instance.transform.position;
-        Vector2 playerNextPosition = playerPosition + UnitCore.Instance.GetComponent<Rigidbody2D>().velocity.normalized;
-        Vector2 direction = playerNextPosition - (Vector2)transform.position;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = targetRotation;
+        // 最初は遅い
+        if (timer <= boostTime)
+        {
+            boost = deceleration;
+        }
+        // 通常
+        else
+        {
+            boost = 1;
+        }
+        // ターゲット方向
+        Vector2 toTarget = ((Vector2)UnitCore.Instance.transform.position - rb.position).normalized;
+
+        // 現在の速度方向（正規化）
+        Vector2 currentDir = rb.velocity.normalized;
+
+        // 過去のベクトルと新しいベクトルを合成（慣性あり）
+        Vector2 blendedDir = (currentDir * inertia + toTarget * (1f - inertia)).normalized;
+
+        // 速度を更新
+        rb.velocity = blendedDir * missileSpeed * boost;
+
+        // 回転を進行方向に合わせる
+        float angle = Mathf.Atan2(blendedDir.y, blendedDir.x) * Mathf.Rad2Deg - 90f;
+        rb.MoveRotation(angle);
+
+    }
+    public void Die()
+    {
+        Destroy(gameObject, 0.5f);
+        Destroy(meshObject, 0.5f);
+    }
+    public void Explosion()
+    {
+        rb.velocity = Vector2.zero;
+        colorAlpha = 0;
+
+        missileCol.isTrigger = true;
+        missileCol.radius = explosionRadial;
     }
 }

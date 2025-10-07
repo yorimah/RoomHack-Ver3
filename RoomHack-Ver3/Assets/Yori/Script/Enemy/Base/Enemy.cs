@@ -63,6 +63,8 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
     [HideInInspector]
     public float minDiffusionRate = 1;
 
+    [SerializeField,Header("弾")]
+    public GameObject bulletObject;
     // 死亡フラグ
     public bool died = false;
 
