@@ -46,7 +46,7 @@ public class ToolUIController : MonoBehaviour
         signToolUI.GetComponent<RectTransform>().localPosition = deckPos;
         deckSign = signToolUI.GetComponent<ToolUI>();
         deckSign.toMovePosition = deckPos;
-        deckSign.thisTool = tool.none;
+        deckSign.thisTool = toolTag.none;
         deckSign.isOpen = false;
 
         // トラッシュ置き場
@@ -54,7 +54,7 @@ public class ToolUIController : MonoBehaviour
         signToolUI.GetComponent<RectTransform>().localPosition = trashPos;
         trashSign = signToolUI.GetComponent<ToolUI>();
         trashSign.toMovePosition = trashPos;
-        trashSign.thisTool = tool.none;
+        trashSign.thisTool = toolTag.none;
         trashSign.isOpen = false;
     }
 
@@ -145,7 +145,7 @@ public class ToolUIController : MonoBehaviour
         TrashControl();
     }
 
-    ToolUI ToolUIGenerate(Vector2 _rectPos, tool _thisTool, bool _isOpen)
+    ToolUI ToolUIGenerate(Vector2 _rectPos, toolTag _thisTool, bool _isOpen)
     {
         GameObject newToolUIObject = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
         newToolUIObject.GetComponent<RectTransform>().localPosition = _rectPos;
@@ -173,9 +173,9 @@ public class ToolUIController : MonoBehaviour
 
     void ToolDraw()
     {
-        tool drawTool = deckSystem.DeckDraw();
+        toolTag drawTool = deckSystem.DeckDraw();
 
-        if (drawTool != tool.none)
+        if (drawTool != toolTag.none)
         {
             handToolUIList.Add(ToolUIGenerate(deckPos, drawTool, false));
         }
@@ -230,8 +230,8 @@ public class ToolUIController : MonoBehaviour
                     // クリックするとカードプレイ
                     if (Input.GetMouseButtonDown(0))
                     {
-                        tool playTool = deckSystem.HandPlay(i);
-                        if (playTool != tool.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool)))
+                        toolTag playTool = deckSystem.HandPlay(i);
+                        if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool)))
                         {
                             deckSystem.HandTrash(i);
                             trashToolUIList.Add(hand);
