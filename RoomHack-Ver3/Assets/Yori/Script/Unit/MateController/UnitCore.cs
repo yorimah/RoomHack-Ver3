@@ -11,7 +11,7 @@ public enum GunNo
     SniperRifle,
     SubMachineGun
 }
-public class UnitCore : MonoBehaviour, IDamegeable
+public class UnitCore : MonoBehaviour, IDamageable
 {
     public float MAXHP { get; set; }
     public float NowHP { get; set; }

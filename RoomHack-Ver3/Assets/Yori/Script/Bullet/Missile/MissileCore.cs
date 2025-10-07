@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MissileCore : MonoBehaviour, IDamegeable
+public class MissileCore : MonoBehaviour, IDamageable
 {
     [SerializeField, Header("爆発までの秒数")]
     private float explosionTimer = 3;
