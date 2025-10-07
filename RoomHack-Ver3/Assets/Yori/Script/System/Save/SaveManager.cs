@@ -58,6 +58,7 @@ public class SaveManager
             plusMoveSpeed = 0,
             plusRamCapacity = 0,
             plusRamRecovery = 0,
+            plusHand = 0,
             deckList = new List<int>
             {
                 1,1,1,1,2,2,3,3,4

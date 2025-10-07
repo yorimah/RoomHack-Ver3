@@ -3,6 +3,14 @@
 #endif
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+
+public enum GunNo
+{
+    HandGun,
+    AssultRifle,
+    SniperRifle,
+    SubMachineGun
+}
 public class UnitCore : MonoBehaviour, IDamegeable
 {
     public float MAXHP { get; set; }
@@ -20,13 +28,16 @@ public class UnitCore : MonoBehaviour, IDamegeable
     public float ramRecovary;
 
     // プレイヤー初期値
+    [SerializeField, Header("プレイヤー基礎スピード")]
+    private float moveBasicSpeed = 5;
     private int initMaxHp = 100;
     private int initRamCapacity = 10;
     private int initRamRecovary = 1;
 
     public MoveInput moveInput;
     // ガンデータ
-    public GunData gundata;
+    [SerializeField, Header("銃")]
+    private List<GunData> gundata = new List<GunData>();
     [HideInInspector]
     public float aimTime = 0.5f;
     [HideInInspector]
@@ -49,11 +60,13 @@ public class UnitCore : MonoBehaviour, IDamegeable
     [SerializeField, Header("弾")]
     public GameObject bulletPrefab;
 
-    [SerializeField, Header("プレイヤー基礎スピード")]
-    private float moveBasicSpeed = 5;
 
     [HideInInspector]
     public float moveSpeed;
+
+
+    
+    private GunNo gunNo;
     public enum StateType
     {
         Action,
@@ -120,14 +133,22 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
     private void GunDataInit()
     {
-        shotRate = gundata.rate;
-        MAXBULLET = gundata.MAXMAGAZINE;
-        NOWBULLET = MAXBULLET;
-        bulletSpeed = gundata.bulletSpeed;
-        stoppingPower = gundata.power;
-        shotIntervalTime = 1f / shotRate;
-        reloadTime = gundata.reloadTime;
-        recoil = gundata.recoil;
+        gunNo = (GunNo)data.gun;
+        if (!gundata[(int)gunNo])
+        {
+            Debug.LogError("そのような獲物はございません");
+        }
+        else
+        {
+            shotRate = gundata[(int)gunNo].rate;
+            shotIntervalTime = 1f / shotRate;
+            MAXBULLET = gundata[(int)gunNo].MAXMAGAZINE;
+            NOWBULLET = MAXBULLET;
+            bulletSpeed = gundata[(int)gunNo].bulletSpeed;
+            stoppingPower = gundata[(int)gunNo].power;
+            reloadTime = gundata[(int)gunNo].reloadTime;
+            recoil = gundata[(int)gunNo].recoil;
+        }
     }
     public void Die()
     {

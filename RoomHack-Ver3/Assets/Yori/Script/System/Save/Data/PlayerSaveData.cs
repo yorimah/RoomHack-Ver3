@@ -8,5 +8,6 @@ public class PlayerSaveData
     public float plusMoveSpeed;
     public float plusRamCapacity;
     public float plusRamRecovery;
+    public int plusHand;
     public List<int> deckList;
 }
