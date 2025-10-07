@@ -7,67 +7,69 @@ public class DeckSystem : MonoBehaviour
     [SerializeField, Header("ToolDataBankをアタッチしてね")]
     ToolDataBank toolDataBank;
 
-    [SerializeField, Header("DeckListをアタッチしてね")]
-    ToolDeckList setList;
+    [SerializeField, Header("saveから拾ったリスト")]
+    List<toolTag> setList = new List<toolTag>();
 
-    public List<tool> toolDeck = new List<tool>();
+    public List<toolTag> toolDeck = new List<toolTag>();
 
-    public List<tool> toolDesk = new List<tool>();
+    public List<toolTag> toolHand = new List<toolTag>();
 
     [SerializeField]
-    int handSize = 5;
+    public int handSize = 5;
 
-    public List<tool> toolTrash = new List<tool>();
+    public List<toolTag> toolTrash = new List<toolTag>();
 
     private void Start()
     {
+        setList = IntToDeck(UnitCore.Instance.data.deckList);
+
         DeckGenerate();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DeckDraw();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    DeckDraw();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            HandPlay(0);
-            HandTrash(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            HandPlay(1);
-            HandTrash(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            HandPlay(2);
-            HandTrash(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            HandPlay(3);
-            HandTrash(3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            HandPlay(4);
-            HandTrash(4);
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    HandPlay(0);
+        //    HandTrash(0);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    HandPlay(1);
+        //    HandTrash(1);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    HandPlay(2);
+        //    HandTrash(2);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha4))
+        //{
+        //    HandPlay(3);
+        //    HandTrash(3);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha5))
+        //{
+        //    HandPlay(4);
+        //    HandTrash(4);
+        //}
     }
 
-    void DeckGenerate()
+    public void DeckGenerate()
     {
         //Debug.Log("デッキ生成！");
-        toolDeck.AddRange(setList.deckList);
+        toolDeck.AddRange(setList);
         Shuffle(toolDeck);
     }
 
-    void Shuffle(List<tool> tools)
+    public void Shuffle(List<toolTag> tools)
     {
-        List<tool> processingList = new List<tool>();
+        List<toolTag> processingList = new List<toolTag>();
 
         for (int i = 0; i < tools.Count; i++)
         {
@@ -82,53 +84,117 @@ public class DeckSystem : MonoBehaviour
         tools.AddRange(processingList);
     }
 
-    void DeckDraw()
+    public void Refresh()
     {
-        if (handSize <= toolDesk.Count)
+        Debug.Log("リフレッシュ！");
+        toolDeck.AddRange(toolTrash);
+        toolTrash.Clear();
+        Shuffle(toolDeck);
+    }
+
+    public toolTag DeckDraw()
+    {
+        toolTag drawTool;
+
+        if (handSize <= toolHand.Count)
         {
             //Debug.Log("ハンドがあふれちまうおー");
+            drawTool = toolTag.none;
         }
         else
         {
             if (toolDeck.Count <= 0)
             {
-                //Debug.Log("デッキ切れ！リフレッシュ！");
-                toolDeck.AddRange(toolTrash);
-                toolTrash.Clear();
-                Shuffle(toolDeck);
+                //Debug.Log("デッキ切れ");
+                drawTool = toolTag.none;
+            }
+            else
+            {
+                drawTool = toolDeck[0];
+
+                //Debug.Log("ドロー！" + drawTool);
+                toolHand.Add(toolDeck[0]);
+                toolDeck.RemoveAt(0);
             }
 
-            //Debug.Log("ドロー！" + toolDeck[0]);
-            toolDesk.Add(toolDeck[0]);
-            toolDeck.RemoveAt(0);
         }
+
+        return drawTool;
     }
 
-    void HandTrash(int index)
+    public toolTag HandTrash(int index)
     {
-        if (index >= toolDesk.Count)
+        toolTag trashTool;
+
+        if (index >= toolHand.Count)
         {
             //Debug.Log("そんなカードはDeskにゃないぜ！");
+            trashTool = toolTag.none;
         }
         else
         {
-            Debug.Log("トラッシュ！" + toolDesk[index]);
-            toolTrash.Add(toolDesk[index]);
-            toolDesk.RemoveAt(index);
+            trashTool = toolHand[index];
+            //Debug.Log("トラッシュ！" + trashTool);
+            toolTrash.Add(toolHand[index]);
+            toolHand.RemoveAt(index);
         }
+
+        return trashTool;
     }
 
-    void HandPlay(int index)
+    public toolTag HandPlay(int index)
     {
-        if (index >= toolDesk.Count)
+        toolTag playTool;
+
+        if (index >= toolHand.Count)
         {
             //Debug.Log("そんなカードはDeskにゃないぜ！");
+            playTool = toolTag.none;
         }
         else
         {
-            //Debug.Log("プレイ！" + toolDesk[index]);
+            //Debug.Log("プレイ！" + toolHand[index]);
 
-            Instantiate(toolDataBank.toolDataList[(int)toolDesk[index]].toolEvent);
+            playTool = toolHand[index];
+            Instantiate(toolDataBank.toolDataList[(int)toolHand[index]].toolEvent);
         }
+
+        return playTool;
+    }
+
+    public int ReturnToolCost(toolTag _tool)
+    {
+        return toolDataBank.toolDataList[(int)_tool].toolCost;
+    }
+
+    public string ReturnToolText(toolTag _tool)
+    {
+        return toolDataBank.toolDataList[(int)_tool].toolText;
+    }
+
+    public bool RamUse(int num)
+    {
+        if (UnitCore.Instance.nowRam >= num)
+        {
+            UnitCore.Instance.nowRam -= num;
+            return true;
+        }
+        else
+        {
+            Debug.LogError("コスト足りひんぞ！");
+            return false;
+        }
+    }
+
+    public List<toolTag> IntToDeck(List<int> _list)
+    {
+        List<toolTag> toolDeckList = new List<toolTag>();
+
+        for (int i = 0; i < _list.Count; i++)
+        {
+            toolDeckList.Add(toolDataBank.toolDataList[_list[i]].toolTag);
+        }
+
+        return toolDeckList;
     }
 }

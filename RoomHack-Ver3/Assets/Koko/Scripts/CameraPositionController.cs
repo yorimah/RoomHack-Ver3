@@ -7,6 +7,9 @@ public class CameraPositionController : MonoBehaviour
     [SerializeField]
     GameObject targetObject;
 
+    [SerializeField]
+    float targetOutNum = 10;
+
     Vector3 mouseStartPos;
     Vector3 cameraStartPos;
 
@@ -24,14 +27,15 @@ public class CameraPositionController : MonoBehaviour
 
         if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
         {
-            Debug.Log("はっくなう");
+
+            //Debug.Log("はっくなう");
 
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("くりくなう");
+                //Debug.Log("くりくなう");
 
-                // タゲリセット
-                targetObject = null;
+                //// タゲリセット
+                //targetObject = null;
 
                 // レイ射出、四角
                 RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
@@ -46,22 +50,26 @@ public class CameraPositionController : MonoBehaviour
                     }
                 }
 
-                // ハックオブジェがなかった場合の初期設定
-                if (targetObject == null)
-                {
-                    mouseStartPos = Input.mousePosition;
-                    cameraStartPos = this.transform.position;
-                }
+                mouseStartPos = Input.mousePosition;
+                cameraStartPos = this.transform.position;
 
                 //this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             }
 
             if (Input.GetMouseButton(0))
             {
+                Vector3 mouseVec = Input.mousePosition - mouseStartPos;
+
+                // ドラッグするとオブジェクト解除
+                if (Mathf.Abs(mouseVec.x) > targetOutNum || Mathf.Abs(mouseVec.y) > targetOutNum)
+                {
+                    targetObject = null;
+                }
+
                 if (targetObject == null)
                 {
                     // ハックオブジェがなかった場合のポジション処理
-                    this.transform.position = cameraStartPos - (Input.mousePosition - mouseStartPos) / 100;
+                    this.transform.position = cameraStartPos - mouseVec / 100;
                 }
             }
         }

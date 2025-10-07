@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6212226254140892329
 RectTransform:
   m_ObjectHideFlags: 0
@@ -96,7 +96,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &216355328174005913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ RectTransform:
   m_GameObject: {fileID: 6773521087607688420}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6212226254140892329}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 37cf029df0fdf0448aa70effa1d96172, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ab5f730f455f924cbe0f6a718372ac7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -252,13 +252,15 @@ MonoBehaviour:
   toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
   thisTool: 1
   isOpen: 0
-  isTextDisp: 0
   toMovePosition: {x: 0, y: 0}
+  isMove: 0
   toScale: {x: 1, y: 1}
   isPointerOn: 0
   nameText: {fileID: 4135900601387698438}
   costText: {fileID: 3667215152971429843}
   effectText: {fileID: 2263419818189115029}
+  isTextDisp: 0
+  isBlackOut: 0
 --- !u!1 &8377035333799615666
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,8 +295,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -8}
-  m_SizeDelta: {x: 176, y: 240}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: 176, y: 176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3011696685050583978
 CanvasRenderer:
