@@ -21,7 +21,7 @@ MonoBehaviour:
     toolEvent: {fileID: 4218638253622298107, guid: a005cf334d3d4a14b9145bfc5e3134a4, type: 3}
   - toolTag: 1
     toolName: CCTVHack
-    toolCost: 2
+    toolCost: 1
     toolText: "\u5BFE\u8C61\u306E\u30AB\u30E1\u30E9\u8996\u754C\u3092\u5F97\u308B\u30021\u30C9\u30ED\u30FC\u3002"
     toolSprite: {fileID: 21300000, guid: dc877e4278bc9244bb021e7fd6ddb09c, type: 3}
     toolEvent: {fileID: 4218638253622298107, guid: b771596845ffc3641b1c3046d2f7a9b6, type: 3}

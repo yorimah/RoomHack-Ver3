@@ -2,6 +2,8 @@
 using UnityEngine;
 //[CreateAssetMenu(menuName = "ToolDeckList")]
 
+
+// 使わない可能性あり
 public class ToolDeckList : MonoBehaviour
 {
     public List<toolTag> deckList = new List<toolTag>();

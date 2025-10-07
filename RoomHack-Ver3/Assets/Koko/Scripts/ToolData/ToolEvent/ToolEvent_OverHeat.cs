@@ -7,14 +7,21 @@ public class ToolEvent_OverHeat : ToolEvent
     float timer = 5;
 
     float damageTimer = 1;
-    float damage = 10;
+    int damage = 10;
+
+    IDamageable damageable;
+
+    private void Start()
+    {
+        damageable = targetObject.GetComponent<IDamageable>();
+    }
 
     private void Update()
     {
         damageTimer -= GameTimer.Instance.ScaledDeltaTime;
         if (damageTimer <= 0)
         {
-            ToolAction();
+            damageable.HitDmg(damage, 0);
             damageTimer = 1;
         }
 
@@ -29,6 +36,5 @@ public class ToolEvent_OverHeat : ToolEvent
 
     public override void ToolAction()
     {
-        Debug.Log("対象は" + damage + "ダメージ！");
     }
 }

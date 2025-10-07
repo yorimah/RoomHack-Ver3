@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class DeckSystem : MonoBehaviour
@@ -18,6 +17,24 @@ public class DeckSystem : MonoBehaviour
     public int handSize = 5;
 
     public List<toolTag> toolTrash = new List<toolTag>();
+
+
+
+    // Singletonパターン
+    public static DeckSystem Instance { get; private set; }
+    private void Awake()
+    {
+        // 重複を防止
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
+
 
     private void Start()
     {
@@ -86,7 +103,7 @@ public class DeckSystem : MonoBehaviour
 
     public void Refresh()
     {
-        Debug.Log("リフレッシュ！");
+        //Debug.Log("リフレッシュ！");
         toolDeck.AddRange(toolTrash);
         toolTrash.Clear();
         Shuffle(toolDeck);
@@ -142,7 +159,7 @@ public class DeckSystem : MonoBehaviour
         return trashTool;
     }
 
-    public toolTag HandPlay(int index)
+    public toolTag HandPlay(int index, GameObject _hackObject)
     {
         toolTag playTool;
 
@@ -156,7 +173,8 @@ public class DeckSystem : MonoBehaviour
             //Debug.Log("プレイ！" + toolHand[index]);
 
             playTool = toolHand[index];
-            Instantiate(toolDataBank.toolDataList[(int)toolHand[index]].toolEvent);
+            GameObject eventObj = Instantiate(toolDataBank.toolDataList[(int)toolHand[index]].toolEvent, _hackObject.transform.position, Quaternion.identity);
+            eventObj.GetComponent<ToolEvent>().targetObject = _hackObject;
         }
 
         return playTool;

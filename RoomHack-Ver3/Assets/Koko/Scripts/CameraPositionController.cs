@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraPositionController : MonoBehaviour
 {
     [SerializeField]
-    GameObject targetObject;
+    public GameObject targetObject;
 
-    [SerializeField]
+    [SerializeField, Header("ターゲットを掴む強さ")]
     float targetOutNum = 10;
 
     Vector3 mouseStartPos;
@@ -27,6 +25,8 @@ public class CameraPositionController : MonoBehaviour
 
         if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
         {
+            Debug.Log("仮でタイマーいじってるからな");
+            GameTimer.Instance.customTimeScale = 0.1f;
 
             //Debug.Log("はっくなう");
 
@@ -75,6 +75,10 @@ public class CameraPositionController : MonoBehaviour
         }
         else
         {
+
+            Debug.Log("仮でタイマーいじってるからな");
+            GameTimer.Instance.customTimeScale = 1f;
+
             this.transform.position = UnitCore.Instance.gameObject.transform.position;
             targetObject = UnitCore.Instance.gameObject;
         }

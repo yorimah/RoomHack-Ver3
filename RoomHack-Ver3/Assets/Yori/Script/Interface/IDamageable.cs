@@ -1,4 +1,4 @@
-﻿public interface IDamegeable
+﻿public interface IDamageable
 {
     public float MAXHP { get; }
 

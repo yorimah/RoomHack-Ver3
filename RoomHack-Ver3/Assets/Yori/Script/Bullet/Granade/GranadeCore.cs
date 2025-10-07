@@ -67,7 +67,7 @@ public class GranadeCore : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
-        if (collision.gameObject.TryGetComponent<IDamegeable>(out var damage))
+        if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
         {
             if (HitDamegeLayer != damage.HitDamegeLayer)
             {

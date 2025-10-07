@@ -1,26 +1,35 @@
-﻿public interface IHackObject
+﻿using System.Collections.Generic;
+
+public interface IHackObject
 {
-    public int secLevele { set; get; }
+    public List<toolTag> canHackToolTag { get; set; }
 
-    public bool clacked { get; set; }
+    //public void Hacking(toolTag _toolTag);
 
-    public float MaxFireWall { get; set; }
-    public float NowFireWall { get; set; }
 
-    public float FireWallCapacity { get; set; }
+    // 以下初期制作、RIPよりまー
 
-    public float FireWallRecovaryNum { get; set; }
+    //public int secLevele { set; get; }
 
-    public void Clack(float BreachPower)
-    {
-        NowFireWall -= BreachPower ;
-        if (NowFireWall < FireWallCapacity)
-        {
-            CapacityOver();
-        }
-    }
+    //public bool clacked { get; set; }
 
-    public void CapacityOver();
+    //public float MaxFireWall { get; set; }
+    //public float NowFireWall { get; set; }
 
-    public void FireWallRecavary();
+    //public float FireWallCapacity { get; set; }
+
+    //public float FireWallRecovaryNum { get; set; }
+
+    //public void Clack(float BreachPower)
+    //{
+    //    NowFireWall -= BreachPower ;
+    //    if (NowFireWall < FireWallCapacity)
+    //    {
+    //        CapacityOver();
+    //    }
+    //}
+
+    //public void CapacityOver();
+
+    //public void FireWallRecavary();
 }

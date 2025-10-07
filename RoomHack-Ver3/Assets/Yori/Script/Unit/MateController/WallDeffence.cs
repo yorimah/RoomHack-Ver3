@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WallDeffence : MonoBehaviour, IDamegeable
+public class WallDeffence : MonoBehaviour, IDamageable
 {
 
     public float MAXHP { get; set; }

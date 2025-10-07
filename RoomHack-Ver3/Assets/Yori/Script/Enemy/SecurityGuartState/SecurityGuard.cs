@@ -17,31 +17,8 @@ public class SecurityGuard : Enemy
     };
         statetype = StateType.Idle;
         currentState = states[statetype];
-        clack().AttachExternalCancellation(token).Forget();
+
+        canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Bind, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };
     }
-    async UniTask clack()
-    {
-        while (true)
-        {
-            // クラックされるまで待機
-            await UniTask.WaitUntil(() => clacked);
-            // nowfirewallが下限突破してたら戻す
-            if (NowFireWall <= 0)
-            {
-                NowFireWall = 0;
-            }
-            // ハックした内容
-            shotIntervalTime = 0.5f;
-            // リカバリが終わるまでここでループ
-            while (NowFireWall <= MaxFireWall)
-            {
-                FireWallRecavary();
-                await UniTask.Yield();
-            }
-            // ループが終わったら初期状態に戻す
-            shotIntervalTime = 1f / shotRate;
-            clacked = false;
-            await UniTask.Yield();
-        }
-    }
+
 }

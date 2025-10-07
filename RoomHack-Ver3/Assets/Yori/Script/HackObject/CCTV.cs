@@ -6,14 +6,9 @@ using UnityEngine;
 
 public class CCTV : MonoBehaviour, IHackObject
 {
-    public int secLevele { get; set; }
-    public bool clacked { get; set; }
+    // ハッキング実装
+    public List<toolTag> canHackToolTag { get; set; } = new List<toolTag>();
 
-    public float FireWallCapacity { get; set; }
-    public float MaxFireWall { get; set; }
-    public float NowFireWall { get; set; }
-
-    public float FireWallRecovaryNum { get; set; }
     List<Mesh> mesh = new List<Mesh>();
 
     [SerializeField]
@@ -33,8 +28,6 @@ public class CCTV : MonoBehaviour, IHackObject
     [SerializeField]
     LayerMask targetLm;
     List<Vector2> Items = new List<Vector2>();
-    [SerializeField, Header("HackData")]
-    private HackData hackData;
     private GameObject viewMeshs;
 
     public CancellationToken token;
@@ -54,14 +47,10 @@ public class CCTV : MonoBehaviour, IHackObject
         }
 
         // HackData初期化
-        MaxFireWall = hackData.MaxFireWall;
-        NowFireWall = MaxFireWall;
-        FireWallRecovaryNum = hackData.FireWallRecovaryNum;
-        FireWallCapacity = hackData.FireWallCapacity;
+        canHackToolTag = new List<toolTag> { toolTag.CCTVHack };
 
         cts = new CancellationTokenSource();
         token = cts.Token;
-        clack().AttachExternalCancellation(token).Forget();
     }
 
     // 三角形の頂点設定
@@ -105,30 +94,6 @@ public class CCTV : MonoBehaviour, IHackObject
         Items.Clear();
     }
 
-    public void CapacityOver()
-    {
-        clacked = true;
-        viewMeshs.SetActive(true);
-    }
-    public void FireWallRecavary()
-    {
-        NowFireWall += GameTimer.Instance.ScaledDeltaTime * FireWallRecovaryNum;
-        if (NowFireWall >= FireWallCapacity)
-        {
-            viewMeshs.SetActive(false);
-            clacked = false;
-        }
-    }
-    async UniTask clack()
-    {
-        while (true)
-        {
-            await UniTask.WaitUntil(() => clacked);
-            CameraViewer();
-            FireWallRecavary();
-            await UniTask.Yield();
-        }
-    }
 
 #if UNITY_EDITOR
     void OnDrawGizmos()
@@ -137,11 +102,6 @@ public class CCTV : MonoBehaviour, IHackObject
         style.normal.textColor = Color.white;
         style.fontSize = 14;
 
-        if (UnitCore.Instance != null)
-        {
-            Handles.Label(transform.position + Vector3.up * 1f, "NowFireWall " + NowFireWall.ToString(), style);
-        }
-        Handles.Label(transform.position + Vector3.up * 1.5f, "Claked " + clacked.ToString(), style);
     }
 #endif
 }

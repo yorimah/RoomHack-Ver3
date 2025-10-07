@@ -115,7 +115,7 @@ public class MissileCore : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
-        if (collision.gameObject.TryGetComponent<IDamegeable>(out var damage))
+        if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
         {
             if (HitDamegeLayer != damage.HitDamegeLayer)
             {
@@ -131,7 +131,7 @@ public class MissileCore : MonoBehaviour
     // 追尾中
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent<IDamegeable>(out var damage))
+        if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
         {
             // 撃ったやつの種類以外に当たって爆発
             if (HitDamegeLayer != damage.HitDamegeLayer)

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BulletCore : MonoBehaviour, IDamegeable
+public class BulletCore : MonoBehaviour, IDamageable
 {
     public float MAXHP { get; set; }
 
@@ -39,7 +39,7 @@ public class BulletCore : MonoBehaviour, IDamegeable
             return;
         }
         // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
-        if (collision.gameObject.TryGetComponent<IDamegeable>(out var damage))
+        if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
         {
             if (this.HitDamegeLayer != damage.HitDamegeLayer)
             {

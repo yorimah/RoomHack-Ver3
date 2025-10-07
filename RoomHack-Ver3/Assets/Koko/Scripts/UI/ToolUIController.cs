@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(DeckSystem))]
 public class ToolUIController : MonoBehaviour
 {
-    [SerializeField]
     DeckSystem deckSystem;
 
-    [SerializeField]
+    [SerializeField, Header("アタッチしてね")]
     GameObject toolUIPrefab;
 
     [SerializeField]
@@ -34,13 +34,18 @@ public class ToolUIController : MonoBehaviour
 
     bool isTrashCheck;
 
-    [SerializeField]
+    [SerializeField, Header("アタッチしてね")]
     RamUIDisp ramUIDisp;
 
     bool isRebootHandStay = false;
 
+    [SerializeField, Header("アタッチしてね")]
+    CameraPositionController cameraPositionController;
+
     private void Start()
     {
+        deckSystem = DeckSystem.Instance;
+
         // デッキ置き場
         GameObject signToolUI = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
         signToolUI.GetComponent<RectTransform>().localPosition = deckPos;
@@ -56,10 +61,19 @@ public class ToolUIController : MonoBehaviour
         trashSign.toMovePosition = trashPos;
         trashSign.thisTool = toolTag.none;
         trashSign.isOpen = false;
+
+        UnitCore.Instance.isRebooting = true;
     }
 
     private void Update()
     {
+        // デッキクリックでリブート開始
+        if (Input.GetMouseButtonDown(0) && deckSign.isPointerOn)
+        {
+            //Debug.Log("Rebooting!");
+            UnitCore.Instance.isRebooting = true;
+        }
+
         // reboot関連
         if (UnitCore.Instance.isRebooting)
         {
@@ -69,10 +83,11 @@ public class ToolUIController : MonoBehaviour
                 trashToolUIList.Add(handToolUIList[0]);
                 handToolUIList.RemoveAt(0);
             }
+            isRebootHandStay = true;
         }
         else
         {
-            // 手札配置
+            // 手札再配置
             if (isRebootHandStay)
             {
                 if (deckSystem.toolHand.Count < deckSystem.handSize)
@@ -82,18 +97,9 @@ public class ToolUIController : MonoBehaviour
                 else
                 {
                     isRebootHandStay = false;
-                    Debug.Log("rebootEnd!");
+                    //Debug.Log("rebootEnd!");
                 }
             }
-
-            // スペースでリブート開始
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("Rebooting!");
-                UnitCore.Instance.isRebooting = true;
-                isRebootHandStay = true;
-            }
-
         }
 
         // リフレッシュリスト処理
@@ -108,41 +114,10 @@ public class ToolUIController : MonoBehaviour
         }
 
 
-        // ドロー
-        //if (deckSign.isPointerOn)
-        //{
-        //    if (Input.GetMouseButtonDown(0))
-        //    {
-
-        //        ToolDraw();
-
-        //    }
-        //}
-
-        
-
-        // トラッシュチェックのオンオフ
-        bool isTrashOn = false;
-        for (int i = 0; i < trashToolUIList.Count; i++)
-        {
-            if (trashToolUIList[i].isPointerOn) isTrashOn = true;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (isTrashOn && !isTrashCheck)
-            {
-                isTrashCheck = true;
-            }
-            else
-            {
-                isTrashCheck = false;
-            }
-        }
+        // trashが上じゃないとチェックがバグる
+        TrashControl();
 
         HandControl();
-
-        TrashControl();
     }
 
     ToolUI ToolUIGenerate(Vector2 _rectPos, toolTag _thisTool, bool _isOpen)
@@ -187,7 +162,7 @@ public class ToolUIController : MonoBehaviour
             }
             else
             {
-                Debug.Log("リフレッシュすんぞ！");
+                //Debug.Log("リフレッシュすんぞ！");
                 Refresh();
                 //deckSystem.DeckDraw();
                 //handToolUIList.Add(ToolUIGenerate(deckPos, drawTool, false));
@@ -205,20 +180,41 @@ public class ToolUIController : MonoBehaviour
         {
             ToolUI hand = handToolUIList[i];
 
+            // 初期設定
             Vector2 firstHandPos;
             firstHandPos.x = ((handToolUIList.Count - 1) * -(handSpace / 2)) + handSpace * i;
             firstHandPos.y = 0;
+            hand.toScale = new Vector2(1f, 1f);
+            hand.isTextDisp = false;
+            hand.isBlackOut = true;
 
-            // カードが使えるかどうか
+            // ツールコストが足りるかチェック
             if (deckSystem.ReturnToolCost(hand.thisTool) > UnitCore.Instance.nowRam)
             {
                 hand.isBlackOut = true;
+                firstHandPos.y = -100;
             }
             else
             {
+                // 対象がカード使えるかチェック
+                GameObject hackObj = null;
+                if (cameraPositionController.targetObject != null)
+                {
+                    if (cameraPositionController.targetObject.TryGetComponent<IHackObject>(out var ho))
+                    {
+                        if (ho.canHackToolTag.Contains(hand.thisTool))
+                        {
+                            // 使えるカードは明るくなる
+                            hand.isBlackOut = false;
+                            hackObj = cameraPositionController.targetObject;
+                        }
+                    }
+                }
+
                 // 手を重ねると情報出る、位置とサイズ移動
                 if (hand.isPointerOn == true /* && !Input.GetMouseButton(0) */)
                 {
+
                     firstHandPos.y = 100;
                     hand.toScale = new Vector2(1.2f, 1.2f);
                     hand.isTextDisp = true;
@@ -228,9 +224,9 @@ public class ToolUIController : MonoBehaviour
                     isHandOn = true;
 
                     // クリックするとカードプレイ
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0) && hackObj != null)
                     {
-                        toolTag playTool = deckSystem.HandPlay(i);
+                        toolTag playTool = deckSystem.HandPlay(i, hackObj);
                         if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool)))
                         {
                             deckSystem.HandTrash(i);
@@ -241,15 +237,14 @@ public class ToolUIController : MonoBehaviour
                         {
                             Debug.LogError("おい！プレイできんかったぞ！");
                         }
-
                     }
                 }
-                else
-                {
-                    hand.toScale = new Vector2(1f, 1f);
-                    hand.isTextDisp = false;
-                    hand.isBlackOut = false;
-                }
+                //else
+                //{
+                //    hand.toScale = new Vector2(1f, 1f);
+                //    hand.isTextDisp = false;
+                //    hand.isBlackOut = false;
+                //}
             }
 
             hand.toMovePosition = handPos + firstHandPos;
@@ -263,6 +258,25 @@ public class ToolUIController : MonoBehaviour
 
     void TrashControl()
     {
+        // トラッシュチェックのオンオフ
+        bool isTrashOn = false;
+        for (int i = 0; i < trashToolUIList.Count; i++)
+        {
+            if (trashToolUIList[i].isPointerOn) isTrashOn = true;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (isTrashOn && !isTrashCheck)
+            {
+                isTrashCheck = true;
+            }
+            else
+            {
+                isTrashCheck = false;
+            }
+        }
+
         // trashのtoolUI位置修正
         for (int i = 0; i < trashToolUIList.Count; i++)
         {

@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEditor;
 #endif
 using System.Threading;
-public class Enemy : MonoBehaviour, IDamegeable, IHackObject
+public class Enemy : MonoBehaviour, IDamageable, IHackObject
 {
     // ハック関連
-    public int secLevele { set; get; }
+    public List<toolTag> canHackToolTag { get; set; }
 
-    public bool clacked { get; set; }
+    //public int secLevele { set; get; }
 
-    public float MaxFireWall { get; set; }
-    public float NowFireWall { get; set; }
+    //public bool clacked { get; set; }
 
-    public float FireWallCapacity { get; set; }
+    //public float MaxFireWall { get; set; }
+    //public float NowFireWall { get; set; }
 
-    public float FireWallRecovaryNum { get; set; }
+    //public float FireWallCapacity { get; set; }
+
+    //public float FireWallRecovaryNum { get; set; }
 
     // ダメージ関連
     public float MAXHP { get; private set; } = 5;
@@ -119,15 +121,15 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         ChangeState(StateType.Die);
     }
 
-    public void CapacityOver()
-    {
-        clacked = true;
-    }
-    public void FireWallRecavary()
-    {
-        Debug.Log(gameObject.name + "クラック中");
-        NowFireWall += FireWallRecovaryNum * GameTimer.Instance.ScaledDeltaTime;
-    }
+    //public void CapacityOver()
+    //{
+    //    clacked = true;
+    //}
+    //public void FireWallRecavary()
+    //{
+    //    Debug.Log(gameObject.name + "クラック中");
+    //    NowFireWall += FireWallRecovaryNum * GameTimer.Instance.ScaledDeltaTime;
+    //}
 
     public void GunDataInit()
     {
@@ -161,7 +163,7 @@ public class Enemy : MonoBehaviour, IDamegeable, IHackObject
         {
             Handles.Label(transform.position + Vector3.up * 2f, "実行ステート " + currentState.ToString(), style);
         }
-        Handles.Label(transform.position + Vector3.up * 2.5f, "NowFireWall " + NowFireWall.ToString(), style);
+        //Handles.Label(transform.position + Vector3.up * 2.5f, "NowFireWall " + NowFireWall.ToString(), style);
     }
 #endif
 }

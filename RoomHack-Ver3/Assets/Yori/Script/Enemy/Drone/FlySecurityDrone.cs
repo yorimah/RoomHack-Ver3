@@ -17,31 +17,7 @@ public class FlySecurityDrone : Enemy
     };
         statetype = StateType.Idle;
         currentState = states[statetype];
-        clack().AttachExternalCancellation(token).Forget();
-    }
-    async UniTask clack()
-    {
-        while (true)
-        {
-            // クラックされるまで待機
-            await UniTask.WaitUntil(() => clacked);
-            // nowfirewallが下限突破してたら戻す
-            if (NowFireWall <= 0)
-            {
-                NowFireWall = 0;
-            }
-            // ハックした内容
-            
-            // リカバリが終わるまでここでループ
-            while (NowFireWall <= MaxFireWall)
-            {
-                currentState = states[StateType.Idle];
-                FireWallRecavary();
-                await UniTask.Yield();
-            }
-            // ループが終わったら初期状態に戻す
-            clacked = false;
-            await UniTask.Yield();
-        }
+
+        canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Bind, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };
     }
 }

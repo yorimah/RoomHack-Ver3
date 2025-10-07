@@ -15,5 +15,7 @@ public class TurretGun : Enemy
     };
         statetype = StateType.Idle;
         currentState = states[statetype];
+
+        canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };
     }
 }
