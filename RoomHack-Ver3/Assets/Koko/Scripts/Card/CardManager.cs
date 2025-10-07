@@ -69,7 +69,7 @@ public class CardManager : MonoBehaviour
                         // 効果適用
                         if (nowCard.card == CardType.Card.BP)
                         {
-                            data.plusBreachPower += 2;
+                            //data.plusBreachPower += 2;
                         }
 
                         if (nowCard.card == CardType.Card.MH)

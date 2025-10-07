@@ -26,7 +26,6 @@ public class UnitCore : MonoBehaviour, IDamegeable
 
     public MoveInput moveInput;
     // ガンデータ
-    [SerializeField, Header("GunData")]
     public GunData gundata;
     [HideInInspector]
     public float aimTime = 0.5f;
