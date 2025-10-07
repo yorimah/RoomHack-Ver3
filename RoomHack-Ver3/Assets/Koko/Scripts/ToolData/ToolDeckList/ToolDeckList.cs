@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ToolDeckList")]
+//[CreateAssetMenu(menuName = "ToolDeckList")]
 
-public class ToolDeckList : ScriptableObject
+public class ToolDeckList : MonoBehaviour
 {
     public List<tool> deckList = new List<tool>();
 }
