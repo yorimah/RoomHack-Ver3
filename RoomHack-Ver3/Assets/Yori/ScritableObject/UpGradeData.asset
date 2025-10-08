@@ -12,8 +12,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a3e5c7874516843b3f64581a0881e8, type: 3}
   m_Name: UpGradeData
   m_EditorClassIdentifier: 
-  toolDataList:
+  upGradeCardList:
   - upGradeTag: 0
     CardLevel: 1
     CardWeight: 10
-    cardType: {fileID: 0}
+    cardType: {fileID: 4522463612681376348, guid: af83c1e76d413894ebe6274091e67831, type: 3}
+  - upGradeTag: 1
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: 664e5d3957fd3cc478f1c47e7c58a19c, type: 3}
+  - upGradeTag: 2
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: 663db075381810a4781b3197f6d830fa, type: 3}
+  - upGradeTag: 3
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: 385060f46c73bb4439280f7eafe3e399, type: 3}
+  - upGradeTag: 4
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: f0f2b481dbf325942bfbda7b7762be9b, type: 3}
+  - upGradeTag: 5
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: f0589d20269ef024c88dcedeb4303f66, type: 3}
+  - upGradeTag: 6
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: cd06e575559292f47b4aed7cd4f91a5b, type: 3}
+  - upGradeTag: 7
+    CardLevel: 3
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: 6454e1efef3c29e45bf296f9bfaab20b, type: 3}
+  - upGradeTag: 9
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: d59d5e6e94c61634e9336141854e696c, type: 3}
+  - upGradeTag: 10
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: 1a336d733e890e34186d2b5bb180229f, type: 3}
+  - upGradeTag: 11
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: 9f81a87bcce03c34b8807c98f2db7d95, type: 3}
+  - upGradeTag: 12
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: c94aad240d294f84a8ad92b77a9f8a0f, type: 3}
+  - upGradeTag: 13
+    CardLevel: 1
+    CardWeight: 10
+    cardType: {fileID: 4522463612681376348, guid: 25fd3f3ad9dd90c418125acf10d71e16, type: 3}

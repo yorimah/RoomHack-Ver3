@@ -12,7 +12,7 @@ public class MissileCore : MonoBehaviour, IDamageable
     public float MAXHP { get; set; }
 
     public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; }
+    public int HitDamegeLayer { get; set; } = 4;
 
     public float hitStop { get; set; }
     // 汎用タイマー

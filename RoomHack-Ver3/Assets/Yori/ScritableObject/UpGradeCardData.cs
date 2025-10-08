@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "UpGradeData")]
 public class UpGradeCardData : ScriptableObject
 {
-    public List<UpGradeData> toolDataList = new List<UpGradeData>();
+    public List<UpGradeData> upGradeCardList = new List<UpGradeData>();
 }
 
 [System.Serializable]

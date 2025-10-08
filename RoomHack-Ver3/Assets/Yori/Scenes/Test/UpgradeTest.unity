@@ -337,22 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d384f97644e08e4ca6e4abc1dbabef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardList:
-  - {fileID: 4522463612681376348, guid: f0f2b481dbf325942bfbda7b7762be9b, type: 3}
-  - {fileID: 4522463612681376348, guid: f0589d20269ef024c88dcedeb4303f66, type: 3}
-  - {fileID: 4522463612681376348, guid: 385060f46c73bb4439280f7eafe3e399, type: 3}
-  - {fileID: 4522463612681376348, guid: 6454e1efef3c29e45bf296f9bfaab20b, type: 3}
-  - {fileID: 4522463612681376348, guid: cd06e575559292f47b4aed7cd4f91a5b, type: 3}
-  - {fileID: 4522463612681376348, guid: 663db075381810a4781b3197f6d830fa, type: 3}
-  - {fileID: 4522463612681376348, guid: 25fd3f3ad9dd90c418125acf10d71e16, type: 3}
-  - {fileID: 4522463612681376348, guid: c94aad240d294f84a8ad92b77a9f8a0f, type: 3}
-  - {fileID: 4522463612681376348, guid: af83c1e76d413894ebe6274091e67831, type: 3}
-  - {fileID: 4522463612681376348, guid: 664e5d3957fd3cc478f1c47e7c58a19c, type: 3}
-  - {fileID: 4522463612681376348, guid: 1a336d733e890e34186d2b5bb180229f, type: 3}
-  - {fileID: 4522463612681376348, guid: d59d5e6e94c61634e9336141854e696c, type: 3}
-  - {fileID: 4522463612681376348, guid: 9f81a87bcce03c34b8807c98f2db7d95, type: 3}
   nextScene: YoriTestScene
   changeTime: 1.5
+  upGradeCardData: {fileID: 11400000, guid: f52e7392def0a3041841aea62bc1dbbd, type: 2}
 --- !u!4 &1408598639
 Transform:
   m_ObjectHideFlags: 0

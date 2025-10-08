@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UpgradeChoice : MonoBehaviour
 {
-    public List<GameObject> cardList = new List<GameObject>();
-
     [SerializeField]
     ICardType nowCard;
 
@@ -20,16 +17,16 @@ public class UpgradeChoice : MonoBehaviour
     PlayerSaveData data;
     [SerializeField, Header("upgradeData")]
     UpGradeCardData upGradeCardData;
-
     // 重みの総和（初期化時に計算される）
     private float _totalWeight;
     private void Start()
     {
         data = SaveManager.Instance.Load();
 
-        for (int i = 0; i < upGradeCardData.toolDataList.Count; i++)
+        for (int i = 0; i < upGradeCardData.upGradeCardList.Count; i++)
         {
-            var iCard = cardList[i].GetComponent<ICardType>();
+            var iCard = upGradeCardData.upGradeCardList[i].cardType.GetComponent<ICardType>();
+            iCard.cardLevel = upGradeCardData.upGradeCardList[i].CardLevel;
             // ステージがすすむごとに出る重みを変える。
             if (data.score_Stage <= 5)
             {
@@ -76,20 +73,20 @@ public class UpgradeChoice : MonoBehaviour
                         break;
                 }
             }
-            _totalWeight += cardList[i].GetComponent<ICardType>().cardWeight;
+            _totalWeight += iCard.cardWeight;
         }
 
         float x = -5;
 
         for (int i = 0; i < 3; i++)
         {
-            Instantiate(cardList[Choose()], new Vector3(x, 0, 0), Quaternion.identity);
+            Instantiate(upGradeCardData.upGradeCardList[Choose()].cardType, new Vector3(x, 0, 0), Quaternion.identity);
             x += 5;
         }
     }
     private void FixedUpdate()
     {
-        
+
     }
     public int Choose()
     {
@@ -98,10 +95,10 @@ public class UpgradeChoice : MonoBehaviour
 
         // 乱数値が属する要素を先頭から順に選択
         var currentWeight = 0f;
-        for (var i = 0; i < cardList.Count; i++)
+        for (var i = 0; i < upGradeCardData.upGradeCardList.Count; i++)
         {
             // 現在要素までの重みの総和を求める
-            currentWeight += cardList[i].GetComponent<ICardType>().cardWeight;
+            currentWeight += upGradeCardData.upGradeCardList[i].cardType.GetComponent<ICardType>().cardWeight;
 
             // 乱数値が現在要素の範囲内かチェック
             if (randomPoint < currentWeight)
@@ -111,7 +108,7 @@ public class UpgradeChoice : MonoBehaviour
         }
 
         // 乱数値が重みの総和以上なら末尾要素とする
-        return cardList.Count - 1;
+        return upGradeCardData.upGradeCardList.Count - 1;
     }
     private void Update()
     {
@@ -140,7 +137,7 @@ public class UpgradeChoice : MonoBehaviour
                 // あたったオブジェクトのカードタイプ取得
                 if (hit.collider.TryGetComponent<ICardType>(out nowCard))
                 {
-                    Debug.Log("カードレベル : " + nowCard.cardLevel);
+                    Debug.Log("カードレベル : " + nowCard.cardLevel+nowCard);
 
                     // クリックでカードゲット
                     if (Input.GetMouseButtonDown(0))
