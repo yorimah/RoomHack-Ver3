@@ -18,7 +18,8 @@ public class UpgradeChoice : MonoBehaviour
     [SerializeField]
     float changeTime = 1;
     PlayerSaveData data;
-
+    [SerializeField, Header("upgradeData")]
+    UpGradeCardData upGradeCardData;
 
     // 重みの総和（初期化時に計算される）
     private float _totalWeight;
@@ -26,9 +27,56 @@ public class UpgradeChoice : MonoBehaviour
     {
         data = SaveManager.Instance.Load();
 
-        for (int i = 0; i < cardList.Count; i++)
+        for (int i = 0; i < upGradeCardData.toolDataList.Count; i++)
         {
-            _totalWeight +=  cardList[i].GetComponent<ICardType>().cardWeight;
+            var iCard = cardList[i].GetComponent<ICardType>();
+            // ステージがすすむごとに出る重みを変える。
+            if (data.score_Stage <= 5)
+            {
+                switch (iCard.cardLevel)
+                {
+                    case 1:
+                        iCard.cardWeight = 20;
+                        break;
+                    case 2:
+                        iCard.cardWeight = 5;
+                        break;
+                    case 3:
+                        iCard.cardWeight = 0;
+                        break;
+                }
+            }
+            else if (data.score_Stage <= 10)
+            {
+                switch (iCard.cardLevel)
+                {
+                    case 1:
+                        iCard.cardWeight = 20;
+                        break;
+                    case 2:
+                        iCard.cardWeight = 20;
+                        break;
+                    case 3:
+                        iCard.cardWeight = 10;
+                        break;
+                }
+            }
+            else
+            {
+                switch (iCard.cardLevel)
+                {
+                    case 1:
+                        iCard.cardWeight = 5;
+                        break;
+                    case 2:
+                        iCard.cardWeight = 10;
+                        break;
+                    case 3:
+                        iCard.cardWeight = 20;
+                        break;
+                }
+            }
+            _totalWeight += cardList[i].GetComponent<ICardType>().cardWeight;
         }
 
         float x = -5;
@@ -39,7 +87,10 @@ public class UpgradeChoice : MonoBehaviour
             x += 5;
         }
     }
-
+    private void FixedUpdate()
+    {
+        
+    }
     public int Choose()
     {
         // 0～重みの総和の範囲の乱数値取得
@@ -64,6 +115,10 @@ public class UpgradeChoice : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         // カード取得したかどうか
         if (nextSceneFrag)
         {
@@ -85,7 +140,7 @@ public class UpgradeChoice : MonoBehaviour
                 // あたったオブジェクトのカードタイプ取得
                 if (hit.collider.TryGetComponent<ICardType>(out nowCard))
                 {
-                    Debug.Log("これカードだお : " + nowCard);
+                    Debug.Log("カードレベル : " + nowCard.cardLevel);
 
                     // クリックでカードゲット
                     if (Input.GetMouseButtonDown(0))

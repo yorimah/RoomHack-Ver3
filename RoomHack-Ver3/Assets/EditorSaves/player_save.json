@@ -1,5 +1,5 @@
 {
-  "score_Stage": 0,
+  "score_Stage": 1,
   "score_DestoryEnemy": 0,
   "gun": 0,
   "pulusMaxHitpoint": 0.0,
@@ -17,6 +17,7 @@
     3,
     3,
     4,
+    5,
     5,
     5
   ]
