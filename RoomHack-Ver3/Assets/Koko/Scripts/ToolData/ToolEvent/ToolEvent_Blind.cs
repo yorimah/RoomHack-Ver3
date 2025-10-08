@@ -11,7 +11,7 @@ public class ToolEvent_Blind : ToolEvent
 
     private void Start()
     {
-        targetData = targetObject.GetComponent<Enemy>();
+        targetData = hackTargetObject.GetComponent<Enemy>();
         startRate = targetData.shotRate;
     }
 

@@ -174,7 +174,7 @@ public class DeckSystem : MonoBehaviour
 
             playTool = toolHand[index];
             GameObject eventObj = Instantiate(toolDataBank.toolDataList[(int)toolHand[index]].toolEvent, _hackObject.transform.position, Quaternion.identity);
-            eventObj.GetComponent<ToolEvent>().targetObject = _hackObject;
+            eventObj.GetComponent<ToolEvent>().hackTargetObject = _hackObject;
         }
 
         return playTool;

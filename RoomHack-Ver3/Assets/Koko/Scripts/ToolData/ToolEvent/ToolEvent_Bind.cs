@@ -11,7 +11,7 @@ public class ToolEvent_Bind : ToolEvent
 
     private void Start()
     {
-        targetData = targetObject.GetComponent<Enemy>();
+        targetData = hackTargetObject.GetComponent<Enemy>();
         startSpeed = targetData.moveSpeed;
     }
 

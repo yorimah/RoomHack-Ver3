@@ -33,7 +33,7 @@ public class ToolEvent_Detonation : ToolEvent
 
     private CircleCollider2D granadeCollider;
 
-    bool isActivate = false;
+    List<GameObject> damageableObjectList = new List<GameObject>();
 
     public void Start()
     {
@@ -41,6 +41,8 @@ public class ToolEvent_Detonation : ToolEvent
         spriteRen = GetComponent<SpriteRenderer>();
         color = spriteRen.color;
         MeshInit();
+
+        granadeCollider.radius = explosionRadial;
     }
     private void Update()
     {
@@ -52,13 +54,30 @@ public class ToolEvent_Detonation : ToolEvent
         if (timer >= explosionTimer)
         {
             //爆発
-            isActivate = true;
             colorAlpha = 1;
-            //Destroy(gameObject, 1f);
-            //Destroy(meshObject, 1f);
-            granadeCollider.radius = explosionRadial;
 
-            //targetObject.GetComponent<Enemy>().ChangeState(Enemy.StateType.Die);
+            for (int i = damageableObjectList.Count - 1; i >= 0; i--)
+            {
+                RaycastHit2D[] hit = Physics2D.RaycastAll(this.transform.position, damageableObjectList[i].transform.position - this.transform.position, Vector2.Distance(this.transform.position, damageableObjectList[i].transform.position));
+
+                bool isWall = false;
+
+                foreach (var item in hit)
+                {
+                    if (item.collider.gameObject.TryGetComponent<WallDeffence>(out var wallDeffence))
+                    {
+                        isWall = true;
+                    }
+                }
+
+                if (!isWall)
+                {
+                    damageableObjectList[i].GetComponent<IDamageable>().HitDmg(explosionPower, hitStop);
+                }
+            }
+
+            Destroy(gameObject);
+            Destroy(meshObject, 1f);
         }
         else
         {
@@ -71,55 +90,81 @@ public class ToolEvent_Detonation : ToolEvent
         spriteRen.color = color;
     }
 
-    ObjectWallCheck objectWallCheck = new ObjectWallCheck();
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (isActivate)
+        if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
-            // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
-            if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
+            if (HitDamegeLayer != damageable.HitDamegeLayer)
             {
-                if (HitDamegeLayer != damage.HitDamegeLayer)
-                {
-                    if (!objectWallCheck.WallHit(this.transform, collision.transform, targetLm))
-                    {
-                        Debug.Log(collision.gameObject + "へは壁ないよ");
-                    }
-                    else
-                    {
-                        Debug.Log(collision.gameObject + "へは壁あるよ");
-                    }
-
-
-                    //RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, collision.transform.position - transform.position);
-                    //Debug.DrawRay(transform.position, collision.transform.position - transform.position);
-
-                    //bool isWall = false;
-                    //foreach (var item in hit)
-                    //{
-                    //    Debug.Log(item);
-                    //    if (item.collider.gameObject.TryGetComponent<WallDeffence>(out var _wallDeffence))
-                    //    {
-                    //        isWall = true;
-                    //        Debug.Log(collision.gameObject + "に対しては壁があるお / " + _wallDeffence);
-                    //    }
-                    //}
-
-                    //if (!isWall)
-                    //{
-                    //    Debug.Log(collision.gameObject + "あたってるお");
-
-                    //    if (isActivate)
-                    //    {
-
-                    //        damage.HitDmg(explosionPower, hitStop);
-                    //    }
-                    //}
-
-                }
+                damageableObjectList.Add(collision.gameObject);
             }
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        damageableObjectList.Remove(collision.gameObject);
+    }
+
+    //ObjectWallCheck objectWallCheck = new ObjectWallCheck();
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    //if (isActivate)
+    //    {
+    //        // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
+    //        if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
+    //        {
+    //            if (HitDamegeLayer != damage.HitDamegeLayer)
+    //            {
+    //                RaycastHit2D[] hit = Physics2D.RaycastAll(this.transform.position, collision.transform.position - this.transform.position, Vector2.Distance(this.transform.position, collision.transform.position));
+
+    //                bool isWall = false;
+
+    //                foreach (var item in hit)
+    //                {
+    //                    if (item.collider.gameObject.TryGetComponent<WallDeffence>(out var wallDeffence))
+    //                    {
+    //                        isWall = true;
+    //                    }
+    //                }
+
+    //                if (!isWall && isActivate)
+    //                {
+    //                    damage.HitDmg(explosionPower, 0);
+    //                }
+
+
+
+
+    //                //RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, collision.transform.position - transform.position);
+    //                //Debug.DrawRay(transform.position, collision.transform.position - transform.position);
+
+    //                //bool isWall = false;
+    //                //foreach (var item in hit)
+    //                //{
+    //                //    Debug.Log(item);
+    //                //    if (item.collider.gameObject.TryGetComponent<WallDeffence>(out var _wallDeffence))
+    //                //    {
+    //                //        isWall = true;
+    //                //        Debug.Log(collision.gameObject + "に対しては壁があるお / " + _wallDeffence);
+    //                //    }
+    //                //}
+
+    //                //if (!isWall)
+    //                //{
+    //                //    Debug.Log(collision.gameObject + "あたってるお");
+
+    //                //    if (isActivate)
+    //                //    {
+
+    //                //        damage.HitDmg(explosionPower, hitStop);
+    //                //    }
+    //                //}
+
+    //            }
+    //        }
+    //    }
+    //}
 
     // 爆発範囲表示
     private void MeshInit()

@@ -6,7 +6,7 @@ public class CameraPositionController : MonoBehaviour
     public GameObject targetObject;
 
     [SerializeField, Header("ターゲットを掴む強さ")]
-    float targetOutNum = 10;
+    float targetOutNum = 100;
 
     Vector3 mouseStartPos;
     Vector3 cameraStartPos;

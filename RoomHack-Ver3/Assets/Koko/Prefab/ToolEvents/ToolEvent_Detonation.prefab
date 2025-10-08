@@ -47,17 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119b1f6e07510694ca854a10e896d932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 0}
+  hackTargetObject: {fileID: 0}
   explosionTimer: 3
-  explosionRadial: 10
+  explosionRadial: 3
   explosionPower: 100
   targetLm:
     serializedVersion: 2
     m_Bits: 128
   hitStop: 0
-  lm:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!212 &-5948950346671298764
 SpriteRenderer:
   m_ObjectHideFlags: 0

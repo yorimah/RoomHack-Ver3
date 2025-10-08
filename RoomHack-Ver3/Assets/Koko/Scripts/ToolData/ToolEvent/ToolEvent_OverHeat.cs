@@ -13,11 +13,13 @@ public class ToolEvent_OverHeat : ToolEvent
 
     private void Start()
     {
-        damageable = targetObject.GetComponent<IDamageable>();
+        damageable = hackTargetObject.GetComponent<IDamageable>();
     }
 
     private void Update()
     {
+        Tracking();
+
         damageTimer -= GameTimer.Instance.ScaledDeltaTime;
         if (damageTimer <= 0)
         {
