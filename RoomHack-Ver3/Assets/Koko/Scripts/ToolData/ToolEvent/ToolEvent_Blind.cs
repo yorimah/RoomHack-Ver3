@@ -7,23 +7,23 @@ public class ToolEvent_Blind : ToolEvent
     float timer = 5;
 
     Enemy targetData;
-    int startRate;
+    float startInterval;
 
     private void Start()
     {
         targetData = hackTargetObject.GetComponent<Enemy>();
-        startRate = targetData.shotRate;
+        startInterval = targetData.shotIntervalTime;
     }
 
     private void Update()
     {
         timer -= GameTimer.Instance.ScaledDeltaTime;
 
-        targetData.shotRate = 0;
+        targetData.shotIntervalTime = 9999;
 
         if (timer < 0)
         {
-            targetData.shotRate = startRate;
+            targetData.shotIntervalTime = startInterval;
             Destroy(this.gameObject);
         }
     }
