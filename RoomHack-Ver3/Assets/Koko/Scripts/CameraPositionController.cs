@@ -25,7 +25,7 @@ public class CameraPositionController : MonoBehaviour
 
         if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
         {
-            Debug.Log("仮でタイマーいじってるからな");
+            //Debug.Log("仮でタイマーいじってるからな");
             GameTimer.Instance.customTimeScale = 0.1f;
 
             //Debug.Log("はっくなう");
@@ -76,7 +76,7 @@ public class CameraPositionController : MonoBehaviour
         else
         {
 
-            Debug.Log("仮でタイマーいじってるからな");
+            //Debug.Log("仮でタイマーいじってるからな");
             GameTimer.Instance.customTimeScale = 1f;
 
             this.transform.position = UnitCore.Instance.gameObject.transform.position;
