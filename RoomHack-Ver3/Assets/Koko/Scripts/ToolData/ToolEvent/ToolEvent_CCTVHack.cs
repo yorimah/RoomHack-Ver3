@@ -5,8 +5,8 @@ public class ToolEvent_CCTVHack : ToolEvent
 {
     Mesh mesh;
     [SerializeField]
-    private float diffusionRate = 120;
-    GameObject shotRange;
+    private float diffusionRate = 60;
+    GameObject viewRange;
     // 長さ
     [SerializeField]
     private float viewDistance = 50f;
@@ -20,16 +20,16 @@ public class ToolEvent_CCTVHack : ToolEvent
     private LayerMask targetLm;
     private void Start()
     {
-        shotRange = new GameObject(this.gameObject.name + "shotRange");
-        shotRange.AddComponent<MeshRenderer>();
-        shotRange.AddComponent<MeshFilter>();
-        shotRange.transform.localPosition = Vector2.zero;
+        viewRange = new GameObject(this.gameObject.name + "View");
+        viewRange.AddComponent<MeshRenderer>();
+        viewRange.AddComponent<MeshFilter>();
+        viewRange.transform.localPosition = Vector2.zero;
 
         mesh = new Mesh();
-        shotRange.GetComponent<MeshFilter>().mesh = mesh;
+        viewRange.GetComponent<MeshFilter>().mesh = mesh;
 
-        var mr = shotRange.GetComponent<MeshRenderer>();
-        
+        var mr = viewRange.GetComponent<MeshRenderer>();
+
         mr.material = new Material(Shader.Find("Custom/WriteStencil"));
 
         //shotRange.transform.parent = this.transform;
@@ -53,7 +53,7 @@ public class ToolEvent_CCTVHack : ToolEvent
         // 中心はobj
         vertices[0] = this.transform.position;
 
-        float angle = diffusionRate;
+        float angle = diffusionRate * 2;
 
         for (int i = 0; i <= segment; i++)
         {

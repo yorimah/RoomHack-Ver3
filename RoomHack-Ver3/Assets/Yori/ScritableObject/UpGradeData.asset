@@ -16,4 +16,4 @@ MonoBehaviour:
   - upGradeTag: 0
     CardLevel: 1
     CardWeight: 10
-    cardSprite: {fileID: 0}
+    cardType: {fileID: 0}

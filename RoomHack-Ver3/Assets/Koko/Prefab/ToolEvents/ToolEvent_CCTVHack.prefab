@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59746a7a8f8ef3947ac8de9ad87c6853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 0}
-  diffusionRate: 120
+  hackTargetObject: {fileID: 0}
+  diffusionRate: 60
   viewDistance: 50
   segment: 20
   MeshObject: {fileID: 0}
