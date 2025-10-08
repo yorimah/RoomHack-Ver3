@@ -41,5 +41,4 @@ public class GameManeger : MonoBehaviour
             SceneManager.LoadScene("UpgradeTest");
         }
     }
-
 }
