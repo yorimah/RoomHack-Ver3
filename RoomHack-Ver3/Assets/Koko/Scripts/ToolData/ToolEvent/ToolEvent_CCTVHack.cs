@@ -13,7 +13,11 @@ public class ToolEvent_CCTVHack : ToolEvent
     // 分割数
     [SerializeField]
     private int segment = 20;
+    [SerializeField, Header("視界に使うメッシュ")]
+    private GameObject MeshObject;
 
+    [SerializeField, Header("壁レイヤー")]
+    private LayerMask targetLm;
     private void Start()
     {
         shotRange = new GameObject(this.gameObject.name + "shotRange");
@@ -25,10 +29,8 @@ public class ToolEvent_CCTVHack : ToolEvent
         shotRange.GetComponent<MeshFilter>().mesh = mesh;
 
         var mr = shotRange.GetComponent<MeshRenderer>();
-        // 仮の色
-        mr.material = new Material(Shader.Find("Custom/URP_SpriteSimple"));
-        mr.material.color = new Color(1, 1, 0, 0.3f); // 半透明黄色
-        mr.sortingOrder = 10;
+        
+        mr.material = new Material(Shader.Find("Custom/WriteStencil"));
 
         //shotRange.transform.parent = this.transform;
     }
@@ -60,9 +62,18 @@ public class ToolEvent_CCTVHack : ToolEvent
             Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
             Vector3 dir = rot * this.transform.up;
 
-            Vector3 point = this.transform.position + dir * viewDistance;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, viewDistance, targetLm);
+            if (hit.collider != null)
+            {
+                // 障害物に当たったらその地点を頂点にする
+                vertices[i + 1] = hit.point;
+            }
+            else
+            {
+                // 何もなければ円周上の点
+                vertices[i + 1] = UnitCore.Instance.transform.position + dir * viewDistance;
+            }
 
-            vertices[i + 1] = point;
 
             if (i < segment)
             {
