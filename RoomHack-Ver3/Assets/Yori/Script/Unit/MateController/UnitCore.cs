@@ -64,8 +64,8 @@ public class UnitCore : MonoBehaviour, IDamageable
     [HideInInspector]
     public float moveSpeed;
 
+    private Rigidbody2D rb;
 
-    
     private GunNo gunNo;
     public enum StateType
     {
@@ -85,6 +85,8 @@ public class UnitCore : MonoBehaviour, IDamageable
         currentState?.Execute();
 
         RamUpdate();
+
+        rb.velocity = rb.velocity * GameTimer.Instance.customTimeScale;
     }
 
     public void ChangeState(StateType type)
@@ -94,6 +96,8 @@ public class UnitCore : MonoBehaviour, IDamageable
         currentState?.Enter();
 
         statetype = type;
+
+       
     }
     void Awake()
     {
@@ -129,6 +133,8 @@ public class UnitCore : MonoBehaviour, IDamageable
     };
         statetype = StateType.Action;
         currentState = states[statetype];
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void GunDataInit()
