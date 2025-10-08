@@ -12,9 +12,6 @@ public class DroneShotState : IState
     private float moveDire;
     private Rigidbody2D enemyRigidBody2D;
     private PlayerCheack playerCheack;
-
-    // ShotSection
-    private float shotIntevalTime = 0;
     enum ShotSection
     {
         aim,
@@ -36,8 +33,6 @@ public class DroneShotState : IState
         enemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
 
         bulletGeneratar = enemy.gameObject.GetComponent<BulletGeneratar>();
-
-        shotIntevalTime = 1f / enemy.gundata.rate;
 
     }
     public void Enter()
@@ -97,12 +92,12 @@ public class DroneShotState : IState
             case ShotSection.shot:
                 diffusionRate += enemy.recoil;
                 Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
-                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer,enemy.stoppingPower, diffusionRate);
+                bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower, diffusionRate);
                 shotSection++;
                 break;
             case ShotSection.shotInterval:
                 timer += GameTimer.Instance.ScaledDeltaTime;
-                if (shotIntevalTime <= timer)
+                if (enemy.shotIntervalTime <= timer)
                 {
                     timer = 0;
                     shotSection = ShotSection.shot;
