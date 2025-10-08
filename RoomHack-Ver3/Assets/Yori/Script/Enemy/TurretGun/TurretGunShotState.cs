@@ -77,10 +77,12 @@ public class TurretGunShotState : IState
                     // いなかったら移動へ
                     if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
                     {
+                        timer = 0;
                         shotSection = ShotSection.shot;
                     }
                     else
                     {
+                        timer = 0;
                         enemy.ChangeState(Enemy.StateType.Move);
                     }
                 }
