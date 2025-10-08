@@ -10,13 +10,33 @@ public class ToolUIController : MonoBehaviour
     GameObject toolUIPrefab;
 
     [SerializeField]
-    Vector2 deckPos = new Vector2(-800, 0);
+    Vector2 nowDeckPos;
 
     [SerializeField]
-    Vector2 trashPos = new Vector2(-800, -320);
+    Vector2 nowTrashPos;
 
     [SerializeField]
-    Vector2 handPos = new Vector2(0, -480);
+    Vector2 nowHandPos;
+
+    [SerializeField]
+    Vector2 actDeckPos = new Vector2(-1000, 0);
+
+    [SerializeField]
+    Vector2 actTrashPos = new Vector2(-1000, -320);
+
+    [SerializeField]
+    Vector2 actHandPos = new Vector2(0, -680);
+
+    [SerializeField]
+    Vector2 hackDeckPos = new Vector2(-800, 0);
+
+    [SerializeField]
+    Vector2 hackTrashPos = new Vector2(-800, -320);
+
+    [SerializeField]
+    Vector2 hackHandPos = new Vector2(0, -480);
+
+
 
     [SerializeField]
     float handSpace = 200;
@@ -48,17 +68,17 @@ public class ToolUIController : MonoBehaviour
 
         // デッキ置き場
         GameObject signToolUI = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
-        signToolUI.GetComponent<RectTransform>().localPosition = deckPos;
+        signToolUI.GetComponent<RectTransform>().localPosition = actDeckPos;
         deckSign = signToolUI.GetComponent<ToolUI>();
-        deckSign.toMovePosition = deckPos;
+        deckSign.toMovePosition = actDeckPos;
         deckSign.thisTool = toolTag.none;
         deckSign.isOpen = false;
 
         // トラッシュ置き場
         signToolUI = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
-        signToolUI.GetComponent<RectTransform>().localPosition = trashPos;
+        signToolUI.GetComponent<RectTransform>().localPosition = actTrashPos;
         trashSign = signToolUI.GetComponent<ToolUI>();
-        trashSign.toMovePosition = trashPos;
+        trashSign.toMovePosition = actTrashPos;
         trashSign.thisTool = toolTag.none;
         trashSign.isOpen = false;
 
@@ -67,6 +87,25 @@ public class ToolUIController : MonoBehaviour
 
     private void Update()
     {
+        deckSign.toMovePosition = nowDeckPos;
+        trashSign.toMovePosition = nowTrashPos;
+
+        if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
+        {
+            nowDeckPos = hackDeckPos;
+            nowTrashPos = hackTrashPos;
+
+            nowHandPos = hackHandPos;
+        }
+        else
+        {
+            nowDeckPos = actDeckPos;
+            nowTrashPos = actTrashPos;
+
+            nowHandPos = actHandPos;
+        }
+
+
         // デッキクリックでリブート開始
         if (Input.GetMouseButtonDown(0) && deckSign.isPointerOn)
         {
@@ -138,7 +177,7 @@ public class ToolUIController : MonoBehaviour
 
         for (int i = 0; i < trashToolUIList.Count; i++)
         {
-            trashToolUIList[i].toMovePosition = deckPos;
+            trashToolUIList[i].toMovePosition = nowDeckPos;
             trashToolUIList[i].isOpen = false;
         }
         deckSystem.Refresh();
@@ -152,7 +191,7 @@ public class ToolUIController : MonoBehaviour
 
         if (drawTool != toolTag.none)
         {
-            handToolUIList.Add(ToolUIGenerate(deckPos, drawTool, false));
+            handToolUIList.Add(ToolUIGenerate(nowDeckPos, drawTool, false));
         }
         else
         {
@@ -247,7 +286,7 @@ public class ToolUIController : MonoBehaviour
                 //}
             }
 
-            hand.toMovePosition = handPos + firstHandPos;
+            hand.toMovePosition = nowHandPos + firstHandPos;
 
             //hand.thisTool = deckSystem.toolHand[i];
             hand.isOpen = true;
@@ -292,7 +331,6 @@ public class ToolUIController : MonoBehaviour
                 Vector2 firstTrashPos;
                 firstTrashPos.x = ((trashToolUIList.Count - 1) * -(handSpace / 2)) + handSpace * i;
                 firstTrashPos.y = 480;
-                trash.toMovePosition = handPos + firstTrashPos;
 
                 if (trash.isPointerOn && !Input.GetMouseButton(0))
                 {
@@ -316,7 +354,7 @@ public class ToolUIController : MonoBehaviour
                 trash.isTextDisp = false;
                 trash.isBlackOut = false;
 
-                trash.toMovePosition = trashPos;
+                trash.toMovePosition = nowTrashPos;
             }
         }
     }

@@ -4,12 +4,16 @@ using System.Collections.Generic;
 
 public class RamUIDisp : MonoBehaviour
 {
+    public Vector2 defaultPos = new Vector2(0, -200);
+
     public int willUseRam = 0;
 
     [SerializeField]
     int maxRamCap;
     [SerializeField]
     int nowRamCap;
+
+    //public bool isSkelton = false;
 
     [SerializeField]
     GameObject ramUIPrefab;
@@ -32,9 +36,6 @@ public class RamUIDisp : MonoBehaviour
             GameObject ramObj = Instantiate(ramUIPrefab, this.transform.position, Quaternion.identity, this.gameObject.transform);
             ramUIList.Add(ramObj);
 
-            // 位置設定
-            Vector2 ramPos = new Vector2((maxRamCap - 1) * -25 + i * 50, -200);
-            ramObj.GetComponent<RectTransform>().anchoredPosition = ramPos;
         }
 
     }
@@ -61,6 +62,24 @@ public class RamUIDisp : MonoBehaviour
             {
                 ramUIList[i].GetComponent<Image>().sprite = ramUsed;
             }
+        }
+
+        for (int i = 0; i < ramUIList.Count; i++)
+        {
+            // hackモード時に半透明化
+            //if (isSkelton)
+            if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
+            {
+                ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            }
+            else
+            {
+                ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            }
+
+            // 位置設定
+            Vector2 ramPos = defaultPos + new Vector2((maxRamCap - 1) * -25 + i * 50, 0);
+            ramUIList[i].GetComponent<RectTransform>().anchoredPosition = ramPos;
         }
 
         // 現在のramの値が変わると
