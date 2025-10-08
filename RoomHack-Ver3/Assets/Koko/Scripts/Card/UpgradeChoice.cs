@@ -63,7 +63,7 @@ public class UpgradeChoice : MonoBehaviour
                 switch (iCard.cardLevel)
                 {
                     case 1:
-                        iCard.cardWeight = 5;
+                        iCard.cardWeight = 0;
                         break;
                     case 2:
                         iCard.cardWeight = 10;

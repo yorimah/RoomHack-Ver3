@@ -31,7 +31,7 @@ public class DroneMoveState : IState
         // レイを飛ばして射線が通たらショットに遷移
         if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
         {
-            enemy.ChangeState(Enemy.StateType.Shot);
+            enemy.ChangeState(StateType.Shot);
         }
         Vector2 nowPosition = enemy.transform.position;
         flipTimer += Time.deltaTime;

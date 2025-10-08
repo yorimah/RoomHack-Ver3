@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 public class MissileTurretGun : Enemy
 {
@@ -17,5 +16,7 @@ public class MissileTurretGun : Enemy
     };
         statetype = StateType.Idle;
         currentState = states[statetype];
+
+        canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };
     }
 }

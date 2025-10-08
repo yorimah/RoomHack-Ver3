@@ -51,7 +51,7 @@ public class SpecialForceShotState : IState
     {
         if (nowHP != enemy.NowHP)
         {
-            enemy.ChangeState(Enemy.StateType.Move);
+            enemy.ChangeState(StateType.Move);
         }
         playerCheack.RotationFoward(enemy.transform);
         // 発射レートを設定しその後、発射秒数を決定する。
@@ -70,7 +70,7 @@ public class SpecialForceShotState : IState
             case ShotSection.shot:
                 if (enemy.NOWBULLET <= 0)
                 {
-                    enemy.ChangeState(Enemy.StateType.Move);
+                    enemy.ChangeState(StateType.Move);
                     return;
                 }
                 diffusionRate += enemy.recoil;
@@ -89,7 +89,7 @@ public class SpecialForceShotState : IState
                     if (shotNum >= enemy.shotRate)
                     {
                         shotNum = 0;
-                        enemy.ChangeState(Enemy.StateType.Move);
+                        enemy.ChangeState(StateType.Move);
                     }
                     else
                     {

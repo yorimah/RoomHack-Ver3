@@ -4,21 +4,21 @@ using UnityEngine;
 using UnityEditor;
 #endif
 using System.Threading;
+
+public enum StateType
+{
+    Idle,
+    Move,
+    Shot,
+    Reload,
+    Die,
+    Clack,
+    num
+}
 public class Enemy : MonoBehaviour, IDamageable, IHackObject
 {
     // ハック関連
     public List<toolTag> canHackToolTag { get; set; }
-
-    //public int secLevele { set; get; }
-
-    //public bool clacked { get; set; }
-
-    //public float MaxFireWall { get; set; }
-    //public float NowFireWall { get; set; }
-
-    //public float FireWallCapacity { get; set; }
-
-    //public float FireWallRecovaryNum { get; set; }
 
     // ダメージ関連
     public float MAXHP { get; private set; } = 5;
@@ -71,16 +71,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public bool died = false;
 
     public float shotIntervalTime;
-    public enum StateType
-    {
-        Idle,
-        Move,
-        Shot,
-        Reload,
-        Die,
-        Clack,
-        num
-    }
+   
     protected CancellationToken token;
     private CancellationTokenSource cts;
     public void Awake()

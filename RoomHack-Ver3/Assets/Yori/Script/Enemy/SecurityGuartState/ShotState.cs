@@ -65,7 +65,7 @@ public class ShotState : IState
             case ShotSection.shot:
                 if (enemy.NOWBULLET <= 0)
                 {
-                    enemy.ChangeState(Enemy.StateType.Reload);
+                    enemy.ChangeState(StateType.Reload);
                     return;
                 }
                 else
@@ -97,7 +97,7 @@ public class ShotState : IState
                         }
                         else
                         {
-                            enemy.ChangeState(Enemy.StateType.Move);
+                            enemy.ChangeState(StateType.Move);
                         }
                     }
                     else

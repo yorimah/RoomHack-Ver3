@@ -26,12 +26,12 @@ public class GameManeger : MonoBehaviour
         enemyCount = eList.Count;
         for (int i = 0; i < eList.Count; i++)
         {
-            if (eList[i].died)
-            {
-                enemyCount--;
-                data.score_DestoryEnemy++;
-                eList.RemoveAt(i);
-            }
+            //if (eList[i].currentState==StateType.Die)
+            //{
+            //    enemyCount--;
+            //    data.score_DestoryEnemy++;
+            //    eList.RemoveAt(i);
+            //}
         }
 
         if (enemyCount <= 0)

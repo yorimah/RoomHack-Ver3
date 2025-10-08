@@ -20,7 +20,7 @@ public class ReloadState : IState
         timer += GameTimer.Instance.ScaledDeltaTime;
         if (timer >= enemy.gundata.reloadTime)
         {
-            enemy.ChangeState(Enemy.StateType.Move);
+            enemy.ChangeState(StateType.Move);
             timer = 0;
         }
     }

@@ -44,7 +44,7 @@ public class DroneShotState : IState
     {
         if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
         {
-            enemy.ChangeState(Enemy.StateType.Move);
+            enemy.ChangeState(StateType.Move);
         }
         Vector2 nowPosition = enemy.transform.position;
         flipTimer += Time.deltaTime;

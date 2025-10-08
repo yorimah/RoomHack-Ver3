@@ -83,7 +83,7 @@ public class TurretGunShotState : IState
                     else
                     {
                         timer = 0;
-                        enemy.ChangeState(Enemy.StateType.Move);
+                        enemy.ChangeState(StateType.Move);
                     }
                 }
                 else
