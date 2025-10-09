@@ -136,6 +136,7 @@ public class ToolUIController : MonoBehaviour
             // 手札再配置
             if (isRebootHandStay)
             {
+                SeManager.Instance.Play("RebootEnd");
                 if (deckSystem.toolHand.Count < deckSystem.handSize)
                 {
                     ToolDraw();
@@ -180,6 +181,7 @@ public class ToolUIController : MonoBehaviour
 
     void Refresh()
     {
+        SeManager.Instance.Play("RebootStart");
         //refreshToolUIList.AddRange(trashToolUIList);
 
         for (int i = 0; i < trashToolUIList.Count; i++)
@@ -272,6 +274,7 @@ public class ToolUIController : MonoBehaviour
                     // クリックするとカードプレイ
                     if (Input.GetMouseButtonDown(0) && hackObj != null)
                     {
+                        SeManager.Instance.Play("toolPlay");
                         toolTag playTool = deckSystem.HandPlay(i, hackObj);
                         if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool)))
                         {

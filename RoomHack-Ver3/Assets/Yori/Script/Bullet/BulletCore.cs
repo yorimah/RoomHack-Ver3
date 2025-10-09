@@ -21,6 +21,8 @@ public class BulletCore : MonoBehaviour, IDamageable
         NowHP = MAXHP;
 
         initVel = rb.velocity;
+
+        SeManager.Instance.Play("9mm");
     }
 
     public void Die()

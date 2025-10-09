@@ -18,6 +18,8 @@ public class PlayerHackState : IState
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            SeManager.Instance.StopImmediately("HackStart");
+            SeManager.Instance.Play("HackExit");
             unitCore.ChangeState(UnitCore.StateType.Action);
         }
     }

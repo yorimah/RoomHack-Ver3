@@ -7,7 +7,7 @@
     /// <summary>
     /// 1  プレイヤー
     /// 2　敵
-    /// 2　壁
+    /// 3　壁
     /// 4  爆発
     /// </summary>
     public int HitDamegeLayer { get; set; }
@@ -21,6 +21,10 @@
         }
         else
         {
+            if (HitDamegeLayer == 2)
+            {
+                SeManager.Instance.Play("Hit");
+            }
             HitStopper.Instance.StopTime(hitStop);
         }
     }
