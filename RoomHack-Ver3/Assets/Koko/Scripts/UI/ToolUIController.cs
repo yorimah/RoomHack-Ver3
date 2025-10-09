@@ -116,6 +116,7 @@ public class ToolUIController : MonoBehaviour
         // デッキクリックでリブート開始
         if (Input.GetMouseButtonDown(0) && deckSign.isPointerOn)
         {
+            SeManager.Instance.Play("RebootStart");
             //Debug.Log("Rebooting!");
             UnitCore.Instance.isRebooting = true;
         }
@@ -181,7 +182,7 @@ public class ToolUIController : MonoBehaviour
 
     void Refresh()
     {
-        SeManager.Instance.Play("RebootStart");
+     
         //refreshToolUIList.AddRange(trashToolUIList);
 
         for (int i = 0; i < trashToolUIList.Count; i++)
