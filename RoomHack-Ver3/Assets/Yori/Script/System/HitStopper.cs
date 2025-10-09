@@ -22,7 +22,6 @@ public class HitStopper : MonoBehaviour
 
     private IEnumerator HitStopCoroutine(float duration)
     {
-        cinemachineImpulse.GenerateImpulse();
         float originalTimeScale = GameTimer.Instance.customTimeScale; 
         GameTimer.Instance.customTimeScale = 0f;
         yield return new WaitForSecondsRealtime(duration);

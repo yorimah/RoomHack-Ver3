@@ -26,16 +26,20 @@ public class GameManeger : MonoBehaviour
         enemyCount = eList.Count;
         for (int i = 0; i < eList.Count; i++)
         {
-            //if (eList[i].currentState==StateType.Die)
-            //{
-            //    enemyCount--;
-            //    data.score_DestoryEnemy++;
-            //    eList.RemoveAt(i);
-            //}
+            if (eList[i].gameObject.activeSelf == false)
+            {
+                enemyCount--;
+                data.score_DestoryEnemy++;
+                eList.RemoveAt(i);
+            }
         }
+    }
 
-        if (enemyCount <= 0)
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (enemyCount <= 0 && collision.gameObject == UnitCore.Instance.gameObject)
         {
+
             Debug.Log("クリア");
             SaveManager.Instance.Save(data);
             SceneManager.LoadScene("UpgradeTest");
