@@ -61,6 +61,7 @@ public class MissileCore : MonoBehaviour, IDamageable
         if (isFire)
         {
             // 爆発
+            EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
             Explosion();
             Die();
         }

@@ -24,6 +24,7 @@ public class EffectManager : MonoBehaviour
         HitDie,
         Bad,
         Fire,
+        Bomb,
     }
 
     [SerializeField]
@@ -33,8 +34,8 @@ public class EffectManager : MonoBehaviour
     //int effectNum;
 
     [SerializeField]
-    List<GameObject>[] poolList = new List<GameObject>[4]
-    { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), };
+    List<GameObject>[] poolList = new List<GameObject>[5]
+    { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), };
 
     GameObject useableEffect;
 
