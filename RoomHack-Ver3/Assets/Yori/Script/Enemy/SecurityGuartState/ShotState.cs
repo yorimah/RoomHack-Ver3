@@ -70,16 +70,24 @@ public class ShotState : IState
                 }
                 else
                 {
-                    // 拡散率加算
-                    diffusionRate += enemy.recoil;
-                    // 拡散率を固定、下限enemy.minDiffusionRate、上限 enemy.maxDiffusionRate
-                    Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
-                    // 射撃
-                    bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower, diffusionRate);
+                    if (enemy.shotIntervalTime >= 100)
+                    {
+                        shotSection++;
+                    }
+                    else
+                    {
+                        // 拡散率加算
+                        diffusionRate += enemy.recoil;
+                        // 拡散率を固定、下限enemy.minDiffusionRate、上限 enemy.maxDiffusionRate
+                        Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
+                        // 射撃
+                        bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower, diffusionRate);
 
-                    enemy.NOWBULLET--;
-                    shotNum++;
-                    shotSection++;
+                        enemy.NOWBULLET--;
+                        shotNum++;
+                        shotSection++;
+                    }
+
                 }
                 break;
             case ShotSection.shotInterval:
