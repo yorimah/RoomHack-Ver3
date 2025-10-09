@@ -13,16 +13,19 @@ public class ToolEvent_Bind : ToolEvent
     {
         EventAdd();
 
+        EffectManager.Instance.EffectAct(EffectManager.EffectType.Bad, this.gameObject, 5);
+
         targetData = hackTargetObject.GetComponent<Enemy>();
         startSpeed = targetData.moveSpeed;
     }
 
     private void Update()
     {
-        timer -= GameTimer.Instance.ScaledDeltaTime;
-
         targetData.moveSpeed = 0;
+        
+        Tracking();
 
+        timer -= GameTimer.Instance.ScaledDeltaTime;
         if (timer < 0)
         {
             targetData.moveSpeed = startSpeed;

@@ -78,6 +78,8 @@ public class ToolEvent_Detonation : ToolEvent
                 }
             }
 
+            EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
+
             EventRemove();
 
             Destroy(meshObject, 1f);

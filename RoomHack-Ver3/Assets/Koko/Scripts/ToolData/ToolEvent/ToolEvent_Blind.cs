@@ -13,16 +13,19 @@ public class ToolEvent_Blind : ToolEvent
     {
         EventAdd();
 
+        EffectManager.Instance.EffectAct(EffectManager.EffectType.Bad, this.gameObject, 5);
+
         targetData = hackTargetObject.GetComponent<Enemy>();
         startInterval = targetData.shotIntervalTime;
     }
 
     private void Update()
     {
-        timer -= GameTimer.Instance.ScaledDeltaTime;
-
         targetData.shotIntervalTime = 9999;
 
+        Tracking();
+
+        timer -= GameTimer.Instance.ScaledDeltaTime;
         if (timer < 0)
         {
             targetData.shotIntervalTime = startInterval;
