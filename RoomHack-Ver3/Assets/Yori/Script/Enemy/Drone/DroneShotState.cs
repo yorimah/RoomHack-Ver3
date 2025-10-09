@@ -50,6 +50,8 @@ public class DroneShotState : IState
         flipTimer += Time.deltaTime;
         if (flipTimer >= flipInterval)
         {
+            SeManager.Instance.StopImmediately("Drone");
+            SeManager.Instance.Play("Drone");
             moveDire = Random.value < 0.5f ? -1 : 1;
             direction = Random.value < 0.5f ? -1 : 1;
             flipTimer = 0f;

@@ -30,6 +30,7 @@ public class GranadeCore : MonoBehaviour
     public float hitStop;
 
     private CircleCollider2D granadeCollider;
+    bool isExplosion;
 
     public void Start()
     {
@@ -38,7 +39,10 @@ public class GranadeCore : MonoBehaviour
         color = spriteRen.color;
         granadeCollider.isTrigger = false;
         MeshInit();
+        SeManager.Instance.Play("BomCount");
+        isExplosion = false;
     }
+
     private void Update()
     {
         // 爆発範囲表示
@@ -52,9 +56,15 @@ public class GranadeCore : MonoBehaviour
             Destroy(meshObject, 1f);
             granadeCollider.isTrigger = true;
             granadeCollider.radius = explosionRadial;
+            if (isExplosion)
+            {
+                SeManager.Instance.Play("Explosion");
+                isExplosion = false;
+            }           
         }
         else
         {
+            isExplosion = true;
             timer += GameTimer.Instance.ScaledDeltaTime;
             colorAlpha = Mathf.Sin(Mathf.Pow(4, timer));
         }

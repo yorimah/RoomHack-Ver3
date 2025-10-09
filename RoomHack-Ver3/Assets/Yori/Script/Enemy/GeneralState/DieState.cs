@@ -8,6 +8,7 @@
     }
     public void Enter()
     {
+        SeManager.Instance.Play("EnemyDead");
         enemy.gameObject.SetActive(false);
     }
 

@@ -6,7 +6,7 @@ public class TurretGunMoveState : IState
 
     private float flipTimer = 0;
 
-    private float flipInterval = 1;
+    private float flipInterval = 2;
 
     private int direction = 1;
 
@@ -32,12 +32,13 @@ public class TurretGunMoveState : IState
         {
             if (flipTimer >= flipInterval)
             {
+                SeManager.Instance.Play("TurretMove");
                 direction = Random.value < 0.5f ? -1 : 1;
                 flipTimer = 0f;
             }
             else
             {
-                rotation += enemy.moveSpeed * direction * GameTimer.Instance.ScaledDeltaTime;
+                rotation += 10 * direction * GameTimer.Instance.ScaledDeltaTime;
                 enemy.transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
                 flipTimer += GameTimer.Instance.ScaledDeltaTime;
             }

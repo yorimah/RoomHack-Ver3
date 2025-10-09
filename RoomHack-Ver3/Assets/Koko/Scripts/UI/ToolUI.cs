@@ -39,11 +39,13 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        SeManager.Instance.Play("toolMove");
         isPointerOn = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        SeManager.Instance.StopImmediately("toolMove");
         isPointerOn = false;
     }
 

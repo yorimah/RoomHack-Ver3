@@ -21,6 +21,8 @@ public class PlayerActionState : IState
         playerShot.Shot();
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            SeManager.Instance.StopImmediately("HackExit");
+            SeManager.Instance.Play("HackStart");
             unitCore.ChangeState(UnitCore.StateType.Hack);
         }
     }

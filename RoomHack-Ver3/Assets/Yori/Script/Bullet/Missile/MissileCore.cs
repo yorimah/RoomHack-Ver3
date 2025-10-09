@@ -51,6 +51,7 @@ public class MissileCore : MonoBehaviour, IDamageable
         MeshInit();
         timer = 0;
         NowHP = MAXHP;
+        SeManager.Instance.Play("MissleMove");
     }
 
     private void Update()
@@ -71,6 +72,7 @@ public class MissileCore : MonoBehaviour, IDamageable
 
             if (timer >= explosionTimer)
             {
+                SeManager.Instance.Play("Explosion");
                 isFire = true;
             }
             else
@@ -114,9 +116,11 @@ public class MissileCore : MonoBehaviour, IDamageable
     {
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
         {
+            SeManager.Instance.StopImmediately("MissileMove");
             // 撃ったやつの種類以外に当たって爆発
             if (HitDamegeLayer != damage.HitDamegeLayer)
             {
+                SeManager.Instance.Play("Explosion");
                 isFire = true;
             }
         }
