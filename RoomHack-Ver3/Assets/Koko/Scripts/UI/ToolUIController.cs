@@ -64,7 +64,14 @@ public class ToolUIController : MonoBehaviour
 
     private void Start()
     {
-        deckSystem = DeckSystem.Instance;
+        if (DeckSystem.Instance != null)
+        {
+            deckSystem = DeckSystem.Instance;
+        }
+        else
+        {
+            Debug.LogError("デッキシステムないお");
+        }
 
         // デッキ置き場
         GameObject signToolUI = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);

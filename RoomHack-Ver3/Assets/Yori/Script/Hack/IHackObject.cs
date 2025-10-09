@@ -4,6 +4,8 @@ public interface IHackObject
 {
     public List<toolTag> canHackToolTag { get; set; }
 
+    public List<ToolEvent> nowHackEvent { get; set; }
+
     //public void Hacking(toolTag _toolTag);
 
 

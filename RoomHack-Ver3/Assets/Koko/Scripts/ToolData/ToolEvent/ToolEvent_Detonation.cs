@@ -37,6 +37,8 @@ public class ToolEvent_Detonation : ToolEvent
 
     public void Start()
     {
+        EventAdd();
+
         granadeCollider = GetComponent<CircleCollider2D>();
         spriteRen = GetComponent<SpriteRenderer>();
         color = spriteRen.color;
@@ -76,7 +78,8 @@ public class ToolEvent_Detonation : ToolEvent
                 }
             }
 
-            Destroy(gameObject);
+            EventRemove();
+
             Destroy(meshObject, 1f);
         }
         else

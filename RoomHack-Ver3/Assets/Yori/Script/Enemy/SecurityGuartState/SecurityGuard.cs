@@ -20,5 +20,4 @@ public class SecurityGuard : Enemy
 
         canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Bind, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };
     }
-
 }

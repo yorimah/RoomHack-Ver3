@@ -13,6 +13,8 @@ public class ToolEvent_OverHeat : ToolEvent
 
     private void Start()
     {
+        EventAdd();
+
         damageable = hackTargetObject.GetComponent<IDamageable>();
     }
 
@@ -32,7 +34,7 @@ public class ToolEvent_OverHeat : ToolEvent
 
         if (timer < 0)
         {
-            Destroy(this.gameObject);
+            EventRemove();
         }
     }
 

@@ -8,6 +8,7 @@ public class CCTV : MonoBehaviour, IHackObject
 {
     // ハッキング実装
     public List<toolTag> canHackToolTag { get; set; } = new List<toolTag>();
+    public List<ToolEvent> nowHackEvent { get; set; } = new List<ToolEvent>();
 
     List<Mesh> mesh = new List<Mesh>();
 

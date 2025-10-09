@@ -19,6 +19,11 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 {
     // ハック関連
     public List<toolTag> canHackToolTag { get; set; }
+    public List<ToolEvent> nowHackEvent { get; set; }
+
+
+    [SerializeField]
+    List<ToolEvent> _event;
 
     // ダメージ関連
     public float MAXHP { get; private set; } = 5;
@@ -93,6 +98,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     void Update()
     {
         currentState?.Execute();
+
+        _event = nowHackEvent;
     }
 
     public void ChangeState(StateType type)

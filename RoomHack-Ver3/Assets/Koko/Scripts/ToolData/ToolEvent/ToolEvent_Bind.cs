@@ -11,6 +11,8 @@ public class ToolEvent_Bind : ToolEvent
 
     private void Start()
     {
+        EventAdd();
+
         targetData = hackTargetObject.GetComponent<Enemy>();
         startSpeed = targetData.moveSpeed;
     }
@@ -24,7 +26,7 @@ public class ToolEvent_Bind : ToolEvent
         if (timer < 0)
         {
             targetData.moveSpeed = startSpeed;
-            Destroy(this.gameObject);
+            EventRemove();
         }
     }
 
