@@ -32,6 +32,8 @@ public class GameOverSceneManager : MonoBehaviour
         GameOverText[2].GetComponent<Text>().text = "stage : " + data.score_Stage;
         GameOverText[3].GetComponent<Text>().text = "destroy : " + data.score_DestoryEnemy;
 
+        BgmManager.Instance.Play("GameOver");
+
         // コルーチン起動
         GameOverSequence().Forget();
     }
