@@ -47,5 +47,5 @@ MonoBehaviour:
   EffectPrefab:
   - {fileID: 1676643741321380956, guid: c4b725611a41c72459257da9ecf6438b, type: 3}
   - {fileID: 884122327443494777, guid: 0653062accbbfcb40b4c66b55492fa98, type: 3}
-  HitDamageEffectPool: []
-  HitDieEffectPool: []
+  - {fileID: 3401680311695180347, guid: 13cfb71f2a77c9c49b759c3477f2eae5, type: 3}
+  - {fileID: 3401680311695180347, guid: d77fdad3f4b55244bb88b0a07dca6123, type: 3}

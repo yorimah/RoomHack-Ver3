@@ -71,7 +71,7 @@ public class EffectManager : MonoBehaviour
         useableEffect.SetActive(true);
         useableEffect.GetComponent<ParticleSystem>().Play();
 
-        StartCoroutine(EffectedActiveFalse(useableEffect, _time));
+        StartCoroutine(EffectUpdate(useableEffect, _time));
 
         return useableEffect;
     }
@@ -81,20 +81,44 @@ public class EffectManager : MonoBehaviour
         return EffectAct(_effectType, _pos, 0, 1);
     }
 
-    public GameObject EffectAct(EffectType _effectType, Transform _transform, float _time)
+    public GameObject EffectAct(EffectType _effectType, GameObject _target, float _time)
     {
-        GameObject effect = EffectAct(_effectType, _transform.position, 0, _time);
-        effect.transform.parent = _transform;
+        GameObject effect = EffectAct(_effectType, _target.transform.position, 0, _time);
+        StartCoroutine(EffectPositionTrace(effect, _target, _time));
         return effect;
     }
 
 
     // エフェクトの表示をオフに
-    IEnumerator EffectedActiveFalse(GameObject _effect, float _time)
+    IEnumerator EffectUpdate(GameObject _effect, float _time)
     {
-        yield return new WaitForSeconds(_time);
+        float timer = 0;
+
+        while (timer < _time)
+        {
+            timer += GameTimer.Instance.ScaledDeltaTime;
+
+            // パーティクル再生速度変更
+            var main = _effect.GetComponent<ParticleSystem>().main;
+            main.simulationSpeed = GameTimer.Instance.customTimeScale;
+
+            yield return null;
+        }
 
         _effect.SetActive(false);
     }
 
+    IEnumerator EffectPositionTrace(GameObject _effect, GameObject _target, float _time)
+    {
+        float timer = 0;
+
+        while (timer < _time)
+        {
+            //Debug.Log("追跡中！" + timer +" / "+ _effect +"  / "+ _target);
+            if (_target != null) _effect.transform.position = _target.transform.position;
+            timer += GameTimer.Instance.ScaledDeltaTime;
+
+            yield return null;
+        }
+    }
 }

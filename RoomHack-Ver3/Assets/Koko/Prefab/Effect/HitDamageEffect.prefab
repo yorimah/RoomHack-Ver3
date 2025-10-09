@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3643681876750692381}
   - component: {fileID: 1162736459813330394}
   - component: {fileID: 7142348649551068199}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: HitDamageEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
