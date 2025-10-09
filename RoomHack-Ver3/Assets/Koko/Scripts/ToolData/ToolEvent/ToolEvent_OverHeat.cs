@@ -15,6 +15,8 @@ public class ToolEvent_OverHeat : ToolEvent
     {
         EventAdd();
 
+        EffectManager.Instance.EffectAct(EffectManager.EffectType.Fire, this.gameObject, 5);
+
         damageable = hackTargetObject.GetComponent<IDamageable>();
     }
 

@@ -11,6 +11,9 @@ public class CameraPositionController : MonoBehaviour
     Vector3 mouseStartPos;
     Vector3 cameraStartPos;
 
+    [SerializeField]
+    LayerMask viewLayer;
+
     private void Start()
     {
         targetObject = UnitCore.Instance.gameObject;
@@ -39,16 +42,29 @@ public class CameraPositionController : MonoBehaviour
 
                 // レイ射出、四角
                 RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
+
+                //bool isView = false;
+                //GameObject hackObj = new GameObject();
+
                 foreach (RaycastHit2D hit in hitsss)
                 {
                     //Debug.Log(hit.collider.gameObject.name);
                     // クリック付近にハックオブジェがある場合ターゲット
+                    
+                    //if (hit.collider.gameObject.layer == viewLayer)
+                    //{
+                    //    isView = true;
+                    //}
+
                     if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject)
                         || hit.collider.gameObject == UnitCore.Instance.gameObject)
                     {
                         targetObject = hit.collider.gameObject;
+                        //hackObj = hit.collider.gameObject;
                     }
                 }
+
+                //if (isView) targetObject = hackObj;
 
                 mouseStartPos = Input.mousePosition;
                 cameraStartPos = this.transform.position;

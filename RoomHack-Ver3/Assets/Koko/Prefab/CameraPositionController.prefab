@@ -46,3 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetObject: {fileID: 0}
   targetOutNum: 200
+  viewLayer:
+    serializedVersion: 2
+    m_Bits: 256
