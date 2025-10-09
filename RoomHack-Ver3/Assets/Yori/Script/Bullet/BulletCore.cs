@@ -43,6 +43,9 @@ public class BulletCore : MonoBehaviour, IDamageable
         {
             if (this.HitDamegeLayer != damage.HitDamegeLayer)
             {
+                // 壁以外ならヒットエフェクト
+                if (damage.HitDamegeLayer != 3) EffectManager.Instance.EffectAct(EffectManager.EffectType.HitDamage, this.transform.position, -(this.transform.localEulerAngles.z) - 90, 1);
+
                 damage.HitDmg(power, hitStop);
                 Die();
             }

@@ -11,6 +11,8 @@ public class ToolEvent_Blind : ToolEvent
 
     private void Start()
     {
+        EventAdd();
+
         targetData = hackTargetObject.GetComponent<Enemy>();
         startInterval = targetData.shotIntervalTime;
     }
@@ -24,7 +26,8 @@ public class ToolEvent_Blind : ToolEvent
         if (timer < 0)
         {
             targetData.shotIntervalTime = startInterval;
-            Destroy(this.gameObject);
+
+            EventRemove();
         }
     }
 

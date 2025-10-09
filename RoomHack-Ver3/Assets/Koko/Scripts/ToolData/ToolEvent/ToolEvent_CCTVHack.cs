@@ -6,44 +6,52 @@ public class ToolEvent_CCTVHack : ToolEvent
     Mesh mesh;
     [SerializeField]
     private float diffusionRate = 60;
+
     GameObject viewRange;
+
     // 長さ
     [SerializeField]
     private float viewDistance = 50f;
     // 分割数
     [SerializeField]
-    private int segment = 20;
+    private int segment = 60;
     [SerializeField, Header("視界に使うメッシュ")]
-    private GameObject MeshObject;
+    private GameObject meshPrefab;
 
     [SerializeField, Header("壁レイヤー")]
     private LayerMask targetLm;
+
     private void Start()
     {
-        viewRange = new GameObject(this.gameObject.name + "View");
-        viewRange.AddComponent<MeshRenderer>();
-        viewRange.AddComponent<MeshFilter>();
+        //viewRange = new GameObject(this.gameObject.name + "View");
+        viewRange = Instantiate(meshPrefab);
+        //viewRange.AddComponent<MeshRenderer>();
+        //viewRange.AddComponent<MeshFilter>();
         viewRange.transform.localPosition = Vector2.zero;
 
         mesh = new Mesh();
         viewRange.GetComponent<MeshFilter>().mesh = mesh;
 
-        var mr = viewRange.GetComponent<MeshRenderer>();
+        //var mr = viewRange.GetComponent<MeshRenderer>();
 
-        mr.material = new Material(Shader.Find("Custom/WriteStencil"));
+        //mr.material = new Material(Shader.Find("Custom/WriteStencil"));
+
+        //viewRange.layer = playerViewLayer;
 
         //shotRange.transform.parent = this.transform;
+
+        EventAdd();
     }
 
     private void Update()
     {
         Tracking();
 
-        // 対象が破壊されたら消したいんやけど初期値で爆発しちまう
-        //if (targetObject != null)
-        //{
-        //    Destroy(this.gameObject);
-        //}
+        // 対象が破壊されたら消す
+        if (hackTargetObject.activeSelf == false)
+        {
+            EventRemove();
+        }
 
         mesh.Clear();
 
