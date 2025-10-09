@@ -56,6 +56,8 @@ public class ToolEvent_CCTVHack : ToolEvent
         // 対象が破壊されたら消す
         if (hackTargetObject.activeSelf == false)
         {
+            Destroy(miniMesh);
+            Destroy(mesh);
             EventRemove();
         }
 

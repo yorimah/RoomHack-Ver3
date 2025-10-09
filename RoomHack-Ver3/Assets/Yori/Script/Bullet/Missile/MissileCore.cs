@@ -62,7 +62,6 @@ public class MissileCore : MonoBehaviour, IDamageable
         if (isFire)
         {
             // 爆発
-            EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
             Explosion();
             Die();
         }
@@ -74,6 +73,7 @@ public class MissileCore : MonoBehaviour, IDamageable
             if (timer >= explosionTimer)
             {
                 SeManager.Instance.Play("Explosion");
+                EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
                 isFire = true;
             }
             else
@@ -121,6 +121,7 @@ public class MissileCore : MonoBehaviour, IDamageable
             // 撃ったやつの種類以外に当たって爆発
             if (HitDamegeLayer != damage.HitDamegeLayer)
             {
+                EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
                 SeManager.Instance.Play("Explosion");
                 isFire = true;
             }
