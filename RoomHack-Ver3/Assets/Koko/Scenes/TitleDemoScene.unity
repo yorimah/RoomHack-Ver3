@@ -569,6 +569,9 @@ MonoBehaviour:
   TitleText:
   - {fileID: 1198261208}
   - {fileID: 887697593}
+  nextScene:
+  - StageMissile
+  - StageSpecialForce
 --- !u!114 &1919553357
 MonoBehaviour:
   m_ObjectHideFlags: 0

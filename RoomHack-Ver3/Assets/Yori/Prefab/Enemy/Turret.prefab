@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4929201742794902229
 Transform:
   m_ObjectHideFlags: 0
@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f947524b7eea79c4fa333cc1b8b09202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _event: []
   moveSpeed: 3
   obstacleMask:
     serializedVersion: 2
@@ -228,6 +229,7 @@ MonoBehaviour:
   recoil: 0
   maxDiffusionRate: 15
   minDiffusionRate: 1
+  bulletObject: {fileID: 0}
   died: 0
   shotIntervalTime: 0
 --- !u!50 &1205361126582389399

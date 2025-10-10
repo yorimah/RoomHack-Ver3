@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Yori/Scenes/Test/UpgradeTest.unity
     guid: 5c7164800dbdc8c4fa2490945f7dd403
+  - enabled: 1
+    path: Assets/Yori/Scenes/Stage/StageSpecialForce.unity
+    guid: 6ccb99282a018554894976fbaf404275
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 56988ac99d692c44db17ae2b6721ec62, type: 2}
