@@ -8,7 +8,7 @@ public class UpgradeChoice : MonoBehaviour
 
     // シーン名
     [SerializeField]
-    string nextScene;
+    string[] nextScene;
 
     bool nextSceneFrag = false;
     float timer;
@@ -122,8 +122,9 @@ public class UpgradeChoice : MonoBehaviour
             timer += Time.deltaTime;
             if (timer > changeTime)
             {
-                Debug.Log("シーン移動だお！");
-                SceneManager.LoadScene(nextScene);
+                int rand = Random.Range(0, nextScene.Length);
+                Debug.Log(nextScene[rand].ToString());
+                SceneManager.LoadScene(nextScene[rand]);
             }
         }
         else
