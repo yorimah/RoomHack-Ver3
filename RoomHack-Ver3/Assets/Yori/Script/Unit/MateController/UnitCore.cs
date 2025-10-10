@@ -92,6 +92,12 @@ public class UnitCore : MonoBehaviour, IDamageable
         RamUpdate();
 
         rb.velocity = rb.velocity * GameTimer.Instance.customTimeScale;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SaveManager.Instance.DeleteSave();
+            SceneManager.LoadScene("TitleDemoScene");
+        }
     }
 
     public void ChangeState(StateType type)
