@@ -13,17 +13,35 @@ public class CameraPositionController : MonoBehaviour
 
     [SerializeField]
     LayerMask viewLayer;
+    [SerializeField, Header("animationobj")]
+    private GameObject tagetAnimObj;
 
+    private GameObject insTagetAnimObj;
     private void Start()
     {
         targetObject = UnitCore.Instance.gameObject;
+        insTagetAnimObj = Instantiate(tagetAnimObj);
+        insTagetAnimObj.SetActive(false);
     }
 
     private void Update()
     {
         if (targetObject != null)
         {
+            if (targetObject != UnitCore.Instance.gameObject)
+            {
+                insTagetAnimObj.transform.position = targetObject.transform.position;
+                insTagetAnimObj.SetActive(true);
+            }
+            else
+            {
+                insTagetAnimObj.SetActive(false);
+            }
             this.transform.position = targetObject.transform.position;
+        }
+        else 
+        {
+            insTagetAnimObj.SetActive(false);
         }
 
         if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
@@ -50,7 +68,7 @@ public class CameraPositionController : MonoBehaviour
                 {
                     //Debug.Log(hit.collider.gameObject.name);
                     // クリック付近にハックオブジェがある場合ターゲット
-                    
+
                     //if (hit.collider.gameObject.layer == viewLayer)
                     //{
                     //    isView = true;
