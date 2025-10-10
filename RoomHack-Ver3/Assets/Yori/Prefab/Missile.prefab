@@ -54,6 +54,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   missileSpeed: 6
+  expMatarial: {fileID: 2100000, guid: 9d26c622fb1e6ba46b912d71ab4b77ba, type: 2}
   boostTime: 0.5
   deceleration: 0.1
   inertia: 0.9

@@ -36,7 +36,7 @@ public class PlayerShot
 
         var mr = shotRange.GetComponent<MeshRenderer>();
         // 仮の色
-        mr.material = new Material(Shader.Find("Unlit/Color"));
+        mr.material = new Material(unitCore.shotRanageMaterial);
         mr.material.color = new Color(1, 1, 0, 0.3f); // 半透明黄色
         mr.sortingOrder = 10;
     }

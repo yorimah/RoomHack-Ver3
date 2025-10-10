@@ -79,6 +79,11 @@ public class UnitCore : MonoBehaviour, IDamageable
     public StateType statetype;
     public Dictionary<StateType, IState> states;
 
+    [SerializeField]
+    public Material shotRanageMaterial;
+
+
+
 
     void Update()
     {
@@ -87,6 +92,12 @@ public class UnitCore : MonoBehaviour, IDamageable
         RamUpdate();
 
         rb.velocity = rb.velocity * GameTimer.Instance.customTimeScale;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SaveManager.Instance.DeleteSave();
+            SceneManager.LoadScene("TitleDemoScene");
+        }
     }
 
     public void ChangeState(StateType type)
@@ -139,7 +150,7 @@ public class UnitCore : MonoBehaviour, IDamageable
 
     private void GunDataInit()
     {
-        gunNo = (GunNo)data.gun;
+        gunNo = 0;
         if (!gundata[(int)gunNo])
         {
             Debug.LogError("そのような獲物はございません");

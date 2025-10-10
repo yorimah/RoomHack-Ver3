@@ -618,6 +618,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
   moveSpeed: 0
   statetype: 0
+  shotRanageMaterial: {fileID: 2100000, guid: 9d26c622fb1e6ba46b912d71ab4b77ba, type: 2}
   isRebooting: 0
 --- !u!114 &273839734
 MonoBehaviour:
@@ -692,7 +693,7 @@ Transform:
   m_GameObject: {fileID: 273839729}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0.55, y: 10.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

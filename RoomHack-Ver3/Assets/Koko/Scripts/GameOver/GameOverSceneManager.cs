@@ -77,6 +77,7 @@ public class GameOverSceneManager : MonoBehaviour
         {
             if (sequenceEnd == true)
             {
+                BgmManager.Instance.StopImmediately();
                 saveManager.DeleteSave();
                 SceneManager.LoadScene("TitleDemoScene");
             }

@@ -120,7 +120,12 @@ public class ToolUIController : MonoBehaviour
             //Debug.Log("Rebooting!");
             UnitCore.Instance.isRebooting = true;
         }
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SeManager.Instance.Play("RebootStart");
+            //Debug.Log("Rebooting!");
+            UnitCore.Instance.isRebooting = true;
+        }
         // reboot関連
         if (UnitCore.Instance.isRebooting)
         {

@@ -40,7 +40,8 @@ public class MissileCore : MonoBehaviour, IDamageable
 
     private bool isFire;
 
-
+    [SerializeField, Header("爆発マテリアル")]
+    private Material expMatarial;
     public void Start()
     {
         missileCol = GetComponent<CircleCollider2D>();
@@ -135,7 +136,7 @@ public class MissileCore : MonoBehaviour, IDamageable
         meshObject.AddComponent<MeshFilter>();
         var mr = meshObject.AddComponent<MeshRenderer>();
         // メッシュの色設定、ここでいじれる
-        mr.material = new Material(Shader.Find("Custom/URP_SpriteSimple"));
+        mr.material = new Material(expMatarial);
         mr.material.color = new Color(0.75f, 0, 0, 0.5f);
         mr.sortingOrder = -1;
         mesh = new Mesh();
