@@ -57,11 +57,17 @@ public class MissileShotState : IState
                 }
                 break;
             case ShotSection.shot:
-                // 射撃
-                MissileShot();
+                if (enemy.shotIntervalTime >= 100)
+                {
+                    shotSection++;
+                }
+                else
+                {
+                    // 射撃
+                    MissileShot();
 
-                shotSection++;
-
+                    shotSection++;
+                }
                 break;
             case ShotSection.shotInterval:
                 timer += GameTimer.Instance.ScaledDeltaTime;

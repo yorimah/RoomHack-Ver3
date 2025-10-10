@@ -114,18 +114,18 @@ public class ToolUIController : MonoBehaviour
 
 
         // デッキクリックでリブート開始
-        if (Input.GetMouseButtonDown(0) && deckSign.isPointerOn)
-        {
-            SeManager.Instance.Play("RebootStart");
-            //Debug.Log("Rebooting!");
-            UnitCore.Instance.isRebooting = true;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SeManager.Instance.Play("RebootStart");
-            //Debug.Log("Rebooting!");
-            UnitCore.Instance.isRebooting = true;
-        }
+        //if (Input.GetMouseButtonDown(0) && deckSign.isPointerOn)
+        //{
+        //    SeManager.Instance.Play("RebootStart");
+        //    //Debug.Log("Rebooting!");
+        //    UnitCore.Instance.isRebooting = true;
+        //}
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    SeManager.Instance.Play("RebootStart");
+        //    //Debug.Log("Rebooting!");
+        //    UnitCore.Instance.isRebooting = true;
+        //}
         // reboot関連
         if (UnitCore.Instance.isRebooting)
         {

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Cinemachine;
+﻿using UnityEngine;
 
 public class PlayerHackState : IState
 {
@@ -12,14 +9,15 @@ public class PlayerHackState : IState
     }
     public void Enter()
     {
-        
+
     }
     public void Execute()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SeManager.Instance.StopImmediately("HackStart");
             SeManager.Instance.Play("HackExit");
+            UnitCore.Instance.isRebooting = true;
             unitCore.ChangeState(UnitCore.StateType.Action);
         }
     }

@@ -218,7 +218,7 @@ public class MissileCore : MonoBehaviour, IDamageable
         Vector2 blendedDir = (currentDir * inertia + toTarget * (1f - inertia)).normalized;
 
         // 速度を更新
-        rb.velocity = blendedDir * missileSpeed * boost;
+        rb.velocity = blendedDir * missileSpeed * boost * GameTimer.Instance.customTimeScale;
 
         // 回転を進行方向に合わせる
         float angle = Mathf.Atan2(blendedDir.y, blendedDir.x) * Mathf.Rad2Deg - 90f;

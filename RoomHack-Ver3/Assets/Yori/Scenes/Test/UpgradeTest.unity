@@ -337,7 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d384f97644e08e4ca6e4abc1dbabef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: StageMissile
+  nextScene:
+  - StageMissile
+  - StageSpecialForce
   changeTime: 1.5
   upGradeCardData: {fileID: 11400000, guid: f52e7392def0a3041841aea62bc1dbbd, type: 2}
 --- !u!4 &1408598639

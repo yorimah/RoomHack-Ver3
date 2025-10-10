@@ -49,3 +49,4 @@ MonoBehaviour:
   viewLayer:
     serializedVersion: 2
     m_Bits: 256
+  tagetAnimObj: {fileID: 6868302912597695513, guid: 233b7d7d441070c4bbf07a3219e29298, type: 3}

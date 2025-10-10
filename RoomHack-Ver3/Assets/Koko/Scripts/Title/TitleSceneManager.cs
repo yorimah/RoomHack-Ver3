@@ -10,7 +10,8 @@ public class TitleSceneManager : MonoBehaviour
     bool sequenceEnd = false;
 
     float timer = 0;
-
+    [SerializeField]
+    private string[] nextScene;
     private void Update()
     {
         timer += Time.deltaTime;
@@ -29,7 +30,9 @@ public class TitleSceneManager : MonoBehaviour
         {
             if (sequenceEnd == true)
             {
-                SceneManager.LoadScene("StageMissile");
+                int rand = Random.Range(0, nextScene.Length);
+                Debug.Log(nextScene[rand].ToString());
+                SceneManager.LoadScene(nextScene[rand]);
             }
             else
             {

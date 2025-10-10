@@ -19,7 +19,7 @@ public class PlayerActionState : IState
     {
         playerMove.PlMove();
         playerShot.Shot();
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Space) && !UnitCore.Instance.isRebooting)
         {
             SeManager.Instance.StopImmediately("HackExit");
             SeManager.Instance.Play("HackStart");
@@ -30,5 +30,5 @@ public class PlayerActionState : IState
     public void Exit()
     {
 
-    }    
+    }
 }
