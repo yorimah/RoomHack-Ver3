@@ -29,7 +29,7 @@ public class TitleSceneManager : MonoBehaviour
         {
             if (sequenceEnd == true)
             {
-                SceneManager.LoadScene("UpgradeTest");
+                SceneManager.LoadScene("StageMissile");
             }
             else
             {

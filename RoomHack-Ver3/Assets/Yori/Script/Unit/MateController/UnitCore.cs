@@ -79,6 +79,11 @@ public class UnitCore : MonoBehaviour, IDamageable
     public StateType statetype;
     public Dictionary<StateType, IState> states;
 
+    [SerializeField]
+    public Material shotRanageMaterial;
+
+
+
 
     void Update()
     {
@@ -139,7 +144,7 @@ public class UnitCore : MonoBehaviour, IDamageable
 
     private void GunDataInit()
     {
-        gunNo = (GunNo)data.gun;
+        gunNo = 0;
         if (!gundata[(int)gunNo])
         {
             Debug.LogError("そのような獲物はございません");

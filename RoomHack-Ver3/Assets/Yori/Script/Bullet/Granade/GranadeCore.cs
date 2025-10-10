@@ -31,7 +31,8 @@ public class GranadeCore : MonoBehaviour
 
     private CircleCollider2D granadeCollider;
     bool isExplosion;
-
+    [SerializeField, Header("表示マテリアル")]
+    private Material expRadialMaterial;
     public void Start()
     {
         granadeCollider = GetComponent<CircleCollider2D>();
@@ -60,7 +61,7 @@ public class GranadeCore : MonoBehaviour
             {
                 SeManager.Instance.Play("Explosion");
                 isExplosion = false;
-            }           
+            }
         }
         else
         {
@@ -97,8 +98,8 @@ public class GranadeCore : MonoBehaviour
         meshObject.AddComponent<MeshFilter>();
         var mr = meshObject.AddComponent<MeshRenderer>();
         // メッシュの色設定、ここでいじれる
-        mr.material = new Material(Shader.Find("Custom/URP_SpriteSimple"));
-        mr.material.color = new Color(0.75f, 0, 0, 0.5f); 
+        mr.material = new Material(expRadialMaterial);
+        mr.material.color = new Color(0.75f, 0, 0, 0.5f);
         mr.sortingOrder = -1;
         mesh = new Mesh();
         meshObject.GetComponent<MeshFilter>().mesh = mesh;
