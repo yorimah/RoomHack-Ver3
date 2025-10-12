@@ -59,11 +59,11 @@ public class DroneMoveState : IState
             direction *= -1;
             moveDire = Random.value < 0.5f ? -1 : 1;
             flipTimer = 0f;
-            enemyRigidBody2D.velocity = Vector2.zero;
+            enemyRigidBody2D.linearVelocity = Vector2.zero;
             return;
         }
         // Rigidbody2Dで移動
-        enemyRigidBody2D.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
+        enemyRigidBody2D.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
     }
 
     public void Exit()

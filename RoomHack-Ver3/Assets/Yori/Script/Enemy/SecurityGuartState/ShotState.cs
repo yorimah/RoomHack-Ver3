@@ -58,7 +58,7 @@ public class ShotState : IState
                 }
                 else
                 {
-                    EnemyRigidBody2D.velocity = Vector2.zero;
+                    EnemyRigidBody2D.linearVelocity = Vector2.zero;
                     timer += GameTimer.Instance.ScaledDeltaTime;
                 }
                 break;

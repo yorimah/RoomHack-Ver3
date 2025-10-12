@@ -39,6 +39,6 @@ public class PlayerMove
     public void PlMove()
     {
         PlayerRotation();
-        playerRigidbody2D.velocity = PlayerMoveVector(moveInput.MoveValue(), unitCore.moveSpeed) * GameTimer.Instance.customTimeScale;
+        playerRigidbody2D.linearVelocity = PlayerMoveVector(moveInput.MoveValue(), unitCore.moveSpeed) * GameTimer.Instance.customTimeScale;
     }
 }

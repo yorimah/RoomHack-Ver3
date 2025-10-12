@@ -52,7 +52,7 @@ public class MissileShotState : IState
                 }
                 else
                 {
-                    EnemyRigidBody2D.velocity = Vector2.zero;
+                    EnemyRigidBody2D.linearVelocity = Vector2.zero;
                     timer += GameTimer.Instance.ScaledDeltaTime;
                 }
                 break;
@@ -91,9 +91,9 @@ public class MissileShotState : IState
     }
     public void MissileShot()
     {
-        GameObject bulletGameObject = Object.Instantiate( enemy.bulletObject, enemy.transform.position, Quaternion.identity);
+        GameObject bulletGameObject = Object.Instantiate(enemy.bulletObject, enemy.transform.position, Quaternion.identity);
 
-        MissileCore bulletCore = bulletGameObject.GetComponent<MissileCore>();
+        Missile bulletCore = bulletGameObject.GetComponent<Missile>();
 
         Vector2 shotDirection = Quaternion.Euler(0, 0, enemy.transform.eulerAngles.z) * Vector3.up;
 

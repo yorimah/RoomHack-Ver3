@@ -59,11 +59,11 @@ public class MoveState : IState
         {
             direction *= -1;
             flipTimer = 0f;
-            enemyRididBody.velocity = Vector2.zero;
+            enemyRididBody.linearVelocity = Vector2.zero;
             return;
         }
         // Rigidbody2Dで移動
-        enemyRididBody.velocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
+        enemyRididBody.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
 
         enemy.transform.rotation = MoveForwadRotation(nextPos);
     }

@@ -59,7 +59,7 @@ public class SpecialForceShotState : IState
         {
             case ShotSection.aim:
 
-                EnemyRigidBody2D.velocity = Vector2.zero;
+                EnemyRigidBody2D.linearVelocity = Vector2.zero;
                 timer += GameTimer.Instance.ScaledDeltaTime;
                 if (enemy.aimTime <= timer)
                 {

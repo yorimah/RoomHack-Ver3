@@ -47,14 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e162536bff61ab542a426253bc80fb03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionTimer: 3
   explosionRadial: 3
   explosionPower: 100
+  expRadialMaterial: {fileID: 2100000, guid: 9d26c622fb1e6ba46b912d71ab4b77ba, type: 2}
   targetLm:
     serializedVersion: 2
     m_Bits: 128
+  blastGameObject: {fileID: 3977915479246264570, guid: 2c86ef07a3be33543b3cb179d84c03b1, type: 3}
+  explosionTimer: 3
   missileSpeed: 6
-  expMatarial: {fileID: 2100000, guid: 9d26c622fb1e6ba46b912d71ab4b77ba, type: 2}
   boostTime: 0.5
   deceleration: 0.1
   inertia: 0.9
