@@ -107,8 +107,6 @@ public class UnitCore : MonoBehaviour, IDamageable
         currentState?.Enter();
 
         statetype = type;
-
-       
     }
     void Awake()
     {

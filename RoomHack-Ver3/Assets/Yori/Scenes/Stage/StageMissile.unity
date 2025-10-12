@@ -510,6 +510,7 @@ MonoBehaviour:
   targetLm:
     serializedVersion: 2
     m_Bits: 128
+  viewAngle: 360
 --- !u!61 &273839731
 BoxCollider2D:
   m_ObjectHideFlags: 0
