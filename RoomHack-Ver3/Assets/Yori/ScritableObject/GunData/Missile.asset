@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Missile
   m_EditorClassIdentifier: 
   power: 100
-  rate: 0
+  rate: 1
   MAXMAGAZINE: 0
   reloadTime: 0
   bulletSpeed: 0

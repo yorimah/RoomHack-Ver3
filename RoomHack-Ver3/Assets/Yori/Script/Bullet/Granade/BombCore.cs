@@ -18,9 +18,13 @@ public class BombCore : MonoBehaviour
     [SerializeField, Header("ExprosionPrefab")]
     private GameObject blastGameObject;
 
+    private BombBlast bombBlast;
     public void Bomb()
     {
-
+        SeManager.Instance.Play("Explosion");
+        bombBlast = Instantiate(blastGameObject,this.transform.position,Quaternion.identity).GetComponent<BombBlast>();
+        bombBlast.explosionPower = explosionPower;
+        bombBlast.explosionRadial = explosionRadial;
     }
 
     protected void MeshInit()

@@ -19,8 +19,6 @@ public class Missile : BombCore, IDamageable
 
     private float colorAlpha;
 
-    private CircleCollider2D missileCol;
-
     private Rigidbody2D rb;
 
     [SerializeField, Header("ミサイル速度")]
@@ -38,11 +36,9 @@ public class Missile : BombCore, IDamageable
 
     public void Start()
     {
-        missileCol = GetComponent<CircleCollider2D>();
         spriteRen = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         color = spriteRen.color;
-        missileCol.isTrigger = false;
         MeshInit();
         timer = 0;
         NowHP = MAXHP;
@@ -66,8 +62,7 @@ public class Missile : BombCore, IDamageable
             MissileMove();
 
             if (timer >= explosionTimer)
-            {
-                SeManager.Instance.Play("Explosion");
+            {                
                 EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
                 isFire = true;
             }
@@ -118,7 +113,6 @@ public class Missile : BombCore, IDamageable
 
         // 現在の速度方向（正規化）
         Vector2 currentDir = rb.linearVelocity.normalized;
-
         // 過去のベクトルと新しいベクトルを合成（慣性あり）
         Vector2 blendedDir = (currentDir * inertia + toTarget * (1f - inertia)).normalized;
 
@@ -132,7 +126,7 @@ public class Missile : BombCore, IDamageable
     }
     public void Die()
     {
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject);
         Destroy(meshObject, 0.5f);
     }
     public void Explosion()

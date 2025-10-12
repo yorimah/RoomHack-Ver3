@@ -1,0 +1,33 @@
+﻿using UnityEngine;
+
+public class BombBlast : MonoBehaviour
+{
+    [SerializeField, Header("爆発半径")]
+    public float explosionRadial;
+    [SerializeField, Header("爆発威力")]
+    public int explosionPower;
+    public int HitDamegeLayer { get; set; } = 4;
+    private CircleCollider2D circleCollider2D;
+    public void Start()
+    {
+        //Destroy(gameObject, 0.5f);
+        circleCollider2D = gameObject.GetComponent<CircleCollider2D>();
+        circleCollider2D.radius = explosionRadial;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
+        if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
+        {
+            if (HitDamegeLayer != damage.HitDamegeLayer)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position - transform.position);
+                ///Debug.DrawRay(transform.position, collision.transform.position - transform.position);
+                if (hit.collider.gameObject == collision.gameObject)
+                {
+                    damage.HitDmg(explosionPower, 0);
+                }
+            }
+        }
+    }
+}

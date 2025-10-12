@@ -43,7 +43,6 @@ public class Granade:BombCore
             if (isExplosion)
             {
                 Bomb();
-                SeManager.Instance.Play("Explosion");
                 isExplosion = false;
             }
         }
