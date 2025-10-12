@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50f45b40762de44db9da4bc6457bebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultPos: {x: 0, y: -200}
   willUseRam: 0
   maxRamCap: 0
   nowRamCap: 0
@@ -154,9 +155,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolUIPrefab: {fileID: 6773521087607688420, guid: 66a57fb8bf0040b46bbe9ae311756511, type: 3}
-  deckPos: {x: -800, y: 0}
-  trashPos: {x: -800, y: -320}
-  handPos: {x: 0, y: -480}
+  nowDeckPos: {x: 0, y: 0}
+  nowTrashPos: {x: 0, y: 0}
+  nowHandPos: {x: 0, y: 0}
+  actDeckPos: {x: -1000, y: 0}
+  actTrashPos: {x: -1000, y: -320}
+  actHandPos: {x: 0, y: -580}
+  hackDeckPos: {x: -800, y: 0}
+  hackTrashPos: {x: -800, y: -320}
+  hackHandPos: {x: 0, y: -480}
   handSpace: 200
   handToolUIList: []
   trashToolUIList: []

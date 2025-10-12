@@ -126,6 +126,7 @@ public class ToolUIController : MonoBehaviour
         //    //Debug.Log("Rebooting!");
         //    UnitCore.Instance.isRebooting = true;
         //}
+
         // reboot関連
         if (UnitCore.Instance.isRebooting)
         {
@@ -187,7 +188,7 @@ public class ToolUIController : MonoBehaviour
 
     void Refresh()
     {
-     
+        // 山切れ処理
         //refreshToolUIList.AddRange(trashToolUIList);
 
         for (int i = 0; i < trashToolUIList.Count; i++)
