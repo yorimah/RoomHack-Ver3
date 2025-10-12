@@ -121,16 +121,6 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         ChangeState(StateType.Die);
     }
 
-    //public void CapacityOver()
-    //{
-    //    clacked = true;
-    //}
-    //public void FireWallRecavary()
-    //{
-    //    Debug.Log(gameObject.name + "クラック中");
-    //    NowFireWall += FireWallRecovaryNum * GameTimer.Instance.ScaledDeltaTime;
-    //}
-
     public void GunDataInit()
     {
         shotRate = gundata.rate;

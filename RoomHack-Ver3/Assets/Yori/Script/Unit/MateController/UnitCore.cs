@@ -91,7 +91,7 @@ public class UnitCore : MonoBehaviour, IDamageable
 
         RamUpdate();
 
-        rb.velocity = rb.velocity * GameTimer.Instance.customTimeScale;
+        rb.linearVelocity = rb.linearVelocity * GameTimer.Instance.customTimeScale;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -107,8 +107,6 @@ public class UnitCore : MonoBehaviour, IDamageable
         currentState?.Enter();
 
         statetype = type;
-
-       
     }
     void Awake()
     {

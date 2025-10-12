@@ -39,7 +39,7 @@ public class PlayerCheack
             return;
         }
         Vector2 playerPosition = UnitCore.Instance.transform.position;
-        Vector2 playerNextPosition = playerPosition + UnitCore.Instance.GetComponent<Rigidbody2D>().velocity.normalized;
+        Vector2 playerNextPosition = playerPosition + UnitCore.Instance.GetComponent<Rigidbody2D>().linearVelocity.normalized;
         Vector2 direction = playerNextPosition - (Vector2)transform.position;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;

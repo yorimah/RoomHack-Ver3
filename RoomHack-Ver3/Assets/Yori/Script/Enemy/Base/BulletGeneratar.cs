@@ -21,7 +21,7 @@ public class BulletGeneratar : MonoBehaviour
         bulletCore.HitDamegeLayer = hitLayer;
         bulletCore.hitStop = 0.1f;
         bulletCore.power = power;
-        bulletRigit.velocity = shotDirection * bulletSpeed;
+        bulletRigit.linearVelocity = shotDirection * bulletSpeed;
         bulletGameObject.transform.up = shotDirection;
     }
 }

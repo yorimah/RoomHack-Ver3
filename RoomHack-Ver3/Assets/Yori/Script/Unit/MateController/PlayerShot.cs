@@ -57,7 +57,7 @@ public class PlayerShot
 
 
         Vector2 shotDirection = Quaternion.Euler(0, 0, unitCore.transform.eulerAngles.z + rand) * Vector3.up;
-        bulletRigit.velocity = shotDirection * unitCore.bulletSpeed;
+        bulletRigit.linearVelocity = shotDirection * unitCore.bulletSpeed;
         bulletGameObject.transform.up = shotDirection;
     }
     public void Shot()

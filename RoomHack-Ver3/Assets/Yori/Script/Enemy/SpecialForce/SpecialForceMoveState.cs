@@ -74,11 +74,11 @@ public class SpecialForceMoveState : IState
             direction *= -1;
             forwardDir *= -1;
             flipTimer = 0f;
-            enemyRididBody.velocity = Vector2.zero;
+            enemyRididBody.linearVelocity = Vector2.zero;
             return;
         }
         // Rigidbody2Dで移動
-        enemyRididBody.velocity = moveDir.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
+        enemyRididBody.linearVelocity = moveDir.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
 
         enemy.transform.rotation = MoveForwadRotation(nowPosition + moveDir);
     }

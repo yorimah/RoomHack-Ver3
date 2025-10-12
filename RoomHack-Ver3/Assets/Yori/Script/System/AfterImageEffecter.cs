@@ -9,6 +9,7 @@ public class AfterImageEffecter : MonoBehaviour
     private float generateEffectTime = 0.2f;
     private GameObject affterImageObject;
 
+    private GameObject affterImageObjects;
     void Start()
     {
         affterImageSprite = this.GetComponent<SpriteRenderer>().sprite;
@@ -34,8 +35,10 @@ public class AfterImageEffecter : MonoBehaviour
     void GenerateAffterImage()
     {
         affterImageObject = new GameObject(gameObject.name + "AfferImage");
+        affterImageObject.transform.parent = this.transform;
         affterImageObject.transform.position = this.transform.position;
         affterImageObject.transform.rotation = this.transform.rotation;
+        affterImageObject.transform.localScale = new Vector3(1, 1, 1);
         affterImageSpriteRender = affterImageObject.AddComponent<SpriteRenderer>();
         affterImageObject.AddComponent<AffterImageFade>();
         affterImageSpriteRender.sprite = affterImageSprite;

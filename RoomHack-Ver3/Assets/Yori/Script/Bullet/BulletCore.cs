@@ -20,7 +20,7 @@ public class BulletCore : MonoBehaviour, IDamageable
         MAXHP = 1;
         NowHP = MAXHP;
 
-        initVel = rb.velocity;
+        initVel = rb.linearVelocity;
 
         SeManager.Instance.Play("9mm");
     }
@@ -32,7 +32,7 @@ public class BulletCore : MonoBehaviour, IDamageable
     private void Update()
     {
         // タイムスケールが1より大きいならそのままの速度、小さいならGameTimer.Instance.customTimeScale分遅くなる
-        rb.velocity = 1 < GameTimer.Instance.customTimeScale ? initVel : initVel * GameTimer.Instance.customTimeScale;
+        rb.linearVelocity = 1 < GameTimer.Instance.customTimeScale ? initVel : initVel * GameTimer.Instance.customTimeScale;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

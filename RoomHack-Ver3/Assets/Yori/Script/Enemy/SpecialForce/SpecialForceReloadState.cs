@@ -28,7 +28,7 @@ public class SpecialForceReloadState : IState
 
     public void Execute()
     {
-        enemyRididBody.velocity = Vector2.zero;
+        enemyRididBody.linearVelocity = Vector2.zero;
         // ひだんしたら
         if (nowHP != enemy.NowHP)
         {
