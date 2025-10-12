@@ -22,9 +22,10 @@ public class BombCore : MonoBehaviour
     public void Bomb()
     {
         SeManager.Instance.Play("Explosion");
-        bombBlast = Instantiate(blastGameObject,this.transform.position,Quaternion.identity).GetComponent<BombBlast>();
+        bombBlast = Instantiate(blastGameObject, this.transform.position, Quaternion.identity).GetComponent<BombBlast>();
         bombBlast.explosionPower = explosionPower;
         bombBlast.explosionRadial = explosionRadial;
+        bombBlast.isExplosion = true;
     }
 
     protected void MeshInit()

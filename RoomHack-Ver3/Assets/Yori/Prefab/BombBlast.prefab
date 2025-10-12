@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a41013a84e0c34da59df4594f4bc57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombBlast
-  explosionRadial: 0
-  explosionPower: 0
+  explosionRadial: 3
+  explosionPower: 100
+  isExplosion: 0
 --- !u!50 &6927727529744706226
 Rigidbody2D:
   serializedVersion: 5

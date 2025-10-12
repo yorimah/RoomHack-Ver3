@@ -8,24 +8,29 @@ public class BombBlast : MonoBehaviour
     public int explosionPower;
     public int HitDamegeLayer { get; set; } = 4;
     private CircleCollider2D circleCollider2D;
+
+    public bool isExplosion = false;
     public void Start()
     {
-        //Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 0.5f);
         circleCollider2D = gameObject.GetComponent<CircleCollider2D>();
         circleCollider2D.radius = explosionRadial;
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
-        if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
+        if (isExplosion)
         {
-            if (HitDamegeLayer != damage.HitDamegeLayer)
+            // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
+            if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position - transform.position);
-                ///Debug.DrawRay(transform.position, collision.transform.position - transform.position);
-                if (hit.collider.gameObject == collision.gameObject)
+                if (HitDamegeLayer != damage.HitDamegeLayer)
                 {
-                    damage.HitDmg(explosionPower, 0);
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position - transform.position);
+                    ///Debug.DrawRay(transform.position, collision.transform.position - transform.position);
+                    if (hit.collider.gameObject == collision.gameObject)
+                    {
+                        damage.HitDmg(explosionPower, 0);
+                    }
                 }
             }
         }
