@@ -19,7 +19,7 @@ public class BombBlast : MonoBehaviour
         // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
         {
-            if (HitDamegeLayer != damage.HitDamegeLayer)
+            if (HitDamegeLayer != damage.hitDamegeLayer)
             {
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position - transform.position);
                 ///Debug.DrawRay(transform.position, collision.transform.position - transform.position);

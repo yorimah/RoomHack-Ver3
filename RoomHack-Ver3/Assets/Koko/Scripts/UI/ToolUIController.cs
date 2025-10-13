@@ -97,7 +97,7 @@ public class ToolUIController : MonoBehaviour
         deckSign.toMovePosition = nowDeckPos;
         trashSign.toMovePosition = nowTrashPos;
 
-        if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
+        if (UnitCore.Instance.stateType == UnitCore.StateType.Hack)
         {
             nowDeckPos = hackDeckPos;
             nowTrashPos = hackTrashPos;

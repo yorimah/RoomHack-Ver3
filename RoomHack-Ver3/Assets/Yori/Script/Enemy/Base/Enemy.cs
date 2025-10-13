@@ -3,7 +3,6 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System.Threading;
 
 public enum StateType
 {
@@ -26,9 +25,9 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     List<ToolEvent> _event;
 
     // ダメージ関連
-    public float MAXHP { get; private set; } = 5;
-    public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; } = 2;
+    public float maxHitPoint { get; private set; } = 5;
+    public float nowHitPoint { get; set; }
+    public int hitDamegeLayer { get; set; } = 2;
 
     public IState currentState;
 
@@ -38,12 +37,6 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     [SerializeField, Header("障害物に使うレイヤー")]
     private LayerMask obstacleMask;
 
-
-    [SerializeField, Header("HackData")]
-    public HackData hackdata;
-    [SerializeField, Header("HP")]
-    private float MaxHP;
-
     // プレイヤーとの間に障害物があるか判別するスクリプト
     public PlayerCheack playerCheack;
 
@@ -52,7 +45,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     // GUNDATA
     [SerializeField, Header("GunData")]
-    public GunData gundata;
+    public GunData gunData;
     [HideInInspector]
     public int MAXBULLET;
     [HideInInspector]
@@ -66,40 +59,37 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     [HideInInspector]
     public float recoil;
     [HideInInspector]
-    public float maxDiffusionRate=15;
+    public float maxDiffusionRate = 15;
     [HideInInspector]
     public float minDiffusionRate = 1;
 
-    [SerializeField,Header("弾")]
+    [SerializeField, Header("弾")]
     public GameObject bulletObject;
     // 死亡フラグ
     public bool died = false;
 
     public float shotIntervalTime;
-   
-    protected CancellationToken token;
-    private CancellationTokenSource cts;
+
     public void Awake()
     {
         GunDataInit();
 
-        FireWallDataInit();
-
-        cts = new CancellationTokenSource();
-        token = cts.Token;
-
-        MAXHP = MaxHP;
-        NowHP = MAXHP;
+        nowHitPoint = maxHitPoint;
     }
 
     protected StateType statetype;
     protected Dictionary<StateType, IState> states;
+
+    public float diffusionRate;
 
     void Update()
     {
         currentState?.Execute();
 
         _event = nowHackEvent;
+
+        diffusionRate = Mathf.Clamp(diffusionRate, minDiffusionRate, maxDiffusionRate);
+        diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
     }
 
     public void ChangeState(StateType type)
@@ -116,28 +106,20 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     public void Die()
     {
-        cts.Cancel();
         died = true;
         ChangeState(StateType.Die);
     }
 
     public void GunDataInit()
     {
-        shotRate = gundata.rate;
-        MAXBULLET = gundata.MAXMAGAZINE;
+        shotRate = gunData.rate;
+        MAXBULLET = gunData.MAXMAGAZINE;
         NOWBULLET = MAXBULLET;
-        bulletSpeed = gundata.bulletSpeed;
-        stoppingPower = gundata.power;
+        bulletSpeed = gunData.bulletSpeed;
+        stoppingPower = gunData.power;
         shotIntervalTime = 1f / shotRate;
-        moveSpeed += gundata.Maneuverability;
-        recoil = gundata.recoil;
-    }
-
-    public void FireWallDataInit()
-    {
-        //MaxFireWall = hackdata.MaxFireWall;
-        //NowFireWall = MaxFireWall;
-        //FireWallRecovaryNum = hackdata.FireWallRecovaryNum;
+        moveSpeed += gunData.Maneuverability;
+        recoil = gunData.recoil;
     }
 
 #if UNITY_EDITOR
@@ -147,7 +129,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.white;
         style.fontSize = 14;
-        Handles.Label(transform.position + Vector3.up * 1f, "HP " + NowHP.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 1f, "HP " + nowHitPoint.ToString(), style);
         Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + NOWBULLET.ToString(), style);
         if (currentState != null)
         {

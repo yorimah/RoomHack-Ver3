@@ -3,14 +3,14 @@
 public class WallDeffence : MonoBehaviour, IDamageable
 {
 
-    public float MAXHP { get; set; }
-    public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; } = 3;
+    public float maxHitPoint { get; set; }
+    public float nowHitPoint { get; set; }
+    public int hitDamegeLayer { get; set; } = 3;
 
     // Start is called before the first frame update
     void Start()
     {
-        NowHP = MAXHP;
+        nowHitPoint = maxHitPoint;
     }
 
     public void HitDmg(int dmg,float hit)

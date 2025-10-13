@@ -21,7 +21,7 @@ public class SpecialForceReloadState : IState
     float nowHP;
     public void Enter()
     {
-        nowHP = enemy.NowHP;
+        nowHP = enemy.nowHitPoint;
         timer = 0;
         enemyRididBody = enemy.GetComponent<Rigidbody2D>();        
     }
@@ -30,7 +30,7 @@ public class SpecialForceReloadState : IState
     {
         enemyRididBody.linearVelocity = Vector2.zero;
         // ひだんしたら
-        if (nowHP != enemy.NowHP)
+        if (nowHP != enemy.nowHitPoint)
         {
             enemy.ChangeState(StateType.Move);
         }

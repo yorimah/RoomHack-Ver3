@@ -5,10 +5,10 @@ public class Missile : BombCore, IDamageable
     [SerializeField, Header("爆発までの秒数")]
     private float explosionTimer = 3;
 
-    public float MAXHP { get; set; }
+    public float maxHitPoint { get; set; }
 
-    public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; } = 4;
+    public float nowHitPoint { get; set; }
+    public int hitDamegeLayer { get; set; } = 4;
 
     public float hitStop { get; set; }
     // 汎用タイマー
@@ -41,7 +41,7 @@ public class Missile : BombCore, IDamageable
         color = spriteRen.color;
         MeshInit();
         timer = 0;
-        NowHP = MAXHP;
+        nowHitPoint = maxHitPoint;
         SeManager.Instance.Play("MissleMove");
     }
 
@@ -85,7 +85,7 @@ public class Missile : BombCore, IDamageable
         {
             SeManager.Instance.StopImmediately("MissileMove");
             // 撃ったやつの種類以外に当たって爆発
-            if (HitDamegeLayer != damage.HitDamegeLayer)
+            if (hitDamegeLayer != damage.hitDamegeLayer)
             {
                 EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
                 SeManager.Instance.Play("Explosion");

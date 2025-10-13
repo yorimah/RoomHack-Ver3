@@ -24,8 +24,6 @@ public class DroneShotState : IState
     private BulletGeneratar bulletGeneratar;
 
     private float timer;
-
-    private float diffusionRate;
     public DroneShotState(Enemy _enemy)
     {
         enemy = _enemy;
@@ -99,11 +97,11 @@ public class DroneShotState : IState
                 else
                 {
                     // 拡散率加算
-                    diffusionRate += enemy.recoil;
+                    enemy.diffusionRate += enemy.recoil;
                     // 拡散率を固定、下限enemy.minDiffusionRate、上限 enemy.maxDiffusionRate
-                    Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
+                    Mathf.Clamp(enemy.diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
                     // 射撃
-                    bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower, diffusionRate);
+                    bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.hitDamegeLayer, enemy.stoppingPower, enemy.diffusionRate);
 
                     enemy.NOWBULLET--;
                     shotSection++;

@@ -1,8 +1,8 @@
 ﻿public interface IDamageable
 {
-    public float MAXHP { get; }
+    public float maxHitPoint { get; }
 
-    public float NowHP { get; set; }
+    public float nowHitPoint { get; set; }
 
     /// <summary>
     /// 1  プレイヤー
@@ -10,18 +10,18 @@
     /// 3　壁
     /// 4  爆発
     /// </summary>
-    public int HitDamegeLayer { get; set; }
+    public int hitDamegeLayer { get; set; }
 
     public void HitDmg(int dmg, float hitStop)
     {
-        NowHP -= dmg;
-        if (NowHP <= 0)
+        nowHitPoint -= dmg;
+        if (nowHitPoint <= 0)
         {
             Die();
         }
         else
         {
-            if (HitDamegeLayer == 2)
+            if (hitDamegeLayer == 2)
             {
                 SeManager.Instance.Play("Hit");
             }

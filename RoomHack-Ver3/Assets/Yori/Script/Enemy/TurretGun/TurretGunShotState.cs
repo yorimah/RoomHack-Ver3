@@ -71,7 +71,7 @@ public class TurretGunShotState : IState
                     // 拡散率を固定、下限enemy.minDiffusionRate、上限 enemy.maxDiffusionRate
                     Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
                     // 射撃
-                    bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower, diffusionRate);
+                    bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.hitDamegeLayer, enemy.stoppingPower, diffusionRate);
 
                     enemy.NOWBULLET--;
                     shotSection++;

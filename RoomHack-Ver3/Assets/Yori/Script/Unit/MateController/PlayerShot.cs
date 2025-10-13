@@ -50,7 +50,7 @@ public class PlayerShot
 
         bulletCore.power = unitCore.stoppingPower;
         bulletCore.hitStop = 0.1f;
-        bulletCore.HitDamegeLayer = unitCore.HitDamegeLayer;
+        bulletCore.hitDamegeLayer = unitCore.hitDamegeLayer;
 
 
         float rand = Random.Range(-diffusionRate, diffusionRate);

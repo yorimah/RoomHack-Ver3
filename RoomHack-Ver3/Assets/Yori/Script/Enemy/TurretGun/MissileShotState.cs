@@ -97,7 +97,7 @@ public class MissileShotState : IState
 
         Vector2 shotDirection = Quaternion.Euler(0, 0, enemy.transform.eulerAngles.z) * Vector3.up;
 
-        bulletCore.HitDamegeLayer = enemy.HitDamegeLayer;
+        bulletCore.hitDamegeLayer = enemy.hitDamegeLayer;
         bulletCore.hitStop = 0.1f;
         bulletGameObject.transform.up = shotDirection;
     }

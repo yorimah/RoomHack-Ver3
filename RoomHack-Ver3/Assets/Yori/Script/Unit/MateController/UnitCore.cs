@@ -13,9 +13,9 @@ public enum GunNo
 }
 public class UnitCore : MonoBehaviour, IDamageable
 {
-    public float MAXHP { get; set; }
-    public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; } = 1;
+    public float maxHitPoint { get; set; }
+    public float nowHitPoint { get; set; }
+    public int hitDamegeLayer { get; set; } = 1;
 
     public static UnitCore Instance { get; private set; }
     public int MAXBULLET { get; private set; }
@@ -76,7 +76,7 @@ public class UnitCore : MonoBehaviour, IDamageable
     }
 
     public IState currentState;
-    public StateType statetype;
+    public StateType stateType;
     public Dictionary<StateType, IState> states;
 
     [SerializeField]
@@ -93,11 +93,6 @@ public class UnitCore : MonoBehaviour, IDamageable
 
         rb.linearVelocity = rb.linearVelocity * GameTimer.Instance.customTimeScale;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SaveManager.Instance.DeleteSave();
-            SceneManager.LoadScene("TitleDemoScene");
-        }
     }
 
     public void ChangeState(StateType type)
@@ -106,14 +101,14 @@ public class UnitCore : MonoBehaviour, IDamageable
         currentState = states[type];
         currentState?.Enter();
 
-        statetype = type;
+        stateType = type;
     }
     void Awake()
     {
         data = SaveManager.Instance.Load();
 
-        MAXHP = initMaxHp + data.pulusMaxHitpoint;
-        NowHP = MAXHP;
+        maxHitPoint = initMaxHp + data.pulusMaxHitpoint;
+        nowHitPoint = maxHitPoint;
 
         GunDataInit();
 
@@ -140,8 +135,8 @@ public class UnitCore : MonoBehaviour, IDamageable
 
         //{ StateType.Die, new DieState(this) },
     };
-        statetype = StateType.Action;
-        currentState = states[statetype];
+        stateType = StateType.Action;
+        currentState = states[stateType];
 
         rb = GetComponent<Rigidbody2D>();
     }

@@ -18,7 +18,7 @@ public class ReloadState : IState
     public void Execute()
     {
         timer += GameTimer.Instance.ScaledDeltaTime;
-        if (timer >= enemy.gundata.reloadTime)
+        if (timer >= enemy.gunData.reloadTime)
         {
             enemy.ChangeState(StateType.Move);
             timer = 0;
@@ -27,6 +27,6 @@ public class ReloadState : IState
 
     public void Exit()
     {
-        enemy.NOWBULLET = enemy.gundata.MAXMAGAZINE;
+        enemy.NOWBULLET = enemy.gunData.MAXMAGAZINE;
     }
 }

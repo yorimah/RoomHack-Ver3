@@ -27,7 +27,7 @@ public class PlayerUITest : MonoBehaviour
 
     private void Start()
     {
-        maxHp = UnitCore.Instance.MAXHP;
+        maxHp = UnitCore.Instance.maxHitPoint;
 
         maxBullet = UnitCore.Instance.MAXBULLET;
 
@@ -39,7 +39,7 @@ public class PlayerUITest : MonoBehaviour
         this.transform.position = player.transform.position;
 
         // 現在HP取得
-        nowHp = UnitCore.Instance.NowHP;
+        nowHp = UnitCore.Instance.nowHitPoint;
 
         // HPバーサイズ変更
         Vector3 hpScale = hpBar.gameObject.transform.localScale;

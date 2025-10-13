@@ -30,6 +30,7 @@ public class GameManeger : MonoBehaviour
             {
                 enemyCount--;
                 data.score_DestoryEnemy++;
+                SaveManager.Instance.Save(data);
                 eList.RemoveAt(i);
             }
         }

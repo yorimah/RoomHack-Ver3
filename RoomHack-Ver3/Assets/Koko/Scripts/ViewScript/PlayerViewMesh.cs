@@ -7,8 +7,6 @@ public class PlayerViewMesh : MonoBehaviour
     private float viewRadial;
     [SerializeField]
     LayerMask targetLm;
-    [SerializeField]
-    private int viewAngle;
     // 分割数
     private int segment = 360;
     private Mesh mesh;
@@ -41,7 +39,7 @@ public class PlayerViewMesh : MonoBehaviour
 
         for (int i = 0; i < segment; i++)
         {
-            float angle = (viewAngle / segment) * i;
+            float angle = (360 / segment) * i;
             float rad = angle * Mathf.Deg2Rad;
             Vector3 dir = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0);
 

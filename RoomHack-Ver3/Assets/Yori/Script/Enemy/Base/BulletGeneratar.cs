@@ -18,7 +18,7 @@ public class BulletGeneratar : MonoBehaviour
 
         Vector2 shotDirection = Quaternion.Euler(0, 0, transform.eulerAngles.z + rand) * Vector3.up;
 
-        bulletCore.HitDamegeLayer = hitLayer;
+        bulletCore.hitDamegeLayer = hitLayer;
         bulletCore.hitStop = 0.1f;
         bulletCore.power = power;
         bulletRigit.linearVelocity = shotDirection * bulletSpeed;

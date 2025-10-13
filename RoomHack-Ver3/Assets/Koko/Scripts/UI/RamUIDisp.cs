@@ -68,7 +68,7 @@ public class RamUIDisp : MonoBehaviour
         {
             // hackモード時に半透明化
             //if (isSkelton)
-            if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
+            if (UnitCore.Instance.stateType == UnitCore.StateType.Hack)
             {
                 ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }

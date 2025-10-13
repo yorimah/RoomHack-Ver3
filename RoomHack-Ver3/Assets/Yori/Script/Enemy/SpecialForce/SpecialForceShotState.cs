@@ -37,19 +37,17 @@ public class SpecialForceShotState : IState
         playerCheack = enemy.playerCheack;
     }
     float nowHP;
-
-    private float diffusionRate = 0;
     public void Enter()
     {
         shotSection = ShotSection.aim;
         timer = 0;
-        nowHP = enemy.NowHP;
-        diffusionRate = 0;
+        nowHP = enemy.nowHitPoint;
+        enemy.diffusionRate = 0;
     }
 
     public void Execute()
     {
-        if (nowHP != enemy.NowHP)
+        if (nowHP != enemy.nowHitPoint)
         {
             enemy.ChangeState(StateType.Move);
         }
@@ -80,11 +78,11 @@ public class SpecialForceShotState : IState
                 else
                 {
                     // 拡散率加算
-                    diffusionRate += enemy.recoil;
+                    enemy.diffusionRate += enemy.recoil;
                     // 拡散率を固定、下限enemy.minDiffusionRate、上限 enemy.maxDiffusionRate
-                    Mathf.Clamp(diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
+                    Mathf.Clamp(enemy.diffusionRate, enemy.minDiffusionRate, enemy.maxDiffusionRate);
                     // 射撃
-                    bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.HitDamegeLayer, enemy.stoppingPower, diffusionRate);
+                    bulletGeneratar.GunFire(enemy.bulletSpeed, enemy.hitDamegeLayer, enemy.stoppingPower, enemy.diffusionRate);
 
                     enemy.NOWBULLET--;
                     shotNum++;

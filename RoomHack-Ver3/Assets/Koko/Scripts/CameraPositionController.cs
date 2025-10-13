@@ -44,7 +44,7 @@ public class CameraPositionController : MonoBehaviour
             insTagetAnimObj.SetActive(false);
         }
 
-        if (UnitCore.Instance.statetype == UnitCore.StateType.Hack)
+        if (UnitCore.Instance.stateType == UnitCore.StateType.Hack)
         {
             //Debug.Log("仮でタイマーいじってるからな");
             GameTimer.Instance.customTimeScale = 0.1f;

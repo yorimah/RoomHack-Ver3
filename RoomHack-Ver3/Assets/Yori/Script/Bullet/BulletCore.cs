@@ -2,10 +2,10 @@
 
 public class BulletCore : MonoBehaviour, IDamageable
 {
-    public float MAXHP { get; set; }
+    public float maxHitPoint { get; set; }
 
-    public float NowHP { get; set; }
-    public int HitDamegeLayer { get; set; }
+    public float nowHitPoint { get; set; }
+    public int hitDamegeLayer { get; set; }
 
     public int power;
 
@@ -17,8 +17,8 @@ public class BulletCore : MonoBehaviour, IDamageable
     public void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
-        MAXHP = 1;
-        NowHP = MAXHP;
+        maxHitPoint = 1;
+        nowHitPoint = maxHitPoint;
 
         initVel = rb.linearVelocity;
 
@@ -43,10 +43,10 @@ public class BulletCore : MonoBehaviour, IDamageable
         // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
         {
-            if (this.HitDamegeLayer != damage.HitDamegeLayer)
+            if (this.hitDamegeLayer != damage.hitDamegeLayer)
             {
                 // 壁以外ならヒットエフェクト
-                if (damage.HitDamegeLayer != 3) EffectManager.Instance.EffectAct(EffectManager.EffectType.HitDamage, this.transform.position, -(this.transform.localEulerAngles.z) - 90, 1);
+                if (damage.hitDamegeLayer != 3) EffectManager.Instance.EffectAct(EffectManager.EffectType.HitDamage, this.transform.position, -(this.transform.localEulerAngles.z) - 90, 1);
 
                 damage.HitDmg(power, hitStop);
                 Die();

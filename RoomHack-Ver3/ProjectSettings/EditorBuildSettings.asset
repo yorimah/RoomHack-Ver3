@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Koko/Scenes/Stage/StageTutorial.unity
+    guid: 8e47f46ab83bdd34e8ff855af73959cb
+  - enabled: 1
     path: Assets/Koko/Scenes/TitleDemoScene.unity
     guid: 949d02fe74ed92f4abfa34880e81bf6c
   - enabled: 1
@@ -22,3 +25,4 @@ EditorBuildSettings:
     guid: 6ccb99282a018554894976fbaf404275
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 56988ac99d692c44db17ae2b6721ec62, type: 2}
+  m_UseUCBPForAssetBundles: 0

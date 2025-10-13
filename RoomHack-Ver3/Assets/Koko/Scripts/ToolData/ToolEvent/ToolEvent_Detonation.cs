@@ -99,7 +99,7 @@ public class ToolEvent_Detonation : ToolEvent
     {
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
-            if (HitDamegeLayer != damageable.HitDamegeLayer)
+            if (HitDamegeLayer != damageable.hitDamegeLayer)
             {
                 damageableObjectList.Add(collision.gameObject);
             }
