@@ -162,6 +162,7 @@ public class UnitCore : MonoBehaviour, IDamageable
     }
     public void Die()
     {
+        SeManager.Instance.StopImmediately();
         SceneManager.LoadScene("GameOverDemoScene");
     }
 
