@@ -4,40 +4,62 @@ using UnityEngine;
 
 public class ToolEvent_OverHeat : ToolEvent
 {
-    float timer = 5;
+    public override toolTag thisToolTag { get; set; } = toolTag.OverHeat;
 
-    float damageTimer = 1;
+    bool isSet = false;
+    float timer = 0;
+    float lifeTime = 5;
+
+    float damageTimer = 0;
+    float damageTime = 1;
     int damage = 10;
 
     IDamageable damageable;
 
-    private void Start()
-    {
-        EventAdd();
-
-        EffectManager.Instance.EffectAct(EffectManager.EffectType.Fire, this.gameObject, 5);
-
-        damageable = hackTargetObject.GetComponent<IDamageable>();
-    }
+    GameObject effect;
 
     private void Update()
     {
-        Tracking();
-
-        damageTimer -= GameTimer.Instance.ScaledDeltaTime;
-        if (damageTimer <= 0)
+        if (isEventAct)
         {
-            damageable.HitDmg(damage, 0);
-            damageTimer = 1;
+            // 初期設定
+            if (!isSet)
+            {
+                HackSetup();
+                isSet = true;
+            }
+
+            // 稼働処理
+            damageTimer -= GameTimer.Instance.ScaledDeltaTime;
+            if (damageTimer <= 0)
+            {
+                damageable.HitDmg(damage, 0);
+                damageTimer = damageTime;
+            }
+            Tracking();
+
+            // 終了設定
+            timer -= GameTimer.Instance.ScaledDeltaTime;
+            if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
+            {
+                EventRemove();
+                effect.GetComponent<ParticleSystem>().Stop();
+                isSet = false;
+                isEventAct = false;
+            }
         }
+    }
 
+    void HackSetup()
+    {
+        EventAdd();
 
-        timer -= GameTimer.Instance.ScaledDeltaTime;
+        effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.Fire, this.gameObject);
 
-        if (timer < 0)
-        {
-            EventRemove();
-        }
+        damageable = hackTargetObject.GetComponent<IDamageable>();
+
+        timer = lifeTime;
+        damageTimer = damageTime;
     }
 
     public override void ToolAction()

@@ -25,21 +25,25 @@ public class EffectManager : MonoBehaviour
         Bad,
         Fire,
         Bomb,
+        Success,
     }
 
+    // エフェクトを登録
     [SerializeField]
     GameObject[] EffectPrefab;
 
     //[SerializeField]
     //int effectNum;
 
+    // 各エフェクト毎にList管理
     [SerializeField]
-    List<GameObject>[] poolList = new List<GameObject>[5]
-    { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), };
+    List<GameObject>[] poolList = new List<GameObject>[6]
+    { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(),};
 
     GameObject useableEffect;
 
-    public GameObject EffectAct(EffectType _effectType, Vector2 _pos, float _rot, float _time)
+    // エフェクト起動
+    public GameObject ActEffect(EffectType _effectType, Vector2 _pos, float _rot, bool _isScaleTime)
     {
         useableEffect = null;
 
@@ -58,6 +62,7 @@ public class EffectManager : MonoBehaviour
         // 使ってないオブジェクトが見つからないなら新しく生成
         if (useableEffect == null)
         {
+            Debug.Log("effe");
             useableEffect = Instantiate(EffectPrefab[(int)_effectType], this.transform);
             pool.Add(useableEffect);
         }
@@ -72,52 +77,72 @@ public class EffectManager : MonoBehaviour
         useableEffect.SetActive(true);
         useableEffect.GetComponent<ParticleSystem>().Play();
 
-        StartCoroutine(EffectUpdate(useableEffect, _time));
+        if (_isScaleTime) StartCoroutine(EffectSpeedScaled(useableEffect));
+
+        //StartCoroutine(EffectUpdate(useableEffect, _time, _isScaleTime));
 
         return useableEffect;
     }
 
-    public GameObject EffectAct(EffectType _effectType, Vector2 _pos)
+    // エフェクト簡略版
+    public GameObject ActEffect(EffectType _effectType, Vector2 _pos)
     {
-        return EffectAct(_effectType, _pos, 0, 1);
+        // 一秒起動
+        return ActEffect(_effectType, _pos, 0, true);
     }
 
-    public GameObject EffectAct(EffectType _effectType, GameObject _target, float _time)
+    // エフェクト追従版
+    public GameObject ActEffect(EffectType _effectType, GameObject _target)
     {
-        GameObject effect = EffectAct(_effectType, _target.transform.position, 0, _time);
-        StartCoroutine(EffectPositionTrace(effect, _target, _time));
+        GameObject effect = ActEffect(_effectType, _target.transform.position, 0, true);
+        StartCoroutine(EffectPositionTrace(effect, _target));
         return effect;
     }
 
 
     // エフェクトの表示をオフに
-    IEnumerator EffectUpdate(GameObject _effect, float _time)
+    //IEnumerator EffectUpdate(GameObject _effect, float _time, bool _isScaleTime)
+    //{
+    //    float timer = 0;
+
+    //    while (timer < _time)
+    //    {
+
+    //        timer += GameTimer.Instance.ScaledDeltaTime;
+
+    //        // パーティクル再生速度変更
+    //        if (_isScaleTime)
+    //        {
+    //            var main = _effect.GetComponent<ParticleSystem>().main;
+    //            main.simulationSpeed = GameTimer.Instance.customTimeScale;
+    //        }
+
+    //        yield return null;
+    //    }
+
+    //    _effect.SetActive(false);
+    //}
+
+    // エフェクト再生速度を調整するか否か
+    IEnumerator EffectSpeedScaled(GameObject _effect)
     {
-        float timer = 0;
-
-        while (timer < _time)
+        while (_effect.activeSelf)
         {
-            timer += GameTimer.Instance.ScaledDeltaTime;
-
-            // パーティクル再生速度変更
+            //Debug.Log("追跡中！" + timer +" / "+ _effect +"  / "+ _target);
             var main = _effect.GetComponent<ParticleSystem>().main;
             main.simulationSpeed = GameTimer.Instance.customTimeScale;
 
             yield return null;
         }
-
-        _effect.SetActive(false);
     }
 
-    IEnumerator EffectPositionTrace(GameObject _effect, GameObject _target, float _time)
+    // 対象追従
+    IEnumerator EffectPositionTrace(GameObject _effect, GameObject _target)
     {
-        float timer = 0;
-
-        while (timer < _time)
+        while (_effect.activeSelf)
         {
             //Debug.Log("追跡中！" + timer +" / "+ _effect +"  / "+ _target);
             if (_target != null) _effect.transform.position = _target.transform.position;
-            timer += GameTimer.Instance.ScaledDeltaTime;
 
             yield return null;
         }

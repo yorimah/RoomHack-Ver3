@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ToolEvent_Detonation : ToolEvent
 {
+    public override toolTag thisToolTag { get; set; } = toolTag.Detonation;
+
     [SerializeField, Header("爆発までの秒数")]
     private float explosionTimer = 3;
     [SerializeField, Header("爆発半径")]
@@ -78,7 +80,8 @@ public class ToolEvent_Detonation : ToolEvent
                 }
             }
 
-            EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
+            EffectManager.Instance.ActEffect(EffectManager.EffectType.Bomb, this.transform.position, 0, true);
+
 
             EventRemove();
 

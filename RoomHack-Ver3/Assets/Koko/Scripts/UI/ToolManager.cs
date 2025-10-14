@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(DeckSystem))]
-public class ToolUIController : MonoBehaviour
+public class ToolManager : MonoBehaviour
 {
     DeckSystem deckSystem;
 
@@ -283,9 +282,8 @@ public class ToolUIController : MonoBehaviour
                     {
                         SeManager.Instance.Play("toolPlay");
                         toolTag playTool = deckSystem.HandPlay(i, hackObj);
-                        if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool)))
+                        if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool), (int)UnitCore.Instance.nowRam))
                         {
-                            deckSystem.HandTrash(i);
                             trashToolUIList.Add(hand);
                             handToolUIList.RemoveAt(i);
                         }

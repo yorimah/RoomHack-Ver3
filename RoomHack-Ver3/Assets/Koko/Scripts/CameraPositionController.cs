@@ -19,7 +19,7 @@ public class CameraPositionController : MonoBehaviour
     private GameObject insTagetAnimObj;
     private void Start()
     {
-        targetObject = Player.Instance.gameObject;
+        targetObject = UnitCore.Instance.gameObject;
         insTagetAnimObj = Instantiate(tagetAnimObj);
         insTagetAnimObj.SetActive(false);
     }
@@ -28,7 +28,10 @@ public class CameraPositionController : MonoBehaviour
     {
         if (targetObject != null)
         {
-            if (targetObject != Player.Instance.gameObject)
+            this.transform.position = targetObject.transform.position;
+
+            // ロックオン時仮アニメーション再生
+            if (targetObject != UnitCore.Instance.gameObject)
             {
                 insTagetAnimObj.transform.position = targetObject.transform.position;
                 insTagetAnimObj.SetActive(true);
@@ -37,14 +40,26 @@ public class CameraPositionController : MonoBehaviour
             {
                 insTagetAnimObj.SetActive(false);
             }
-            this.transform.position = targetObject.transform.position;
+
+            // debug
+            if (targetObject.TryGetComponent<IHackObject>(out var hackObject))
+            {
+                string hoge = null;
+                foreach (var item in hackObject.nowHackEvent)
+                {
+                    hoge += item.name;
+                    hoge += ", ";
+                }
+                Debug.Log(hoge);
+            }
+            
         }
         else 
         {
             insTagetAnimObj.SetActive(false);
         }
 
-        if (Player.Instance.stateType == Player.StateType.Hack)
+        if (UnitCore.Instance.stateType == UnitCore.StateType.Hack)
         {
             //Debug.Log("仮でタイマーいじってるからな");
             GameTimer.Instance.customTimeScale = 0.1f;
@@ -75,7 +90,7 @@ public class CameraPositionController : MonoBehaviour
                     //}
 
                     if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject)
-                        || hit.collider.gameObject == Player.Instance.gameObject)
+                        || hit.collider.gameObject == UnitCore.Instance.gameObject)
                     {
                         targetObject = hit.collider.gameObject;
                         //hackObj = hit.collider.gameObject;
@@ -113,8 +128,8 @@ public class CameraPositionController : MonoBehaviour
             //Debug.Log("仮でタイマーいじってるからな");
             GameTimer.Instance.customTimeScale = 1f;
 
-            this.transform.position = Player.Instance.gameObject.transform.position;
-            targetObject = Player.Instance.gameObject;
+            this.transform.position = UnitCore.Instance.gameObject.transform.position;
+            targetObject = UnitCore.Instance.gameObject;
         }
     }
 }

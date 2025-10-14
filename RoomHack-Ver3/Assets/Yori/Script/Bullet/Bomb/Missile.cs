@@ -63,7 +63,7 @@ public class Missile : BombCore, IDamageable
 
             if (timer >= explosionTimer)
             {                
-                EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
+                EffectManager.Instance.ActEffect(EffectManager.EffectType.Bomb, this.transform.position, 0, true);
                 isFire = true;
             }
             else
@@ -87,7 +87,7 @@ public class Missile : BombCore, IDamageable
             // 撃ったやつの種類以外に当たって爆発
             if (hitDamegeLayer != damage.hitDamegeLayer)
             {
-                EffectManager.Instance.EffectAct(EffectManager.EffectType.Bomb, this.transform.position, 0, 2);
+                EffectManager.Instance.ActEffect(EffectManager.EffectType.Bomb, this.transform.position, 0, true);
                 SeManager.Instance.Play("Explosion");
                 isFire = true;
             }

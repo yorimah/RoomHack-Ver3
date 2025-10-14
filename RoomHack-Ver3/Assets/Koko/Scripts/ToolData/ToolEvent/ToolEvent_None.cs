@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ToolEvent_None : ToolEvent
 {
+    public override toolTag thisToolTag { get; set; } = toolTag.none;
+
     private void Start()
     {
         ToolAction();
