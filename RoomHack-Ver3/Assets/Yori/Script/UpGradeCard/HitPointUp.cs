@@ -12,7 +12,7 @@ public class HitPointUp : MonoBehaviour, ICardType
     public PlayerSaveData Choiced(PlayerSaveData _data)
     {
         data = _data;
-        data.pulusMaxHitpoint += 10 * cardLevel;
+        data.maxHitPoint += 10 * cardLevel;
         return data;
     }
 }

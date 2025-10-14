@@ -8,7 +8,7 @@ public class MoveSpeedUp : MonoBehaviour, ICardType
     public PlayerSaveData Choiced(PlayerSaveData _data)
     {
         data = _data;
-        data.plusMoveSpeed += 0.5f * cardLevel;
+        data.moveSpeed += 0.5f * cardLevel;
         return data;
     }
 }

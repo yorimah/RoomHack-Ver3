@@ -89,7 +89,7 @@ public class ToolUIController : MonoBehaviour
         trashSign.thisTool = toolTag.none;
         trashSign.isOpen = false;
 
-        UnitCore.Instance.isRebooting = true;
+        Player.Instance.isRebooting = true;
     }
 
     private void Update()
@@ -97,7 +97,7 @@ public class ToolUIController : MonoBehaviour
         deckSign.toMovePosition = nowDeckPos;
         trashSign.toMovePosition = nowTrashPos;
 
-        if (UnitCore.Instance.stateType == UnitCore.StateType.Hack)
+        if (Player.Instance.stateType == Player.StateType.Hack)
         {
             nowDeckPos = hackDeckPos;
             nowTrashPos = hackTrashPos;
@@ -128,7 +128,7 @@ public class ToolUIController : MonoBehaviour
         //}
 
         // reboot関連
-        if (UnitCore.Instance.isRebooting)
+        if (Player.Instance.isRebooting)
         {
             for (int i = 0; i < deckSystem.toolHand.Count; i++)
             {
@@ -244,7 +244,7 @@ public class ToolUIController : MonoBehaviour
             hand.isBlackOut = true;
 
             // ツールコストが足りるかチェック
-            if (deckSystem.ReturnToolCost(hand.thisTool) > UnitCore.Instance.nowRam)
+            if (deckSystem.ReturnToolCost(hand.thisTool) > Player.Instance.nowRam)
             {
                 hand.isBlackOut = true;
                 firstHandPos.y = -100;

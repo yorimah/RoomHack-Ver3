@@ -13,7 +13,7 @@ public class PlayerCheack
         }
         else
         {
-            Vector2 playerPosition = UnitCore.Instance.transform.position;
+            Vector2 playerPosition = Player.Instance.transform.position;
             float playerDistance = Vector2.Distance(transform.position, playerPosition);
             Vector2 playerDirection = (playerPosition - (Vector2)transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, playerDirection, playerDistance, obstacleMask);
@@ -38,8 +38,8 @@ public class PlayerCheack
         {
             return;
         }
-        Vector2 playerPosition = UnitCore.Instance.transform.position;
-        Vector2 playerNextPosition = playerPosition + UnitCore.Instance.GetComponent<Rigidbody2D>().linearVelocity.normalized;
+        Vector2 playerPosition = Player.Instance.transform.position;
+        Vector2 playerNextPosition = playerPosition + Player.Instance.GetComponent<Rigidbody2D>().linearVelocity.normalized;
         Vector2 direction = playerNextPosition - (Vector2)transform.position;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
@@ -49,7 +49,7 @@ public class PlayerCheack
 
     private bool PlayerInsNullCheack()
     {
-        if (UnitCore.Instance == null)
+        if (Player.Instance == null)
         {
             return true;
         }

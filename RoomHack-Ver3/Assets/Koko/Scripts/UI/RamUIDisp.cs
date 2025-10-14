@@ -29,7 +29,7 @@ public class RamUIDisp : MonoBehaviour
 
     private void Start()
     {
-        maxRamCap = (int)UnitCore.Instance.ramCapacity;
+        maxRamCap = (int)Player.Instance.ramCapacity;
         // rmaxRamCapの値だけUI生成
         for (int i = 0; i < maxRamCap; i++)
         {
@@ -43,7 +43,7 @@ public class RamUIDisp : MonoBehaviour
     private void Update()
     {
 
-        nowRamCap = (int)UnitCore.Instance.nowRam;
+        nowRamCap = (int)Player.Instance.nowRam;
 
         for (int i = 0; i < maxRamCap; i++)
         {
@@ -68,7 +68,7 @@ public class RamUIDisp : MonoBehaviour
         {
             // hackモード時に半透明化
             //if (isSkelton)
-            if (UnitCore.Instance.stateType == UnitCore.StateType.Hack)
+            if (Player.Instance.stateType == Player.StateType.Hack)
             {
                 ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }

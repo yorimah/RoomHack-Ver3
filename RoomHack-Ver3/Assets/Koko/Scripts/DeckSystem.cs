@@ -38,7 +38,7 @@ public class DeckSystem : MonoBehaviour
 
     private void Start()
     {
-        setList = IntToDeck(UnitCore.Instance.data.deckList);
+        setList = IntToDeck(Player.Instance.data.deckList);
 
         DeckGenerate();
     }
@@ -192,9 +192,9 @@ public class DeckSystem : MonoBehaviour
 
     public bool RamUse(int num)
     {
-        if (UnitCore.Instance.nowRam >= num)
+        if (Player.Instance.nowRam >= num)
         {
-            UnitCore.Instance.nowRam -= num;
+            Player.Instance.nowRam -= num;
             return true;
         }
         else

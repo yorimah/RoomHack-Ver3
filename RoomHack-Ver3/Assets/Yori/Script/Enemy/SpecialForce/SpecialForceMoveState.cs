@@ -52,7 +52,7 @@ public class SpecialForceMoveState : IState
         }
 
         Vector2 nowPosition = enemy.transform.position;
-        Vector2 center = UnitCore.Instance.transform.position;
+        Vector2 center = Player.Instance.transform.position;
         Vector2 toEnemy = nowPosition - center;
         Vector2 radialDir = toEnemy.normalized;
 

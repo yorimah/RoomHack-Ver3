@@ -2,9 +2,9 @@
 
 public class PlayerMove
 {
-    private UnitCore unitCore;
+    private Player unitCore;
 
-    private MoveInput moveInput;
+    private PlayerInput moveInput;
 
     private Vector2 moveVector;
 
@@ -14,11 +14,11 @@ public class PlayerMove
 
     private Vector3 direction;
 
-    public PlayerMove(UnitCore _unitCore)
+    public PlayerMove(Player _unitCore)
     {
         unitCore = _unitCore;
         playerRigidbody2D = unitCore.GetComponent<Rigidbody2D>();
-        moveInput = unitCore.moveInput;
+        moveInput = unitCore.playerInput;
     }
     public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
     {

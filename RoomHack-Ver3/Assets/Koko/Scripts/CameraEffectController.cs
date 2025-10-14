@@ -12,7 +12,7 @@ public class CameraEffectController : MonoBehaviour
 
     private void Update()
     {
-        if (UnitCore.Instance.stateType == UnitCore.StateType.Hack)
+        if (Player.Instance.stateType == Player.StateType.Hack)
         {
             actionCamera.SetActive(false);
             hackCamera.SetActive(true);

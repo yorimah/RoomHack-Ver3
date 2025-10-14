@@ -10,6 +10,10 @@ public class SaveManager
 
     private string SaveFilePath => SavePathProvider.GetSavePath("player_save.json");
 
+    /// <summary>
+    /// dataをセーブする
+    /// </summary>
+    /// <param name="data"></param>
     public void Save(PlayerSaveData data)
     {
         if (data == null)
@@ -23,6 +27,11 @@ public class SaveManager
         Debug.Log("保存完了：" + SaveFilePath + "\n内容:\n" + json);
     }
 
+    /// <summary>
+    /// セーブデータをロードする
+    /// なかったら新規データ作成。
+    /// </summary>
+    /// <returns></returns>
     public PlayerSaveData Load()
     {
         if (!File.Exists(SaveFilePath))
@@ -38,6 +47,9 @@ public class SaveManager
 
     }
 
+    /// <summary>
+    /// セーブデータ削除
+    /// </summary>
     public void DeleteSave()
     {
         if (File.Exists(SaveFilePath))
@@ -47,18 +59,22 @@ public class SaveManager
         }
     }
 
+    /// <summary>
+    /// セーブデータ初期化
+    /// </summary>
+    /// <returns></returns>
     private PlayerSaveData InitializeSaveData()
     {
         return new PlayerSaveData
         {
             score_Stage = 0,
             score_DestoryEnemy = 0,
-            gun = 0,
-            pulusMaxHitpoint = 0,
-            plusMoveSpeed = 0,
-            plusRamCapacity = 0,
-            plusRamRecovery = 0,
-            plusHand = 0,
+            gunNo = 0,
+            maxHitPoint = 100,
+            moveSpeed = 5,
+            maxRamCapacity = 10,
+            RamRecovery = 5,
+            handNum = 5,
             deckList = new List<int>
             {
                 1,1,1,1,2,2,3,3,4

@@ -1,4 +1,5 @@
-﻿{
+{
+    "version": 1,
     "name": "GameInputs",
     "maps": [
         {
@@ -13,6 +14,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ActionButtom",
+                    "type": "Button",
+                    "id": "0cb84cd4-e329-4e81-adf5-b44e8820c194",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -81,6 +91,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0d5172a0-fca8-46c7-9217-eebc7e309e0e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActionButtom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

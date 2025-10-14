@@ -27,9 +27,9 @@ public class PlayerUITest : MonoBehaviour
 
     private void Start()
     {
-        maxHp = UnitCore.Instance.maxHitPoint;
+        maxHp = Player.Instance.maxHitPoint;
 
-        maxBullet = UnitCore.Instance.MAXBULLET;
+        maxBullet = Player.Instance.maxBullet;
 
     }
 
@@ -39,7 +39,7 @@ public class PlayerUITest : MonoBehaviour
         this.transform.position = player.transform.position;
 
         // 現在HP取得
-        nowHp = UnitCore.Instance.nowHitPoint;
+        nowHp = Player.Instance.nowHitPoint;
 
         // HPバーサイズ変更
         Vector3 hpScale = hpBar.gameObject.transform.localScale;
@@ -47,7 +47,7 @@ public class PlayerUITest : MonoBehaviour
         hpBar.gameObject.transform.localScale = hpScale;
 
         // 現在残弾取得
-        nowBullet = UnitCore.Instance.NOWBULLET;
+        nowBullet = Player.Instance.nowBullet;
 
         // 残弾バーサイズ変更
         Vector3 bulletScale = bulletBar.gameObject.transform.localScale;

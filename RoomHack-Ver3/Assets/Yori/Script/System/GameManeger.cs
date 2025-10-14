@@ -38,7 +38,7 @@ public class GameManeger : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (enemyCount <= 0 && collision.gameObject == UnitCore.Instance.gameObject)
+        if (enemyCount <= 0 && collision.gameObject == Player.Instance.gameObject)
         {
 
             Debug.Log("クリア");

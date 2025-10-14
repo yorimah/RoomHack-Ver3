@@ -43,7 +43,7 @@ public class MoveState : IState
             flipTimer = 0f;
         }
 
-        Vector2 center = UnitCore.Instance.transform.position;
+        Vector2 center = Player.Instance.transform.position;
         Vector2 dir = nowPosition - center;
 
         Vector2 emDir = new Vector2(-dir.y, dir.x);

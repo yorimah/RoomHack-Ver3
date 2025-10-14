@@ -8,7 +8,7 @@ public class RamCapacityUp : MonoBehaviour, ICardType
     public PlayerSaveData Choiced(PlayerSaveData _data)
     {
         data = _data;
-        data.plusRamCapacity += 1 * cardLevel;
+        data.maxRamCapacity += 1 * cardLevel;
         return data;
     }
 }

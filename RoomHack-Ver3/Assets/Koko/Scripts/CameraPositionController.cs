@@ -19,7 +19,7 @@ public class CameraPositionController : MonoBehaviour
     private GameObject insTagetAnimObj;
     private void Start()
     {
-        targetObject = UnitCore.Instance.gameObject;
+        targetObject = Player.Instance.gameObject;
         insTagetAnimObj = Instantiate(tagetAnimObj);
         insTagetAnimObj.SetActive(false);
     }
@@ -28,7 +28,7 @@ public class CameraPositionController : MonoBehaviour
     {
         if (targetObject != null)
         {
-            if (targetObject != UnitCore.Instance.gameObject)
+            if (targetObject != Player.Instance.gameObject)
             {
                 insTagetAnimObj.transform.position = targetObject.transform.position;
                 insTagetAnimObj.SetActive(true);
@@ -44,7 +44,7 @@ public class CameraPositionController : MonoBehaviour
             insTagetAnimObj.SetActive(false);
         }
 
-        if (UnitCore.Instance.stateType == UnitCore.StateType.Hack)
+        if (Player.Instance.stateType == Player.StateType.Hack)
         {
             //Debug.Log("仮でタイマーいじってるからな");
             GameTimer.Instance.customTimeScale = 0.1f;
@@ -75,7 +75,7 @@ public class CameraPositionController : MonoBehaviour
                     //}
 
                     if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject)
-                        || hit.collider.gameObject == UnitCore.Instance.gameObject)
+                        || hit.collider.gameObject == Player.Instance.gameObject)
                     {
                         targetObject = hit.collider.gameObject;
                         //hackObj = hit.collider.gameObject;
@@ -113,8 +113,8 @@ public class CameraPositionController : MonoBehaviour
             //Debug.Log("仮でタイマーいじってるからな");
             GameTimer.Instance.customTimeScale = 1f;
 
-            this.transform.position = UnitCore.Instance.gameObject.transform.position;
-            targetObject = UnitCore.Instance.gameObject;
+            this.transform.position = Player.Instance.gameObject.transform.position;
+            targetObject = Player.Instance.gameObject;
         }
     }
 }

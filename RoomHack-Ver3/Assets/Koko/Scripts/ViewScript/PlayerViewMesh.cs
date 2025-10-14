@@ -35,7 +35,7 @@ public class PlayerViewMesh : MonoBehaviour
         int[] triangles = new int[segment * 3];
 
         // 中心はプレイヤー
-        vertices[0] = UnitCore.Instance.transform.position;
+        vertices[0] = Player.Instance.transform.position;
 
         for (int i = 0; i < segment; i++)
         {
@@ -43,7 +43,7 @@ public class PlayerViewMesh : MonoBehaviour
             float rad = angle * Mathf.Deg2Rad;
             Vector3 dir = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0);
 
-            RaycastHit2D hit = Physics2D.Raycast(UnitCore.Instance.transform.position, dir, viewRadial, targetLm);
+            RaycastHit2D hit = Physics2D.Raycast(Player.Instance.transform.position, dir, viewRadial, targetLm);
             if (hit.collider != null)
             {
                 // 障害物に当たったらその地点を頂点にする
@@ -52,7 +52,7 @@ public class PlayerViewMesh : MonoBehaviour
             else
             {
                 // 何もなければ円周上の点
-                vertices[i + 1] = UnitCore.Instance.transform.position + dir * viewRadial;
+                vertices[i + 1] = Player.Instance.transform.position + dir * viewRadial;
             }
             // 三角形の設定
             if (i < segment - 1)

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MoveInput
+public class PlayerInput
 {
     private GameInputs _gameInputs;
 

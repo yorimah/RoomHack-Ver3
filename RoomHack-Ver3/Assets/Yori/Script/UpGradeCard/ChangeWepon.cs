@@ -10,7 +10,7 @@ public class ChangeWepon : MonoBehaviour, ICardType
     public PlayerSaveData Choiced(PlayerSaveData _data)
     {
         data = _data;
-        data.gun = (int)gunNo;
+        data.gunNo = (int)gunNo;
         return data;
     }
 }

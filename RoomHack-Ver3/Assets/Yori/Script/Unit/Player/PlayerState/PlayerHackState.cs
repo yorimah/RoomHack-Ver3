@@ -2,8 +2,8 @@
 
 public class PlayerHackState : IState
 {
-    private UnitCore unitCore;
-    public PlayerHackState(UnitCore _unitCore)
+    private Player unitCore;
+    public PlayerHackState(Player _unitCore)
     {
         unitCore = _unitCore;
     }
@@ -17,8 +17,8 @@ public class PlayerHackState : IState
         {
             SeManager.Instance.StopImmediately("HackStart");
             SeManager.Instance.Play("HackExit");
-            UnitCore.Instance.isRebooting = true;
-            unitCore.ChangeState(UnitCore.StateType.Action);
+            Player.Instance.isRebooting = true;
+            unitCore.ChangeState(Player.StateType.Action);
         }
     }
 

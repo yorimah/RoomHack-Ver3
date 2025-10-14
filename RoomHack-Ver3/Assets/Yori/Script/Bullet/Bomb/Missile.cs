@@ -109,7 +109,7 @@ public class Missile : BombCore, IDamageable
             boost = 1;
         }
         // ターゲット方向
-        Vector2 toTarget = ((Vector2)UnitCore.Instance.transform.position - rb.position).normalized;
+        Vector2 toTarget = ((Vector2)Player.Instance.transform.position - rb.position).normalized;
 
         // 現在の速度方向（正規化）
         Vector2 currentDir = rb.linearVelocity.normalized;

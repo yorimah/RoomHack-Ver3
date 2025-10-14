@@ -2,14 +2,14 @@
 
 public class PlayerActionState : IState
 {
-    private UnitCore unitCore;
+    private Player player;
     private PlayerMove playerMove;
     private PlayerShot playerShot;
-    public PlayerActionState(UnitCore _unitCore)
+    public PlayerActionState(Player _player)
     {
-        unitCore = _unitCore;
-        playerMove = new PlayerMove(unitCore);
-        playerShot = new PlayerShot(unitCore);
+        player = _player;
+        playerMove = new PlayerMove(player);
+        playerShot = new PlayerShot(player);
     }
     public void Enter()
     {
@@ -19,11 +19,11 @@ public class PlayerActionState : IState
     {
         playerMove.PlMove();
         playerShot.Shot();
-        if (Input.GetKeyDown(KeyCode.Space) && !UnitCore.Instance.isRebooting)
+        if (Input.GetKeyDown(KeyCode.Space) && !Player.Instance.isRebooting)
         {
             SeManager.Instance.StopImmediately("HackExit");
             SeManager.Instance.Play("HackStart");
-            unitCore.ChangeState(UnitCore.StateType.Hack);
+            player.ChangeState(Player.StateType.Hack);
         }
     }
 

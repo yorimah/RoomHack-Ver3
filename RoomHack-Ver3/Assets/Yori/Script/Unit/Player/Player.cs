@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-#if UNITY_EDITOR
-#endif
-using UnityEngine.SceneManagement;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum GunNo
 {
@@ -11,15 +9,17 @@ public enum GunNo
     SniperRifle,
     SubMachineGun
 }
-public class UnitCore : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour, IDamageable
 {
     public float maxHitPoint { get; set; }
     public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 1;
 
-    public static UnitCore Instance { get; private set; }
-    public int MAXBULLET { get; private set; }
-    public int NOWBULLET { get; set; }
+    public static Player Instance { get; private set; }
+
+    public int maxBullet;
+    public int nowBullet;
+
     public PlayerSaveData data { get; private set; }
 
     // ハックデータ
@@ -27,14 +27,7 @@ public class UnitCore : MonoBehaviour, IDamageable
     public float nowRam;
     public float ramRecovary;
 
-    // プレイヤー初期値
-    [SerializeField, Header("プレイヤー基礎スピード")]
-    private float moveBasicSpeed = 5;
-    private int initMaxHp = 100;
-    private int initRamCapacity = 10;
-    private int initRamRecovary = 1;
-
-    public MoveInput moveInput;
+    public PlayerInput playerInput;
     // ガンデータ
     [SerializeField, Header("銃")]
     private List<GunData> gundata = new List<GunData>();
@@ -71,7 +64,6 @@ public class UnitCore : MonoBehaviour, IDamageable
     {
         Action,
         Hack,
-        Die,
         num
     }
 
@@ -82,8 +74,9 @@ public class UnitCore : MonoBehaviour, IDamageable
     [SerializeField]
     public Material shotRanageMaterial;
 
+    public event Action OnDead;
 
-
+    public event Action isShot;
 
     void Update()
     {
@@ -91,8 +84,8 @@ public class UnitCore : MonoBehaviour, IDamageable
 
         RamUpdate();
 
+        // タイムスケールに応じて速度を落とす。
         rb.linearVelocity = rb.linearVelocity * GameTimer.Instance.customTimeScale;
-
     }
 
     public void ChangeState(StateType type)
@@ -105,20 +98,10 @@ public class UnitCore : MonoBehaviour, IDamageable
     }
     void Awake()
     {
-        data = SaveManager.Instance.Load();
-
-        maxHitPoint = initMaxHp + data.pulusMaxHitpoint;
-        nowHitPoint = maxHitPoint;
+        PlayerDataInit();
 
         GunDataInit();
 
-        ramCapacity = initRamCapacity + data.plusRamCapacity;
-        nowRam = ramCapacity;
-        ramRecovary = initRamRecovary + data.plusRamRecovery;
-
-        moveInput = new MoveInput();
-        moveInput.Init();
-        moveSpeed = moveBasicSpeed + data.plusMoveSpeed;
         // Singletonチェック
         if (Instance != null && Instance != this)
         {
@@ -132,8 +115,6 @@ public class UnitCore : MonoBehaviour, IDamageable
     {
         { StateType.Action, new PlayerActionState(this) },
         { StateType.Hack, new PlayerHackState(this) },
-
-        //{ StateType.Die, new DieState(this) },
     };
         stateType = StateType.Action;
         currentState = states[stateType];
@@ -141,9 +122,25 @@ public class UnitCore : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void PlayerDataInit()
+    {
+        data = SaveManager.Instance.Load();
+
+        maxHitPoint = data.maxHitPoint;
+        nowHitPoint = maxHitPoint;
+
+        ramCapacity = data.maxRamCapacity;
+        nowRam = ramCapacity;
+        ramRecovary = data.RamRecovery;
+
+        playerInput = new PlayerInput();
+        playerInput.Init();
+        moveSpeed = data.moveSpeed;
+
+    }
     private void GunDataInit()
     {
-        gunNo = 0;
+        gunNo = (GunNo)data.gunNo;
         if (!gundata[(int)gunNo])
         {
             Debug.LogError("そのような獲物はございません");
@@ -152,8 +149,8 @@ public class UnitCore : MonoBehaviour, IDamageable
         {
             shotRate = gundata[(int)gunNo].rate;
             shotIntervalTime = 1f / shotRate;
-            MAXBULLET = gundata[(int)gunNo].MAXMAGAZINE;
-            NOWBULLET = MAXBULLET;
+            maxBullet = gundata[(int)gunNo].MAXMAGAZINE;
+            nowBullet = maxBullet;
             bulletSpeed = gundata[(int)gunNo].bulletSpeed;
             stoppingPower = gundata[(int)gunNo].power;
             reloadTime = gundata[(int)gunNo].reloadTime;
@@ -162,10 +159,8 @@ public class UnitCore : MonoBehaviour, IDamageable
     }
     public void Die()
     {
-        SeManager.Instance.StopImmediately();
-        SceneManager.LoadScene("GameOverDemoScene");
+        OnDead();
     }
-
 
     // Ram回復系 by koko
     // Update呼び出し
