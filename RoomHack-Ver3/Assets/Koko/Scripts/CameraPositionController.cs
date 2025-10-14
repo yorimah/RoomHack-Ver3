@@ -28,6 +28,9 @@ public class CameraPositionController : MonoBehaviour
     {
         if (targetObject != null)
         {
+            this.transform.position = targetObject.transform.position;
+
+            // ロックオン時仮アニメーション再生
             if (targetObject != UnitCore.Instance.gameObject)
             {
                 insTagetAnimObj.transform.position = targetObject.transform.position;
@@ -37,7 +40,19 @@ public class CameraPositionController : MonoBehaviour
             {
                 insTagetAnimObj.SetActive(false);
             }
-            this.transform.position = targetObject.transform.position;
+
+            // debug
+            if (targetObject.TryGetComponent<IHackObject>(out var hackObject))
+            {
+                string hoge = null;
+                foreach (var item in hackObject.nowHackEvent)
+                {
+                    hoge += item.name;
+                    hoge += ", ";
+                }
+                Debug.Log(hoge);
+            }
+            
         }
         else 
         {

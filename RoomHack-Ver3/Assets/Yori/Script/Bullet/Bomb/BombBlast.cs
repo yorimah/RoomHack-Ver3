@@ -6,7 +6,7 @@ public class BombBlast : MonoBehaviour
     public float explosionRadial;
     [SerializeField, Header("爆発威力")]
     public int explosionPower;
-    public int HitDamegeLayer { get; set; } = 4;
+    public int hitDamegeLayer { get; set; } = 4;
     private CircleCollider2D circleCollider2D;
 
     public bool isExplosion = false;
@@ -23,7 +23,7 @@ public class BombBlast : MonoBehaviour
             // IDamegebableが与えられるか調べる。与えられるならdmglayerを調べて当たるか判断
             if (collision.gameObject.TryGetComponent<IDamageable>(out var damage))
             {
-                if (HitDamegeLayer != damage.HitDamegeLayer)
+                if (hitDamegeLayer != damage.hitDamegeLayer)
                 {
                     RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position - transform.position);
                     ///Debug.DrawRay(transform.position, collision.transform.position - transform.position);

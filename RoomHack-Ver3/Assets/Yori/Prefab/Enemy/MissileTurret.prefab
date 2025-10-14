@@ -292,10 +292,8 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 128
-  hackdata: {fileID: 0}
-  MaxHP: 120
   aimTime: 0.5
-  gundata: {fileID: 11400000, guid: cd3053c612e76fc4b851e0bdec18cd69, type: 2}
+  gunData: {fileID: 11400000, guid: cd3053c612e76fc4b851e0bdec18cd69, type: 2}
   MAXBULLET: 0
   NOWBULLET: 0
   shotRate: 0
@@ -307,6 +305,7 @@ MonoBehaviour:
   bulletObject: {fileID: 7934828133250085043, guid: bae09c21d94cdc5408ea9036ef8103e1, type: 3}
   died: 0
   shotIntervalTime: 5
+  diffusionRate: 0
 --- !u!1 &2350499502706115474
 GameObject:
   m_ObjectHideFlags: 0

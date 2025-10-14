@@ -1,20 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class ToolEvent : MonoBehaviour
 {
+    [HideInInspector]
+    public abstract toolTag thisToolTag { get; set; }
+
     public GameObject hackTargetObject;
+    public bool isEventAct = false;
 
     public virtual void EventAdd()
     {
-        //hackTargetObject.GetComponent<IHackObject>().nowHackEvent.Add(this);
+        hackTargetObject.GetComponent<IHackObject>().nowHackEvent.Add(this);
     }
 
     public virtual void EventRemove()
     {
-        //hackTargetObject.GetComponent<IHackObject>().nowHackEvent.Remove(this);
-        Destroy(this.gameObject);
+        hackTargetObject.GetComponent<IHackObject>().nowHackEvent.Remove(this);
     }
 
     public virtual void Tracking()

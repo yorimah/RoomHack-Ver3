@@ -1,8 +1,8 @@
 {
-  "score_Stage": 2,
-  "score_DestoryEnemy": 3,
+  "score_Stage": 3,
+  "score_DestoryEnemy": 31,
   "gun": 0,
-  "pulusMaxHitpoint": 10.0,
+  "pulusMaxHitpoint": 20.0,
   "plusMoveSpeed": 0.0,
   "plusRamCapacity": 0.0,
   "plusRamRecovery": 0.0,
@@ -17,6 +17,6 @@
     3,
     3,
     4,
-    3
+    4
   ]
 }
