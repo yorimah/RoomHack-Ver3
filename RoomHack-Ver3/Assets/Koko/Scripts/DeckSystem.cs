@@ -39,7 +39,7 @@ public class DeckSystem : MonoBehaviour
 
     private void Start()
     {
-        setList = IntToDeck(UnitCore.Instance.data.deckList);
+        setList = IntToDeck(Player.Instance.data.deckList);
 
         DeckGenerate();
     }

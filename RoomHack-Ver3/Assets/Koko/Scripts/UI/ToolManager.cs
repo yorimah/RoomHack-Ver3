@@ -282,7 +282,7 @@ public class ToolManager : MonoBehaviour
                     {
                         SeManager.Instance.Play("toolPlay");
                         toolTag playTool = deckSystem.HandPlay(i, hackObj);
-                        if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool), (int)UnitCore.Instance.nowRam))
+                        if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool), (int)Player.Instance.nowRam))
                         {
                             trashToolUIList.Add(hand);
                             handToolUIList.RemoveAt(i);

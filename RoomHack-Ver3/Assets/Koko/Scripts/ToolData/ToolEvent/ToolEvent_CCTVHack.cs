@@ -89,7 +89,7 @@ public class ToolEvent_CCTVHack : ToolEvent
                 else
                 {
                     // 何もなければ円周上の点
-                    vertices[i + 1] = UnitCore.Instance.transform.position + dir * viewDistance;
+                    vertices[i + 1] = Player.Instance.transform.position + dir * viewDistance;
                 }
 
 
