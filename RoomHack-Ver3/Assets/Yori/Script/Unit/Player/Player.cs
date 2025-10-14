@@ -74,7 +74,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField]
     public Material shotRanageMaterial;
 
-    public event Action OnDead;
+    public event Action OnDead = delegate { };
 
     public event Action isShot;
 

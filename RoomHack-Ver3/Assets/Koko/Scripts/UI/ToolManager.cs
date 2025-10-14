@@ -266,7 +266,7 @@ public class ToolManager : MonoBehaviour
                 }
 
                 // 手を重ねると情報出る、位置とサイズ移動
-                if (hand.isPointerOn == true /* && !Input.GetMouseButton(0) */)
+                if (hand.isPointerOn == true)
                 {
 
                     firstHandPos.y = 100;
@@ -280,17 +280,24 @@ public class ToolManager : MonoBehaviour
                     // クリックするとカードプレイ
                     if (Input.GetMouseButtonDown(0) && hackObj != null)
                     {
+                        Player.Instance.nowRam -= deckSystem.ReturnToolCost(hand.thisTool);
+
                         SeManager.Instance.Play("toolPlay");
                         toolTag playTool = deckSystem.HandPlay(i, hackObj);
-                        if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool), (int)Player.Instance.nowRam))
-                        {
-                            trashToolUIList.Add(hand);
-                            handToolUIList.RemoveAt(i);
-                        }
-                        else
-                        {
-                            Debug.LogError("おい！プレイできんかったぞ！");
-                        }
+
+                        trashToolUIList.Add(hand);
+                        handToolUIList.RemoveAt(i);
+
+
+                        //if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool), (int)Player.Instance.nowRam))
+                        //{
+                        //    trashToolUIList.Add(hand);
+                        //    handToolUIList.RemoveAt(i);
+                        //}
+                        //else
+                        //{
+                        //    Debug.LogError("おい！プレイできんかったぞ！");
+                        //}
                     }
                 }
                 //else
