@@ -30,7 +30,7 @@ public class ToolEvent_Bind : ToolEvent
 
             // 終了設定
             timer -= GameTimer.Instance.ScaledDeltaTime;
-            if (timer <= 0)
+            if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
             {
                 targetData.moveSpeed = startSpeed;
                 EventRemove();

@@ -30,7 +30,7 @@ public class ToolEvent_Blind : ToolEvent
 
             // 終了設定
             timer -= GameTimer.Instance.ScaledDeltaTime;
-            if (timer <= 0)
+            if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
             {
                 targetData.shotIntervalTime = startInterval;
                 EventRemove();
