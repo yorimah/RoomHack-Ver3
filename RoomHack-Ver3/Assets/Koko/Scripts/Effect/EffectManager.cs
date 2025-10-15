@@ -26,6 +26,7 @@ public class EffectManager : MonoBehaviour
         Fire,
         Bomb,
         Success,
+        MissileFire,
     }
 
     // エフェクトを登録
@@ -37,10 +38,16 @@ public class EffectManager : MonoBehaviour
 
     // 各エフェクト毎にList管理
     [SerializeField]
-    List<GameObject>[] poolList = new List<GameObject>[6]
-    { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>(),};
-
+    List<List<GameObject>> poolList = new List<List<GameObject>>();
     GameObject useableEffect;
+
+    private void Start()
+    {
+        foreach (var item in EffectPrefab)
+        {
+            poolList.Add(new List<GameObject>());
+        }
+    }
 
     // エフェクト起動
     public GameObject ActEffect(EffectType _effectType, Vector2 _pos, float _rot, bool _isScaleTime)
@@ -87,8 +94,15 @@ public class EffectManager : MonoBehaviour
     // エフェクト簡略版
     public GameObject ActEffect(EffectType _effectType, Vector2 _pos)
     {
-        // 一秒起動
         return ActEffect(_effectType, _pos, 0, true);
+    }
+
+    // エフェクト制限時間版
+    public GameObject ActEffect(EffectType _effectType, Vector2 _pos, float _rot, bool _isScaleTime, float _lifeTime)
+    {
+        GameObject effect = ActEffect(_effectType, _pos, _rot, _isScaleTime);
+        StartCoroutine(EffectLifeTime(effect, _lifeTime));
+        return effect;
     }
 
     // エフェクト追従版
@@ -134,6 +148,13 @@ public class EffectManager : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    // エフェクト制限時間
+    IEnumerator EffectLifeTime(GameObject _effect, float _lifeTime)
+    {
+        yield return new WaitForSeconds(_lifeTime);
+        _effect.SetActive(false);
     }
 
     // 対象追従

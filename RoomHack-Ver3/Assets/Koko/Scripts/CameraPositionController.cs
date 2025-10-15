@@ -65,17 +65,17 @@ public class CameraPositionController : MonoBehaviour
         if (Player.Instance.stateType == Player.StateType.Hack)
         {
             // ハックスタート時
-            if (!isStart)
-            {
-                // タゲ取得
-                if (GetMousePositionObject() != null)
-                {
-                    targetObject = GetMousePositionObject();
-                }
+            //if (!isStart)
+            //{
+            //    // タゲ取得
+            //    if (GetMousePositionObject() != null)
+            //    {
+            //        targetObject = GetMousePositionObject();
+            //    }
 
-                isStart = true;
+            //    isStart = true;
 
-            }
+            //}
 
 
             if (Input.GetMouseButtonDown(0))

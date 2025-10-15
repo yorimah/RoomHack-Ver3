@@ -34,6 +34,9 @@ public class Missile : BombCore, IDamageable
     [SerializeField, Header("最初の減速")]
     private float deceleration;
 
+    // エフェクト用
+    GameObject effect;
+
     public void Start()
     {
         spriteRen = GetComponent<SpriteRenderer>();
@@ -43,6 +46,9 @@ public class Missile : BombCore, IDamageable
         timer = 0;
         nowHitPoint = maxHitPoint;
         SeManager.Instance.Play("MissleMove");
+
+        // missileエフェクト用
+        effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.MissileFire, this.gameObject);
     }
 
     private void Update()
@@ -126,6 +132,7 @@ public class Missile : BombCore, IDamageable
     }
     public void Die()
     {
+        effect.SetActive(false);
         Destroy(gameObject);
         Destroy(meshObject, 0.5f);
     }
