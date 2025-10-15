@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class DroneMoveState : IState
 {
@@ -26,8 +27,9 @@ public class DroneMoveState : IState
         SeManager.Instance.Play("Drone");
     }
 
-    public void Execute()
+    public async UniTask Execute()
     {
+        await UniTask.Yield();
         playerCheack.RotationFoward(enemy.transform);
         // レイを飛ばして射線が通たらショットに遷移
         if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))

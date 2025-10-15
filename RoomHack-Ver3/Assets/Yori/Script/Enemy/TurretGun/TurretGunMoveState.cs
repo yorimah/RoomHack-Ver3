@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Cysharp.Threading.Tasks;
 public class TurretGunMoveState : IState
 {
     private Enemy enemy;
@@ -22,8 +22,9 @@ public class TurretGunMoveState : IState
 
     }
 
-    public void Execute()
+    public async UniTask Execute()
     {
+        await UniTask.Yield();
         if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
         {
             enemy.ChangeState(StateType.Shot);

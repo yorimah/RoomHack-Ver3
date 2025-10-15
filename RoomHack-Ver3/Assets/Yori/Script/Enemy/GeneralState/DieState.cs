@@ -1,4 +1,5 @@
-﻿public class DieState : IState
+﻿using Cysharp.Threading.Tasks;
+public class DieState : IState
 {
     private Enemy enemy;
     PlayerSaveData data;
@@ -12,8 +13,9 @@
         enemy.gameObject.SetActive(false);
     }
 
-    public void Execute()
+    public async UniTask Execute()
     {
+        await UniTask.Yield();
     }
 
     public void Exit()

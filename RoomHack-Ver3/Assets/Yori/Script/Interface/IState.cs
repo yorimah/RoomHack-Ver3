@@ -1,6 +1,8 @@
-﻿public interface IState
+﻿using Cysharp.Threading.Tasks;
+
+public interface IState
 {
     void Enter();
-    void Execute();
+    UniTask  Execute();
     void Exit();
 }

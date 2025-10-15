@@ -1,0 +1,21 @@
+{
+  "score_Stage": 0,
+  "score_DestoryEnemy": 1,
+  "gunNo": 0,
+  "maxHitPoint": 100.0,
+  "moveSpeed": 5.0,
+  "maxRamCapacity": 10.0,
+  "RamRecovery": 5.0,
+  "handNum": 5,
+  "deckList": [
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    3,
+    3,
+    4
+  ]
+}

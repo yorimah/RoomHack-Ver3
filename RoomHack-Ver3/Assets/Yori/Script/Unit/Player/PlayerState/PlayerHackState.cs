@@ -1,25 +1,26 @@
 ﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class PlayerHackState : IState
 {
-    private Player unitCore;
-    public PlayerHackState(Player _unitCore)
+    private GameObject playerObject;
+    public PlayerHackState(GameObject _playerObject)
     {
-        unitCore = _unitCore;
+        playerObject = _playerObject;
     }
     public void Enter()
     {
 
     }
-    public void Execute()
+    public async UniTask Execute()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SeManager.Instance.StopImmediately("HackStart");
             SeManager.Instance.Play("HackExit");
             Player.Instance.isRebooting = true;
-            unitCore.ChangeState(Player.StateType.Action);
         }
+        await UniTask.Yield();
     }
 
     public void Exit()

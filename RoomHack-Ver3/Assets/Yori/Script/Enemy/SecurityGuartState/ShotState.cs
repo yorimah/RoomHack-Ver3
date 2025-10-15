@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class ShotState : IState
 {
@@ -41,7 +42,7 @@ public class ShotState : IState
         timer = 0;
     }
 
-    public void Execute()
+    public async UniTask Execute()
     {
         // プレイヤー方向に向く
         playerCheack.RotationFoward(enemy.transform);
@@ -119,6 +120,7 @@ public class ShotState : IState
             default:
                 break;
         }
+        await UniTask.Yield();
     }
 
     public void Exit()

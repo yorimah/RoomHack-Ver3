@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Cysharp.Threading.Tasks;
 public class TurretGunShotState : IState
 {
     private Enemy enemy;
@@ -40,8 +40,9 @@ public class TurretGunShotState : IState
         timer = 0;
     }
 
-    public void Execute()
+    public async UniTask Execute()
     {
+        await UniTask.Yield();
         //プレイヤー方向に向く
         playerCheack.RotationFoward(enemy.transform);
         //発射レートを設定しその後、発射秒数を決定する。

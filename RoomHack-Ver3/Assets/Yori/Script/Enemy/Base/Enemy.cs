@@ -112,14 +112,14 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     public void GunDataInit()
     {
-        shotRate = gunData.rate;
-        MAXBULLET = gunData.MAXMAGAZINE;
+        shotRate = gunData.Rate;
+        MAXBULLET = gunData.MaxBullet;
         NOWBULLET = MAXBULLET;
-        bulletSpeed = gunData.bulletSpeed;
-        stoppingPower = gunData.power;
+        bulletSpeed = gunData.BulletSpeed;
+        stoppingPower = gunData.Power;
         shotIntervalTime = 1f / shotRate;
         moveSpeed += gunData.Maneuverability;
-        recoil = gunData.recoil;
+        recoil = gunData.Recoil;
     }
 
 #if UNITY_EDITOR

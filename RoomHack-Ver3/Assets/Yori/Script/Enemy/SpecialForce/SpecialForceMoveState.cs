@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class SpecialForceMoveState : IState
 {
@@ -25,7 +26,7 @@ public class SpecialForceMoveState : IState
         flipTimer = 0f;
     }
 
-    public void Execute()
+    public async UniTask Execute()
     {
         if (enemy.NOWBULLET > 0)
         {
@@ -81,6 +82,7 @@ public class SpecialForceMoveState : IState
         enemyRididBody.linearVelocity = moveDir.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
 
         enemy.transform.rotation = MoveForwadRotation(nowPosition + moveDir);
+        await UniTask.Yield();
     }
 
     public void Exit()

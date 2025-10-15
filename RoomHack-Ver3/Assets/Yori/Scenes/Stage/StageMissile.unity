@@ -422,10 +422,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecurtyGuard (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2257561868696895793, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.14
@@ -595,10 +591,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda89c05376ded346892b71fee4b4345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxBullet: 0
+  nowBullet: 0
   ramCapacity: 0
   nowRam: 0
   ramRecovary: 0
-  moveBasicSpeed: 5
   gundata:
   - {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
   - {fileID: 11400000, guid: 19d80b9e332ea9c4081425aec2446032, type: 2}
@@ -883,10 +880,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecurtyGuard
       objectReference: {fileID: 0}
-    - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2257561868696895793, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.81
@@ -927,10 +920,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2610328758265017640, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: gunData
-      value: 
-      objectReference: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1484,10 +1473,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpecialForce
       objectReference: {fileID: 0}
-    - target: {fileID: 1433607548650627288, guid: fb6a080370a46da4f83b499a7684486a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1729965025064975044, guid: fb6a080370a46da4f83b499a7684486a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -19.69
@@ -1555,10 +1540,6 @@ PrefabInstance:
     - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_Name
       value: SecurtyGuard (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2257561868696895793, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5428,10 +5409,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecurtyGuard (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2257561868696895793, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.84
@@ -6090,54 +6067,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CCTV
       objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.025000095
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.006000042
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.92387956
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.38268343
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.006
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.92387956
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.38268343
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 45
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6285,10 +6214,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8142080242801608272, guid: eff9a010365ca5844af32137f76afadb, type: 3}
-      propertyPath: gunData
-      value: 
-      objectReference: {fileID: 11400000, guid: cd3053c612e76fc4b851e0bdec18cd69, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

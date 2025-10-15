@@ -1,30 +1,26 @@
-﻿using UnityEngine;
-
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 public class PlayerActionState : IState
 {
-    private Player player;
     private PlayerMove playerMove;
     private PlayerShot playerShot;
-    public PlayerActionState(Player _player)
+
+    private PlayerInput playerInput;
+    public PlayerActionState(Rigidbody2D playerRigidBody, GunData gunData, Material material, GameObject bulletPre, float moveSpeed, PlayerInput _playerInput,GameObject player)
     {
-        player = _player;
-        playerMove = new PlayerMove(player);
-        playerShot = new PlayerShot(player);
+        playerMove = new PlayerMove(playerRigidBody, moveSpeed);
+        playerShot = new PlayerShot(gunData, material, bulletPre, player);
+        playerInput = _playerInput;
     }
     public void Enter()
     {
-
+        Debug.Log("アクションState起動!");
     }
-    public void Execute()
+    public async UniTask Execute()
     {
-        playerMove.PlMove();
+        await UniTask.Yield();
+        playerMove.playerMove(playerInput.MoveValue());
         playerShot.Shot();
-        if (Input.GetKeyDown(KeyCode.Space) && !Player.Instance.isRebooting)
-        {
-            SeManager.Instance.StopImmediately("HackExit");
-            SeManager.Instance.Play("HackStart");
-            player.ChangeState(Player.StateType.Hack);
-        }
     }
 
     public void Exit()
