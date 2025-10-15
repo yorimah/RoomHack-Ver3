@@ -13,7 +13,17 @@ public class PlayerHackState : IState
     }
     public void Execute()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    SeManager.Instance.StopImmediately("HackStart");
+        //    SeManager.Instance.Play("HackExit");
+        //    Player.Instance.isRebooting = true;
+        //    unitCore.ChangeState(Player.StateType.Action);
+        //}
+
+        GameTimer.Instance.SetTimeScale(0.1f);
+
+        if (!Input.GetMouseButton(1))
         {
             SeManager.Instance.StopImmediately("HackStart");
             SeManager.Instance.Play("HackExit");

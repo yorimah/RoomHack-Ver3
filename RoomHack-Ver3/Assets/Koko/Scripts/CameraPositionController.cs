@@ -11,6 +11,8 @@ public class CameraPositionController : MonoBehaviour
     Vector3 mouseStartPos;
     Vector3 cameraStartPos;
 
+    bool isStart = false;
+
     [SerializeField]
     LayerMask viewLayer;
     [SerializeField, Header("animationobj")]
@@ -20,6 +22,7 @@ public class CameraPositionController : MonoBehaviour
     private void Start()
     {
         targetObject = Player.Instance.gameObject;
+
         insTagetAnimObj = Instantiate(tagetAnimObj);
         insTagetAnimObj.SetActive(false);
     }
@@ -61,50 +64,35 @@ public class CameraPositionController : MonoBehaviour
 
         if (Player.Instance.stateType == Player.StateType.Hack)
         {
-            //Debug.Log("仮でタイマーいじってるからな");
-            GameTimer.Instance.customTimeScale = 0.1f;
+            // ハックスタート時
+            if (!isStart)
+            {
+                // タゲ取得
+                if (GetMousePositionObject() != null)
+                {
+                    targetObject = GetMousePositionObject();
+                }
 
-            //Debug.Log("はっくなう");
+                isStart = true;
+
+            }
+
 
             if (Input.GetMouseButtonDown(0))
             {
-                //Debug.Log("くりくなう");
-
-                //// タゲリセット
-                //targetObject = null;
-
-                // レイ射出、四角
-                RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
-
-                //bool isView = false;
-                //GameObject hackObj = new GameObject();
-
-                foreach (RaycastHit2D hit in hitsss)
+                // タゲ取得
+                if (GetMousePositionObject() != null)
                 {
-                    //Debug.Log(hit.collider.gameObject.name);
-                    // クリック付近にハックオブジェがある場合ターゲット
-
-                    //if (hit.collider.gameObject.layer == viewLayer)
-                    //{
-                    //    isView = true;
-                    //}
-
-                    if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject)
-                        || hit.collider.gameObject == Player.Instance.gameObject)
-                    {
-                        targetObject = hit.collider.gameObject;
-                        //hackObj = hit.collider.gameObject;
-                    }
+                    targetObject = GetMousePositionObject();
                 }
 
-                //if (isView) targetObject = hackObj;
-
+                // マウスドラッグ初期設定
                 mouseStartPos = Input.mousePosition;
                 cameraStartPos = this.transform.position;
 
-                //this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             }
 
+            // カメラドラッグ
             if (Input.GetMouseButton(0))
             {
                 Vector3 mouseVec = Input.mousePosition - mouseStartPos;
@@ -121,15 +109,33 @@ public class CameraPositionController : MonoBehaviour
                     this.transform.position = cameraStartPos - mouseVec / 100;
                 }
             }
+
         }
         else
         {
-
-            //Debug.Log("仮でタイマーいじってるからな");
-            GameTimer.Instance.customTimeScale = 1f;
-
             this.transform.position = Player.Instance.gameObject.transform.position;
             targetObject = Player.Instance.gameObject;
+
+            isStart = false;
         }
+    }
+
+    GameObject GetMousePositionObject()
+    {
+        GameObject obj = null;
+
+        // レイ射出、四角
+        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
+
+        foreach (RaycastHit2D hit in hitsss)
+        {
+            if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject)
+                || hit.collider.gameObject == Player.Instance.gameObject)
+            {
+                obj = hit.collider.gameObject;
+            }
+        }
+
+        return obj;
     }
 }
