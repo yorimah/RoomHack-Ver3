@@ -19,5 +19,6 @@ public class SecurityGuard : Enemy
         currentState = states[statetype];
 
         canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Bind, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };
+        nowHackEvent = new List<ToolEvent>();
     }
 }

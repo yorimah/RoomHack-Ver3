@@ -17,12 +17,8 @@ public enum StateType
 public class Enemy : MonoBehaviour, IDamageable, IHackObject
 {
     // ハック関連
-    public List<toolTag> canHackToolTag { get; set; }
-    public List<ToolEvent> nowHackEvent { get; set; }
-
-
-    [SerializeField]
-    List<ToolEvent> _event;
+    public List<toolTag> canHackToolTag { get; set; } = new List<toolTag>();
+    public List<ToolEvent> nowHackEvent { get; set; } = new List<ToolEvent>();
 
     // ダメージ関連
     public float maxHitPoint { get; private set; } = 5;
@@ -85,8 +81,6 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     void Update()
     {
         currentState?.Execute();
-
-        _event = nowHackEvent;
 
         diffusionRate = Mathf.Clamp(diffusionRate, minDiffusionRate, maxDiffusionRate);
         diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;

@@ -9,10 +9,9 @@ public enum GunNo
     SniperRifle,
     SubMachineGun
 }
-
 public class Player : MonoBehaviour, IDamageable
 {
-    public float maxHitPoint { get; private set; }
+    public float maxHitPoint { get; set; }
     public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 1;
 
@@ -61,8 +60,6 @@ public class Player : MonoBehaviour, IDamageable
     private Rigidbody2D rb;
 
     private GunNo gunNo;
-
-    PlayerData playerData;
     public enum StateType
     {
         Action,
@@ -78,6 +75,8 @@ public class Player : MonoBehaviour, IDamageable
     public Material shotRanageMaterial;
 
     public event Action OnDead = delegate { };
+
+    public event Action isShot;
 
     void Update()
     {
@@ -97,33 +96,31 @@ public class Player : MonoBehaviour, IDamageable
 
         stateType = type;
     }
-    //void Awake()
-    //{
-    //    PlayerDataInit();
+    void Awake()
+    {
+        PlayerDataInit();
 
-    //    GunDataInit();
+        GunDataInit();
 
-    //    // Singletonチェック
-    //    if (Instance != null && Instance != this)
-    //    {
-    //        Destroy(gameObject); // 重複を防止
-    //        return;
-    //    }
+        // Singletonチェック
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // 重複を防止
+            return;
+        }
 
-    //    Instance = this;
+        Instance = this;
 
-    //    states = new Dictionary<StateType, IState>()
-    //{
-    //    //{ StateType.Action, new PlayerActionState() },
-    //    //{ StateType.Hack, new PlayerHackState(this) },
-    //};
-    //    stateType = StateType.Action;
-    //    currentState = states[stateType];
+        states = new Dictionary<StateType, IState>()
+    {
+        { StateType.Action, new PlayerActionState(this) },
+        { StateType.Hack, new PlayerHackState(this) },
+    };
+        stateType = StateType.Action;
+        currentState = states[stateType];
 
-    //    rb = GetComponent<Rigidbody2D>();
-
-    //    //playerData = new PlayerData();
-    //}
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     private void PlayerDataInit()
     {
@@ -137,7 +134,9 @@ public class Player : MonoBehaviour, IDamageable
         ramRecovary = data.RamRecovery;
 
         playerInput = new PlayerInput();
+        playerInput.Init();
         moveSpeed = data.moveSpeed;
+
     }
     private void GunDataInit()
     {
@@ -148,14 +147,14 @@ public class Player : MonoBehaviour, IDamageable
         }
         else
         {
-            shotRate = gundata[(int)gunNo].Rate;
+            shotRate = gundata[(int)gunNo].rate;
             shotIntervalTime = 1f / shotRate;
-            maxBullet = gundata[(int)gunNo].MaxBullet;
+            maxBullet = gundata[(int)gunNo].MAXMAGAZINE;
             nowBullet = maxBullet;
-            bulletSpeed = gundata[(int)gunNo].BulletSpeed;
-            stoppingPower = gundata[(int)gunNo].Power;
-            reloadTime = gundata[(int)gunNo].ReloadTime;
-            recoil = gundata[(int)gunNo].Recoil;
+            bulletSpeed = gundata[(int)gunNo].bulletSpeed;
+            stoppingPower = gundata[(int)gunNo].power;
+            reloadTime = gundata[(int)gunNo].reloadTime;
+            recoil = gundata[(int)gunNo].recoil;
         }
     }
     public void Die()

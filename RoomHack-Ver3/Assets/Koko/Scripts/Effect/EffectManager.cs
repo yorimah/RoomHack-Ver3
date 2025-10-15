@@ -62,7 +62,7 @@ public class EffectManager : MonoBehaviour
         // 使ってないオブジェクトが見つからないなら新しく生成
         if (useableEffect == null)
         {
-            Debug.Log("effe");
+            //Debug.Log("effe");
             useableEffect = Instantiate(EffectPrefab[(int)_effectType], this.transform);
             pool.Add(useableEffect);
         }

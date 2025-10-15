@@ -6877,17 +6877,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2610328758265017640, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: gunData
-      value: 
-      objectReference: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
-    - target: {fileID: 2610328758265017640, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: moveSpeed
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2610328758265017640, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: bulletObject
-      value: 
-      objectReference: {fileID: 3977915479246264570, guid: 2c86ef07a3be33543b3cb179d84c03b1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
