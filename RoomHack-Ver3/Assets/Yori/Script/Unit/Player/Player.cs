@@ -165,7 +165,7 @@ public class Player : MonoBehaviour, IDamageable
     // Ram回復系 by koko
     // Update呼び出し
     public bool isRebooting = false;
-    public float rebootTimer { get; private set; } = 0;
+    public float rebootTimer { get; set; } = 0;
     private void RamUpdate()
     {
         if (isRebooting)

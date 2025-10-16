@@ -78,7 +78,7 @@ public class CameraPositionController : MonoBehaviour
             //}
 
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 // タゲ取得
                 if (GetMousePositionObject() != null)
@@ -93,7 +93,7 @@ public class CameraPositionController : MonoBehaviour
             }
 
             // カメラドラッグ
-            if (Input.GetMouseButton(0))
+            if (Input.GetKey(KeyCode.Mouse1))
             {
                 Vector3 mouseVec = Input.mousePosition - mouseStartPos;
 

@@ -2,10 +2,14 @@
 
 public class PlayerHackState : IState
 {
-    private Player unitCore;
-    public PlayerHackState(Player _unitCore)
+    private Player player;
+    private PlayerMove playerMove;
+    private PlayerShot playerShot;
+    public PlayerHackState(Player _player)
     {
-        unitCore = _unitCore;
+        player = _player;
+        playerMove = new PlayerMove(_player);
+        playerShot = new PlayerShot(_player);
     }
     public void Enter()
     {
@@ -21,14 +25,25 @@ public class PlayerHackState : IState
         //    unitCore.ChangeState(Player.StateType.Action);
         //}
 
-        GameTimer.Instance.SetTimeScale(0.1f);
+        //playerMove.PlMove();
+        //playerShot.Shot();
 
-        if (!Input.GetMouseButton(1))
+        GameTimer.Instance.SetTimeScale(0.01f);
+
+        if (Input.GetKeyDown(KeyCode.Space)) Player.Instance.isRebooting = true;
+
+        //if (Input.GetMouseButtonDown(1))
+        //if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.W)
+            || Input.GetKeyDown(KeyCode.A)
+            || Input.GetKeyDown(KeyCode.S)
+            || Input.GetKeyDown(KeyCode.D)
+            || Input.GetKeyDown(KeyCode.Mouse0))
         {
             SeManager.Instance.StopImmediately("HackStart");
             SeManager.Instance.Play("HackExit");
-            Player.Instance.isRebooting = true;
-            unitCore.ChangeState(Player.StateType.Action);
+            //Player.Instance.isRebooting = true;
+            player.ChangeState(Player.StateType.Action);
         }
     }
 

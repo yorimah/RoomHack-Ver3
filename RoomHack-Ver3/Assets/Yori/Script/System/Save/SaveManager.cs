@@ -73,7 +73,7 @@ public class SaveManager
             maxHitPoint = 100,
             moveSpeed = 5,
             maxRamCapacity = 10,
-            RamRecovery = 5,
+            RamRecovery = 1,
             handNum = 5,
             deckList = new List<int>
             {

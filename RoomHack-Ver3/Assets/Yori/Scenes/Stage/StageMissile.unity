@@ -686,8 +686,8 @@ MonoBehaviour:
   gundata:
   - {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
   - {fileID: 11400000, guid: 19d80b9e332ea9c4081425aec2446032, type: 2}
-  - {fileID: 11400000, guid: 24120d6ede1e00c4f9136736fa46adf0, type: 2}
   - {fileID: 11400000, guid: 954bfb21ea026874185eb83efcba5612, type: 2}
+  - {fileID: 11400000, guid: 24120d6ede1e00c4f9136736fa46adf0, type: 2}
   aimTime: 0.5
   shotRate: 0
   bulletSpeed: 0

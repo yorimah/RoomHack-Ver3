@@ -29,7 +29,12 @@ public class PlayerActionState : IState
 
         GameTimer.Instance.SetTimeScale(1);
 
-        if (Input.GetMouseButtonDown(1))
+        //if (!Input.GetMouseButton(1))
+        if (!Input.GetKey(KeyCode.W)
+            && !Input.GetKey(KeyCode.A)
+            && !Input.GetKey(KeyCode.S)
+            && !Input.GetKey(KeyCode.D)
+            && !Input.GetKey(KeyCode.Mouse0))
         {
             SeManager.Instance.StopImmediately("HackExit");
             SeManager.Instance.Play("HackStart");
