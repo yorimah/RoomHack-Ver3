@@ -10,7 +10,7 @@
     /// 3　壁
     /// 4  爆発
     /// </summary>
-    public int hitDamegeLayer { get; set; }
+    public int hitDamegeLayer { get; }
 
     public void HitDmg(int dmg, float hitStop)
     {

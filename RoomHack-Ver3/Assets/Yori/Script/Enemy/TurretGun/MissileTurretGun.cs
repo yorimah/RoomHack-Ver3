@@ -7,14 +7,14 @@ public class MissileTurretGun : Enemy
         moveSpeed = 0;
         playerCheack = new PlayerCheack();
 
-        states = new Dictionary<StateType, IState>()
+        states = new Dictionary<EnemyStateType, IState>()
     {
-        { StateType.Idle, new IdleState(this) },
-        { StateType.Move, new TurretGunMoveState(this) },
-        { StateType.Shot, new MissileShotState(this) },
-        { StateType.Die, new DieState(this) },
+        { EnemyStateType.Idle, new IdleState(this) },
+        { EnemyStateType.Move, new TurretGunMoveState(this) },
+        { EnemyStateType.Shot, new MissileShotState(this) },
+        { EnemyStateType.Die, new DieState(this) },
     };
-        statetype = StateType.Idle;
+        statetype = EnemyStateType.Idle;
         currentState = states[statetype];
 
         canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };

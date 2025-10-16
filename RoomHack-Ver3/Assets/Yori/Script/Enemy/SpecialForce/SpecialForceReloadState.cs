@@ -34,13 +34,13 @@ public class SpecialForceReloadState : IState
         // ひだんしたら
         if (nowHP != enemy.nowHitPoint)
         {
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
         }
         timer += GameTimer.Instance.ScaledDeltaTime;
         if (timer >= 3)
         {
             enemy.NOWBULLET = enemy.MAXBULLET;
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
         }
     }
 

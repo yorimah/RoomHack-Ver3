@@ -34,7 +34,7 @@ public class MoveState : IState
         await UniTask.Yield();
         if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
         {
-            enemy.ChangeState(StateType.Shot);
+            enemy.ChangeState(EnemyStateType.Shot);
         }
         Vector2 nowPosition = enemy.transform.position;
         flipTimer += Time.deltaTime;

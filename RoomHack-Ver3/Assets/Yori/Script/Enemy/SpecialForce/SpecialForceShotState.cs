@@ -50,7 +50,7 @@ public class SpecialForceShotState : IState
         await UniTask.Yield();
         if (nowHP != enemy.nowHitPoint)
         {
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
         }
         playerCheack.RotationFoward(enemy.transform);
         // 発射レートを設定しその後、発射秒数を決定する。
@@ -69,7 +69,7 @@ public class SpecialForceShotState : IState
             case ShotSection.shot:
                 if (enemy.NOWBULLET <= 0)
                 {
-                    enemy.ChangeState(StateType.Move);
+                    enemy.ChangeState(EnemyStateType.Move);
                     return;
                 }
                 if (enemy.shotIntervalTime >= 100)
@@ -98,7 +98,7 @@ public class SpecialForceShotState : IState
                     if (shotNum >= enemy.shotRate)
                     {
                         shotNum = 0;
-                        enemy.ChangeState(StateType.Move);
+                        enemy.ChangeState(EnemyStateType.Move);
                     }
                     else
                     {

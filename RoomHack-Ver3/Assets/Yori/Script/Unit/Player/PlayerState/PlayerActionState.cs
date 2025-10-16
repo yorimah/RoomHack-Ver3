@@ -4,27 +4,33 @@ public class PlayerActionState : IState
 {
     private PlayerMove playerMove;
     private PlayerShot playerShot;
+    PlayerStateContoller playerStateContoller;
 
     private PlayerInput playerInput;
-    public PlayerActionState(Rigidbody2D playerRigidBody, GunData gunData, Material material, GameObject bulletPre, float moveSpeed, PlayerInput _playerInput,GameObject player)
+    public PlayerActionState(Rigidbody2D playerRigidBody, GunData gunData, Material material, GameObject bulletPre,
+        float moveSpeed, PlayerInput _playerInput, GameObject player, PlayerStateContoller _playerStateContoller)
     {
-        playerMove = new PlayerMove(playerRigidBody, moveSpeed);
-        playerShot = new PlayerShot(gunData, material, bulletPre, player);
         playerInput = _playerInput;
+        playerStateContoller = _playerStateContoller;
+        playerMove = new PlayerMove(playerRigidBody, moveSpeed, playerInput);
+        playerShot = new PlayerShot(gunData, material, bulletPre, player, playerInput);
     }
     public void Enter()
     {
-        Debug.Log("アクションState起動!");
+        playerInput.ChangeState += ChangeState;
     }
     public async UniTask Execute()
     {
-        await UniTask.Yield();
-        playerMove.playerMove(playerInput.MoveValue());
+        playerMove.playerMove();
         playerShot.Shot();
+        await UniTask.Yield();
     }
-
+    private void ChangeState()
+    {
+        playerStateContoller.ChangeState(PlayerStateType.Hack);
+    }
     public void Exit()
     {
-
+        playerInput.ChangeState -= ChangeState;
     }
 }

@@ -12,10 +12,13 @@ public class PlayerMove
 
     private float moveSpeed;
 
-    public PlayerMove(Rigidbody2D _playerRigidBody, float _moveSpeed)
+    PlayerInput playerInput;
+
+    public PlayerMove(Rigidbody2D _playerRigidBody, float _moveSpeed,PlayerInput _playerInput)
     {
         moveSpeed = _moveSpeed;
         playerRigidbody2D = _playerRigidBody;
+        playerInput = _playerInput;
     }
 
     public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
@@ -34,9 +37,9 @@ public class PlayerMove
         playerRigidbody2D.transform.rotation = targetRotation;
     }
 
-    public void playerMove(Vector2 inputMoveVector)
+    public void playerMove()
     {
         PlayerRotation();
-        playerRigidbody2D.linearVelocity = PlayerMoveVector(inputMoveVector, moveSpeed);
+        playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
     }
 }

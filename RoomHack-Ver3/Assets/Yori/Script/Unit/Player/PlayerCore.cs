@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerCore : MonoBehaviour
+public class PlayerCore : MonoBehaviour, IDamageable
 {
     PlayerData playerData;
 
@@ -14,13 +14,25 @@ public class PlayerCore : MonoBehaviour
     [SerializeField]
     GameObject bulletPre;
     PlayerInput playerInput;
+
+    PlayerStateContoller playerStateContoller;
+
+    public float maxHitPoint { get; private set; }
+    public float nowHitPoint { get; set; }
+    public int hitDamegeLayer { get; private set; } = 1;
+
     public void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
-        playerInput = new();
+        playerInput = new PlayerInput();
         playerSaveData = SaveManager.Instance.Load();
-        playerData = new(playerSaveData);
-        new PlayerStateContoller(playerRigidBody, gunData,  material,  bulletPre, playerData.moveSpeed, playerInput,gameObject);
+        playerData = new PlayerData(playerSaveData);
+        playerStateContoller = new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
+            playerData.moveSpeed, playerInput, gameObject);
+    }
+
+    public void Die()
+    {
 
     }
 }

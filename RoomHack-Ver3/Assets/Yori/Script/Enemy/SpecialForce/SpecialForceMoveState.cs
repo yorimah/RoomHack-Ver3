@@ -39,7 +39,7 @@ public class SpecialForceMoveState : IState
                 // プレイヤーとの間に障害物があるかチェック ないならショット移動
                 if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
                 {
-                    enemy.ChangeState(StateType.Shot);
+                    enemy.ChangeState(EnemyStateType.Shot);
                 }
             }
         }
@@ -48,7 +48,7 @@ public class SpecialForceMoveState : IState
             forwardDir = 1;
             if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
             {
-                enemy.ChangeState(StateType.Reload);
+                enemy.ChangeState(EnemyStateType.Reload);
             }
         }
 

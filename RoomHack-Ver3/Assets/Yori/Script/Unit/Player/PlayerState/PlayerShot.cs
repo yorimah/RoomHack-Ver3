@@ -25,16 +25,19 @@ public class PlayerShot
 
     GunData gunData;
 
-
     private int nowBullet;
     private int maxBullet;
 
     private int hitDamageLayer = 1;
     private Material shotRanageMaterial;
     private GameObject bulletPre;
-    public PlayerShot(GunData _gunData, Material _shotRanageMaterial, GameObject _bulletPre,GameObject _player)
+
+    PlayerInput playerInput;
+    public PlayerShot(GunData _gunData, Material _shotRanageMaterial, GameObject _bulletPre,
+        GameObject _player, PlayerInput _playerInput)
     {
         player = _player;
+        playerInput = _playerInput;
         gunData = _gunData;
         maxBullet = gunData.MaxBullet;
         nowBullet = maxBullet;
@@ -77,12 +80,11 @@ public class PlayerShot
     }
     public void Shot()
     {
-
         ShotRangeView();
         diffusionRate = Mathf.Clamp(diffusionRate, gunData.MinDiffusionRate, gunData.MaxDiffusionRate);
         //diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
 
-        if (Input.GetKeyDown(KeyCode.R) && shotSection != ShotSection.Reload)
+        if (playerInput.GetOnReload() && shotSection != ShotSection.Reload)
         {
             nowBullet = 0;
             shotSection = ShotSection.Reload;
@@ -91,7 +93,7 @@ public class PlayerShot
         switch (shotSection)
         {
             case ShotSection.shot:
-                if (Input.GetKey(KeyCode.Mouse0) && nowBullet > 0)
+                if (playerInput.GetOnClick() && nowBullet > 0)
                 {
                     GunFire();
                     shotSection++;

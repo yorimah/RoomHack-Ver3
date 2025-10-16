@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public enum StateType
+public enum EnemyStateType
 {
     Idle,
     Move,
@@ -73,8 +73,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         nowHitPoint = maxHitPoint;
     }
 
-    protected StateType statetype;
-    protected Dictionary<StateType, IState> states;
+    protected EnemyStateType statetype;
+    protected Dictionary<EnemyStateType, IState> states;
 
     public float diffusionRate;
 
@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
     }
 
-    public void ChangeState(StateType type)
+    public void ChangeState(EnemyStateType type)
     {
         currentState?.Exit();
         currentState = states[type];
@@ -101,7 +101,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public void Die()
     {
         died = true;
-        ChangeState(StateType.Die);
+        ChangeState(EnemyStateType.Die);
     }
 
     public void GunDataInit()

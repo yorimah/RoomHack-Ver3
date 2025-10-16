@@ -26,7 +26,7 @@ public class IdleState : IState
             viewportPos.y >= 0 && viewportPos.y <= 1;
         if (isInside)
         {
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
         }
     }
 

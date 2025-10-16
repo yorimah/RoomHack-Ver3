@@ -80,12 +80,12 @@ public class Player : MonoBehaviour, IDamageable
 
     void Update()
     {
-        currentState?.Execute();
+        //currentState?.Execute();
 
-        RamUpdate();
+        //RamUpdate();
 
-        // タイムスケールに応じて速度を落とす。
-        rb.linearVelocity = rb.linearVelocity * GameTimer.Instance.customTimeScale;
+        //// タイムスケールに応じて速度を落とす。
+        //rb.linearVelocity = rb.linearVelocity * GameTimer.Instance.customTimeScale;
     }
 
     public void ChangeState(StateType type)
@@ -98,9 +98,9 @@ public class Player : MonoBehaviour, IDamageable
     }
     void Awake()
     {
-        PlayerDataInit();
+        //    PlayerDataInit();
 
-        GunDataInit();
+        //    GunDataInit();
 
         // Singletonチェック
         if (Instance != null && Instance != this)
@@ -109,53 +109,53 @@ public class Player : MonoBehaviour, IDamageable
             return;
         }
 
-        Instance = this;
+        //    Instance = this;
 
-        states = new Dictionary<StateType, IState>()
-    {
-        { StateType.Action, new PlayerActionState(this) },
-        { StateType.Hack, new PlayerHackState(this) },
-    };
-        stateType = StateType.Action;
-        currentState = states[stateType];
+        //    states = new Dictionary<StateType, IState>()
+        //{
+        //    { StateType.Action, new PlayerActionState(this) },
+        //    { StateType.Hack, new PlayerHackState(this) },
+        //};
+        //    stateType = StateType.Action;
+        //    currentState = states[stateType];
 
-        rb = GetComponent<Rigidbody2D>();
+        //    rb = GetComponent<Rigidbody2D>();
     }
 
     private void PlayerDataInit()
     {
-        data = SaveManager.Instance.Load();
+        //data = SaveManager.Instance.Load();
 
-        maxHitPoint = data.maxHitPoint;
-        nowHitPoint = maxHitPoint;
+        //maxHitPoint = data.maxHitPoint;
+        //nowHitPoint = maxHitPoint;
 
-        ramCapacity = data.maxRamCapacity;
-        nowRam = ramCapacity;
-        ramRecovary = data.RamRecovery;
+        //ramCapacity = data.maxRamCapacity;
+        //nowRam = ramCapacity;
+        //ramRecovary = data.RamRecovery;
 
-        playerInput = new PlayerInput();
-        playerInput.Init();
-        moveSpeed = data.moveSpeed;
+        //playerInput = new PlayerInput();
+        //playerInput.Init();
+        //moveSpeed = data.moveSpeed;
 
     }
     private void GunDataInit()
     {
-        gunNo = (GunNo)data.gunNo;
-        if (!gundata[(int)gunNo])
-        {
-            Debug.LogError("そのような獲物はございません");
-        }
-        else
-        {
-            shotRate = gundata[(int)gunNo].rate;
-            shotIntervalTime = 1f / shotRate;
-            maxBullet = gundata[(int)gunNo].MAXMAGAZINE;
-            nowBullet = maxBullet;
-            bulletSpeed = gundata[(int)gunNo].bulletSpeed;
-            stoppingPower = gundata[(int)gunNo].power;
-            reloadTime = gundata[(int)gunNo].reloadTime;
-            recoil = gundata[(int)gunNo].recoil;
-        }
+        //gunNo = (GunNo)data.gunNo;
+        //if (!gundata[(int)gunNo])
+        //{
+        //    Debug.LogError("そのような獲物はございません");
+        //}
+        //else
+        //{
+        //    shotRate = gundata[(int)gunNo].rate;
+        //    shotIntervalTime = 1f / shotRate;
+        //    maxBullet = gundata[(int)gunNo].MAXMAGAZINE;
+        //    nowBullet = maxBullet;
+        //    bulletSpeed = gundata[(int)gunNo].bulletSpeed;
+        //    stoppingPower = gundata[(int)gunNo].power;
+        //    reloadTime = gundata[(int)gunNo].reloadTime;
+        //    recoil = gundata[(int)gunNo].recoil;
+        //}
     }
     public void Die()
     {
@@ -166,20 +166,20 @@ public class Player : MonoBehaviour, IDamageable
     // Update呼び出し
     public bool isRebooting = false;
     public float rebootTimer { get; private set; } = 0;
-    private void RamUpdate()
-    {
-        if (isRebooting)
-        {
-            nowRam = 0;
-            rebootTimer += GameTimer.Instance.ScaledDeltaTime;
+    //private void RamUpdate()
+    //{
+    //    if (isRebooting)
+    //    {
+    //        nowRam = 0;
+    //        rebootTimer += GameTimer.Instance.ScaledDeltaTime;
 
-            if (rebootTimer >= ramRecovary)
-            {
-                nowRam = ramCapacity;
+    //        if (rebootTimer >= ramRecovary)
+    //        {
+    //            nowRam = ramCapacity;
 
-                rebootTimer = 0;
-                isRebooting = false;
-            }
-        }
-    }
+    //            rebootTimer = 0;
+    //            isRebooting = false;
+    //        }
+    //    }
+    //}
 }

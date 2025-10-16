@@ -556,6 +556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 273839736}
   - component: {fileID: 273839735}
+  - component: {fileID: 273839737}
   - component: {fileID: 273839734}
   - component: {fileID: 273839733}
   - component: {fileID: 273839732}
@@ -665,7 +666,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 273839729}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda89c05376ded346892b71fee4b4345, type: 3}
   m_Name: 
@@ -780,6 +781,21 @@ Transform:
   - {fileID: 437731833}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &273839737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273839729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297c829e16e55fc42824820028805619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCore
+  gunData: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
+  material: {fileID: 2100000, guid: 9d26c622fb1e6ba46b912d71ab4b77ba, type: 2}
+  bulletPre: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
 --- !u!1 &329995984
 GameObject:
   m_ObjectHideFlags: 3
@@ -5477,6 +5493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HackManagerCanvasDemo
       objectReference: {fileID: 0}
+    - target: {fileID: 7115736500871607840, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5540,6 +5560,10 @@ PrefabInstance:
     - target: {fileID: 2457523619027667085, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_Name
       value: CameraEffectController
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457523619027667085, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3582540534951285437, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5713,6 +5737,10 @@ PrefabInstance:
     - target: {fileID: 8607164380442537846, guid: 386941e9eb5286d4ab8c62f2640391f4, type: 3}
       propertyPath: m_Name
       value: EffectManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607164380442537846, guid: 386941e9eb5286d4ab8c62f2640391f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5931,7 +5959,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1505194168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6285,6 +6313,10 @@ PrefabInstance:
     - target: {fileID: 3299697455797183922, guid: 324cb17ce07856e4b903fc05a1c0ccd9, type: 3}
       propertyPath: m_Name
       value: CameraPositionController
+      objectReference: {fileID: 0}
+    - target: {fileID: 3299697455797183922, guid: 324cb17ce07856e4b903fc05a1c0ccd9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

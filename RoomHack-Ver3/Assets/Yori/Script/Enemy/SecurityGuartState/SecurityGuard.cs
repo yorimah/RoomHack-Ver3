@@ -7,15 +7,15 @@ public class SecurityGuard : Enemy
     {
         playerCheack = new PlayerCheack();
 
-        states = new Dictionary<StateType, IState>()
+        states = new Dictionary<EnemyStateType, IState>()
     {
-        { StateType.Idle, new IdleState(this) },
-        { StateType.Move, new MoveState(this) },
-        { StateType.Shot, new ShotState(this) },
-        { StateType.Reload, new ReloadState(this) },
-        { StateType.Die, new DieState(this) },
+        { EnemyStateType.Idle, new IdleState(this) },
+        { EnemyStateType.Move, new MoveState(this) },
+        { EnemyStateType.Shot, new ShotState(this) },
+        { EnemyStateType.Reload, new ReloadState(this) },
+        { EnemyStateType.Die, new DieState(this) },
     };
-        statetype = StateType.Idle;
+        statetype = EnemyStateType.Idle;
         currentState = states[statetype];
 
         canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Bind, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };

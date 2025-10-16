@@ -77,7 +77,7 @@ public class MissileShotState : IState
                 // いなかったら移動へ
                 if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
                 {
-                    enemy.ChangeState(StateType.Move);
+                    enemy.ChangeState(EnemyStateType.Move);
                 }
                 else
                 {

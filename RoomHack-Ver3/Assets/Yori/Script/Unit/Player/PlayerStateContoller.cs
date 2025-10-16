@@ -3,30 +3,36 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+public enum PlayerStateType
+{
+    Action,
+    Hack,
+    num
+}
+
 public class PlayerStateContoller
 {
     IState currentState;
-    StateType stateType;
-    Dictionary<StateType, IState> states;
+    public PlayerStateType stateType { get; private set; }
+    private Dictionary<PlayerStateType, IState> states;
 
-    CancellationTokenSource cts;
-    public enum StateType
-    {
-        Action,
-        Hack,
-        num
-    }
+    private CancellationTokenSource cancellationTokenSource;
+    private PlayerInput playerInput;
 
-    public PlayerStateContoller(Rigidbody2D playerRigidBody, GunData gunData, Material material, GameObject bulletPre, float moveSpeed, PlayerInput playerInput, GameObject player)
+    public PlayerStateContoller(Rigidbody2D playerRigidBody, GunData gunData, Material material,
+        GameObject bulletPre, float moveSpeed, PlayerInput _playerInput, GameObject player)
     {
-        cts = new();
-        states = new Dictionary<StateType, IState>()
+        playerInput = _playerInput;
+        cancellationTokenSource = new CancellationTokenSource();
+        states = new Dictionary<PlayerStateType, IState>()
     {
-        { StateType.Action, new PlayerActionState(playerRigidBody,gunData,material,bulletPre,moveSpeed,playerInput,player) },
-        //{ StateType.Hack, new PlayerHackState() },
+        { PlayerStateType.Action, new PlayerActionState(playerRigidBody,gunData,material,
+        bulletPre,moveSpeed,playerInput,player,this) },
+        { PlayerStateType.Hack, new PlayerHackState(playerInput,this) },
     };
-        stateType = StateType.Action;
+        stateType = PlayerStateType.Action;
         currentState = states[stateType];
+        currentState.Enter();
         Update();
     }
     public async void Update()
@@ -35,7 +41,8 @@ public class PlayerStateContoller
         {
             try
             {
-                await currentState.Execute().AttachExternalCancellation(cts.Token);
+                await currentState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
+                Debug.Log(currentState.ToString() + "を実行中");
             }
             catch (OperationCanceledException)
             {
@@ -44,15 +51,15 @@ public class PlayerStateContoller
             }
             finally
             {
-                cts = new();
+                cancellationTokenSource = new();
             }
 
         }
 
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void ChangeState(StateType type)
+    public void ChangeState(PlayerStateType type)
     {
+        Debug.Log("ステートを" + type.ToString() + "に変更！");
         currentState?.Exit();
         currentState = states[type];
         currentState?.Enter();
