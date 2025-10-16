@@ -15,8 +15,6 @@ public class PlayerCore : MonoBehaviour, IDamageable
     GameObject bulletPre;
     PlayerInput playerInput;
 
-    PlayerStateContoller playerStateContoller;
-
     public float maxHitPoint { get; private set; }
     public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; private set; } = 1;
@@ -27,7 +25,7 @@ public class PlayerCore : MonoBehaviour, IDamageable
         playerInput = new PlayerInput();
         playerSaveData = SaveManager.Instance.Load();
         playerData = new PlayerData(playerSaveData);
-        playerStateContoller = new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
+        new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
             playerData.moveSpeed, playerInput, gameObject);
     }
 

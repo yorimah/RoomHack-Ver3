@@ -9,10 +9,6 @@ public class PlayerInput
 
     private Vector2 _moveInputValue;
 
-    private bool isInteracted;
-
-    private PlayerStateContoller playerStateContoller;
-
     public event Action ChangeState = delegate { };
     public event Action GetKeyClick = delegate { };
 
@@ -21,13 +17,12 @@ public class PlayerInput
     public PlayerInput()
     {
         gameInput = new GameInputs();
-        isInteracted = false;
         // Actionイベント登録
         // Move
         gameInput.Player.Move.started += OnMove;
         gameInput.Player.Move.performed += OnMove;
         gameInput.Player.Move.canceled += OnMove;
-        
+
         // Click
         gameInput.Player.Click.started += OnClick;
         gameInput.Player.Click.canceled += OffClick;
@@ -47,7 +42,6 @@ public class PlayerInput
     private void OnReload(InputAction.CallbackContext context)
     {
         isReload = true;
-        Debug.Log("あろーり"+isReload);
     }
     private void ReleseReload(InputAction.CallbackContext context)
     {
