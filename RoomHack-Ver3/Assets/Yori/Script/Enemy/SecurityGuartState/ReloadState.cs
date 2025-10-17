@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-public class ReloadState : IState
+public class ReloadState : IEnemyState
 {
     private Enemy enemy;
     public ReloadState(Enemy _enemy)
@@ -15,7 +15,7 @@ public class ReloadState : IState
         timer = 0;
     }
 
-    public async UniTask Execute()
+    public void Execute()
     {
         timer += GameTimer.Instance.ScaledDeltaTime;
         if (timer >= enemy.gunData.ReloadTime)
@@ -23,7 +23,6 @@ public class ReloadState : IState
             enemy.ChangeState(EnemyStateType.Move);
             timer = 0;
         }
-        await UniTask.Yield();
     }
 
     public void Exit()

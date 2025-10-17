@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
-public class PlayerActionState : IState
+public class PlayerActionState : IPlayerState
 {
     private PlayerMove playerMove;
     private PlayerShot playerShot;

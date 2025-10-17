@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class PlayerCore : MonoBehaviour, IDamageable
+public class PlayerCore : MonoBehaviour, IDamageable, IReadOnlyPlayerPoision
 {
-    PlayerData playerData;
+    IReadOnlyPlayerStatus playerStatus;
 
     Rigidbody2D playerRigidBody;
 
@@ -19,14 +19,17 @@ public class PlayerCore : MonoBehaviour, IDamageable
     public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; private set; } = 1;
 
+    public Vector3 PlayerPosition { get; set; }
+
     public void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerInput = new PlayerInput();
         playerSaveData = SaveManager.Instance.Load();
-        playerData = new PlayerData(playerSaveData);
+        playerStatus = new PlayerStatus(playerSaveData);
         new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
-            playerData.moveSpeed, playerInput, gameObject);
+            10, playerInput, gameObject);
+        Debug.Log("Maxhp" + playerStatus.MaxHitPoint);
     }
 
     public void Die()

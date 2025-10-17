@@ -2,13 +2,14 @@
 {
     public float maxHitPoint { get; }
 
+    // 頑張って読み取り
     public float nowHitPoint { get; set; }
 
     /// <summary>
     /// 1  プレイヤー
     /// 2　敵
     /// 3　壁
-    /// 4  爆発
+    /// 4  無差別
     /// </summary>
     public int hitDamegeLayer { get; }
 

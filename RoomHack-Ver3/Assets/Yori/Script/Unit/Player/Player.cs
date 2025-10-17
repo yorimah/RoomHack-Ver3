@@ -11,7 +11,7 @@ public enum GunNo
 }
 public class Player : MonoBehaviour, IDamageable
 {
-    public float maxHitPoint { get; set; }
+    public float maxHitPoint { get; }
     public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 1;
 
@@ -67,9 +67,9 @@ public class Player : MonoBehaviour, IDamageable
         num
     }
 
-    public IState currentState;
+    public IEnemyState currentState;
     public StateType stateType;
-    public Dictionary<StateType, IState> states;
+    public Dictionary<StateType, IEnemyState> states;
 
     [SerializeField]
     public Material shotRanageMaterial;

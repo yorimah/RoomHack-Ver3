@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-public class SpecialForceShotState : IState
+public class SpecialForceShotState : IEnemyState
 {
     private Enemy enemy;
 
@@ -45,9 +45,8 @@ public class SpecialForceShotState : IState
         enemy.diffusionRate = 0;
     }
 
-    public async UniTask Execute()
+    public void Execute()
     {
-        await UniTask.Yield();
         if (nowHP != enemy.nowHitPoint)
         {
             enemy.ChangeState(EnemyStateType.Move);

@@ -1,8 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
 
-public interface IState
+public interface IPlayerState
 {
     void Enter();
-    UniTask  Execute();
+    UniTask Execute();
     void Exit();
 }

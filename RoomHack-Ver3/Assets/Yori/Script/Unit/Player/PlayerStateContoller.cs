@@ -12,9 +12,9 @@ public enum PlayerStateType
 
 public class PlayerStateContoller
 {
-    IState currentState;
+    IPlayerState currentState;
     public PlayerStateType stateType { get; private set; }
-    private Dictionary<PlayerStateType, IState> states;
+    private Dictionary<PlayerStateType, IPlayerState> states;
 
     private CancellationTokenSource cancellationTokenSource;
     private PlayerInput playerInput;
@@ -24,7 +24,7 @@ public class PlayerStateContoller
     {
         playerInput = _playerInput;
         cancellationTokenSource = new CancellationTokenSource();
-        states = new Dictionary<PlayerStateType, IState>()
+        states = new Dictionary<PlayerStateType, IPlayerState>()
     {
         { PlayerStateType.Action, new PlayerActionState(playerRigidBody,gunData,material,
         bulletPre,moveSpeed,playerInput,player,this) },
@@ -42,7 +42,6 @@ public class PlayerStateContoller
             try
             {
                 await currentState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
-                Debug.Log(currentState.ToString() + "を実行中");
             }
             catch (OperationCanceledException)
             {

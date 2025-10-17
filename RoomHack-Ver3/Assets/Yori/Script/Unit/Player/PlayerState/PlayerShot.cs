@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class PlayerShot
 {
     private GameObject player;
@@ -133,6 +132,7 @@ public class PlayerShot
                 break;
         }
     }
+
     public void ShotRangeView()
     {
         mesh.Clear();

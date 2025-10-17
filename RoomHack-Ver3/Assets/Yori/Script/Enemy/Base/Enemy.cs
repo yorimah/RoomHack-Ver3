@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 2;
 
-    public IState currentState;
+    public IEnemyState currentState;
 
     [SerializeField, Header("動く速さ")]
     public float moveSpeed = 3f;
@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     }
 
     protected EnemyStateType statetype;
-    protected Dictionary<EnemyStateType, IState> states;
+    protected Dictionary<EnemyStateType, IEnemyState> states;
 
     public float diffusionRate;
 

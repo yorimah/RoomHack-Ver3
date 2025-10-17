@@ -6,7 +6,7 @@ public class TurretGun : Enemy
         moveSpeed = 0;
         playerCheack = new PlayerCheack();
 
-        states = new Dictionary<EnemyStateType, IState>()
+        states = new Dictionary<EnemyStateType, IEnemyState>()
     {
         { EnemyStateType.Idle, new IdleState(this) },
         { EnemyStateType.Move, new TurretGunMoveState(this) },

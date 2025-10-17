@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public class DroneShotState : IState
+public class DroneShotState : IEnemyState
 {
     private Enemy enemy;
 
@@ -39,9 +39,8 @@ public class DroneShotState : IState
 
     }
 
-    public async UniTask Execute()
+    public void Execute()
     {
-        await UniTask.Yield();
         if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
         {
             enemy.ChangeState(EnemyStateType.Move);

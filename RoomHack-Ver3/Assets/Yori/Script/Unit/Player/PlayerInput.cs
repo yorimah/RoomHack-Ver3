@@ -10,7 +10,6 @@ public class PlayerInput
     private Vector2 _moveInputValue;
 
     public event Action ChangeState = delegate { };
-    public event Action GetKeyClick = delegate { };
 
     private bool isClick;
     private bool isReload;

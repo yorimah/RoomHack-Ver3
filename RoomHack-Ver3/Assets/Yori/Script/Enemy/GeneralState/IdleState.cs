@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public class IdleState : IState
+public class IdleState : IEnemyState
 {
     private Enemy enemy;
 
@@ -15,9 +15,8 @@ public class IdleState : IState
 
     }
 
-    public async UniTask Execute()
+    public void Execute()
     {
-        await UniTask.Yield(); 
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(enemy.transform.position);
 
         // 画面内判定　入ったらtrue

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public class SpecialForceReloadState : IState
+public class SpecialForceReloadState : IEnemyState
 {
     private Enemy enemy;
 
@@ -27,9 +27,8 @@ public class SpecialForceReloadState : IState
         enemyRididBody = enemy.GetComponent<Rigidbody2D>();        
     }
 
-    public async UniTask Execute()
+    public void Execute()
     {
-        await UniTask.Yield();
         enemyRididBody.linearVelocity = Vector2.zero;
         // ひだんしたら
         if (nowHP != enemy.nowHitPoint)

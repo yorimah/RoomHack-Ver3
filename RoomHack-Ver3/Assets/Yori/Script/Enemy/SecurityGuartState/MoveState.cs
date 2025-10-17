@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-public class MoveState : IState
+public class MoveState : IEnemyState
 {
     private Enemy enemy;
 
@@ -29,9 +29,8 @@ public class MoveState : IState
         direction = Random.value < 0.5f ? -1 : 1;
     }
 
-    public async UniTask Execute()
+    public void Execute()
     {
-        await UniTask.Yield();
         if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
         {
             enemy.ChangeState(EnemyStateType.Shot);

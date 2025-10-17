@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-public class PlayerHackState : IState
+public class PlayerHackState : IPlayerState
 {
     private PlayerInput playerInput;
     private PlayerStateContoller playerStateContoller;
