@@ -17,18 +17,16 @@ public class PlayerStateContoller
     private Dictionary<PlayerStateType, IPlayerState> states;
 
     private CancellationTokenSource cancellationTokenSource;
-    private PlayerInput playerInput;
 
     public PlayerStateContoller(Rigidbody2D playerRigidBody, GunData gunData, Material material,
-        GameObject bulletPre, float moveSpeed, PlayerInput _playerInput, GameObject player)
+        GameObject bulletPre, float moveSpeed, GameObject player,IPlayerInput iPlayerInput)
     {
-        playerInput = _playerInput;
         cancellationTokenSource = new CancellationTokenSource();
         states = new Dictionary<PlayerStateType, IPlayerState>()
     {
         { PlayerStateType.Action, new PlayerActionState(playerRigidBody,gunData,material,
-        bulletPre,moveSpeed,playerInput,player,this) },
-        { PlayerStateType.Hack, new PlayerHackState(playerInput,this) },
+        bulletPre,moveSpeed,player,this,iPlayerInput) },
+        { PlayerStateType.Hack, new PlayerHackState(this,iPlayerInput) },
     };
         stateType = PlayerStateType.Action;
         currentState = states[stateType];

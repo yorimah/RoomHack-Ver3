@@ -12,9 +12,9 @@ public class PlayerMove
 
     private float moveSpeed;
 
-    PlayerInput playerInput;
+    IPlayerInput playerInput;
 
-    public PlayerMove(Rigidbody2D _playerRigidBody, float _moveSpeed,PlayerInput _playerInput)
+    public PlayerMove(Rigidbody2D _playerRigidBody, float _moveSpeed,IPlayerInput _playerInput)
     {
         moveSpeed = _moveSpeed;
         playerRigidbody2D = _playerRigidBody;

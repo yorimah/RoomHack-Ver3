@@ -31,9 +31,9 @@ public class PlayerShot
     private Material shotRanageMaterial;
     private GameObject bulletPre;
 
-    PlayerInput playerInput;
+    IPlayerInput playerInput;
     public PlayerShot(GunData _gunData, Material _shotRanageMaterial, GameObject _bulletPre,
-        GameObject _player, PlayerInput _playerInput)
+        GameObject _player, IPlayerInput _playerInput)
     {
         player = _player;
         playerInput = _playerInput;

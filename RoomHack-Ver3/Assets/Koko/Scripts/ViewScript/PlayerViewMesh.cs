@@ -25,7 +25,7 @@ public class PlayerViewMesh : MonoBehaviour
     }
     private void Update()
     {
-        PlayerView();
+        //PlayerView();
     }
     private void PlayerView()
     {

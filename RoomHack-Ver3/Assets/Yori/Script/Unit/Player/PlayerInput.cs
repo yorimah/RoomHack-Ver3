@@ -3,16 +3,39 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInput
+public interface IPlayerInput
+{
+    public Vector2 _moveInputValue { get; }
+
+    public event Action ChangeState;
+
+    public bool isClick { get; }
+    public bool isReload { get; }
+    public Vector2 MoveValue()
+    {
+        return _moveInputValue;
+    }
+
+    public bool GetOnClick()
+    {
+        return isClick;
+    }
+
+    public bool GetOnReload()
+    {
+        return isReload;
+    }
+}
+public class PlayerInput:IPlayerInput
 {
     private GameInputs gameInput;
 
-    private Vector2 _moveInputValue;
+    public Vector2 _moveInputValue { get; private set; }
 
     public event Action ChangeState = delegate { };
 
-    private bool isClick;
-    private bool isReload;
+    public bool isClick { get; private set; }
+    public bool isReload { get; private set; }
     public PlayerInput()
     {
         gameInput = new GameInputs();
@@ -66,20 +89,6 @@ public class PlayerInput
                 ChangeState();
             }
         }
-    }
-    public Vector2 MoveValue()
-    {
-        return _moveInputValue;
-    }
-
-    public bool GetOnClick()
-    {
-        return isClick;
-    }
-
-    public bool GetOnReload()
-    {
-        return isReload;
     }
 
     public void OnDestroy()

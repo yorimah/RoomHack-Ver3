@@ -1,12 +1,12 @@
 ﻿using Cysharp.Threading.Tasks;
-
+using Zenject;
 public class PlayerHackState : IPlayerState
 {
-    private PlayerInput playerInput;
+    private IPlayerInput playerInput;
     private PlayerStateContoller playerStateContoller;
-    public PlayerHackState(PlayerInput _playerInput, PlayerStateContoller _playerStateContoller)
+    public PlayerHackState( PlayerStateContoller _playerStateContoller,IPlayerInput iPlayerInput)
     {
-        playerInput = _playerInput;
+        playerInput = iPlayerInput;
         playerStateContoller = _playerStateContoller;
     }
     public void Enter()

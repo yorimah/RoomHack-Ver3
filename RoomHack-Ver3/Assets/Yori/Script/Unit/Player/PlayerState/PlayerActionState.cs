@@ -1,16 +1,17 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 public class PlayerActionState : IPlayerState
 {
     private PlayerMove playerMove;
     private PlayerShot playerShot;
     PlayerStateContoller playerStateContoller;
 
-    private PlayerInput playerInput;
+    IPlayerInput playerInput;
     public PlayerActionState(Rigidbody2D playerRigidBody, GunData gunData, Material material, GameObject bulletPre,
-        float moveSpeed, PlayerInput _playerInput, GameObject player, PlayerStateContoller _playerStateContoller)
+        float moveSpeed,  GameObject player, PlayerStateContoller _playerStateContoller,IPlayerInput iPlayerInput)
     {
-        playerInput = _playerInput;
+        playerInput = iPlayerInput;
         playerStateContoller = _playerStateContoller;
         playerMove = new PlayerMove(playerRigidBody, moveSpeed, playerInput);
         playerShot = new PlayerShot(gunData, material, bulletPre, player, playerInput);

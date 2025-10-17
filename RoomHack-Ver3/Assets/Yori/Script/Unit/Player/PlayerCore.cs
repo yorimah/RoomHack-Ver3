@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Zenject;
 public class PlayerCore : MonoBehaviour, IDamageable, IReadOnlyPlayerPoision
 {
     IReadOnlyPlayerStatus playerStatus;
@@ -13,7 +13,9 @@ public class PlayerCore : MonoBehaviour, IDamageable, IReadOnlyPlayerPoision
     Material material;
     [SerializeField]
     GameObject bulletPre;
-    PlayerInput playerInput;
+
+    [Inject]
+    IPlayerInput iPlayerInput;
 
     public float maxHitPoint { get; private set; }
     public float nowHitPoint { get; set; }
@@ -24,12 +26,10 @@ public class PlayerCore : MonoBehaviour, IDamageable, IReadOnlyPlayerPoision
     public void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
-        playerInput = new PlayerInput();
         playerSaveData = SaveManager.Instance.Load();
         playerStatus = new PlayerStatus(playerSaveData);
         new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
-            10, playerInput, gameObject);
-        Debug.Log("Maxhp" + playerStatus.MaxHitPoint);
+            10,  gameObject, iPlayerInput);
     }
 
     public void Die()
