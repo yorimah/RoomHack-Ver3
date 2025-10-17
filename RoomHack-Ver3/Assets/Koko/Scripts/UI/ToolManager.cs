@@ -278,7 +278,7 @@ public class ToolManager : MonoBehaviour
                     isHandOn = true;
 
                     // クリックするとカードプレイ
-                    if (Input.GetMouseButtonDown(0) && hackObj != null)
+                    if (Input.GetKeyDown(KeyCode.Mouse1) && hackObj != null)
                     {
                         Player.Instance.nowRam -= deckSystem.ReturnToolCost(hand.thisTool);
 
@@ -326,7 +326,7 @@ public class ToolManager : MonoBehaviour
             if (trashToolUIList[i].isPointerOn) isTrashOn = true;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             if (isTrashOn && !isTrashCheck)
             {

@@ -18,7 +18,7 @@ public class DeckSystem : MonoBehaviour
     [SerializeField]
     public int handSize = 5;
 
-    [SerializeField]
+    [SerializeField, Header("アタッチしてね")]
     ToolEventManager toolEventManager;
 
     // Singletonパターン
@@ -164,7 +164,7 @@ public class DeckSystem : MonoBehaviour
 
         if (playTool != toolTag.none)
         {
-            toolEventManager.PlayEvent(toolDataBank.toolDataList[(int)toolHand[index]].toolEvent, _target);
+            toolEventManager.EventPlay(toolDataBank.toolDataList[(int)toolHand[index]].toolEvent, _target);
             MoveTool(toolHand, index, toolTrash);
 
             //ToolEvent eventObj = Instantiate(toolDataBank.toolDataList[(int)toolHand[index]].toolEvent, _hackObject.transform.position, Quaternion.identity);

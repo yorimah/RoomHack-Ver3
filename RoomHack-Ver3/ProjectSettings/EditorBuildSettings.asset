@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Koko/Scenes/Stage/StageTutorial.unity
+    path: Assets/Koko/Scenes/Stage/Stage_Tutorial.unity
     guid: 8e47f46ab83bdd34e8ff855af73959cb
   - enabled: 1
     path: Assets/Koko/Scenes/TitleDemoScene.unity
