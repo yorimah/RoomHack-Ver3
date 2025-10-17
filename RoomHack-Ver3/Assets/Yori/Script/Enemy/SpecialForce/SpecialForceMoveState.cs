@@ -37,7 +37,7 @@ public class SpecialForceMoveState : IEnemyState
                 forwardDir = Random.value < 0.5f ? -1 : 1;
                 flipTimer = 0f;
                 // プレイヤーとの間に障害物があるかチェック ないならショット移動
-                if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+                if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
                 {
                     enemy.ChangeState(EnemyStateType.Shot);
                 }
@@ -46,14 +46,14 @@ public class SpecialForceMoveState : IEnemyState
         else
         {
             forwardDir = 1;
-            if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+            if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
             {
                 enemy.ChangeState(EnemyStateType.Reload);
             }
         }
 
         Vector2 nowPosition = enemy.transform.position;
-        Vector2 center = Player.Instance.transform.position;
+        Vector2 center = enemy.PlayerPosition;
         Vector2 toEnemy = nowPosition - center;
         Vector2 radialDir = toEnemy.normalized;
 

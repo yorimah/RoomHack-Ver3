@@ -31,7 +31,7 @@ public class MoveState : IEnemyState
 
     public void Execute()
     {
-        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
         {
             enemy.ChangeState(EnemyStateType.Shot);
         }
@@ -43,7 +43,7 @@ public class MoveState : IEnemyState
             flipTimer = 0f;
         }
 
-        Vector2 center = Player.Instance.transform.position;
+        Vector2 center = enemy.PlayerPosition;
         Vector2 dir = nowPosition - center;
 
         Vector2 emDir = new Vector2(-dir.y, dir.x);

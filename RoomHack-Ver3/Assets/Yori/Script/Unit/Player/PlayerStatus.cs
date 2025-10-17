@@ -1,36 +1,54 @@
 ﻿using UnityEngine;
 
-public class PlayerStatus : IReadOnlyPlayerStatus
+public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam
 {
     public int MaxHitPoint { get; private set; }
+
     public float nowHitPoint;
-    // ハックデータ
-    public float ramCapacity;
-    public float nowRam;
-    public float ramRecovary;
+
+    public float RamCapacity { get; }
+
+    public float NowRam { get; private set; }
+
+    public float RamRecovary { get; private set; }
     // Ram回復系 
     public bool isRebooting = false;
     public float rebootTimer { get; private set; } = 0;
-    public  PlayerStatus(PlayerSaveData saveData)
+
+    public float MoveSpeed { get; }
+
+    public PlayerStatus()
     {
+        PlayerSaveData saveData = SaveManager.Instance.Load();
         MaxHitPoint = saveData.maxHitPoint;
         nowHitPoint = MaxHitPoint;
+        RamCapacity = saveData.maxRamCapacity;
+        NowRam = RamCapacity;
+        RamRecovary = saveData.RamRecovery;
+        MoveSpeed = saveData.moveSpeed;
+    }
 
-        ramCapacity = saveData.maxRamCapacity;
-        nowRam = ramCapacity;
-        ramRecovary = saveData.RamRecovery;
+    public void UseRam(int useRam)
+    {
+        NowRam -= useRam;
     }
 }
-
-public interface IReadOnlyPlayerStatus
-{
-    public int MaxHitPoint { get; }
-
-    public int ReadMaxHitPoint() => MaxHitPoint;
-}
-public interface IReadOnlyPlayerPoision
+public interface IReadPosition
 {
     public Vector3 PlayerPosition { get; }
+}
 
-    public Vector3 ReadPlayerPosition() => PlayerPosition;
+public interface IReadOnlyMoveSpeed
+{
+    public float MoveSpeed { get; }
+}
+
+public interface IUseableRam
+{
+    public float RamCapacity { get; }
+
+    public float NowRam { get; }
+
+    public float RamRecovary { get; }
+    public void UseRam(int useRam);
 }

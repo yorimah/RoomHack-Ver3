@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
 using Zenject;
-public class PlayerCore : MonoBehaviour, IDamageable, IReadOnlyPlayerPoision
+public class PlayerCore : MonoBehaviour, IDamageable, IReadPosition
 {
-    IReadOnlyPlayerStatus playerStatus;
-
+    public Vector3 PlayerPosition { get { return this.transform.position; } }
     Rigidbody2D playerRigidBody;
 
-    PlayerSaveData playerSaveData;
     [SerializeField]
     GunData gunData;
+    
     [SerializeField]
     Material material;
+    
     [SerializeField]
     GameObject bulletPre;
 
+
+    // Null表記になっているが、外から注入するので気にしないでよい
     [Inject]
     IPlayerInput iPlayerInput;
 
@@ -21,13 +23,9 @@ public class PlayerCore : MonoBehaviour, IDamageable, IReadOnlyPlayerPoision
     public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; private set; } = 1;
 
-    public Vector3 PlayerPosition { get; set; }
-
     public void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
-        playerSaveData = SaveManager.Instance.Load();
-        playerStatus = new PlayerStatus(playerSaveData);
         new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
             10,  gameObject, iPlayerInput);
     }

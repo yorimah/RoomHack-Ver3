@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zenject;
 
 public class CameraPositionController : MonoBehaviour
 {
@@ -19,123 +20,126 @@ public class CameraPositionController : MonoBehaviour
     private GameObject tagetAnimObj;
 
     private GameObject insTagetAnimObj;
+
+    [SerializeField,Header("playerObj")]
+    private GameObject playerObject;
     private void Start()
     {
-        targetObject = Player.Instance.gameObject;
+        //targetObject = Player.Instance.gameObject;
 
-        insTagetAnimObj = Instantiate(tagetAnimObj);
-        insTagetAnimObj.SetActive(false);
+        //insTagetAnimObj = Instantiate(tagetAnimObj);
+        //insTagetAnimObj.SetActive(false);
     }
 
     private void Update()
     {
-        if (targetObject != null)
-        {
-            this.transform.position = targetObject.transform.position;
+        //if (targetObject != null)
+        //{
+        //    this.transform.position = targetObject.transform.position;
 
-            // ロックオン時仮アニメーション再生
-            if (targetObject != Player.Instance.gameObject)
-            {
-                insTagetAnimObj.transform.position = targetObject.transform.position;
-                insTagetAnimObj.SetActive(true);
-            }
-            else
-            {
-                insTagetAnimObj.SetActive(false);
-            }
+        //    // ロックオン時仮アニメーション再生
+        //    if (targetObject != playerObject.gameObject)
+        //    {
+        //        insTagetAnimObj.transform.position = targetObject.transform.position;
+        //        insTagetAnimObj.SetActive(true);
+        //    }
+        //    else
+        //    {
+        //        insTagetAnimObj.SetActive(false);
+        //    }
 
-            // debug
-            if (targetObject.TryGetComponent<IHackObject>(out var hackObject))
-            {
-                string hoge = null;
-                foreach (var item in hackObject.nowHackEvent)
-                {
-                    hoge += item.name;
-                    hoge += ", ";
-                }
-                //Debug.Log(hoge);
-            }
+        //    // debug
+        //    if (targetObject.TryGetComponent<IHackObject>(out var hackObject))
+        //    {
+        //        string hoge = null;
+        //        foreach (var item in hackObject.nowHackEvent)
+        //        {
+        //            hoge += item.name;
+        //            hoge += ", ";
+        //        }
+        //        //Debug.Log(hoge);
+        //    }
             
-        }
-        else 
-        {
-            insTagetAnimObj.SetActive(false);
-        }
+        //}
+        //else 
+        //{
+        //    insTagetAnimObj.SetActive(false);
+        //}
 
-        if (Player.Instance.stateType == Player.StateType.Hack)
-        {
-            // ハックスタート時
-            //if (!isStart)
-            //{
-            //    // タゲ取得
-            //    if (GetMousePositionObject() != null)
-            //    {
-            //        targetObject = GetMousePositionObject();
-            //    }
+        //if (Player.Instance.stateType == Player.StateType.Hack)
+        //{
+        //    // ハックスタート時
+        //    //if (!isStart)
+        //    //{
+        //    //    // タゲ取得
+        //    //    if (GetMousePositionObject() != null)
+        //    //    {
+        //    //        targetObject = GetMousePositionObject();
+        //    //    }
 
-            //    isStart = true;
+        //    //    isStart = true;
 
-            //}
+        //    //}
 
 
-            if (Input.GetKeyDown(KeyCode.Mouse1))
-            {
-                // タゲ取得
-                if (GetMousePositionObject() != null)
-                {
-                    targetObject = GetMousePositionObject();
-                }
+        //    if (Input.GetKeyDown(KeyCode.Mouse1))
+        //    {
+        //        // タゲ取得
+        //        if (GetMousePositionObject() != null)
+        //        {
+        //            targetObject = GetMousePositionObject();
+        //        }
 
-                // マウスドラッグ初期設定
-                mouseStartPos = Input.mousePosition;
-                cameraStartPos = this.transform.position;
+        //        // マウスドラッグ初期設定
+        //        mouseStartPos = Input.mousePosition;
+        //        cameraStartPos = this.transform.position;
 
-            }
+        //    }
 
-            // カメラドラッグ
-            if (Input.GetKey(KeyCode.Mouse1))
-            {
-                Vector3 mouseVec = Input.mousePosition - mouseStartPos;
+        //    // カメラドラッグ
+        //    if (Input.GetKey(KeyCode.Mouse1))
+        //    {
+        //        Vector3 mouseVec = Input.mousePosition - mouseStartPos;
 
-                // ドラッグするとオブジェクト解除
-                if (Mathf.Abs(mouseVec.x) > targetOutNum || Mathf.Abs(mouseVec.y) > targetOutNum)
-                {
-                    targetObject = null;
-                }
+        //        // ドラッグするとオブジェクト解除
+        //        if (Mathf.Abs(mouseVec.x) > targetOutNum || Mathf.Abs(mouseVec.y) > targetOutNum)
+        //        {
+        //            targetObject = null;
+        //        }
 
-                if (targetObject == null)
-                {
-                    // ハックオブジェがなかった場合のポジション処理
-                    this.transform.position = cameraStartPos - mouseVec / 100;
-                }
-            }
+        //        if (targetObject == null)
+        //        {
+        //            // ハックオブジェがなかった場合のポジション処理
+        //            this.transform.position = cameraStartPos - mouseVec / 100;
+        //        }
+        //    }
 
-        }
-        else
-        {
-            this.transform.position = Player.Instance.gameObject.transform.position;
-            targetObject = Player.Instance.gameObject;
+        //}
+        //else
+        //{
+        //    this.transform.position = playerObject.transform.position;
+        //    targetObject = playerObject;
 
-            isStart = false;
-        }
+        //    isStart = false;
+        //}
     }
 
-    GameObject GetMousePositionObject()
-    {
-        GameObject obj = null;
+    //GameObject GetMousePositionObject()
+    //{
+    //    GameObject obj = null;
 
-        // レイ射出、四角
-        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
+    //    // レイ射出、四角
+    //    RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
 
-        foreach (RaycastHit2D hit in hitsss)
-        {
-            if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject)
-                || hit.collider.gameObject == Player.Instance.gameObject)
-            {
-                obj = hit.collider.gameObject;
-            }
-        }
+    //    foreach (RaycastHit2D hit in hitsss)
+    //    {
+    //        if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject)
+    //            || hit.collider.gameObject == Player.Instance.gameObject)
+    //        {
+    //            obj = hit.collider.gameObject;
+    //        }
+    //    }
 
-        return obj;
-    }
+    //    return obj;
+    //}
 }

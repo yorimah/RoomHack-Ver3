@@ -15,7 +15,7 @@ public class Player : MonoBehaviour, IDamageable
     public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 1;
 
-    public static Player Instance { get; private set; }
+    //public static Player Instance { get; private set; }
 
     public int maxBullet;
     public int nowBullet;
@@ -103,11 +103,11 @@ public class Player : MonoBehaviour, IDamageable
         //    GunDataInit();
 
         // Singletonチェック
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject); // 重複を防止
-            return;
-        }
+        //if (Instance != null && Instance != this)
+        //{
+        //    Destroy(gameObject); // 重複を防止
+        //    return;
+        //}
 
         //    Instance = this;
 

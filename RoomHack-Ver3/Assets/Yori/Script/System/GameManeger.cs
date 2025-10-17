@@ -9,7 +9,6 @@ public class GameManeger : MonoBehaviour
     List<Enemy> eList;
 
     int enemyCount;
-    // Start is called before the first frame update
     void Start()
     {
         data = SaveManager.Instance.Load();
@@ -38,10 +37,8 @@ public class GameManeger : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (enemyCount <= 0 && collision.gameObject == Player.Instance.gameObject)
+        if (enemyCount <= 0 )
         {
-
-            Debug.Log("クリア");
             SaveManager.Instance.Save(data);
             SceneManager.LoadScene("UpgradeTest");
         }

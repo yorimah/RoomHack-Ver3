@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Zenject;
 public class BombCore : MonoBehaviour
 {
     [SerializeField, Header("爆発半径")]
@@ -17,6 +17,11 @@ public class BombCore : MonoBehaviour
 
     [SerializeField, Header("ExprosionPrefab")]
     private GameObject blastGameObject;
+
+    [Inject]
+    IReadPosition readOnlyPlayerPoision;
+
+    public Vector3 PlayerPosition { get { return readOnlyPlayerPoision.PlayerPosition; } }
 
     private BombBlast bombBlast;
     public void Bomb()

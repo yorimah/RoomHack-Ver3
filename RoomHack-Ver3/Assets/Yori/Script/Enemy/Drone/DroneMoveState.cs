@@ -29,9 +29,9 @@ public class DroneMoveState : IEnemyState
 
     public void Execute()
     {
-        playerCheack.RotationFoward(enemy.transform);
+        playerCheack.RotationFoward(enemy.transform,enemy.PlayerPosition);
         // レイを飛ばして射線が通たらショットに遷移
-        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
         {
             enemy.ChangeState(EnemyStateType.Shot);
         }

@@ -3,7 +3,7 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
+using Zenject;
 public enum EnemyStateType
 {
     Idle,
@@ -65,6 +65,11 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public bool died = false;
 
     public float shotIntervalTime;
+
+    [Inject]
+    IReadPosition readOnlyPlayerPoision;
+
+    public Vector3 PlayerPosition { get { return readOnlyPlayerPoision.PlayerPosition; } }
 
     public void Awake()
     {
