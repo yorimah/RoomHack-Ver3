@@ -11,36 +11,29 @@ public class ToolEvent_Detonation : ToolEvent
 
     GameObject granade;
 
-    bool isSet = false;
-
-    private void Update()
+    protected override void Enter()
     {
-        if (isEventAct)
+        EventAdd();
+        granade = Instantiate(granadePrefab, this.transform);
+    }
+
+    protected override void Execute()
+    {
+        Tracking();
+
+
+        if (granade == null)
         {
-            if (!isSet)
-            {
-                EventAdd();
-                granade = Instantiate(granadePrefab, this.transform);
-                isSet = true;
-            }
-
-
-            Tracking();
-
-
-            if (granade == null)
-            {
-                EventRemove();
-
-                isSet = false;
-                isEventAct = false;
-            }
-
-
+            EventEnd();
         }
     }
 
-    public override void ToolAction()
+    protected override void Exit()
     {
+        EventRemove();
     }
+
+    //public override void ToolAction()
+    //{
+    //}
 }

@@ -26,5 +26,7 @@ public enum toolTag
     Bind,
     Blind,
     OverHeat,
-    Detonation
+    Detonation,
+    EdgeRun,
+    Blink
 }

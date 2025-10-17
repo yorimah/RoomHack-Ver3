@@ -4,7 +4,6 @@ public class ToolEvent_Bind : ToolEvent
 {
     public override toolTag thisToolTag { get; set; } = toolTag.Bind;
 
-    bool isSet = false;
     float timer = 0;
     float lifeTime = 5;
 
@@ -13,37 +12,9 @@ public class ToolEvent_Bind : ToolEvent
 
     GameObject effect;
 
-    private void Update()
+    protected override void Enter()
     {
-        if (isEventAct)
-        {
-            // 初期設定
-            if (!isSet)
-            {
-                HackSetup();
-                isSet = true;
-            }
-
-            // 稼働処理
-            targetData.moveSpeed = 0;
-            Tracking();
-
-            // 終了設定
-            timer -= GameTimer.Instance.ScaledDeltaTime;
-            if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
-            {
-                targetData.moveSpeed = startSpeed;
-                EventRemove();
-                effect.GetComponent<ParticleSystem>().Stop();
-                isSet = false;
-                isEventAct = false;
-            }
-        }
-    }
-
-    // 初期設定
-    void HackSetup()
-    {
+        // 開始処理
         EventAdd();
 
         effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.Bad, this.gameObject);
@@ -54,7 +25,31 @@ public class ToolEvent_Bind : ToolEvent
         timer = lifeTime;
     }
 
-    public override void ToolAction()
+    protected override void Execute()
     {
+        // 稼働処理
+        targetData.moveSpeed = 0;
+        Tracking();
+
+
+        // 終了条件
+        timer -= GameTimer.Instance.ScaledDeltaTime;
+        if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
+        {
+            EventEnd();
+        }
     }
+
+    protected override void Exit()
+    {
+        // 終了処理
+        targetData.moveSpeed = startSpeed;
+        EventRemove();
+        effect.GetComponent<ParticleSystem>().Stop();
+    }
+
+
+    //public override void ToolAction()
+    //{
+    //}
 }

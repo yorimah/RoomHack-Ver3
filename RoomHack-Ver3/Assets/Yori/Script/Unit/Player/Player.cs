@@ -9,11 +9,15 @@ public enum GunNo
     SniperRifle,
     SubMachineGun
 }
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour, IDamageable, IHackObject
 {
     public float maxHitPoint { get; set; }
     public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 1;
+
+    // ハッキング初期化
+    public List<toolTag> canHackToolTag { get; set; }
+    public List<ToolEvent> nowHackEvent { get; set; }
 
     public static Player Instance { get; private set; }
 
@@ -85,7 +89,7 @@ public class Player : MonoBehaviour, IDamageable
         RamUpdate();
 
         // タイムスケールに応じて速度を落とす。
-        rb.linearVelocity = rb.linearVelocity * GameTimer.Instance.customTimeScale;
+        //rb.linearVelocity = rb.linearVelocity * GameTimer.Instance.customTimeScale;
     }
 
     public void ChangeState(StateType type)
@@ -120,6 +124,10 @@ public class Player : MonoBehaviour, IDamageable
         currentState = states[stateType];
 
         rb = GetComponent<Rigidbody2D>();
+
+        // ハッキング初期化
+        canHackToolTag = new List<toolTag> { toolTag.EdgeRun, toolTag.Blink};
+        nowHackEvent = new List<ToolEvent>();
     }
 
     private void PlayerDataInit()
@@ -182,4 +190,15 @@ public class Player : MonoBehaviour, IDamageable
             }
         }
     }
+
+    //特殊行動系
+    public enum SpecialAction
+    {
+        none,
+        EdgeRun,
+        Blink
+    }
+
+    public SpecialAction nowSpecialAction = SpecialAction.none;
+    public float specialActionCount = 0;
 }

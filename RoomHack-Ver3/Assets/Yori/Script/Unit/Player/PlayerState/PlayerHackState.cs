@@ -3,13 +3,9 @@
 public class PlayerHackState : IState
 {
     private Player player;
-    private PlayerMove playerMove;
-    private PlayerShot playerShot;
     public PlayerHackState(Player _player)
     {
         player = _player;
-        playerMove = new PlayerMove(_player);
-        playerShot = new PlayerShot(_player);
     }
     public void Enter()
     {
@@ -17,19 +13,13 @@ public class PlayerHackState : IState
     }
     public void Execute()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    SeManager.Instance.StopImmediately("HackStart");
-        //    SeManager.Instance.Play("HackExit");
-        //    Player.Instance.isRebooting = true;
-        //    unitCore.ChangeState(Player.StateType.Action);
-        //}
+        // タイムスケール0.01にする
+        if (GameTimer.Instance.customTimeScale > 0.01)
+        {
+            GameTimer.Instance.customTimeScale *= 0.8f;
+        }
 
-        //playerMove.PlMove();
-        //playerShot.Shot();
-
-        GameTimer.Instance.SetTimeScale(0.01f);
-
+        // スペースでリブート
         if (Input.GetKeyDown(KeyCode.Space)) Player.Instance.isRebooting = true;
 
         //if (Input.GetMouseButtonDown(1))
@@ -38,7 +28,8 @@ public class PlayerHackState : IState
             || Input.GetKeyDown(KeyCode.A)
             || Input.GetKeyDown(KeyCode.S)
             || Input.GetKeyDown(KeyCode.D)
-            || Input.GetKeyDown(KeyCode.Mouse0))
+            || Input.GetKeyDown(KeyCode.Mouse0)
+            || Input.GetKeyDown(KeyCode.LeftShift))
         {
             SeManager.Instance.StopImmediately("HackStart");
             SeManager.Instance.Play("HackExit");

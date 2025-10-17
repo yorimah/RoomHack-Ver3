@@ -41,4 +41,17 @@ public class PlayerMove
         PlayerRotation();
         playerRigidbody2D.linearVelocity = PlayerMoveVector(moveInput.MoveValue(), unitCore.moveSpeed) * GameTimer.Instance.customTimeScale;
     }
+
+    public void Blink()
+    {
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - playerRigidbody2D.transform.position;
+        pos.z = 0;
+        playerRigidbody2D.transform.position += pos.normalized;
+    }
+
+    public void EdgeRun()
+    {
+        PlayerRotation();
+        playerRigidbody2D.linearVelocity = PlayerMoveVector(moveInput.MoveValue(), unitCore.moveSpeed);
+    }
 }

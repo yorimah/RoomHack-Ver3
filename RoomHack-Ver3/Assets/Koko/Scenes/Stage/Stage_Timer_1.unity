@@ -499,6 +499,8 @@ MonoBehaviour:
   stateType: 0
   shotRanageMaterial: {fileID: 2100000, guid: 9d26c622fb1e6ba46b912d71ab4b77ba, type: 2}
   isRebooting: 0
+  nowSpecialAction: 0
+  specialActionCount: 0
 --- !u!114 &273839734
 MonoBehaviour:
   m_ObjectHideFlags: 0

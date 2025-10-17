@@ -6,14 +6,22 @@ public class ToolEvent_None : ToolEvent
 {
     public override toolTag thisToolTag { get; set; } = toolTag.none;
 
-    private void Start()
+    protected override void Enter()
     {
-        ToolAction();
+        EventAdd();
     }
 
-    public override void ToolAction()
+    protected override void Execute()
     {
-        Debug.Log("Tool0番参照、ばぐです");
-        Destroy(this);
+        EventEnd();
     }
+
+    protected override void Exit()
+    {
+        EventRemove();
+    }
+
+    //public override void ToolAction()
+    //{
+    //}
 }
