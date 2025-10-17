@@ -53,7 +53,7 @@ public class CameraPositionController : MonoBehaviour
                     hoge += item.name;
                     hoge += ", ";
                 }
-                Debug.Log(hoge);
+                //Debug.Log(hoge);
             }
             
         }

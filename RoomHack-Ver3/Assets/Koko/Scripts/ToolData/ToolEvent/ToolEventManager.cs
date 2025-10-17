@@ -8,7 +8,7 @@ public class ToolEventManager : MonoBehaviour
     [SerializeField]
     ToolEvent playEvent;
 
-    public ToolEvent PlayEvent(ToolEvent _event, GameObject _target)
+    public ToolEvent EventPlay(ToolEvent _event, GameObject _target)
     {
         playEvent = null;
 
