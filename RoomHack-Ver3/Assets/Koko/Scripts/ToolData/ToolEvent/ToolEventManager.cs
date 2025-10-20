@@ -32,7 +32,7 @@ public class ToolEventManager : MonoBehaviour
         // イベント初期設定
         playEvent.transform.position = _target.transform.position;
         playEvent.hackTargetObject = _target;
-        playEvent.isEventAct = true;
+        playEvent.EventStart();
 
         EffectManager.Instance.ActEffect(EffectManager.EffectType.Success, _target.transform.position, 0, false);
 

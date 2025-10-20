@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4932298869728194472}
   - component: {fileID: 2309789627462342029}
   - component: {fileID: 8553714406202629247}
+  - component: {fileID: 8220217736563107377}
+  - component: {fileID: 3497092408333659285}
   - component: {fileID: 264601888909838785}
   - component: {fileID: 5373995921203254104}
-  - component: {fileID: 3497092408333659285}
   m_Layer: 5
   m_Name: HackManagerCanvasDemo
   m_TagString: Untagged
@@ -105,7 +106,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &264601888909838785
+--- !u!114 &8220217736563107377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,36 +115,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7115736500871607840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f13180a1270f98489a28e5ae724e500, type: 3}
+  m_Script: {fileID: 11500000, guid: a1862c890bb3f6b4781759d585910163, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
-  setList: 
-  toolDeck: 
-  toolHand: 
-  toolTrash: 
-  handSize: 5
-  toolEventManager: {fileID: 4160348237263685406}
---- !u!114 &5373995921203254104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7115736500871607840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d50f45b40762de44db9da4bc6457bebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultPos: {x: 0, y: -200}
-  willUseRam: 0
-  maxRamCap: 0
-  nowRamCap: 0
-  ramUIPrefab: {fileID: 2770302743126207244, guid: af512b21cdfb75b4db1b7fa2b0fa5fd2, type: 3}
-  ramFill: {fileID: 21300000, guid: 310519454e685094989c3983da240596, type: 3}
-  ramUsed: {fileID: 21300000, guid: 865e22ba30b889941840122ab4785a18, type: 3}
-  ramWillUse: {fileID: 21300000, guid: b52e8877034701d40a6b989eedede501, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::ToolManager
+  toolUIController: {fileID: 3497092408333659285}
+  deckSystem: {fileID: 264601888909838785}
+  ramUIDisp: {fileID: 5373995921203254104}
+  cameraPositionController: {fileID: 0}
 --- !u!114 &3497092408333659285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,8 +147,44 @@ MonoBehaviour:
   handSpace: 200
   handToolUIList: []
   trashToolUIList: []
-  ramUIDisp: {fileID: 5373995921203254104}
-  cameraPositionController: {fileID: 0}
+--- !u!114 &264601888909838785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7115736500871607840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f13180a1270f98489a28e5ae724e500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
+  setList: 
+  toolDeck: 
+  toolHand: 
+  toolTrash: 
+  toolEventManager: {fileID: 4160348237263685406}
+--- !u!114 &5373995921203254104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7115736500871607840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50f45b40762de44db9da4bc6457bebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultPos: {x: 0, y: -200}
+  willUseRam: 0
+  maxRamCap: 0
+  nowRamCap: 0
+  ramUIPrefab: {fileID: 2770302743126207244, guid: af512b21cdfb75b4db1b7fa2b0fa5fd2, type: 3}
+  ramFill: {fileID: 21300000, guid: 310519454e685094989c3983da240596, type: 3}
+  ramUsed: {fileID: 21300000, guid: 865e22ba30b889941840122ab4785a18, type: 3}
+  ramWillUse: {fileID: 21300000, guid: b52e8877034701d40a6b989eedede501, type: 3}
 --- !u!1001 &5379277175333673242
 PrefabInstance:
   m_ObjectHideFlags: 0

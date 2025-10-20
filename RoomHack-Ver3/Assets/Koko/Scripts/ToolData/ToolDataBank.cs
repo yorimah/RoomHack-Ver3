@@ -12,6 +12,7 @@ public class ToolDataBank : ScriptableObject
 public class ToolData
 {
     public toolTag toolTag;
+    public toolType toolType;
     public string toolName;
     public int toolCost;
     public string toolText;
@@ -26,5 +27,22 @@ public enum toolTag
     Bind,
     Blind,
     OverHeat,
-    Detonation
+    Detonation,
+    EdgeRun,
+    Blink,
+    ResourceClip,
+    LightResource,
+    FastReload,
+    InstantMemory,
+    MemoryDeposit
+}
+
+public enum toolType
+{
+    none,
+    Attack,
+    Buff,
+    Debuff,
+    Resource,
+    Special
 }

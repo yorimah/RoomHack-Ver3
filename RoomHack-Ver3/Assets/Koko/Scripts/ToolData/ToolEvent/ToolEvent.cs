@@ -6,23 +6,60 @@ public abstract class ToolEvent : MonoBehaviour
     public abstract toolTag thisToolTag { get; set; }
 
     public GameObject hackTargetObject;
-    public bool isEventAct = false;
+    public bool isEventAct { get; private set; } = false;
+    private bool isSet = false;
 
-    public virtual void EventAdd()
+    public void EventStart()
+    {
+        isEventAct = true;
+    }
+
+    protected void EventEnd()
+    {
+        isEventAct = false;
+    }
+
+    protected void EventAdd()
     {
         hackTargetObject.GetComponent<IHackObject>().nowHackEvent.Add(this);
     }
 
-    public virtual void EventRemove()
+    protected void EventRemove()
     {
         hackTargetObject.GetComponent<IHackObject>().nowHackEvent.Remove(this);
     }
 
-    public virtual void Tracking()
+    protected void Tracking()
     {
         this.transform.position = hackTargetObject.transform.position;
         this.transform.localEulerAngles = hackTargetObject.transform.localEulerAngles;
     }
 
-    public abstract void ToolAction();
+    protected abstract void Enter();
+
+    protected abstract void Execute();
+
+    protected abstract void Exit();
+
+    // 各メソッド起動、継承クラスにUpdateは入れない
+    public void Update()
+    {
+        if (isEventAct)
+        {
+            if (!isSet)
+            {
+                Enter();
+                isSet = true;
+            }
+
+            Execute();
+        }
+        else if (isSet)
+        {
+            Exit();
+            isSet = false;
+        }
+    }
+
+    //public abstract void ToolAction();
 }

@@ -47,74 +47,80 @@ public class ToolEvent_CCTVHack : ToolEvent
         miniMesh = new Mesh();
         miniView.GetComponent<MeshFilter>().mesh = miniMesh;
 
+    }
+
+    protected override void Enter()
+    {
         EventAdd();
     }
 
-    private void Update()
+    protected override void Execute()
     {
-        if (isEventAct)
-        {
-            Tracking();
-            PlayerView();
 
-            // 対象が破壊されたら消す
-            if (hackTargetObject.TryGetComponent<Enemy>(out var enemy))
+        Tracking();
+        PlayerView();
+
+        // 対象が破壊されたら消す
+        if (hackTargetObject.TryGetComponent<Enemy>(out var enemy))
+        {
+            if (enemy.died) EventEnd();
+        }
+
+
+        mesh.Clear();
+
+        Vector3[] vertices = new Vector3[segment + 2];
+        int[] triangles = new int[segment * 3];
+
+        // 中心はobj
+        vertices[0] = this.transform.position;
+
+        float angle = diffusionRate * 2;
+
+        for (int i = 0; i <= segment; i++)
+        {
+            float diffusionAngle = -diffusionRate + (angle / segment) * i;
+
+            Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
+            Vector3 dir = rot * this.transform.up;
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, viewDistance, targetLm);
+            if (hit.collider != null)
             {
-                if (enemy.died) isEventAct = false;
+                // 障害物に当たったらその地点を頂点にする
+                vertices[i + 1] = hit.point;
+            }
+            else
+            {
+                // 何もなければ円周上の点
+                vertices[i + 1] = Player.Instance.transform.position + dir * viewDistance;
             }
 
-            mesh.Clear();
 
-            Vector3[] vertices = new Vector3[segment + 2];
-            int[] triangles = new int[segment * 3];
-
-            // 中心はobj
-            vertices[0] = this.transform.position;
-
-            float angle = diffusionRate * 2;
-
-            for (int i = 0; i <= segment; i++)
+            if (i < segment)
             {
-                float diffusionAngle = -diffusionRate + (angle / segment) * i;
-
-                Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
-                Vector3 dir = rot * this.transform.up;
-
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, viewDistance, targetLm);
-                if (hit.collider != null)
-                {
-                    // 障害物に当たったらその地点を頂点にする
-                    vertices[i + 1] = hit.point;
-                }
-                else
-                {
-                    // 何もなければ円周上の点
-                    vertices[i + 1] = transform.position + dir * viewDistance;
-                }
-
-
-                if (i < segment)
-                {
-                    int start = i * 3;
-                    // 中心
-                    triangles[start] = 0;
-                    // 左上
-                    triangles[start + 1] = i + 2;
-                    // 右上
-                    triangles[start + 2] = i + 1;
-                }
+                int start = i * 3;
+                // 中心
+                triangles[start] = 0;
+                // 左上
+                triangles[start + 1] = i + 2;
+                // 右上
+                triangles[start + 2] = i + 1;
             }
+        }
 
-            mesh.vertices = vertices;
-            mesh.triangles = triangles;
-            mesh.RecalculateNormals();
-        }
-        else
-        {
-            mesh.Clear();
-            miniMesh.Clear();
-        }
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        mesh.RecalculateNormals();
     }
+
+    protected override void Exit()
+    {
+        EventRemove();
+        mesh.Clear();
+        miniMesh.Clear();
+    }
+
 
     GameObject miniView;
     float viewRadial = 0.5f;
@@ -169,8 +175,8 @@ public class ToolEvent_CCTVHack : ToolEvent
     }
 
 
-    public override void ToolAction()
-    {
+    //public override void ToolAction()
+    //{
 
-    }
+    //}
 }

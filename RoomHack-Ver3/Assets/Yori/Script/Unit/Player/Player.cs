@@ -9,13 +9,17 @@ public enum GunNo
     SniperRifle,
     SubMachineGun
 }
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour, IDamageable, IHackObject
 {
-    public float MaxHitPoint { get; }
-    public float NowHitPoint { get; set; }
+    public float maxHitPoint { get; set; }
+    public float nowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 1;
 
-    //public static Player Instance { get; private set; }
+    // ハッキング初期化
+    public List<toolTag> canHackToolTag { get; set; }
+    public List<ToolEvent> nowHackEvent { get; set; }
+
+    public static Player Instance { get; private set; }
 
     public int maxBullet;
     public int nowBullet;
@@ -67,9 +71,9 @@ public class Player : MonoBehaviour, IDamageable
         num
     }
 
-    public IEnemyState currentState;
+    public IState currentState;
     public StateType stateType;
-    public Dictionary<StateType, IEnemyState> states;
+    public Dictionary<StateType, IState> states;
 
     [SerializeField]
     public Material shotRanageMaterial;
@@ -80,11 +84,11 @@ public class Player : MonoBehaviour, IDamageable
 
     void Update()
     {
-        //currentState?.Execute();
+        currentState?.Execute();
 
-        //RamUpdate();
+        RamUpdate();
 
-        //// タイムスケールに応じて速度を落とす。
+        // タイムスケールに応じて速度を落とす。
         //rb.linearVelocity = rb.linearVelocity * GameTimer.Instance.customTimeScale;
     }
 
@@ -98,64 +102,68 @@ public class Player : MonoBehaviour, IDamageable
     }
     void Awake()
     {
-        //    PlayerDataInit();
+        PlayerDataInit();
 
-        //    GunDataInit();
+        GunDataInit();
 
         // Singletonチェック
-        //if (Instance != null && Instance != this)
-        //{
-        //    Destroy(gameObject); // 重複を防止
-        //    return;
-        //}
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // 重複を防止
+            return;
+        }
 
-        //    Instance = this;
+        Instance = this;
 
-        //    states = new Dictionary<StateType, IState>()
-        //{
-        //    { StateType.Action, new PlayerActionState(this) },
-        //    { StateType.Hack, new PlayerHackState(this) },
-        //};
-        //    stateType = StateType.Action;
-        //    currentState = states[stateType];
+        states = new Dictionary<StateType, IState>()
+    {
+        { StateType.Action, new PlayerActionState(this) },
+        { StateType.Hack, new PlayerHackState(this) },
+    };
+        stateType = StateType.Action;
+        currentState = states[stateType];
 
-        //    rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+
+        // ハッキング初期化
+        canHackToolTag = new List<toolTag> { toolTag.EdgeRun, toolTag.Blink};
+        nowHackEvent = new List<ToolEvent>();
     }
 
     private void PlayerDataInit()
     {
-        //data = SaveManager.Instance.Load();
+        data = SaveManager.Instance.Load();
 
-        //maxHitPoint = data.maxHitPoint;
-        //nowHitPoint = maxHitPoint;
+        maxHitPoint = data.maxHitPoint;
+        nowHitPoint = maxHitPoint;
 
-        //ramCapacity = data.maxRamCapacity;
-        //nowRam = ramCapacity;
-        //ramRecovary = data.RamRecovery;
+        ramCapacity = data.maxRamCapacity;
+        nowRam = ramCapacity;
+        ramRecovary = data.RamRecovery;
 
-        //playerInput = new PlayerInput();
-        //playerInput.Init();
-        //moveSpeed = data.moveSpeed;
+        playerInput = new PlayerInput();
+        playerInput.Init();
+        moveSpeed = data.moveSpeed;
 
     }
     private void GunDataInit()
     {
-        //gunNo = (GunNo)data.gunNo;
-        //if (!gundata[(int)gunNo])
-        //{
-        //    Debug.LogError("そのような獲物はございません");
-        //}
-        //else
-        //{
-        //    shotRate = gundata[(int)gunNo].rate;
-        //    shotIntervalTime = 1f / shotRate;
-        //    maxBullet = gundata[(int)gunNo].MAXMAGAZINE;
-        //    nowBullet = maxBullet;
-        //    bulletSpeed = gundata[(int)gunNo].bulletSpeed;
-        //    stoppingPower = gundata[(int)gunNo].power;
-        //    reloadTime = gundata[(int)gunNo].reloadTime;
-        //    recoil = gundata[(int)gunNo].recoil;
-        //}
+        gunNo = (GunNo)data.gunNo;
+        if (!gundata[(int)gunNo])
+        {
+            Debug.LogError("そのような獲物はございません");
+        }
+        else
+        {
+            shotRate = gundata[(int)gunNo].rate;
+            shotIntervalTime = 1f / shotRate;
+            maxBullet = gundata[(int)gunNo].MAXMAGAZINE;
+            nowBullet = maxBullet;
+            bulletSpeed = gundata[(int)gunNo].bulletSpeed;
+            stoppingPower = gundata[(int)gunNo].power;
+            reloadTime = gundata[(int)gunNo].reloadTime;
+            recoil = gundata[(int)gunNo].recoil;
+        }
     }
     public void Die()
     {
@@ -165,21 +173,32 @@ public class Player : MonoBehaviour, IDamageable
     // Ram回復系 by koko
     // Update呼び出し
     public bool isRebooting = false;
-    public float rebootTimer { get; private set; } = 0;
-    //private void RamUpdate()
-    //{
-    //    if (isRebooting)
-    //    {
-    //        nowRam = 0;
-    //        rebootTimer += GameTimer.Instance.ScaledDeltaTime;
+    public float rebootTimer { get; set; } = 0;
+    private void RamUpdate()
+    {
+        if (isRebooting)
+        {
+            nowRam = 0;
+            rebootTimer += GameTimer.Instance.ScaledDeltaTime;
 
-    //        if (rebootTimer >= ramRecovary)
-    //        {
-    //            nowRam = ramCapacity;
+            if (rebootTimer >= ramRecovary)
+            {
+                nowRam = ramCapacity;
 
-    //            rebootTimer = 0;
-    //            isRebooting = false;
-    //        }
-    //    }
-    //}
+                rebootTimer = 0;
+                isRebooting = false;
+            }
+        }
+    }
+
+    //特殊行動系
+    public enum SpecialAction
+    {
+        none,
+        EdgeRun,
+        Blink
+    }
+
+    public SpecialAction nowSpecialAction = SpecialAction.none;
+    public float specialActionCount = 0;
 }
