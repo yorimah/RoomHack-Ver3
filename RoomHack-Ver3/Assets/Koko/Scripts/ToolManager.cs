@@ -36,6 +36,8 @@ public class ToolManager : MonoBehaviour
 
     bool isRebootHandStay = false;
 
+    GameObject targetObject;
+
     private void Start()
     {
         playerSaveData = SaveManager.Instance.Load();
@@ -98,8 +100,16 @@ public class ToolManager : MonoBehaviour
                         if (ho.canHackToolTag.Contains(hand))
                         {
                             handPlayList[i] = true;
+                            targetObject = cameraPositionController.targetObject;
                         }
                     }
+                }
+
+                // resourceなら対象なしでもok
+                if (deckSystem.ReturnToolType(hand) == toolType.Resource)
+                {
+                    handPlayList[i] = true;
+                    targetObject = Player.Instance.gameObject;
                 }
 
                 // マウスがハンドのツールを選択しているなら
@@ -111,10 +121,11 @@ public class ToolManager : MonoBehaviour
                     // 右クリック入力
                     if (Input.GetKeyDown(KeyCode.Mouse1))
                     {
+                        // プレイ可能ならGO
                         if (handCostList[i] && handPlayList[i])
                         {
-                            Player.Instance.nowRam -= deckSystem.ReturnToolCost(hand);
-                            HandPlay(i, cameraPositionController.targetObject);
+                            deckSystem.RamUse(hand);
+                            HandPlay(i, targetObject);
                         }
                     }
                 }
@@ -167,10 +178,32 @@ public class ToolManager : MonoBehaviour
         handPlayList.RemoveAt(_index);
     }
 
-    public void TrashRefresh()
+    void TrashRefresh()
     {
         deckSystem.TrashRefresh();
         toolUIController.TrashRefresh();
     }
 
+    // 外部取得用
+    public void ToolDraw(int _num)
+    {
+        for (int i = 0; i < _num; i++)
+        {
+            DeckDraw();
+        }
+    }
+
+    public void RamAdd(float _num)
+    {
+        float ram = Player.Instance.nowRam + _num;
+        // 上限、下限を超えないかチェック
+        if (ram <= Player.Instance.ramCapacity && ram >= 0)
+        {
+            Player.Instance.nowRam = ram;
+        }
+        else
+        {
+            Debug.LogError("RamAddで上限、下限を超えました");
+        }
+    }
 }

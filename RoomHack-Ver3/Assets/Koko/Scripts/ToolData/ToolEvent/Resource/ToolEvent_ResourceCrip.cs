@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ToolEvent_None : ToolEvent
+public class ToolEvent_ResourceCrip : ToolEvent
 {
     public override toolTag thisToolTag { get; set; } = toolTag.none;
 
@@ -13,6 +11,7 @@ public class ToolEvent_None : ToolEvent
 
     protected override void Execute()
     {
+        ToolManager.Instance.ToolDraw(1);
         EventEnd();
     }
 

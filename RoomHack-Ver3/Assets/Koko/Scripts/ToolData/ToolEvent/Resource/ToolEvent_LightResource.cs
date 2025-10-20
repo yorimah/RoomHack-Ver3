@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ToolEvent_None : ToolEvent
+public class ToolEvent_LightResource : ToolEvent
 {
     public override toolTag thisToolTag { get; set; } = toolTag.none;
 
@@ -13,6 +11,7 @@ public class ToolEvent_None : ToolEvent
 
     protected override void Execute()
     {
+
         EventEnd();
     }
 

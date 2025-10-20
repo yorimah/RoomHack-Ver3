@@ -159,6 +159,11 @@ public class DeckSystem : MonoBehaviour
         return playTool;
     }
 
+    public toolType ReturnToolType(toolTag _tool)
+    {
+        return toolDataBank.toolDataList[(int)_tool].toolType;
+    }
+
     public int ReturnToolCost(toolTag _tool)
     {
         return toolDataBank.toolDataList[(int)_tool].toolCost;
@@ -169,16 +174,18 @@ public class DeckSystem : MonoBehaviour
         return toolDataBank.toolDataList[(int)_tool].toolText;
     }
 
-    public bool RamUse(int _useRam, int _nowRam)
+    public bool RamUse(toolTag _tool)
     {
-        if (_nowRam >= _useRam)
+        float ram = Player.Instance.nowRam - toolDataBank.toolDataList[(int)_tool].toolCost;
+        // 上限、下限を超えないかチェック
+        if (ram <= Player.Instance.ramCapacity && ram >= 0)
         {
-            _nowRam -= _useRam;
+            Player.Instance.nowRam = ram;
             return true;
         }
         else
         {
-            Debug.LogError("コスト足りひんぞ！");
+            Debug.LogError("RamAddで上限、下限を超えました");
             return false;
         }
     }
