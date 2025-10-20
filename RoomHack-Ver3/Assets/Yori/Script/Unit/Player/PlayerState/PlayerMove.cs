@@ -44,9 +44,11 @@ public class PlayerMove
 
     public void Blink()
     {
+        float blinkNum = 3;
+
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - playerRigidbody2D.transform.position;
         pos.z = 0;
-        playerRigidbody2D.transform.position += pos.normalized;
+        playerRigidbody2D.transform.position += pos.normalized * blinkNum;
     }
 
     public void EdgeRun()

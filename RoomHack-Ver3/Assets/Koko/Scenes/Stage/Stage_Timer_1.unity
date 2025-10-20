@@ -3286,6 +3286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HackManagerCanvasDemo
       objectReference: {fileID: 0}
+    - target: {fileID: 8220217736563107377, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: cameraPositionController
+      value: 
+      objectReference: {fileID: 1443072110}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
