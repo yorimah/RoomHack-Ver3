@@ -24,7 +24,7 @@ public class TurretGunMoveState : IEnemyState
 
     public void Execute()
     {
-        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
         {
             enemy.ChangeState(EnemyStateType.Shot);
         }

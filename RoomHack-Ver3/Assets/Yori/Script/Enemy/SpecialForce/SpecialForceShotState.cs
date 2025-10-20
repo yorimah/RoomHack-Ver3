@@ -41,17 +41,17 @@ public class SpecialForceShotState : IEnemyState
     {
         shotSection = ShotSection.aim;
         timer = 0;
-        nowHP = enemy.nowHitPoint;
+        nowHP = enemy.NowHitPoint;
         enemy.diffusionRate = 0;
     }
 
     public void Execute()
     {
-        if (nowHP != enemy.nowHitPoint)
+        if (nowHP != enemy.NowHitPoint)
         {
             enemy.ChangeState(EnemyStateType.Move);
         }
-        playerCheack.RotationFoward(enemy.transform);
+        playerCheack.RotationFoward(enemy.transform, enemy.PlayerPosition);
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {

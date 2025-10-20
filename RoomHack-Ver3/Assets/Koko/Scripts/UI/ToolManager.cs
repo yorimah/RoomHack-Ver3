@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+using Zenject;
 public class ToolManager : MonoBehaviour
 {
     DeckSystem deckSystem;
@@ -61,6 +61,8 @@ public class ToolManager : MonoBehaviour
     [SerializeField, Header("アタッチしてね")]
     CameraPositionController cameraPositionController;
 
+    [Inject]
+    IUseableRam useableRam;
     private void Start()
     {
         if (DeckSystem.Instance != null)
@@ -88,7 +90,7 @@ public class ToolManager : MonoBehaviour
         trashSign.thisTool = toolTag.none;
         trashSign.isOpen = false;
 
-        Player.Instance.isRebooting = true;
+        useableRam.setIsRebooting(true);
     }
 
     private void Update()
@@ -96,7 +98,7 @@ public class ToolManager : MonoBehaviour
         deckSign.toMovePosition = nowDeckPos;
         trashSign.toMovePosition = nowTrashPos;
 
-        if (Player.Instance.stateType == Player.StateType.Hack)
+        if (GameTimer.Instance.customTimeScale <= 0.5f)
         {
             nowDeckPos = hackDeckPos;
             nowTrashPos = hackTrashPos;
@@ -127,7 +129,7 @@ public class ToolManager : MonoBehaviour
         //}
 
         // reboot関連
-        if (Player.Instance.isRebooting)
+        if (useableRam.IsRebooting)
         {
             for (int i = 0; i < deckSystem.toolHand.Count; i++)
             {
@@ -243,7 +245,7 @@ public class ToolManager : MonoBehaviour
             hand.isBlackOut = true;
 
             // ツールコストが足りるかチェック
-            if (deckSystem.ReturnToolCost(hand.thisTool) > Player.Instance.nowRam)
+            if (deckSystem.ReturnToolCost(hand.thisTool) > useableRam.NowRam)
             {
                 hand.isBlackOut = true;
                 firstHandPos.y = -100;
@@ -280,7 +282,7 @@ public class ToolManager : MonoBehaviour
                     // クリックするとカードプレイ
                     if (Input.GetKeyDown(KeyCode.Mouse1) && hackObj != null)
                     {
-                        Player.Instance.nowRam -= deckSystem.ReturnToolCost(hand.thisTool);
+                        useableRam.UseRam(deckSystem.ReturnToolCost(hand.thisTool));
 
                         SeManager.Instance.Play("toolPlay");
                         toolTag playTool = deckSystem.HandPlay(i, hackObj);

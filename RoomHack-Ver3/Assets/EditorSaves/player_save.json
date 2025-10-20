@@ -5,7 +5,7 @@
   "maxHitPoint": 100,
   "moveSpeed": 5.0,
   "maxRamCapacity": 10.0,
-  "RamRecovery": 5.0,
+  "RamRecovery": 1.0,
   "handNum": 5,
   "deckList": [
     1,

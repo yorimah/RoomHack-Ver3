@@ -20,7 +20,7 @@ public class HackInformationDisp : MonoBehaviour
 
     private void Update()
     {
-        if (Player.Instance.stateType == Player.StateType.Hack)
+        if (GameTimer.Instance.customTimeScale <= 0.5f)
         {
 
             if (cameraPositionController.targetObject != null)
@@ -35,7 +35,7 @@ public class HackInformationDisp : MonoBehaviour
 
                 if (target.TryGetComponent<IDamageable>(out var damageable))
                 {
-                    hpText.text = damageable.nowHitPoint.ToString() + " / " + damageable.maxHitPoint.ToString();
+                    hpText.text = damageable.NowHitPoint.ToString() + " / " + damageable.MaxHitPoint.ToString();
                 }
                 else
                 {

@@ -43,7 +43,7 @@ public class TurretGunShotState : IEnemyState
     public void Execute()
     {
         //プレイヤー方向に向く
-        playerCheack.RotationFoward(enemy.transform);
+        playerCheack.RotationFoward(enemy.transform, enemy.PlayerPosition);
         //発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
@@ -83,7 +83,7 @@ public class TurretGunShotState : IEnemyState
                 {
                     // プレイヤーが射線上にいたら射撃へ
                     // いなかったら移動へ
-                    if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+                    if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
                     {
                         timer = 0;
                         shotSection = ShotSection.shot;

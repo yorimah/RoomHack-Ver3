@@ -1,9 +1,9 @@
 ﻿public interface IDamageable
 {
-    public float maxHitPoint { get; }
+    public float MaxHitPoint { get; }
 
     // 頑張って読み取り
-    public float nowHitPoint { get; set; }
+    public float NowHitPoint { get; set; }
 
     /// <summary>
     /// 1  プレイヤー
@@ -15,8 +15,8 @@
 
     public void HitDmg(int dmg, float hitStop)
     {
-        nowHitPoint -= dmg;
-        if (nowHitPoint <= 0)
+        NowHitPoint -= dmg;
+        if (NowHitPoint <= 0)
         {
             Die();
         }

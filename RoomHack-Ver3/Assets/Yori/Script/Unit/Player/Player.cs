@@ -11,8 +11,8 @@ public enum GunNo
 }
 public class Player : MonoBehaviour, IDamageable
 {
-    public float maxHitPoint { get; }
-    public float nowHitPoint { get; set; }
+    public float MaxHitPoint { get; }
+    public float NowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 1;
 
     //public static Player Instance { get; private set; }

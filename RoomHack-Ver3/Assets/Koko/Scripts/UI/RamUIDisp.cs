@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
-
+using Zenject;
 public class RamUIDisp : MonoBehaviour
 {
     public Vector2 defaultPos = new Vector2(0, -200);
@@ -27,60 +27,63 @@ public class RamUIDisp : MonoBehaviour
 
     List<GameObject> ramUIList = new List<GameObject>();
 
+    //[Inject]
+    //IUseableRam useableRam;
+
     private void Start()
     {
-        maxRamCap = (int)Player.Instance.ramCapacity;
-        // rmaxRamCapの値だけUI生成
-        for (int i = 0; i < maxRamCap; i++)
-        {
-            GameObject ramObj = Instantiate(ramUIPrefab, this.transform.position, Quaternion.identity, this.gameObject.transform);
-            ramUIList.Add(ramObj);
+        //maxRamCap = (int)useableRam.RamCapacity;
+        //// rmaxRamCapの値だけUI生成
+        //for (int i = 0; i < maxRamCap; i++)
+        //{
+        //    GameObject ramObj = Instantiate(ramUIPrefab, this.transform.position, Quaternion.identity, this.gameObject.transform);
+        //    ramUIList.Add(ramObj);
 
-        }
+        //}
 
     }
 
     private void Update()
     {
 
-        nowRamCap = (int)Player.Instance.nowRam;
+        //nowRamCap = (int)useableRam.NowRam;
 
-        for (int i = 0; i < maxRamCap; i++)
-        {
-            if (nowRamCap > i)
-            {
-                if (nowRamCap - willUseRam <= i)
-                {
-                    ramUIList[i].GetComponent<Image>().sprite = ramWillUse;
-                }
-                else
-                {
-                    ramUIList[i].GetComponent<Image>().sprite = ramFill;
-                }
-            }
-            else
-            {
-                ramUIList[i].GetComponent<Image>().sprite = ramUsed;
-            }
-        }
+        //for (int i = 0; i < maxRamCap; i++)
+        //{
+        //    if (nowRamCap > i)
+        //    {
+        //        if (nowRamCap - willUseRam <= i)
+        //        {
+        //            ramUIList[i].GetComponent<Image>().sprite = ramWillUse;
+        //        }
+        //        else
+        //        {
+        //            ramUIList[i].GetComponent<Image>().sprite = ramFill;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ramUIList[i].GetComponent<Image>().sprite = ramUsed;
+        //    }
+        //}
 
-        for (int i = 0; i < ramUIList.Count; i++)
-        {
-            // hackモード時に半透明化
-            //if (isSkelton)
-            if (Player.Instance.stateType == Player.StateType.Hack)
-            {
-                ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            }
-            else
-            {
-                ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-            }
+        //for (int i = 0; i < ramUIList.Count; i++)
+        //{
+        //    // hackモード時に半透明化
+        //    //if (isSkelton)
+        //    if (GameTimer.Instance.customTimeScale <= 0.5f)
+        //    {
+        //        ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        //    }
+        //    else
+        //    {
+        //        ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        //    }
 
-            // 位置設定
-            Vector2 ramPos = defaultPos + new Vector2((maxRamCap - 1) * -25 + i * 50, 0);
-            ramUIList[i].GetComponent<RectTransform>().anchoredPosition = ramPos;
-        }
+        //    // 位置設定
+        //    Vector2 ramPos = defaultPos + new Vector2((maxRamCap - 1) * -25 + i * 50, 0);
+        //    ramUIList[i].GetComponent<RectTransform>().anchoredPosition = ramPos;
+        //}
 
         // 現在のramの値が変わると
         //if (plRam != nowRamCap)

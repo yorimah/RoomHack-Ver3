@@ -21,8 +21,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public List<ToolEvent> nowHackEvent { get; set; } = new List<ToolEvent>();
 
     // ダメージ関連
-    public float maxHitPoint { get; private set; } = 5;
-    public float nowHitPoint { get; set; }
+    public float MaxHitPoint { get; private set; } = 5;
+    public float NowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 2;
 
     public IEnemyState currentState;
@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     {
         GunDataInit();
 
-        nowHitPoint = maxHitPoint;
+        NowHitPoint = MaxHitPoint;
     }
 
     protected EnemyStateType statetype;
@@ -128,7 +128,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.white;
         style.fontSize = 14;
-        Handles.Label(transform.position + Vector3.up * 1f, "HP " + nowHitPoint.ToString(), style);
+        Handles.Label(transform.position + Vector3.up * 1f, "HP " + NowHitPoint.ToString(), style);
         Handles.Label(transform.position + Vector3.up * 1.5f, "残弾 " + NOWBULLET.ToString(), style);
         if (currentState != null)
         {

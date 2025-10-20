@@ -6,7 +6,8 @@ public class InputInstaller : MonoInstaller<InputInstaller>
     {
         Container
             .Bind<IPlayerInput>()   // IPlayerInputが要求されたら
-            .To<PlayerInput>() // PlayerInputを生成して注入する
-            .AsCached();              // ただし、PlayerInputが生成済みなら使い回す
+            .To<PlayerInput>()      // PlayerInputを生成して注入する
+            .AsCached();            // ただし、PlayerInputが生成済みなら使い回す
+        Container.BindInterfacesTo<PlayerStatus>().AsSingle();
     }
 }

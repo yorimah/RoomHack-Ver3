@@ -2,9 +2,9 @@
 
 public class BulletCore : MonoBehaviour, IDamageable
 {
-    public float maxHitPoint { get; set; }
+    public float MaxHitPoint { get; set; }
 
-    public float nowHitPoint { get; set; }
+    public float NowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; }
 
     public int power;
@@ -17,8 +17,8 @@ public class BulletCore : MonoBehaviour, IDamageable
     public void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
-        maxHitPoint = 1;
-        nowHitPoint = maxHitPoint;
+        MaxHitPoint = 1;
+        NowHitPoint = MaxHitPoint;
 
         initVel = rb.linearVelocity;
 

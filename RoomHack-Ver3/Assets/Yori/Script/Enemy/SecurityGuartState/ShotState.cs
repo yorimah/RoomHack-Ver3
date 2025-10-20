@@ -45,7 +45,7 @@ public class ShotState : IEnemyState
     public void Execute()
     {
         // プレイヤー方向に向く
-        playerCheack.RotationFoward(enemy.transform);
+        playerCheack.RotationFoward(enemy.transform,enemy.PlayerPosition);
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
@@ -98,7 +98,7 @@ public class ShotState : IEnemyState
                         shotNum = 0;
                         // プレイヤーが射線上にいたら射撃予備動作へ
                         // いなかったら移動へ
-                        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+                        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
                         {
                             shotSection = ShotSection.aim;
                         }

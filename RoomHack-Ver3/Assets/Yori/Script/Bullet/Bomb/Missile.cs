@@ -5,9 +5,9 @@ public class Missile : BombCore, IDamageable
     [SerializeField, Header("爆発までの秒数")]
     private float explosionTimer = 3;
 
-    public float maxHitPoint { get; set; }
+    public float MaxHitPoint { get; set; }
 
-    public float nowHitPoint { get; set; }
+    public float NowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 4;
 
     public float hitStop { get; set; }
@@ -44,7 +44,7 @@ public class Missile : BombCore, IDamageable
         color = spriteRen.color;
         MeshInit();
         timer = 0;
-        nowHitPoint = maxHitPoint;
+        NowHitPoint = MaxHitPoint;
         SeManager.Instance.Play("MissleMove");
 
         // missileエフェクト用

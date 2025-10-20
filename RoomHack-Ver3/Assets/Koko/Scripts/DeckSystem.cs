@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class DeckSystem : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class DeckSystem : MonoBehaviour
     public List<toolTag> toolHand = new List<toolTag>();
 
     public List<toolTag> toolTrash = new List<toolTag>();
+
+    [Inject]
+    IDeckList iDeckList;
 
     [SerializeField]
     public int handSize = 5;
@@ -39,7 +43,7 @@ public class DeckSystem : MonoBehaviour
 
     private void Start()
     {
-        setList = IntToDeck(Player.Instance.data.deckList);
+        setList = IntToDeck(iDeckList.deckList);
 
         DeckGenerate();
     }
