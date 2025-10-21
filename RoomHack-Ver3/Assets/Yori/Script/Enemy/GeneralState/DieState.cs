@@ -1,4 +1,5 @@
-﻿public class DieState : IState
+﻿using Cysharp.Threading.Tasks;
+public class DieState : IEnemyState
 {
     private Enemy enemy;
     PlayerSaveData data;

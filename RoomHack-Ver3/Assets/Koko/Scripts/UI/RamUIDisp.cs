@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
-
+using Zenject;
 public class RamUIDisp : MonoBehaviour
 {
     public Vector2 defaultPos = new Vector2(0, -200);
@@ -27,9 +27,12 @@ public class RamUIDisp : MonoBehaviour
 
     List<GameObject> ramUIList = new List<GameObject>();
 
+    [Inject]
+    IUseableRam useableRam;
+
     private void Start()
     {
-        maxRamCap = (int)Player.Instance.ramCapacity;
+        maxRamCap = (int)useableRam.RamCapacity;
         // rmaxRamCapの値だけUI生成
         for (int i = 0; i < maxRamCap; i++)
         {
@@ -43,7 +46,7 @@ public class RamUIDisp : MonoBehaviour
     private void Update()
     {
 
-        nowRamCap = (int)Player.Instance.nowRam;
+        nowRamCap = (int)useableRam.NowRam;
 
         for (int i = 0; i < maxRamCap; i++)
         {
@@ -68,7 +71,7 @@ public class RamUIDisp : MonoBehaviour
         {
             // hackモード時に半透明化
             //if (isSkelton)
-            if (Player.Instance.stateType == Player.StateType.Hack)
+            if (GameTimer.Instance.customTimeScale <= 0.5f)
             {
                 ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
@@ -82,23 +85,23 @@ public class RamUIDisp : MonoBehaviour
             ramUIList[i].GetComponent<RectTransform>().anchoredPosition = ramPos;
         }
 
-        // 現在のramの値が変わると
-        //if (plRam != nowRamCap)
-        //{
-        //    nowRamCap = plRam;
+        //現在のramの値が変わると
+        if (useableRam.NowRam != nowRamCap)
+        {
+            nowRamCap = (int)useableRam.NowRam;
 
-        //    // 表示切替
-        //    for (int i = 0; i < maxRamCap; i++)
-        //    {
-        //        if(i < nowRamCap)
-        //        {
-        //            ramUIList[i].transform.GetChild(0).gameObject.SetActive(true);
-        //        }
-        //        else
-        //        {
-        //            ramUIList[i].transform.GetChild(0).gameObject.SetActive(false);
-        //        }
-        //    }
-        //}
+            // 表示切替
+            for (int i = 0; i < maxRamCap; i++)
+            {
+                if (i < nowRamCap)
+                {
+                    ramUIList[i].transform.GetChild(0).gameObject.SetActive(true);
+                }
+                else
+                {
+                    ramUIList[i].transform.GetChild(0).gameObject.SetActive(false);
+                }
+            }
+        }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class PlayerShot
 {
-    private Player player;
+    private GameObject player;
     enum ShotSection
     {
         shot,
@@ -23,9 +22,25 @@ public class PlayerShot
     // 分割数
     private int segment = 20;
 
-    public PlayerShot(Player _player)
+    GunData gunData;
+
+    private int nowBullet;
+    private int maxBullet;
+
+    private int hitDamageLayer = 1;
+    private Material shotRanageMaterial;
+    private GameObject bulletPre;
+
+    IPlayerInput playerInput;
+    public PlayerShot(GunData _gunData, Material _shotRanageMaterial, GameObject _bulletPre,
+        GameObject _player, IPlayerInput _playerInput)
     {
         player = _player;
+        playerInput = _playerInput;
+        gunData = _gunData;
+        maxBullet = gunData.MaxBullet;
+        nowBullet = maxBullet;
+        shotRanageMaterial = _shotRanageMaterial;
         shotRange = new GameObject(player.gameObject.name + "shotRangge");
         shotRange.AddComponent<MeshRenderer>();
         shotRange.AddComponent<MeshFilter>();
@@ -36,61 +51,72 @@ public class PlayerShot
 
         var mr = shotRange.GetComponent<MeshRenderer>();
         // 仮の色
-        mr.material = new Material(player.shotRanageMaterial);
+        mr.material = new Material(shotRanageMaterial);
         mr.material.color = new Color(1, 1, 0, 0.3f); // 半透明黄色
         mr.sortingOrder = 10;
+
+        bulletPre = _bulletPre;
     }
     private void GunFire()
     {
-        GameObject bulletGameObject = Object.Instantiate(player.bulletPrefab, player.transform.position, Quaternion.identity);
+        GameObject bulletGameObject = Object.Instantiate(bulletPre, player.transform.position, Quaternion.identity);
 
         Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();
 
         BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
 
-        bulletCore.power = player.stoppingPower;
+        bulletCore.power = gunData.Power;
         bulletCore.hitStop = 0.1f;
-        bulletCore.hitDamegeLayer = player.hitDamegeLayer;
+        bulletCore.hitDamegeLayer = hitDamageLayer;
 
 
         float rand = Random.Range(-diffusionRate, diffusionRate);
 
 
         Vector2 shotDirection = Quaternion.Euler(0, 0, player.transform.eulerAngles.z + rand) * Vector3.up;
-        bulletRigit.linearVelocity = shotDirection * player.bulletSpeed;
+        bulletRigit.linearVelocity = shotDirection * gunData.BulletSpeed;
         bulletGameObject.transform.up = shotDirection;
     }
+
+
+    private Vector3 mousePosition;
+
+    private Vector3 direction;
     public void Shot()
     {
-
+        if (player == null)
+        {
+            return;
+        }
+        PlayerRotation();
         ShotRangeView();
-        diffusionRate = Mathf.Clamp(diffusionRate, player.minDiffusionRate, player.maxDiffusionRate);
+        diffusionRate = Mathf.Clamp(diffusionRate, gunData.MinDiffusionRate, gunData.MaxDiffusionRate);
         diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
 
-        if (Input.GetKeyDown(KeyCode.R) && shotSection != ShotSection.Reload)
+        if (playerInput.GetOnReload() && shotSection != ShotSection.Reload)
         {
-            player.nowBullet = 0;
+            nowBullet = 0;
             shotSection = ShotSection.Reload;
         }
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
             case ShotSection.shot:
-                if (Input.GetKey(KeyCode.Mouse0) && player.nowBullet > 0)
+                if (playerInput.GetOnClick() && nowBullet > 0)
                 {
                     GunFire();
                     shotSection++;
-                    player.nowBullet--;
-                    diffusionRate += player.recoil;
+                    nowBullet--;
+                    diffusionRate += gunData.Recoil;
                 }
-                else if (player.nowBullet <= 0)
+                else if (nowBullet <= 0)
                 {
-                    player.nowBullet = 0;
+                    nowBullet = 0;
                     shotSection = ShotSection.Reload;
                 }
                 break;
             case ShotSection.shotInterval:
-                if (player.shotIntervalTime <= timer)
+                if (gunData.ShotIntervalTime <= timer)
                 {
                     shotSection = ShotSection.shot;
                     timer = 0;
@@ -101,9 +127,9 @@ public class PlayerShot
                 }
                 break;
             case ShotSection.Reload:
-                if (player.reloadTime <= timer)
+                if (gunData.ReloadTime <= timer)
                 {
-                    player.nowBullet = player.maxBullet;
+                    nowBullet = maxBullet;
                     timer = 0;
                     shotSection = ShotSection.shot;
                 }
@@ -116,6 +142,17 @@ public class PlayerShot
                 break;
         }
     }
+
+    private void PlayerRotation()
+    {
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        direction = mousePosition - player.transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        player.transform.rotation = targetRotation;
+    }
+
     public void ShotRangeView()
     {
         mesh.Clear();

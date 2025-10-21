@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class DroneShotState : IState
+public class DroneShotState : IEnemyState
 {
     private Enemy enemy;
 
@@ -40,9 +41,9 @@ public class DroneShotState : IState
 
     public void Execute()
     {
-        if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+        if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
         {
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
         }
         Vector2 nowPosition = enemy.transform.position;
         flipTimer += Time.deltaTime;
@@ -75,7 +76,7 @@ public class DroneShotState : IState
         // Rigidbody2Dで移動
         enemyRigidBody2D.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale / 2;
 
-        playerCheack.RotationFoward(enemy.transform);
+        playerCheack.RotationFoward(enemy.transform,enemy.PlayerPosition);
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {

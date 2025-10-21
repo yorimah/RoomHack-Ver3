@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class DroneMoveState : IState
+public class DroneMoveState : IEnemyState
 {
     private PlayerCheack playerCheack;
     private Enemy enemy;
@@ -28,11 +29,11 @@ public class DroneMoveState : IState
 
     public void Execute()
     {
-        playerCheack.RotationFoward(enemy.transform);
+        playerCheack.RotationFoward(enemy.transform,enemy.PlayerPosition);
         // レイを飛ばして射線が通たらショットに遷移
-        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
         {
-            enemy.ChangeState(StateType.Shot);
+            enemy.ChangeState(EnemyStateType.Shot);
         }
         Vector2 nowPosition = enemy.transform.position;
         flipTimer += Time.deltaTime;

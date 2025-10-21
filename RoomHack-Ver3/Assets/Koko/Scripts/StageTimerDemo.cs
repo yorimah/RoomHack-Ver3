@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class StageTimerDemo : MonoBehaviour
 {
@@ -11,10 +12,14 @@ public class StageTimerDemo : MonoBehaviour
 
     Text dispText;
 
+    [Inject]
+    IGetPlayerDie playerDie;
+
     private void Start()
     {
         dispText = GetComponent<Text>();
         timer = stageTime;
+        //playerDie.PlayerDie += () => { SceneManager.LoadScene("GameOverDemoScene"); };
     }
 
     private void Update()
@@ -22,7 +27,6 @@ public class StageTimerDemo : MonoBehaviour
         if (timer <= 0)
         {
             timer = 0;
-            SceneManager.LoadScene("GameOverDemoScene");
         }
 
         dispText.text = timer.ToString("00.00");

@@ -505,10 +505,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecurtyGuard (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2257561868696895793, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.14
@@ -564,6 +560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 273839736}
   - component: {fileID: 273839735}
+  - component: {fileID: 273839737}
   - component: {fileID: 273839734}
   - component: {fileID: 273839733}
   - component: {fileID: 273839732}
@@ -673,7 +670,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 273839729}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda89c05376ded346892b71fee4b4345, type: 3}
   m_Name: 
@@ -788,6 +785,21 @@ Transform:
   - {fileID: 437731833}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &273839737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273839729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297c829e16e55fc42824820028805619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCore
+  gunData: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
+  material: {fileID: 2100000, guid: 9d26c622fb1e6ba46b912d71ab4b77ba, type: 2}
+  bulletPre: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
 --- !u!1 &329995984
 GameObject:
   m_ObjectHideFlags: 3
@@ -1050,10 +1062,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecurtyGuard
       objectReference: {fileID: 0}
-    - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2257561868696895793, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.81
@@ -1094,10 +1102,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2610328758265017640, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: gunData
-      value: 
-      objectReference: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1651,10 +1655,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpecialForce
       objectReference: {fileID: 0}
-    - target: {fileID: 1433607548650627288, guid: fb6a080370a46da4f83b499a7684486a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1729965025064975044, guid: fb6a080370a46da4f83b499a7684486a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -19.69
@@ -1757,10 +1757,6 @@ PrefabInstance:
     - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_Name
       value: SecurtyGuard (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2257561868696895793, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5517,6 +5513,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HackManagerCanvasDemo
       objectReference: {fileID: 0}
+    - target: {fileID: 7115736500871607840, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5580,6 +5580,10 @@ PrefabInstance:
     - target: {fileID: 2457523619027667085, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_Name
       value: CameraEffectController
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457523619027667085, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3582540534951285437, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5649,10 +5653,6 @@ PrefabInstance:
     - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_Name
       value: SecurtyGuard (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1999217384655990172, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2257561868696895793, guid: da19cfa5f49aaad4a873de6c0afe63ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5761,6 +5761,10 @@ PrefabInstance:
     - target: {fileID: 8607164380442537846, guid: 386941e9eb5286d4ab8c62f2640391f4, type: 3}
       propertyPath: m_Name
       value: EffectManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607164380442537846, guid: 386941e9eb5286d4ab8c62f2640391f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5979,7 +5983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1505194168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6334,6 +6338,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraPositionController
       objectReference: {fileID: 0}
+    - target: {fileID: 3299697455797183922, guid: 324cb17ce07856e4b903fc05a1c0ccd9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6390,54 +6398,6 @@ PrefabInstance:
     - target: {fileID: 4717672048317330307, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
       propertyPath: m_Name
       value: CCTV
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.025000095
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.006000042
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.92387956
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.38268343
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260507294446093709, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.006
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.92387956
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.38268343
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524606176364013697, guid: 16d6c640659461443bf73791f792ea6b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6643,10 +6603,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8142080242801608272, guid: eff9a010365ca5844af32137f76afadb, type: 3}
-      propertyPath: gunData
-      value: 
-      objectReference: {fileID: 11400000, guid: cd3053c612e76fc4b851e0bdec18cd69, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class MissileShotState : IState
+public class MissileShotState : IEnemyState
 {
     private Enemy enemy;
     enum ShotSection
@@ -40,7 +41,7 @@ public class MissileShotState : IState
     public void Execute()
     {
         //プレイヤー方向に向く
-        playerCheack.RotationFoward(enemy.transform);
+        playerCheack.RotationFoward(enemy.transform,enemy.PlayerPosition);
         //発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
@@ -73,9 +74,9 @@ public class MissileShotState : IState
                 timer += GameTimer.Instance.ScaledDeltaTime;
                 // プレイヤーが射線上にいたら射撃へ
                 // いなかったら移動へ
-                if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask()))
+                if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
                 {
-                    enemy.ChangeState(StateType.Move);
+                    enemy.ChangeState(EnemyStateType.Move);
                 }
                 else
                 {

@@ -1,77 +1,40 @@
-﻿using UnityEngine;
-
-public class PlayerActionState : IState
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
+public class PlayerActionState : IPlayerState
 {
-    private Player player;
     private PlayerMove playerMove;
-    private PlayerShot playerShot;
-    public PlayerActionState(Player _player)
+    PlayerStateContoller playerStateContoller;
+
+    IPlayerInput playerInput;
+    public PlayerActionState(Rigidbody2D playerRigidBody, float moveSpeed, PlayerStateContoller _playerStateContoller, IPlayerInput playerInput)
     {
-        player = _player;
-        playerMove = new PlayerMove(player);
-        playerShot = new PlayerShot(player);
+        this.playerInput = playerInput;
+        playerStateContoller = _playerStateContoller;
+        playerMove = new PlayerMove(playerRigidBody, moveSpeed, this.playerInput);
+       
     }
     public void Enter()
     {
-        // blink
-        if (Input.GetKey(KeyCode.LeftShift) && player.specialActionCount > 0 && player.nowSpecialAction == Player.SpecialAction.Blink)
-        {
-            playerMove.Blink();
-            player.specialActionCount--;
-        }
+        playerInput.ChangeState += ChangeState;
     }
-    public void Execute()
+    public async UniTask Execute()
     {
-        playerShot.Shot();
+        playerMove.playerMove();
 
-        // blink
-        if (Input.GetKeyDown(KeyCode.LeftShift) && player.specialActionCount > 0 && player.nowSpecialAction == Player.SpecialAction.Blink)
+        // 入力がないならハックステートへ
+        if (playerInput.MoveValue() == Vector2.zero)
         {
-            playerMove.Blink();
-            player.specialActionCount--;
+            ChangeState();
         }
-
-
-        //if (Input.GetKeyDown(KeyCode.Space) && !Player.Instance.isRebooting)
-        //{
-        //    SeManager.Instance.StopImmediately("HackExit");
-        //    SeManager.Instance.Play("HackStart");
-        //    player.ChangeState(Player.StateType.Hack);
-        //}
-
-        // edgeRun
-        if (Input.GetKey(KeyCode.LeftShift) && player.specialActionCount > 0 && player.nowSpecialAction == Player.SpecialAction.EdgeRun)
-        {
-            GameTimer.Instance.customTimeScale = 0.1f;
-            playerMove.EdgeRun();
-            player.specialActionCount -= Time.unscaledDeltaTime;
-        }
-        else
-        {
-            if (GameTimer.Instance.customTimeScale < 1)
-            {
-                GameTimer.Instance.customTimeScale *= 1.5f;
-            }
-
-            playerMove.PlMove();
-        }
-
-        //if (!Input.GetMouseButton(1))
-        if (!Input.GetKey(KeyCode.W)
-            && !Input.GetKey(KeyCode.A)
-            && !Input.GetKey(KeyCode.S)
-            && !Input.GetKey(KeyCode.D)
-            && !Input.GetKey(KeyCode.Mouse0)
-            && !Input.GetKey(KeyCode.LeftShift))
-        {
-            SeManager.Instance.StopImmediately("HackExit");
-            SeManager.Instance.Play("HackStart");
-            player.ChangeState(Player.StateType.Hack);
-        }
+        await UniTask.Yield();
     }
-
+    private void ChangeState()
+    {
+        playerStateContoller.ChangeState(PlayerStateType.Hack);
+        GameTimer.Instance.SetHackModeTimeScale();
+    }
     public void Exit()
     {
-
+        playerInput.ChangeState -= ChangeState;
     }
 }

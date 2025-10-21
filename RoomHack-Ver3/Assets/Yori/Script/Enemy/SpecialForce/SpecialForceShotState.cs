@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-
-public class SpecialForceShotState : IState
+using Cysharp.Threading.Tasks;
+public class SpecialForceShotState : IEnemyState
 {
     private Enemy enemy;
 
@@ -41,17 +41,17 @@ public class SpecialForceShotState : IState
     {
         shotSection = ShotSection.aim;
         timer = 0;
-        nowHP = enemy.nowHitPoint;
+        nowHP = enemy.NowHitPoint;
         enemy.diffusionRate = 0;
     }
 
     public void Execute()
     {
-        if (nowHP != enemy.nowHitPoint)
+        if (nowHP != enemy.NowHitPoint)
         {
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
         }
-        playerCheack.RotationFoward(enemy.transform);
+        playerCheack.RotationFoward(enemy.transform, enemy.PlayerPosition);
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
@@ -68,7 +68,7 @@ public class SpecialForceShotState : IState
             case ShotSection.shot:
                 if (enemy.NOWBULLET <= 0)
                 {
-                    enemy.ChangeState(StateType.Move);
+                    enemy.ChangeState(EnemyStateType.Move);
                     return;
                 }
                 if (enemy.shotIntervalTime >= 100)
@@ -97,7 +97,7 @@ public class SpecialForceShotState : IState
                     if (shotNum >= enemy.shotRate)
                     {
                         shotNum = 0;
-                        enemy.ChangeState(StateType.Move);
+                        enemy.ChangeState(EnemyStateType.Move);
                     }
                     else
                     {

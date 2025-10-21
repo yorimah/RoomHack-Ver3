@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+using Zenject;
 public class ToolUIController : MonoBehaviour
 {
 
@@ -60,6 +60,9 @@ public class ToolUIController : MonoBehaviour
     public int handOnIndex = 0;
     public bool isHandOn = false;
 
+    [Inject]
+    IUseableRam useableRam;
+
     private void Start()
     {
 
@@ -79,7 +82,7 @@ public class ToolUIController : MonoBehaviour
         trashSign.thisTool = toolTag.none;
         trashSign.isOpen = false;
 
-        Player.Instance.isRebooting = true;
+        useableRam.SetIsReboot(true);
     }
 
     private void Update()
@@ -87,7 +90,7 @@ public class ToolUIController : MonoBehaviour
         deckSign.toMovePosition = nowDeckPos;
         trashSign.toMovePosition = nowTrashPos;
 
-        if (Player.Instance.stateType == Player.StateType.Hack)
+        if (GameTimer.Instance.isHackMode)
         {
             nowDeckPos = hackDeckPos;
             nowTrashPos = hackTrashPos;

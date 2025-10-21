@@ -9,15 +9,15 @@ public class SpecialForce : Enemy
     {
         playerCheack = new PlayerCheack();
 
-        states = new Dictionary<StateType, IState>()
+        states = new Dictionary<EnemyStateType, IEnemyState>()
     {
-        { StateType.Idle, new IdleState(this) },
-        { StateType.Move, new SpecialForceMoveState(this) },
-        { StateType.Shot, new SpecialForceShotState(this) },
-        { StateType.Reload, new SpecialForceReloadState(this) },
-        { StateType.Die, new DieState(this) },
+        { EnemyStateType.Idle, new IdleState(this) },
+        { EnemyStateType.Move, new SpecialForceMoveState(this) },
+        { EnemyStateType.Shot, new SpecialForceShotState(this) },
+        { EnemyStateType.Reload, new SpecialForceReloadState(this) },
+        { EnemyStateType.Die, new DieState(this) },
     };
-        statetype = StateType.Idle;
+        statetype = EnemyStateType.Idle;
         currentState = states[statetype];
 
         canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Bind, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };

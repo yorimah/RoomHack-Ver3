@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class LoadManager : MonoBehaviour
 {
-    private Player player;
+    [Inject]
+    IGetPlayerDie onDead;
     public void Start()
     {
-        player = Player.Instance;
-        player.OnDead += () => { SceneManager.LoadScene("GameOverDemoScene"); };
+        onDead.PlayerDie += () => { SceneManager.LoadScene("GameOverDemoScene"); };
     }
 }

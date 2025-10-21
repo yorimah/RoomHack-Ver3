@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class SpecialForceReloadState : IState
+public class SpecialForceReloadState : IEnemyState
 {
     private Enemy enemy;
 
@@ -21,7 +22,7 @@ public class SpecialForceReloadState : IState
     float nowHP;
     public void Enter()
     {
-        nowHP = enemy.nowHitPoint;
+        nowHP = enemy.NowHitPoint;
         timer = 0;
         enemyRididBody = enemy.GetComponent<Rigidbody2D>();        
     }
@@ -30,15 +31,15 @@ public class SpecialForceReloadState : IState
     {
         enemyRididBody.linearVelocity = Vector2.zero;
         // ひだんしたら
-        if (nowHP != enemy.nowHitPoint)
+        if (nowHP != enemy.NowHitPoint)
         {
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
         }
         timer += GameTimer.Instance.ScaledDeltaTime;
         if (timer >= 3)
         {
             enemy.NOWBULLET = enemy.MAXBULLET;
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
         }
     }
 

@@ -11,7 +11,7 @@ public class CameraPositionController : MonoBehaviour
     Vector3 mouseStartPos;
     Vector3 cameraStartPos;
 
-    bool isStart = false;
+    //bool isStart = false;
 
     [SerializeField]
     LayerMask viewLayer;
@@ -19,9 +19,11 @@ public class CameraPositionController : MonoBehaviour
     private GameObject tagetAnimObj;
 
     private GameObject insTagetAnimObj;
+
+    [SerializeField, Header("playerObj")]
+    private GameObject playerObject;
     private void Start()
     {
-        targetObject = Player.Instance.gameObject;
 
         insTagetAnimObj = Instantiate(tagetAnimObj);
         insTagetAnimObj.SetActive(false);
@@ -34,7 +36,7 @@ public class CameraPositionController : MonoBehaviour
             this.transform.position = targetObject.transform.position;
 
             // ロックオン時仮アニメーション再生
-            if (targetObject != Player.Instance.gameObject)
+            if (targetObject != playerObject.gameObject)
             {
                 insTagetAnimObj.transform.position = targetObject.transform.position;
                 insTagetAnimObj.SetActive(true);
@@ -55,16 +57,16 @@ public class CameraPositionController : MonoBehaviour
                 }
                 //Debug.Log(hoge);
             }
-            
+
         }
-        else 
+        else
         {
             insTagetAnimObj.SetActive(false);
         }
 
-        if (Player.Instance.stateType == Player.StateType.Hack)
+        if (GameTimer.Instance.isHackMode)
         {
-            // ハックスタート時
+            //ハックスタート時
             //if (!isStart)
             //{
             //    // タゲ取得
@@ -113,10 +115,10 @@ public class CameraPositionController : MonoBehaviour
         }
         else
         {
-            this.transform.position = Player.Instance.gameObject.transform.position;
-            targetObject = Player.Instance.gameObject;
+            this.transform.position = playerObject.transform.position;
+            targetObject = playerObject;
 
-            isStart = false;
+            //isStart = false;
         }
     }
 
@@ -130,7 +132,7 @@ public class CameraPositionController : MonoBehaviour
         foreach (RaycastHit2D hit in hitsss)
         {
             if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject)
-                || hit.collider.gameObject == Player.Instance.gameObject)
+                || hit.collider.gameObject == playerObject)
             {
                 obj = hit.collider.gameObject;
             }

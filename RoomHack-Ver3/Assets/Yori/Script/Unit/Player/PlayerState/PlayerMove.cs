@@ -2,44 +2,32 @@
 
 public class PlayerMove
 {
-    private Player unitCore;
-
-    private PlayerInput moveInput;
-
     private Vector2 moveVector;
 
     private Rigidbody2D playerRigidbody2D;
 
-    private Vector3 mousePosition;
+    private float moveSpeed;
 
-    private Vector3 direction;
+    IPlayerInput playerInput;
 
-    public PlayerMove(Player _unitCore)
+    public PlayerMove(Rigidbody2D _playerRigidBody, float _moveSpeed, IPlayerInput _playerInput)
     {
-        unitCore = _unitCore;
-        playerRigidbody2D = unitCore.GetComponent<Rigidbody2D>();
-        moveInput = unitCore.playerInput;
+        moveSpeed = _moveSpeed;
+        playerRigidbody2D = _playerRigidBody;
+        playerInput = _playerInput;
     }
+
     public Vector2 PlayerMoveVector(Vector2 inputMoveVector, float moveSpeed)
     {
         moveVector = inputMoveVector * moveSpeed;
         return moveVector;
     }
 
-    private void PlayerRotation()
-    {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = mousePosition - unitCore.transform.position;
+   
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        unitCore.transform.rotation = targetRotation;
-    }
-
-    public void PlMove()
+    public void playerMove()
     {
-        PlayerRotation();
-        playerRigidbody2D.linearVelocity = PlayerMoveVector(moveInput.MoveValue(), unitCore.moveSpeed) * GameTimer.Instance.customTimeScale;
+        playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
     }
 
     public void Blink()
@@ -53,7 +41,7 @@ public class PlayerMove
 
     public void EdgeRun()
     {
-        PlayerRotation();
-        playerRigidbody2D.linearVelocity = PlayerMoveVector(moveInput.MoveValue(), unitCore.moveSpeed);
+        //PlayerRotation();
+        playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
     }
 }

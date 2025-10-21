@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-
-public class ReloadState : IState
+using Cysharp.Threading.Tasks;
+public class ReloadState : IEnemyState
 {
     private Enemy enemy;
     public ReloadState(Enemy _enemy)
@@ -18,15 +18,15 @@ public class ReloadState : IState
     public void Execute()
     {
         timer += GameTimer.Instance.ScaledDeltaTime;
-        if (timer >= enemy.gunData.reloadTime)
+        if (timer >= enemy.gunData.ReloadTime)
         {
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
             timer = 0;
         }
     }
 
     public void Exit()
     {
-        enemy.NOWBULLET = enemy.gunData.MAXMAGAZINE;
+        enemy.NOWBULLET = enemy.gunData.MaxBullet;
     }
 }

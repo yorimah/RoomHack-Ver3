@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class IdleState : IState
+public class IdleState : IEnemyState
 {
     private Enemy enemy;
 
@@ -24,7 +25,7 @@ public class IdleState : IState
             viewportPos.y >= 0 && viewportPos.y <= 1;
         if (isInside)
         {
-            enemy.ChangeState(StateType.Move);
+            enemy.ChangeState(EnemyStateType.Move);
         }
     }
 

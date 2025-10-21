@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GameTimer : MonoBehaviour
+public class GameTimer
 {
-    public static GameTimer Instance { get; private set; }
+    private static GameTimer _instance;
+    public static GameTimer Instance => _instance ??= new GameTimer();
 
     [Header("時間スケール設定")]
     /// <summary>
@@ -18,22 +17,23 @@ public class GameTimer : MonoBehaviour
     public float ScaledDeltaTime => Time.deltaTime * customTimeScale;
     public float ScaledUnscaledDeltaTime => Time.unscaledDeltaTime * customTimeScale;
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-    }
+    public bool isHackMode = false;
 
     public void SetTimeScale(float scale)
     {
         customTimeScale = Mathf.Clamp(scale, 0f, 5f);
     }
 
+    public void SetHackModeTimeScale() 
+    {
+        SetGlobalTimeScale(0.1f);
+        isHackMode = true;
+    }
+    public void SetAcitionModeTimeScale()
+    {
+        SetGlobalTimeScale(1f);
+        isHackMode = false;
+    }
     public void SetGlobalTimeScale(float scale)
     {
         Time.timeScale = Mathf.Clamp(scale, 0f, 5f);

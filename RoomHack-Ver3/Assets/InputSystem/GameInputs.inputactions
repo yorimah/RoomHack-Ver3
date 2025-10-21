@@ -16,12 +16,30 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ActionButtom",
+                    "name": "Interct",
                     "type": "Button",
                     "id": "0cb84cd4-e329-4e81-adf5-b44e8820c194",
                     "expectedControlType": "",
                     "processors": "",
+                    "interactions": "Tap(duration=0.01)",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "2c039930-ea97-457c-b339-ff881803a166",
+                    "expectedControlType": "",
+                    "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "98a05abc-421c-489e-a2de-fd7c1c2cdde1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -95,11 +113,33 @@
                 {
                     "name": "",
                     "id": "0d5172a0-fca8-46c7-9217-eebc7e309e0e",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interct",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0354ca9-8895-43bb-ae6b-c7a39f40a74b",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ActionButtom",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90e1e0fc-7c1b-47ab-868e-cd30ffd763a4",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
