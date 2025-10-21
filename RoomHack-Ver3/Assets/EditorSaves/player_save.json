@@ -1,6 +1,6 @@
 {
   "score_Stage": 1,
-  "score_DestoryEnemy": 156,
+  "score_DestoryEnemy": 173,
   "gunNo": 0,
   "maxHitPoint": 110.0,
   "moveSpeed": 5.0,
@@ -10,12 +10,13 @@
   "deckList": [
     7,
     7,
-    7,
-    7,
-    7,
     8,
     8,
     9,
     9,
+    10,
+    10,
+    11,
+    11
   ]
 }

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_LightResource : ToolEvent
+public class ToolEvent_InstantMemory : ToolEvent
 {
-    public override toolTag thisToolTag { get; set; } = toolTag.LightResource;
+    public override toolTag thisToolTag { get; set; } = toolTag.InstantMemory;
 
     protected override void Enter()
     {
@@ -11,9 +11,7 @@ public class ToolEvent_LightResource : ToolEvent
 
     protected override void Execute()
     {
-        // ２どろー
-        ToolManager.Instance.DeckDraw();
-        ToolManager.Instance.DeckDraw();
+        ToolManager.Instance.RamAdd(3);
         EventEnd();
     }
 

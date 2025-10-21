@@ -11,7 +11,7 @@ public class ToolEvent_ResourceCrip : ToolEvent
 
     protected override void Execute()
     {
-        ToolManager.Instance.ToolDraw(1);
+        ToolManager.Instance.DeckDraw();
         EventEnd();
     }
 

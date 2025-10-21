@@ -83,3 +83,17 @@ MonoBehaviour:
     toolText: "2\u30C9\u30ED\u30FC\u3002"
     toolSprite: {fileID: 21300000, guid: d8b79af661623d14eaa2391db1be945a, type: 3}
     toolEvent: {fileID: -4318886570430095253, guid: 2548c61a51237ec4fab478abdc5fd3ee, type: 3}
+  - toolTag: 10
+    toolType: 4
+    toolName: FastReload
+    toolCost: 2
+    toolText: "\u624B\u672D\u3092\u5168\u3066\u6368\u3066\u3001\u6368\u3066\u305F\u679A\u6570\u30C9\u30ED\u30FC\u3002"
+    toolSprite: {fileID: 21300000, guid: d8b79af661623d14eaa2391db1be945a, type: 3}
+    toolEvent: {fileID: -1753757645995225603, guid: 401f02ab3f0fa6b4db9761fe2aeb5fda, type: 3}
+  - toolTag: 11
+    toolType: 4
+    toolName: InstantMemory
+    toolCost: 2
+    toolText: "RAM\u30923\u56DE\u5FA9"
+    toolSprite: {fileID: 21300000, guid: d8b79af661623d14eaa2391db1be945a, type: 3}
+    toolEvent: {fileID: -1753757645995225603, guid: 401f02ab3f0fa6b4db9761fe2aeb5fda, type: 3}

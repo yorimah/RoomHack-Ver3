@@ -141,7 +141,7 @@ public class ToolManager : MonoBehaviour
 
     }
 
-    void DeckDraw()
+    public void DeckDraw()
     {
         toolTag drawTool = deckSystem.DeckDraw();
 
@@ -162,6 +162,7 @@ public class ToolManager : MonoBehaviour
 
     }
 
+    // 手札のカードを使い、トラッシュする
     void HandPlay(int _index, GameObject _target)
     {
         deckSystem.HandPlay(_index, _target);
@@ -169,7 +170,8 @@ public class ToolManager : MonoBehaviour
         SeManager.Instance.Play("toolPlay");
     }
 
-    void HandTrash(int _index)
+    // ハンドをトラッシュする
+    public void HandTrash(int _index)
     {
         deckSystem.HandTrash(_index);
         toolUIController.HandTrash(_index);
@@ -178,21 +180,14 @@ public class ToolManager : MonoBehaviour
         handPlayList.RemoveAt(_index);
     }
 
+    // トラッシュをデッキに戻す
     void TrashRefresh()
     {
         deckSystem.TrashRefresh();
         toolUIController.TrashRefresh();
     }
 
-    // 外部取得用
-    public void ToolDraw(int _num)
-    {
-        for (int i = 0; i < _num; i++)
-        {
-            DeckDraw();
-        }
-    }
-
+    // RAM回復
     public void RamAdd(float _num)
     {
         float ram = Player.Instance.nowRam + _num;
@@ -205,5 +200,20 @@ public class ToolManager : MonoBehaviour
         {
             Debug.LogError("RamAddで上限、下限を超えました");
         }
+    }
+
+    public List<toolTag> GetDeckData()
+    {
+        return deckSystem.toolDeck;
+    }
+
+    public List<toolTag> GetHandData()
+    {
+        return deckSystem.toolHand;
+    }
+
+    public List<toolTag> GetTrashData()
+    {
+        return deckSystem.toolTrash;
     }
 }
