@@ -1,6 +1,6 @@
 {
   "score_Stage": 1,
-  "score_DestoryEnemy": 173,
+  "score_DestoryEnemy": 192,
   "gunNo": 0,
   "maxHitPoint": 110.0,
   "moveSpeed": 5.0,
@@ -17,6 +17,8 @@
     10,
     10,
     11,
-    11
+    11,
+    13,
+    13
   ]
 }

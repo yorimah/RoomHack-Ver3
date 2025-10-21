@@ -38,6 +38,10 @@ public class ToolManager : MonoBehaviour
 
     GameObject targetObject;
 
+    // ツールプレイ用
+    public delegate void ToolPlayAction();
+    public ToolPlayAction toolPlayAction = () => { };
+
     private void Start()
     {
         playerSaveData = SaveManager.Instance.Load();
@@ -126,6 +130,7 @@ public class ToolManager : MonoBehaviour
                         {
                             deckSystem.RamUse(hand);
                             HandPlay(i, targetObject);
+                            toolPlayAction();
                         }
                     }
                 }
