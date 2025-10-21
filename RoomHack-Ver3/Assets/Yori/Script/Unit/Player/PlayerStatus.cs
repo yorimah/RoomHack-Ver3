@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPosition, IGetPlayerDie, ISetPlayerDied
+using Cysharp.Threading.Tasks;
+
+
+public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPosition, IGetPlayerDie, ISetPlayerDied,IReadMaxHitPoint
 {
     public event Action PlayerDie = delegate { };
     public Vector3 PlayerPosition { get; private set; }
@@ -15,11 +18,11 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
 
     public float RamRecovary { get; private set; }
 
-    public bool IsRebooting { get; private set; } = false;
+    public bool IsReboot { get; private set; } = false;
 
     public int MaxHandSize { get; private set; }
 
-    public float RebootTimer { get; private set; } = 0;
+    public float RebootTimer { get; private set; } 
 
     public float MoveSpeed { get; }
 
@@ -44,9 +47,13 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
         MoveSpeed = saveData.moveSpeed;
 
         DeckList = saveData.deckList;
+
+        IsReboot = true;
+
+        _ = RamUpdate();
     }
 
-    public void UseRam(float useRam)
+    public void RamUse(float useRam)
     {
         NowRam -= useRam;
     }
@@ -65,33 +72,40 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
             Debug.LogError("RamAddで上限、下限を超えました");
         }
     }
-    public void RamUpdate()
+    public async UniTask RamUpdate()
     {
-        if (IsRebooting)
+        while (true)
         {
-            NowRam = 0;
-            RebootTimer += GameTimer.Instance.ScaledDeltaTime;
-
-            if (RebootTimer >= RamRecovary)
+            if (IsReboot)
             {
-                NowRam = RamCapacity;
+                NowRam = 0;
+                RebootTimer += GameTimer.Instance.ScaledDeltaTime;
 
-                RebootTimer = 0;
-                IsRebooting = false;
+                if (RebootTimer >= RamRecovary)
+                {
+                    NowRam = RamCapacity;
+
+                    RebootTimer = 0;
+                    IsReboot = false;
+                }
             }
+            await UniTask.Yield();
         }
     }
-    public void SetIsRebooting(bool setBool)
+    public void SetIsReboot(bool setBool)
     {
-        IsRebooting = setBool;
+        IsReboot = setBool;
     }
 
     public void SetDied()
     {
         PlayerDie();
     }
+}
 
-
+public interface IReadMaxHitPoint
+{
+    public int MaxHitPoint { get; }
 }
 public interface IReadPosition
 {
@@ -113,18 +127,18 @@ public interface IUseableRam
 
     public float RamRecovary { get; }
 
-    public bool IsRebooting { get; }
+    public bool IsReboot { get; }
 
     public float RebootTimer { get; }
-    public void UseRam(float useRam);
+    public void RamUse(float useRam);
 
     public void ChangeRam(float addRam);
 
     public int MaxHandSize { get; }
 
-    public void RamUpdate();
+    public UniTask RamUpdate();
 
-    public void SetIsRebooting(bool setBoll);
+    public void SetIsReboot(bool setBoll);
 }
 
 public interface IDeckList
@@ -146,4 +160,9 @@ public interface IGetPlayerDie
 public interface ISetPlayerDied
 {
     public void SetDied();
+}
+
+public interface IGetIsHackMode
+{
+    public bool isHackMode { get; }
 }

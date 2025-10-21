@@ -24,8 +24,7 @@ public class PlayerUITest : MonoBehaviour
 
     [SerializeField, Tooltip("Playerオブジェクトアタッチ必須")]
     GameObject player;
-    [Inject]
-
+    
     private void Start()
     {
        // maxHp = Player.Instance.maxHitPoint;

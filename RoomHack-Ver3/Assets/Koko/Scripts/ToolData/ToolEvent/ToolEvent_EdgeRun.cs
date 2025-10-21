@@ -7,14 +7,14 @@ public class ToolEvent_EdgeRun : ToolEvent
     protected override void Enter()
     {
         EventAdd();
+        Debug.Log("このToolEvent_EdgeRunはまだ効果ないに");
+        //if (Player.Instance.nowSpecialAction != Player.SpecialAction.EdgeRun)
+        //{
+        //    Player.Instance.nowSpecialAction = Player.SpecialAction.EdgeRun;
+        //    Player.Instance.specialActionCount = 0;
+        //}
 
-        if (Player.Instance.nowSpecialAction != Player.SpecialAction.EdgeRun)
-        {
-            Player.Instance.nowSpecialAction = Player.SpecialAction.EdgeRun;
-            Player.Instance.specialActionCount = 0;
-        }
-
-        Player.Instance.specialActionCount += 3;
+        //Player.Instance.specialActionCount += 3;
     }
 
     protected override void Execute()

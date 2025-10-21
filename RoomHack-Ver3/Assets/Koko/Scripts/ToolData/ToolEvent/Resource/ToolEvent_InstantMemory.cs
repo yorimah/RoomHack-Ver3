@@ -4,6 +4,9 @@ public class ToolEvent_InstantMemory : ToolEvent
 {
     public override toolTag thisToolTag { get; set; } = toolTag.InstantMemory;
 
+    [SerializeField, Header("Ram回復量")]
+    int AddRam = 3;
+
     protected override void Enter()
     {
         EventAdd();
@@ -11,7 +14,7 @@ public class ToolEvent_InstantMemory : ToolEvent
 
     protected override void Execute()
     {
-        ToolManager.Instance.RamAdd(3);
+        ToolManager.Instance.ChangeRam(AddRam);
         EventEnd();
     }
 

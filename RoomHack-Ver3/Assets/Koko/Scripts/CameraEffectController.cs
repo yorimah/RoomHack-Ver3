@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraEffectController : MonoBehaviour
 {
@@ -12,15 +10,15 @@ public class CameraEffectController : MonoBehaviour
 
     private void Update()
     {
-        //if (Player.Instance.stateType == Player.StateType.Hack)
-        //{
-        //    actionCamera.SetActive(false);
-        //    hackCamera.SetActive(true);
-        //}
-        //else
-        //{
-        //    actionCamera.SetActive(true);
-        //    hackCamera.SetActive(false);
-        //}
+        if (GameTimer.Instance.isHackMode)
+        {
+            actionCamera.SetActive(false);
+            hackCamera.SetActive(true);
+        }
+        else
+        {
+            actionCamera.SetActive(true);
+            hackCamera.SetActive(false);
+        }
     }
 }

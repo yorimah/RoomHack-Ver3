@@ -19,5 +19,5 @@ MonoBehaviour:
   bulletSpeed: 20
   maneuverability: 0
   recoil: 2
-  minDiffusionRate: 0
-  maxDiffusionRate: 0
+  minDiffusionRate: 1
+  maxDiffusionRate: 15

@@ -1,20 +1,17 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 public class PlayerActionState : IPlayerState
 {
     private PlayerMove playerMove;
-    private PlayerShot playerShot;
     PlayerStateContoller playerStateContoller;
 
     IPlayerInput playerInput;
-    public PlayerActionState(Rigidbody2D playerRigidBody, GunData gunData, Material material, GameObject bulletPre,
-        float moveSpeed,  GameObject player, PlayerStateContoller _playerStateContoller,IPlayerInput iPlayerInput)
+    public PlayerActionState(Rigidbody2D playerRigidBody, float moveSpeed, PlayerStateContoller _playerStateContoller, IPlayerInput playerInput)
     {
-        playerInput = iPlayerInput;
+        this.playerInput = playerInput;
         playerStateContoller = _playerStateContoller;
-        playerMove = new PlayerMove(playerRigidBody, moveSpeed, playerInput);
-        playerShot = new PlayerShot(gunData, material, bulletPre, player, playerInput);
+        playerMove = new PlayerMove(playerRigidBody, moveSpeed, this.playerInput);
+       
     }
     public void Enter()
     {
@@ -23,12 +20,18 @@ public class PlayerActionState : IPlayerState
     public async UniTask Execute()
     {
         playerMove.playerMove();
-        playerShot.Shot();
+
+        // 入力がないならハックステートへ
+        if (playerInput.MoveValue() == Vector2.zero)
+        {
+            ChangeState();
+        }
         await UniTask.Yield();
     }
     private void ChangeState()
     {
         playerStateContoller.ChangeState(PlayerStateType.Hack);
+        GameTimer.Instance.SetHackModeTimeScale();
     }
     public void Exit()
     {

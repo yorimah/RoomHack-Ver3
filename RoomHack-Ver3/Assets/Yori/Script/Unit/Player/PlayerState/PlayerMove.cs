@@ -6,10 +6,6 @@ public class PlayerMove
 
     private Rigidbody2D playerRigidbody2D;
 
-    private Vector3 mousePosition;
-
-    private Vector3 direction;
-
     private float moveSpeed;
 
     IPlayerInput playerInput;
@@ -27,19 +23,10 @@ public class PlayerMove
         return moveVector;
     }
 
-    private void PlayerRotation()
-    {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = mousePosition - playerRigidbody2D.transform.position;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        playerRigidbody2D.transform.rotation = targetRotation;
-    }
+   
 
     public void playerMove()
     {
-        PlayerRotation();
         playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
     }
 
@@ -54,7 +41,7 @@ public class PlayerMove
 
     public void EdgeRun()
     {
-        PlayerRotation();
+        //PlayerRotation();
         playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
     }
 }

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 public class ToolManager : MonoBehaviour
@@ -42,12 +42,13 @@ public class ToolManager : MonoBehaviour
 
     private void Start()
     {
+
     }
 
     private void Update()
     {
         // reboot関連
-        if (useableRam.IsRebooting)
+        if (useableRam.IsReboot)
         {
             for (int i = 0; i < deckSystem.toolHand.Count; i++)
             {
@@ -74,7 +75,7 @@ public class ToolManager : MonoBehaviour
         }
 
         // ハッキングモード
-        if (GameTimer.Instance.customTimeScale >= 0.3f)
+        if (GameTimer.Instance.isHackMode)
         {
             toolUIController.handCostList = handCostList;
             toolUIController.handPlayList = handPlayList;
@@ -111,7 +112,7 @@ public class ToolManager : MonoBehaviour
                 {
                     // 要修正
                     handPlayList[i] = true;
-                   //  targetObject = Player.Instance.gameObject;
+                    //  targetObject = Player.Instance.gameObject;
                 }
 
                 // マウスがハンドのツールを選択しているなら
@@ -126,7 +127,7 @@ public class ToolManager : MonoBehaviour
                         // プレイ可能ならGO
                         if (handCostList[i] && handPlayList[i])
                         {
-                            deckSystem.RamUse(hand);
+                            deckSystem.ToolCostUse(hand);
                             HandPlay(i, targetObject);
                         }
                     }
@@ -135,10 +136,7 @@ public class ToolManager : MonoBehaviour
                 {
                     ramUIDisp.willUseRam = 0;
                 }
-
             }
-
-
         }
 
     }
@@ -172,6 +170,11 @@ public class ToolManager : MonoBehaviour
         SeManager.Instance.Play("toolPlay");
     }
 
+    public void ChangeRam(float changeRam)
+    {
+        useableRam.ChangeRam(changeRam);
+    }
+
     // ハンドをトラッシュする
     public void HandTrash(int _index)
     {
@@ -187,23 +190,6 @@ public class ToolManager : MonoBehaviour
     {
         deckSystem.TrashRefresh();
         toolUIController.TrashRefresh();
-    }
-
-    // RAM回復
-    public void RamAdd(float _num)
-    {
-        float nowRam;
-        nowRam = useableRam.NowRam;
-        float ram = nowRam + _num;
-        // 上限、下限を超えないかチェック
-        if (ram <= useableRam.RamCapacity && ram >= 0)
-        {
-            
-        }
-        else
-        {
-            Debug.LogError("RamAddで上限、下限を超えました");
-        }
     }
 
     public List<toolTag> GetDeckData()

@@ -180,19 +180,18 @@ public class DeckSystem : MonoBehaviour
         return toolDataBank.toolDataList[(int)_tool].toolText;
     }
 
-    public bool RamUse(toolTag _tool)
+    public void ToolCostUse(toolTag _tool)
     {
-        float ram =useableRam.NowRam - toolDataBank.toolDataList[(int)_tool].toolCost;
-        // 上限、下限を超えないかチェック
-        if (ram <= useableRam.RamCapacity && ram >= 0)
+        // ダブルでこすとがつかえるかチェック
+        float ram = useableRam.NowRam - toolDataBank.toolDataList[(int)_tool].toolCost;
+        // 下限を超えないかチェック
+        if (ram >= 0)
         {
-            useableRam.UseRam((int)ram);
-            return true;
+            useableRam.RamUse(ram);
         }
         else
         {
-            Debug.LogError("RamAddで上限、下限を超えました");
-            return false;
+            Debug.LogError("RamAddで下限を超えました");
         }
     }
 

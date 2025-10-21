@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public enum PlayerStateType
 {
@@ -17,7 +16,9 @@ public enum PlayerStateType
 public class PlayerStateContoller
 {
     IPlayerState currentState;
+    IPlayerState globalState;
     public PlayerStateType stateType { get; private set; }
+
     private Dictionary<PlayerStateType, IPlayerState> states;
 
     private CancellationTokenSource cancellationTokenSource;
@@ -28,17 +29,16 @@ public class PlayerStateContoller
         cancellationTokenSource = new CancellationTokenSource();
         states = new Dictionary<PlayerStateType, IPlayerState>()
     {
-        { PlayerStateType.Action, new PlayerActionState(playerRigidBody,gunData,material,
-        bulletPre,moveSpeed,player,this,playerInput) },
+        { PlayerStateType.Action, new PlayerActionState(playerRigidBody,moveSpeed,this,playerInput) },
         { PlayerStateType.Hack, new PlayerHackState(this,playerInput) },
         { PlayerStateType.Die, new PlayerDieState() },
     };
+        globalState = new PlayerGlobalState(gunData, material, playerInput, player, bulletPre);
         stateType = PlayerStateType.Action;
         currentState = states[stateType];
         currentState.Enter();
+        globalState.Enter();
         Update();
-
-        
     }
     public async void Update()
     {
@@ -47,6 +47,7 @@ public class PlayerStateContoller
             try
             {
                 await currentState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
+                await globalState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
             }
             catch (OperationCanceledException)
             {

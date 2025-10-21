@@ -19,7 +19,7 @@ public class AfterImageEffecter : MonoBehaviour
 
     void Update()
     {
-        if (GameTimer.Instance.customTimeScale < 1)
+        if (GameTimer.Instance.isHackMode)
         {
             if (timer >= generateEffectTime)
             {

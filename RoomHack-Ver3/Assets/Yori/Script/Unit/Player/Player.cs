@@ -77,10 +77,6 @@ public class Player : MonoBehaviour, IHackObject
     [SerializeField]
     public Material shotRanageMaterial;
 
-    public event Action OnDead = delegate { };
-
-    public event Action isShot;
-
     void Update()
     {
         //currentState?.Execute();
@@ -166,7 +162,7 @@ public class Player : MonoBehaviour, IHackObject
     }
     public void Die()
     {
-        OnDead();
+        
     }
 
     // Ram回復系 by koko
@@ -175,19 +171,19 @@ public class Player : MonoBehaviour, IHackObject
     public float rebootTimer { get; set; } = 0;
     private void RamUpdate()
     {
-        if (isRebooting)
-        {
-            nowRam = 0;
-            rebootTimer += GameTimer.Instance.ScaledDeltaTime;
+        //if (isRebooting)
+        //{
+        //    nowRam = 0;
+        //    rebootTimer += GameTimer.Instance.ScaledDeltaTime;
 
-            if (rebootTimer >= ramRecovary)
-            {
-                nowRam = ramCapacity;
+        //    if (rebootTimer >= ramRecovary)
+        //    {
+        //        nowRam = ramCapacity;
 
-                rebootTimer = 0;
-                isRebooting = false;
-            }
-        }
+        //        rebootTimer = 0;
+        //        isRebooting = false;
+        //    }
+        //}
     }
 
     //特殊行動系

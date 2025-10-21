@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 public class PlayerHackState : IPlayerState
 {
     IPlayerInput playerInput;
@@ -17,12 +18,17 @@ public class PlayerHackState : IPlayerState
 
     public async UniTask Execute()
     {
+        if (playerInput.MoveValue() != Vector2.zero)
+        {
+            ChangeState();
+        }
         await UniTask.Yield();
     }
 
     private void ChangeState()
     {
         playerStateContoller.ChangeState(PlayerStateType.Action);
+        GameTimer.Instance.SetAcitionModeTimeScale();
     }
 
     public void Exit()

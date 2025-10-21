@@ -77,11 +77,21 @@ public class PlayerShot
         bulletRigit.linearVelocity = shotDirection * gunData.BulletSpeed;
         bulletGameObject.transform.up = shotDirection;
     }
+
+
+    private Vector3 mousePosition;
+
+    private Vector3 direction;
     public void Shot()
     {
+        if (player == null)
+        {
+            return;
+        }
+        PlayerRotation();
         ShotRangeView();
         diffusionRate = Mathf.Clamp(diffusionRate, gunData.MinDiffusionRate, gunData.MaxDiffusionRate);
-        //diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
+        diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
 
         if (playerInput.GetOnReload() && shotSection != ShotSection.Reload)
         {
@@ -131,6 +141,16 @@ public class PlayerShot
             default:
                 break;
         }
+    }
+
+    private void PlayerRotation()
+    {
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        direction = mousePosition - player.transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        player.transform.rotation = targetRotation;
     }
 
     public void ShotRangeView()

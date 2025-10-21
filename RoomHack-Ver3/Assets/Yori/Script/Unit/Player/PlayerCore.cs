@@ -26,6 +26,9 @@ public class PlayerCore : MonoBehaviour, IDamageable
     public float NowHitPoint { get; set; }
     public int hitDamegeLayer { get; private set; } = 1;
 
+    [Inject]
+    IReadMaxHitPoint readMaxHitPoint;
+
     PlayerStateContoller playerStateContoller;
 
     public void Awake()
@@ -33,6 +36,8 @@ public class PlayerCore : MonoBehaviour, IDamageable
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerStateContoller = new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
             10, gameObject, playerInput);
+        MaxHitPoint = readMaxHitPoint.MaxHitPoint;
+        NowHitPoint = readMaxHitPoint.MaxHitPoint;
     }
 
     public void Update()
