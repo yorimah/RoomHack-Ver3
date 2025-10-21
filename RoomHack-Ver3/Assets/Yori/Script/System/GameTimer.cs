@@ -26,12 +26,12 @@ public class GameTimer
 
     public void SetHackModeTimeScale() 
     {
-        SetGlobalTimeScale(0.1f);
+        SetTimeScale(0.1f);
         isHackMode = true;
     }
     public void SetAcitionModeTimeScale()
     {
-        SetGlobalTimeScale(1f);
+        SetTimeScale(1f);
         isHackMode = false;
     }
     public void SetGlobalTimeScale(float scale)

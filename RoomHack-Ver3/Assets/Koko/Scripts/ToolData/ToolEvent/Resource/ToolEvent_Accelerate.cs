@@ -23,7 +23,7 @@ public class ToolEvent_Accelerate : ToolEvent
     void AccelerateAction()
     {
         Debug.Log("tool使ったお");
-        ToolManager.Instance.RamAdd(1);
+        ToolManager.Instance.ChangeRam(1);
     }
 
 }

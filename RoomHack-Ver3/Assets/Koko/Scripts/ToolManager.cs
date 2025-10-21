@@ -40,6 +40,9 @@ public class ToolManager : MonoBehaviour
     [Inject]
     IUseableRam useableRam;
 
+    public delegate void ToolPlayAction();
+    public ToolPlayAction toolPlayAction = () => { };
+
     private void Start()
     {
 
