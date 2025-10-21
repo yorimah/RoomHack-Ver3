@@ -74,7 +74,7 @@ public class SaveManager
             moveSpeed = 5,
             maxRamCapacity = 10,
             RamRecovery = 1,
-            handNum = 5,
+            maxHandSize = 5,
             deckList = new List<int>
             {
                 1,1,1,1,2,2,3,3,4

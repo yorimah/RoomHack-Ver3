@@ -14,7 +14,7 @@ public class PlayerMove
 
     IPlayerInput playerInput;
 
-    public PlayerMove(Rigidbody2D _playerRigidBody, float _moveSpeed,IPlayerInput _playerInput)
+    public PlayerMove(Rigidbody2D _playerRigidBody, float _moveSpeed, IPlayerInput _playerInput)
     {
         moveSpeed = _moveSpeed;
         playerRigidbody2D = _playerRigidBody;
@@ -55,6 +55,6 @@ public class PlayerMove
     public void EdgeRun()
     {
         PlayerRotation();
-        playerRigidbody2D.linearVelocity = PlayerMoveVector(moveInput.MoveValue(), unitCore.moveSpeed);
+        playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
     }
 }

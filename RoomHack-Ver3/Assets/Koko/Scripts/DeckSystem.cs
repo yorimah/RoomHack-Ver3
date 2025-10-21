@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+using Zenject;
 public class DeckSystem : MonoBehaviour
 {
     [SerializeField, Header("ToolDataBankをアタッチしてね")]
@@ -21,9 +21,15 @@ public class DeckSystem : MonoBehaviour
     [SerializeField, Header("アタッチしてね")]
     ToolEventManager toolEventManager;
 
+    [Inject]
+    IUseableRam useableRam;
+
+    [Inject]
+    IDeckList deckListData;
+
     private void Start()
     {
-        setList = IntToDeck(Player.Instance.data.deckList);
+        setList = IntToDeck(deckListData.DeckList);
 
         DeckGenerate();
     }
@@ -176,11 +182,11 @@ public class DeckSystem : MonoBehaviour
 
     public bool RamUse(toolTag _tool)
     {
-        float ram = Player.Instance.nowRam - toolDataBank.toolDataList[(int)_tool].toolCost;
+        float ram =useableRam.NowRam - toolDataBank.toolDataList[(int)_tool].toolCost;
         // 上限、下限を超えないかチェック
-        if (ram <= Player.Instance.ramCapacity && ram >= 0)
+        if (ram <= useableRam.RamCapacity && ram >= 0)
         {
-            Player.Instance.nowRam = ram;
+            useableRam.UseRam((int)ram);
             return true;
         }
         else

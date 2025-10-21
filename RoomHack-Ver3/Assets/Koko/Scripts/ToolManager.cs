@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Zenject;
 
 public class ToolManager : MonoBehaviour
 {
@@ -32,21 +33,21 @@ public class ToolManager : MonoBehaviour
     List<bool> handCostList = new List<bool>();
     List<bool> handPlayList = new List<bool>();
 
-    PlayerSaveData playerSaveData;
-
     bool isRebootHandStay = false;
 
     GameObject targetObject;
 
+    [Inject]
+    IUseableRam useableRam;
+
     private void Start()
     {
-        playerSaveData = SaveManager.Instance.Load();
     }
 
     private void Update()
     {
         // reboot関連
-        if (Player.Instance.isRebooting)
+        if (useableRam.IsRebooting)
         {
             for (int i = 0; i < deckSystem.toolHand.Count; i++)
             {
@@ -60,7 +61,7 @@ public class ToolManager : MonoBehaviour
             if (isRebootHandStay)
             {
                 SeManager.Instance.Play("RebootEnd");
-                if (deckSystem.toolHand.Count < playerSaveData.handNum /*deckSystem.handSize*/)
+                if (deckSystem.toolHand.Count < useableRam.MaxHandSize)
                 {
                     DeckDraw();
                 }
@@ -73,7 +74,7 @@ public class ToolManager : MonoBehaviour
         }
 
         // ハッキングモード
-        if (Player.Instance.stateType == Player.StateType.Hack)
+        if (GameTimer.Instance.customTimeScale >= 0.3f)
         {
             toolUIController.handCostList = handCostList;
             toolUIController.handPlayList = handPlayList;
@@ -85,7 +86,7 @@ public class ToolManager : MonoBehaviour
 
                 // コストが足りるかチェック
                 handCostList[i] = false;
-                if (deckSystem.ReturnToolCost(hand) <= Player.Instance.nowRam)
+                if (deckSystem.ReturnToolCost(hand) <= useableRam.NowRam)
                 {
                     handCostList[i] = true;
                 }
@@ -108,8 +109,9 @@ public class ToolManager : MonoBehaviour
                 // resourceなら対象なしでもok
                 if (deckSystem.ReturnToolType(hand) == toolType.Resource)
                 {
+                    // 要修正
                     handPlayList[i] = true;
-                    targetObject = Player.Instance.gameObject;
+                   //  targetObject = Player.Instance.gameObject;
                 }
 
                 // マウスがハンドのツールを選択しているなら
@@ -195,11 +197,13 @@ public class ToolManager : MonoBehaviour
 
     public void RamAdd(float _num)
     {
-        float ram = Player.Instance.nowRam + _num;
+        float nowRam;
+        nowRam = useableRam.NowRam;
+        float ram = nowRam + _num;
         // 上限、下限を超えないかチェック
-        if (ram <= Player.Instance.ramCapacity && ram >= 0)
+        if (ram <= useableRam.RamCapacity && ram >= 0)
         {
-            Player.Instance.nowRam = ram;
+            
         }
         else
         {

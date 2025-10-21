@@ -14,36 +14,57 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
     public float NowRam { get; private set; }
 
     public float RamRecovary { get; private set; }
-    // Ram回復系 
+
     public bool IsRebooting { get; private set; } = false;
+
+    public int MaxHandSize { get; private set; }
+
     public float RebootTimer { get; private set; } = 0;
 
     public float MoveSpeed { get; }
 
-    public List<int> deckList { get; private set; }
+    public List<int> DeckList { get; private set; }
 
-    public void setPlayerPosition(Transform transform)
+    public void SetPlayerPosition(Transform transform)
     {
         PlayerPosition = transform.position;
     }
+
     public PlayerStatus()
     {
         PlayerSaveData saveData = SaveManager.Instance.Load();
         MaxHitPoint = saveData.maxHitPoint;
-        nowHitPoint = MaxHitPoint;
+        nowHitPoint = saveData.maxHitPoint;
         RamCapacity = saveData.maxRamCapacity;
+
         NowRam = RamCapacity;
         RamRecovary = saveData.RamRecovery;
+        MaxHandSize = saveData.maxHandSize;
+
         MoveSpeed = saveData.moveSpeed;
 
-        deckList = saveData.deckList;
+        DeckList = saveData.deckList;
     }
 
-    public void UseRam(int useRam)
+    public void UseRam(float useRam)
     {
         NowRam -= useRam;
     }
 
+
+    public void ChangeRam(float addRam)
+    {
+        float ram = NowRam + addRam;
+        // 上限、下限を超えないかチェック
+        if (ram <= RamCapacity && ram >= 0)
+        {
+            NowRam += ram;
+        }
+        else
+        {
+            Debug.LogError("RamAddで上限、下限を超えました");
+        }
+    }
     public void RamUpdate()
     {
         if (IsRebooting)
@@ -60,7 +81,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
             }
         }
     }
-    public void setIsRebooting(bool setBool)
+    public void SetIsRebooting(bool setBool)
     {
         IsRebooting = setBool;
     }
@@ -69,12 +90,14 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
     {
         PlayerDie();
     }
+
+
 }
 public interface IReadPosition
 {
     public Vector3 PlayerPosition { get; }
 
-    public void setPlayerPosition(Transform transform);
+    public void SetPlayerPosition(Transform transform);
 }
 
 public interface IReadOnlyMoveSpeed
@@ -93,16 +116,20 @@ public interface IUseableRam
     public bool IsRebooting { get; }
 
     public float RebootTimer { get; }
-    public void UseRam(int useRam);
+    public void UseRam(float useRam);
+
+    public void ChangeRam(float addRam);
+
+    public int MaxHandSize { get; }
 
     public void RamUpdate();
 
-    public void setIsRebooting(bool setBoll);
+    public void SetIsRebooting(bool setBoll);
 }
 
 public interface IDeckList
 {
-    public List<int> deckList { get; }
+    public List<int> DeckList { get; }
 }
 
 public interface IGetHelth

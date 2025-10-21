@@ -8,6 +8,6 @@ public class PlayerSaveData
     public float moveSpeed;
     public float maxRamCapacity;
     public float RamRecovery;
-    public int handNum;
+    public int maxHandSize;
     public List<int> deckList;
 }

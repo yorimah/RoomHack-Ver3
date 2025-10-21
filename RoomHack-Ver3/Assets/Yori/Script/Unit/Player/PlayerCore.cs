@@ -37,7 +37,7 @@ public class PlayerCore : MonoBehaviour, IDamageable
 
     public void Update()
     {
-        readPosition.setPlayerPosition(this.transform);
+        readPosition.SetPlayerPosition(this.transform);
     }
 
     public void Die()
