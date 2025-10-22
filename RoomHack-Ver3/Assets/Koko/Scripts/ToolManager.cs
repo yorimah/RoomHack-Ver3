@@ -78,7 +78,7 @@ public class ToolManager : MonoBehaviour
         }
 
         // ハッキングモード
-        if (GameTimer.Instance.isHackMode)
+        if (GameTimer.Instance.IsHackTime)
         {
             toolUIController.handCostList = handCostList;
             toolUIController.handPlayList = handPlayList;

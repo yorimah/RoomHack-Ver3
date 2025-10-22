@@ -74,7 +74,7 @@ public class Missile : BombCore, IDamageable
             }
             else
             {
-                timer += GameTimer.Instance.ScaledDeltaTime;
+                timer += GameTimer.Instance.GetScaledDeltaTime();
             }
 
             // 点滅処理
@@ -123,7 +123,7 @@ public class Missile : BombCore, IDamageable
         Vector2 blendedDir = (currentDir * inertia + toTarget * (1f - inertia)).normalized;
 
         // 速度を更新
-        rb.linearVelocity = blendedDir * missileSpeed * boost * GameTimer.Instance.customTimeScale;
+        rb.linearVelocity = blendedDir * missileSpeed * boost * GameTimer.Instance.GetCustomTimeScale();
 
         // 回転を進行方向に合わせる
         float angle = Mathf.Atan2(blendedDir.y, blendedDir.x) * Mathf.Rad2Deg - 90f;

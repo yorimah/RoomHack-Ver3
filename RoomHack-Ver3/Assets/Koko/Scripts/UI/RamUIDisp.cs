@@ -71,7 +71,7 @@ public class RamUIDisp : MonoBehaviour
         {
             // hackモード時に半透明化
             //if (isSkelton)
-            if (GameTimer.Instance.customTimeScale <= 0.5f)
+            if (GameTimer.Instance.IsHackTime)
             {
                 ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }

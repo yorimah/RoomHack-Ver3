@@ -19,7 +19,7 @@ public class AfterImageEffecter : MonoBehaviour
 
     void Update()
     {
-        if (GameTimer.Instance.isHackMode)
+        if (GameTimer.Instance.IsHackTime)
         {
             if (timer >= generateEffectTime)
             {
@@ -27,7 +27,7 @@ public class AfterImageEffecter : MonoBehaviour
             }
             else
             {
-                timer += GameTimer.Instance.ScaledDeltaTime;
+                timer += GameTimer.Instance.GetScaledDeltaTime();
             }
         }
     }

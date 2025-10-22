@@ -144,7 +144,7 @@ public class EffectManager : MonoBehaviour
         {
             //Debug.Log("追跡中！" + timer +" / "+ _effect +"  / "+ _target);
             var main = _effect.GetComponent<ParticleSystem>().main;
-            main.simulationSpeed = GameTimer.Instance.customTimeScale;
+            main.simulationSpeed = GameTimer.Instance.GetCustomTimeScale();
 
             yield return null;
         }

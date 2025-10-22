@@ -64,7 +64,7 @@ public class CameraPositionController : MonoBehaviour
             insTagetAnimObj.SetActive(false);
         }
 
-        if (GameTimer.Instance.isHackMode)
+        if (GameTimer.Instance.IsHackTime)
         {
             //ハックスタート時
             //if (!isStart)

@@ -63,7 +63,7 @@ public class MoveState : IEnemyState
             return;
         }
         // Rigidbody2Dで移動
-        enemyRididBody.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
+        enemyRididBody.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
 
         enemy.transform.rotation = MoveForwadRotation(nextPos);
     }

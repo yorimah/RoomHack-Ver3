@@ -10,7 +10,7 @@ public class CameraEffectController : MonoBehaviour
 
     private void Update()
     {
-        if (GameTimer.Instance.isHackMode)
+        if (GameTimer.Instance.IsHackTime)
         {
             actionCamera.SetActive(false);
             hackCamera.SetActive(true);
