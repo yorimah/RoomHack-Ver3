@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_LightResource : ToolEvent
+public class ToolEvent_LightResource : ToolEventBase
 {
     public override toolTag thisToolTag { get; set; } = toolTag.LightResource;
 
     protected override void Enter()
     {
-        EventAdd();
+        //EventAdd();
     }
 
     protected override void Execute()
@@ -19,6 +19,6 @@ public class ToolEvent_LightResource : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        //EventRemove();
     }
 }

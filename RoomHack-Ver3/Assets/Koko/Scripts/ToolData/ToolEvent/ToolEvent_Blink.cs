@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_Blink : ToolEvent
+public class ToolEvent_Blink : ToolEventBase
 {
+
+
     public override toolTag thisToolTag { get; set; } = toolTag.Blink;
 
     protected override void Enter()
     {
-        EventAdd();
+        //EventAdd(hackTargetObject);
         Debug.Log("このToolEvent_Blinkはまだ効果ないに");
         //if (Player.Instance.nowSpecialAction != Player.SpecialAction.Blink)
         //{
@@ -24,6 +26,6 @@ public class ToolEvent_Blink : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        //EventRemove(hackTargetObject);
     }
 }

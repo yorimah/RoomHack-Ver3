@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_InstantMemory : ToolEvent
+public class ToolEvent_InstantMemory : ToolEventBase
 {
     public override toolTag thisToolTag { get; set; } = toolTag.InstantMemory;
 
@@ -9,7 +9,7 @@ public class ToolEvent_InstantMemory : ToolEvent
 
     protected override void Enter()
     {
-        EventAdd();
+        //EventAdd();
     }
 
     protected override void Execute()
@@ -20,6 +20,6 @@ public class ToolEvent_InstantMemory : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        //EventRemove();
     }
 }

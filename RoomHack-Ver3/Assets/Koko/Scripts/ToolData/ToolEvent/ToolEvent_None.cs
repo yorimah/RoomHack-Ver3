@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolEvent_None : ToolEvent
+public class ToolEvent_None : ToolEventBase
 {
     public override toolTag thisToolTag { get;  set; } = toolTag.none;
 
     protected override void Enter()
     {
-        EventAdd();
+        //EventAdd();
     }
 
     protected override void Execute()
@@ -18,6 +18,6 @@ public class ToolEvent_None : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        //EventRemove();
     }
 }

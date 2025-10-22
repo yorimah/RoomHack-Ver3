@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_EdgeRun : ToolEvent
+public class ToolEvent_EdgeRun : ToolEventBase
 {
     public override toolTag thisToolTag { get; set; } = toolTag.EdgeRun;
 
     protected override void Enter()
     {
-        EventAdd();
+        //EventAdd();
         Debug.Log("このToolEvent_EdgeRunはまだ効果ないに");
         //if (Player.Instance.nowSpecialAction != Player.SpecialAction.EdgeRun)
         //{
@@ -24,6 +24,6 @@ public class ToolEvent_EdgeRun : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        //EventRemove();
     }
 }

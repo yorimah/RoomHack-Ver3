@@ -1,7 +1,16 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_Bind : ToolEvent
+public class ToolEvent_Bind : ToolEventBase, IToolEventBase_Target
 {
+    // IToolEventBase_Target
+    public GameObject hackTargetObject { get; set; }
+    public void Tracking(GameObject _gameObject)
+    {
+        this.transform.position = _gameObject.transform.position;
+        this.transform.localEulerAngles = _gameObject.transform.localEulerAngles;
+    }
+
+
     public override toolTag thisToolTag { get; set; } = toolTag.Bind;
 
     float timer = 0;
@@ -15,7 +24,7 @@ public class ToolEvent_Bind : ToolEvent
     protected override void Enter()
     {
         // 開始処理
-        EventAdd();
+        EventAdd(hackTargetObject);
 
         effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.Bad, this.gameObject);
 
@@ -29,7 +38,7 @@ public class ToolEvent_Bind : ToolEvent
     {
         // 稼働処理
         targetData.moveSpeed = 0;
-        Tracking();
+        Tracking(hackTargetObject);
 
 
         // 終了条件
@@ -44,12 +53,7 @@ public class ToolEvent_Bind : ToolEvent
     {
         // 終了処理
         targetData.moveSpeed = startSpeed;
-        EventRemove();
+        EventRemove(hackTargetObject);
         effect.GetComponent<ParticleSystem>().Stop();
     }
-
-
-    //public override void ToolAction()
-    //{
-    //}
 }

@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 {
     // ハック関連
     public List<toolTag> canHackToolTag { get; set; } = new List<toolTag>();
-    public List<ToolEvent> nowHackEvent { get; set; } = new List<ToolEvent>();
+    public List<ToolEventBase> nowHackEvent { get; set; } = new List<ToolEventBase>();
 
     // ダメージ関連
     public float MaxHitPoint { get; private set; } = 5;

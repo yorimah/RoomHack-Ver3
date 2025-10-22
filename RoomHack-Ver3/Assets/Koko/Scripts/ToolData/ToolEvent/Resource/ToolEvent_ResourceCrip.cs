@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_ResourceCrip : ToolEvent
+public class ToolEvent_ResourceCrip : ToolEventBase
 {
     public override toolTag thisToolTag { get; set; } = toolTag.none;
 
     protected override void Enter()
     {
-        EventAdd();
+        //EventAdd();
     }
 
     protected override void Execute()
@@ -17,6 +17,6 @@ public class ToolEvent_ResourceCrip : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        //EventRemove();
     }
 }

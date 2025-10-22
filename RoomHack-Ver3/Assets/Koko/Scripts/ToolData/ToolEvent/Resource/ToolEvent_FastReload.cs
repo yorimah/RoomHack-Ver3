@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_FastReload : ToolEvent
+public class ToolEvent_FastReload : ToolEventBase
 {
 
     public override toolTag thisToolTag { get; set; } = toolTag.FastReload;
 
     protected override void Enter()
     {
-        EventAdd();
+        //EventAdd();
     }
 
     protected override void Execute()
@@ -28,6 +28,6 @@ public class ToolEvent_FastReload : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        //EventRemove();
     }
 }

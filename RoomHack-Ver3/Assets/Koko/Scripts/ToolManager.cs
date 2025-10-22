@@ -110,12 +110,11 @@ public class ToolManager : MonoBehaviour
                     }
                 }
 
-                // resourceなら対象なしでもok
-                if (deckSystem.ReturnToolType(hand) == toolType.Resource)
+                // 対象不要ツールならタゲなしでもプレイ可能
+                if (!deckSystem.ReturnToolNeedTarget(hand))
                 {
-                    // 要修正
+                    Debug.Log(hand + "は対象不要");
                     handPlayList[i] = true;
-                    //  targetObject = Player.Instance.gameObject;
                 }
 
                 // マウスがハンドのツールを選択しているなら
@@ -169,11 +168,9 @@ public class ToolManager : MonoBehaviour
     void HandPlay(int _index, GameObject _target)
     {
         deckSystem.HandPlay(_index, _target);
-        toolUIController.HandTrash(_index);
+        HandTrash(_index);
         SeManager.Instance.Play("toolPlay");
 
-        handCostList.RemoveAt(_index);
-        handPlayList.RemoveAt(_index);
 
     }
 

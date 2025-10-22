@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_Accelerate : ToolEvent
+public class ToolEvent_Accelerate : ToolEventBase
 {
     public override toolTag thisToolTag { get; set; } = toolTag.Accelerate;
 
     protected override void Enter()
     {
-        EventAdd();
+        //EventAdd();
         ToolManager.Instance.toolPlayAction += AccelerateAction;
     }
 
@@ -17,7 +17,7 @@ public class ToolEvent_Accelerate : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        //EventRemove();
     }
 
     void AccelerateAction()

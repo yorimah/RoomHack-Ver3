@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IHackObject
 
     // ハッキング初期化
     public List<toolTag> canHackToolTag { get; set; }
-    public List<ToolEvent> nowHackEvent { get; set; }
+    public List<ToolEventBase> nowHackEvent { get; set; }
 
 
     public int maxBullet;
