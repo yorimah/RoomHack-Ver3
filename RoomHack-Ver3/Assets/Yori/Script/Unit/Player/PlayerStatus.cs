@@ -79,7 +79,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
             if (IsReboot)
             {
                 NowRam = 0;
-                RebootTimer += GameTimer.Instance.ScaledDeltaTime;
+                RebootTimer += GameTimer.Instance.GetScaledDeltaTime();
 
                 if (RebootTimer >= RamRecovary)
                 {

@@ -17,7 +17,7 @@ public class ReloadState : IEnemyState
 
     public void Execute()
     {
-        timer += GameTimer.Instance.ScaledDeltaTime;
+        timer += GameTimer.Instance.GetScaledDeltaTime();
         if (timer >= enemy.gunData.ReloadTime)
         {
             enemy.ChangeState(EnemyStateType.Move);

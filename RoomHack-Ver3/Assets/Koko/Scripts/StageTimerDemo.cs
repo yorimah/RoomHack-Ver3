@@ -30,7 +30,7 @@ public class StageTimerDemo : MonoBehaviour
         }
 
         dispText.text = timer.ToString("00.00");
-        timer -= GameTimer.Instance.ScaledDeltaTime;
+        timer -= GameTimer.Instance.GetScaledDeltaTime();
     }
 
 

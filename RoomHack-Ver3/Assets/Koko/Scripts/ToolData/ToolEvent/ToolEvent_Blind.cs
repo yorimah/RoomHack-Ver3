@@ -32,7 +32,7 @@ public class ToolEvent_Blind : ToolEvent
         Tracking();
 
         // 終了設定
-        timer -= GameTimer.Instance.ScaledDeltaTime;
+        timer -= GameTimer.Instance.GetScaledDeltaTime();
         if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
         {
             EventEnd();

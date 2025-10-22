@@ -58,7 +58,7 @@ public class SpecialForceShotState : IEnemyState
             case ShotSection.aim:
 
                 EnemyRigidBody2D.linearVelocity = Vector2.zero;
-                timer += GameTimer.Instance.ScaledDeltaTime;
+                timer += GameTimer.Instance.GetScaledDeltaTime();
                 if (enemy.aimTime <= timer)
                 {
                     shotSection++;
@@ -90,7 +90,7 @@ public class SpecialForceShotState : IEnemyState
                 }
                 break;
             case ShotSection.shotInterval:
-                timer += GameTimer.Instance.ScaledDeltaTime;
+                timer += GameTimer.Instance.GetScaledDeltaTime();
                 if (enemy.shotIntervalTime <= timer)
                 {
                     timer = 0;

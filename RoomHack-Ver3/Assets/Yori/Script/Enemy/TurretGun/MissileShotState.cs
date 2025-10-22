@@ -54,7 +54,7 @@ public class MissileShotState : IEnemyState
                 else
                 {
                     EnemyRigidBody2D.linearVelocity = Vector2.zero;
-                    timer += GameTimer.Instance.ScaledDeltaTime;
+                    timer += GameTimer.Instance.GetScaledDeltaTime();
                 }
                 break;
             case ShotSection.shot:
@@ -71,7 +71,7 @@ public class MissileShotState : IEnemyState
                 }
                 break;
             case ShotSection.shotInterval:
-                timer += GameTimer.Instance.ScaledDeltaTime;
+                timer += GameTimer.Instance.GetScaledDeltaTime();
                 // プレイヤーが射線上にいたら射撃へ
                 // いなかったら移動へ
                 if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))

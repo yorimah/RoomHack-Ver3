@@ -32,7 +32,7 @@ public class ToolEvent_OverHeat : ToolEvent
     protected override void Execute()
     {
         // 稼働処理
-        damageTimer -= GameTimer.Instance.ScaledDeltaTime;
+        damageTimer -= GameTimer.Instance.GetScaledDeltaTime();
         if (damageTimer <= 0)
         {
             damageable.HitDmg(damage, 0);
@@ -41,7 +41,7 @@ public class ToolEvent_OverHeat : ToolEvent
         Tracking();
 
         // 終了設定
-        timer -= GameTimer.Instance.ScaledDeltaTime;
+        timer -= GameTimer.Instance.GetScaledDeltaTime();
         if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
         {
             
