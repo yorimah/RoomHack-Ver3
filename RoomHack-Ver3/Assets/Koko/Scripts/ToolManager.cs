@@ -171,6 +171,10 @@ public class ToolManager : MonoBehaviour
         deckSystem.HandPlay(_index, _target);
         toolUIController.HandTrash(_index);
         SeManager.Instance.Play("toolPlay");
+
+        handCostList.RemoveAt(_index);
+        handPlayList.RemoveAt(_index);
+
     }
 
     public void ChangeRam(float changeRam)
