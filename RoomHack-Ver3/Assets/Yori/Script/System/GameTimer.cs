@@ -3,37 +3,62 @@
 public class GameTimer
 {
     private static GameTimer _instance;
+
     public static GameTimer Instance => _instance ??= new GameTimer();
 
-    [Header("時間スケール設定")]
     /// <summary>
     /// タイムスケールの大本、ここを1/10にすると1/10の時間の進みになる。0～5の間
     /// </summary>
-    [Range(0f, 5f)] public float customTimeScale = 1f;
+    [Range(0f, 5f)] private float customTimeScale = 1f;
+
+    public float GetCustomTimeScale()
+    {
+        return customTimeScale;
+    }
 
     /// <summary>
     /// カスタムタイムスケールに応じて変化する時間
     /// </summary>
-    public float ScaledDeltaTime => Time.deltaTime * customTimeScale;
-    public float ScaledUnscaledDeltaTime => Time.unscaledDeltaTime * customTimeScale;
+    private float ScaledDeltaTime => Time.deltaTime * customTimeScale;
 
-    public bool isHackMode = false;
+    public float GetScaledDeltaTime()
+    {
+        return ScaledDeltaTime;
+    }
 
+    private float UnscaledDeltaTime => Time.unscaledDeltaTime * customTimeScale;
+
+    public float GetUnScaledDeltaTime()
+    {
+        return UnscaledDeltaTime;
+    }
+
+    public bool IsHackTime { get; private set; } = false;
+
+    /// <summary>
+    /// カスタムタイムスケールを使用してるところが遅くなります。0～5の間
+    /// </summary>
+    /// <param name="scale"></param>
     public void SetTimeScale(float scale)
     {
         customTimeScale = Mathf.Clamp(scale, 0f, 5f);
     }
 
-    public void SetHackModeTimeScale() 
+    public void SetHackModeTimeScale()
     {
         SetTimeScale(0.1f);
-        isHackMode = true;
+        IsHackTime = true;
     }
     public void SetAcitionModeTimeScale()
     {
         SetTimeScale(1f);
-        isHackMode = false;
+        IsHackTime = false;
     }
+
+    /// <summary>
+    /// 全体の時間をいじります。0～5の間
+    /// </summary>
+    /// <param name="scale"></param>
     public void SetGlobalTimeScale(float scale)
     {
         Time.timeScale = Mathf.Clamp(scale, 0f, 5f);

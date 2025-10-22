@@ -9,6 +9,7 @@ public class PlayerShot
         shotInterval,
         Reload,
     }
+
     Mesh mesh;
     ShotSection shotSection;
 
@@ -91,7 +92,7 @@ public class PlayerShot
         PlayerRotation();
         ShotRangeView();
         diffusionRate = Mathf.Clamp(diffusionRate, gunData.MinDiffusionRate, gunData.MaxDiffusionRate);
-        diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
+        diffusionRate -= diffusionRate * GameTimer.Instance.GetScaledDeltaTime();
 
         if (playerInput.GetOnReload() && shotSection != ShotSection.Reload)
         {
@@ -123,7 +124,7 @@ public class PlayerShot
                 }
                 else
                 {
-                    timer += GameTimer.Instance.ScaledDeltaTime;
+                    timer += GameTimer.Instance.GetScaledDeltaTime();
                 }
                 break;
             case ShotSection.Reload:
@@ -135,7 +136,7 @@ public class PlayerShot
                 }
                 else
                 {
-                    timer += GameTimer.Instance.ScaledDeltaTime;
+                    timer += GameTimer.Instance.GetScaledDeltaTime();
                 }
                 break;
             default:
@@ -155,41 +156,44 @@ public class PlayerShot
 
     public void ShotRangeView()
     {
-        mesh.Clear();
-
-        Vector3[] vertices = new Vector3[segment + 2];
-        int[] triangles = new int[segment * 3];
-
-        // 中心はプレイヤー
-        vertices[0] = player.transform.position;
-
-        float angle = diffusionRate * 2f;
-
-        for (int i = 0; i <= segment; i++)
+        if (mesh!=null)
         {
-            float diffusionAngle = -diffusionRate + (angle / segment) * i;
+            mesh.Clear();
 
-            Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
-            Vector3 dir = rot * player.transform.up;
+            Vector3[] vertices = new Vector3[segment + 2];
+            int[] triangles = new int[segment * 3];
 
-            Vector3 point = player.transform.position + dir * viewDistance;
+            // 中心はプレイヤー
+            vertices[0] = player.transform.position;
 
-            vertices[i + 1] = point;
+            float angle = diffusionRate * 2f;
 
-            if (i < segment)
+            for (int i = 0; i <= segment; i++)
             {
-                int start = i * 3;
-                // 中心
-                triangles[start] = 0;
-                // 左上
-                triangles[start + 1] = i + 2;
-                // 右上
-                triangles[start + 2] = i + 1;
-            }
-        }
+                float diffusionAngle = -diffusionRate + (angle / segment) * i;
 
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.RecalculateNormals();
+                Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
+                Vector3 dir = rot * player.transform.up;
+
+                Vector3 point = player.transform.position + dir * viewDistance;
+
+                vertices[i + 1] = point;
+
+                if (i < segment)
+                {
+                    int start = i * 3;
+                    // 中心
+                    triangles[start] = 0;
+                    // 左上
+                    triangles[start + 1] = i + 2;
+                    // 右上
+                    triangles[start + 2] = i + 1;
+                }
+            }
+
+            mesh.vertices = vertices;
+            mesh.triangles = triangles;
+            mesh.RecalculateNormals();
+        }        
     }
 }

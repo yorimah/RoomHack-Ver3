@@ -64,7 +64,7 @@ public class DroneMoveState : IEnemyState
             return;
         }
         // Rigidbody2Dで移動
-        enemyRigidBody2D.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
+        enemyRigidBody2D.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
     }
 
     public void Exit()

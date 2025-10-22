@@ -49,7 +49,7 @@ public class Granade:BombCore
         else
         {
             isExplosion = true;
-            timer += GameTimer.Instance.ScaledDeltaTime;
+            timer += GameTimer.Instance.GetScaledDeltaTime();
             colorAlpha = Mathf.Sin(Mathf.Pow(4, timer));
         }
 

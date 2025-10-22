@@ -90,7 +90,7 @@ public class ToolUIController : MonoBehaviour
         deckSign.toMovePosition = nowDeckPos;
         trashSign.toMovePosition = nowTrashPos;
 
-        if (GameTimer.Instance.isHackMode)
+        if (GameTimer.Instance.IsHackTime)
         {
             nowDeckPos = hackDeckPos;
             nowTrashPos = hackTrashPos;

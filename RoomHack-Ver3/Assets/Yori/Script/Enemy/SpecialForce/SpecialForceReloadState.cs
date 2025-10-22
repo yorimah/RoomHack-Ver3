@@ -35,7 +35,7 @@ public class SpecialForceReloadState : IEnemyState
         {
             enemy.ChangeState(EnemyStateType.Move);
         }
-        timer += GameTimer.Instance.ScaledDeltaTime;
+        timer += GameTimer.Instance.GetScaledDeltaTime();
         if (timer >= 3)
         {
             enemy.NOWBULLET = enemy.MAXBULLET;

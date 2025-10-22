@@ -20,7 +20,7 @@ public class HackInformationDisp : MonoBehaviour
 
     private void Update()
     {
-        if (GameTimer.Instance.isHackMode)
+        if (GameTimer.Instance.IsHackTime)
         {
 
             if (cameraPositionController.targetObject != null)

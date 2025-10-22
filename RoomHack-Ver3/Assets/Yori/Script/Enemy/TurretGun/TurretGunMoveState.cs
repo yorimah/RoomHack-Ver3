@@ -38,9 +38,9 @@ public class TurretGunMoveState : IEnemyState
             }
             else
             {
-                rotation += 10 * direction * GameTimer.Instance.ScaledDeltaTime;
+                rotation += 10 * direction * GameTimer.Instance.GetScaledDeltaTime();
                 enemy.transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
-                flipTimer += GameTimer.Instance.ScaledDeltaTime;
+                flipTimer += GameTimer.Instance.GetScaledDeltaTime();
             }
         }
     }

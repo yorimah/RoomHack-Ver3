@@ -30,7 +30,7 @@ public class SpecialForceMoveState : IEnemyState
     {
         if (enemy.NOWBULLET > 0)
         {
-            flipTimer += GameTimer.Instance.ScaledDeltaTime;
+            flipTimer += GameTimer.Instance.GetScaledDeltaTime();
             // 反転タイミングになったら前後どっちに反転するか決める。
             if (flipTimer >= flipInterval)
             {
@@ -79,7 +79,7 @@ public class SpecialForceMoveState : IEnemyState
             return;
         }
         // Rigidbody2Dで移動
-        enemyRididBody.linearVelocity = moveDir.normalized * enemy.moveSpeed * GameTimer.Instance.customTimeScale;
+        enemyRididBody.linearVelocity = moveDir.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
 
         enemy.transform.rotation = MoveForwadRotation(nowPosition + moveDir);
     }

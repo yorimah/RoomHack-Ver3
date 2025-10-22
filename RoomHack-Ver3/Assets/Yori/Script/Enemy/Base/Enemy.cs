@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         currentState?.Execute();
 
         diffusionRate = Mathf.Clamp(diffusionRate, minDiffusionRate, maxDiffusionRate);
-        diffusionRate -= diffusionRate * GameTimer.Instance.ScaledDeltaTime;
+        diffusionRate -= diffusionRate * GameTimer.Instance.GetScaledDeltaTime();
     }
 
     public void ChangeState(EnemyStateType type)

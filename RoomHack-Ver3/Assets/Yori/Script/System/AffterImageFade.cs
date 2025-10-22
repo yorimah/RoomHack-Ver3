@@ -19,7 +19,7 @@ public class AffterImageFade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spriteRenderer.color -= fadeColor * GameTimer.Instance.ScaledDeltaTime;
+        spriteRenderer.color -= fadeColor * GameTimer.Instance.GetScaledDeltaTime();
         if (spriteRenderer.color.a <= 0)
         {
             Destroy(gameObject);

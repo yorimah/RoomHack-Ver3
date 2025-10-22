@@ -1,12 +1,11 @@
 ﻿using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HitStopper : MonoBehaviour
 {
     public static HitStopper Instance { get; private set; }
-    [SerializeField,Header("cinemachine")]
+    [SerializeField, Header("cinemachine")]
     private CinemachineVirtualCamera mainCamera;
     private CinemachineImpulseSource cinemachineImpulse;
     private void Awake()
@@ -22,9 +21,9 @@ public class HitStopper : MonoBehaviour
 
     private IEnumerator HitStopCoroutine(float duration)
     {
-        float originalTimeScale = GameTimer.Instance.customTimeScale; 
-        GameTimer.Instance.customTimeScale = 0f;
+        float originalTimeScale = GameTimer.Instance.GetCustomTimeScale();
+        GameTimer.Instance.SetTimeScale(0);
         yield return new WaitForSecondsRealtime(duration);
-        GameTimer.Instance.customTimeScale = originalTimeScale;
+        GameTimer.Instance.SetTimeScale(originalTimeScale);
     }
 }

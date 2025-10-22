@@ -58,7 +58,7 @@ public class ShotState : IEnemyState
                 else
                 {
                     EnemyRigidBody2D.linearVelocity = Vector2.zero;
-                    timer += GameTimer.Instance.ScaledDeltaTime;
+                    timer += GameTimer.Instance.GetScaledDeltaTime();
                 }
                 break;
             case ShotSection.shot:
@@ -114,7 +114,7 @@ public class ShotState : IEnemyState
                 }
                 else
                 {
-                    timer += GameTimer.Instance.ScaledDeltaTime;
+                    timer += GameTimer.Instance.GetScaledDeltaTime();
                 }
                 break;
             default:
