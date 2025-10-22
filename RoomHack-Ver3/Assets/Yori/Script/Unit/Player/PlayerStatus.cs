@@ -40,7 +40,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
         nowHitPoint = saveData.maxHitPoint;
         RamCapacity = saveData.maxRamCapacity;
 
-        NowRam = RamCapacity;
+        NowRam = saveData.maxRamCapacity; ;
         RamRecovary = saveData.RamRecovery;
         MaxHandSize = saveData.maxHandSize;
 
