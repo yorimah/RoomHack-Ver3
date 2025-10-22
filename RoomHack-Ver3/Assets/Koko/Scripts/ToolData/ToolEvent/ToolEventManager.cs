@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 public class ToolEventManager : MonoBehaviour
 {
-    List<ToolEvent> eventPool = new List<ToolEvent>();
+    List<ToolEventBase> eventPool = new List<ToolEventBase>();
 
     [SerializeField]
-    ToolEvent playEvent;
+    ToolEventBase playEvent;
 
-    public ToolEvent EventPlay(ToolEvent _event, GameObject _target)
+    public ToolEventBase EventPlay(ToolEventBase _event, GameObject _target)
     {
         playEvent = null;
 
@@ -30,11 +30,19 @@ public class ToolEventManager : MonoBehaviour
         }
 
         // イベント初期設定
-        playEvent.transform.position = _target.transform.position;
-        playEvent.hackTargetObject = _target;
+
+        if(playEvent.TryGetComponent<IToolEventBase_Target>(out var toolEventBase_Target))
+        {
+            toolEventBase_Target.hackTargetObject = _target;
+            playEvent.transform.position = _target.transform.position;
+            EffectManager.Instance.ActEffect(EffectManager.EffectType.Success, _target.transform.position, 0, false);
+        }
+        else
+        {
+            EffectManager.Instance.ActEffect(EffectManager.EffectType.Success, Vector2.zero, 0, false);
+        }
         playEvent.EventStart();
 
-        EffectManager.Instance.ActEffect(EffectManager.EffectType.Success, _target.transform.position, 0, false);
 
         return playEvent;
     }

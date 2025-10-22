@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
-public abstract class ToolEvent : MonoBehaviour
+public abstract class ToolEventBase : MonoBehaviour
 {
     [HideInInspector]
     public abstract toolTag thisToolTag { get; set; }
 
-    public GameObject hackTargetObject;
+    //public GameObject hackTargetObject;
+
     public bool isEventAct { get; private set; } = false;
     private bool isSet = false;
 
@@ -19,21 +20,21 @@ public abstract class ToolEvent : MonoBehaviour
         isEventAct = false;
     }
 
-    protected void EventAdd()
+    protected void EventAdd(GameObject _gameObject)
     {
-        hackTargetObject.GetComponent<IHackObject>().nowHackEvent.Add(this);
+        _gameObject.GetComponent<IHackObject>().nowHackEvent.Add(this);
     }
 
-    protected void EventRemove()
+    protected void EventRemove(GameObject _gameObject)
     {
-        hackTargetObject.GetComponent<IHackObject>().nowHackEvent.Remove(this);
+        _gameObject.GetComponent<IHackObject>().nowHackEvent.Remove(this);
     }
 
-    protected void Tracking()
-    {
-        this.transform.position = hackTargetObject.transform.position;
-        this.transform.localEulerAngles = hackTargetObject.transform.localEulerAngles;
-    }
+    //protected void Tracking(GameObject _gameObject)
+    //{
+    //    this.transform.position = _gameObject.transform.position;
+    //    this.transform.localEulerAngles = _gameObject.transform.localEulerAngles;
+    //}
 
     protected abstract void Enter();
 

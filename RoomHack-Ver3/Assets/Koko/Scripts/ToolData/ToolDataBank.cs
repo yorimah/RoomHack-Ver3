@@ -17,8 +17,13 @@ public class ToolData
     public int toolCost;
     public string toolText;
     public Sprite toolSprite;
-    public ToolEvent toolEvent;
+    public ToolEventBase toolEvent;
 }
+
+
+
+
+
 
 public enum toolTag
 {

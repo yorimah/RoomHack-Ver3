@@ -1,7 +1,16 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_Blind : ToolEvent
+public class ToolEvent_Blind : ToolEventBase, IToolEventBase_Target
 {
+    // IToolEventBase_Target
+    public GameObject hackTargetObject { get; set; }
+    public void Tracking(GameObject _gameObject)
+    {
+        this.transform.position = _gameObject.transform.position;
+        this.transform.localEulerAngles = _gameObject.transform.localEulerAngles;
+    }
+
+
     public override toolTag thisToolTag { get; set; } = toolTag.Blind;
 
     float timer = 0;
@@ -14,7 +23,7 @@ public class ToolEvent_Blind : ToolEvent
 
     protected override void Enter()
     {
-        EventAdd();
+        EventAdd(hackTargetObject);
 
         effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.Bad, this.gameObject);
 
@@ -29,7 +38,7 @@ public class ToolEvent_Blind : ToolEvent
 
         // 稼働処理
         targetData.shotIntervalTime = 9999;
-        Tracking();
+        Tracking(hackTargetObject);
 
         // 終了設定
         timer -= GameTimer.Instance.GetScaledDeltaTime();
@@ -41,46 +50,9 @@ public class ToolEvent_Blind : ToolEvent
 
     protected override void Exit()
     {
-
         targetData.shotIntervalTime = startInterval;
-        EventRemove();
+        EventRemove(hackTargetObject);
         effect.GetComponent<ParticleSystem>().Stop();
     }
 
-    //private void Update()
-    //{
-    //    if (isEventAct)
-    //    {
-    //        // 初期設定
-    //        if (!isSet)
-    //        {
-    //            HackSetup();
-    //            isSet = true;
-    //        }
-
-    //        // 稼働処理
-    //        targetData.shotIntervalTime = 9999;
-    //        Tracking();
-
-    //        // 終了設定
-    //        timer -= GameTimer.Instance.ScaledDeltaTime;
-    //        if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
-    //        {
-    //            targetData.shotIntervalTime = startInterval;
-    //            EventRemove();
-    //            effect.GetComponent<ParticleSystem>().Stop();
-    //            isSet = false;
-    //            isEventAct = false;
-    //        }
-    //    }
-    //}
-
-    //// 初期設定
-    //void HackSetup()
-    //{
-    //}
-
-    //public override void ToolAction()
-    //{
-    //}
 }

@@ -1,8 +1,17 @@
 ﻿
 using UnityEngine;
 
-public class ToolEvent_CCTVHack : ToolEvent
+public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
 {
+    // IToolEventBase_Target
+    public GameObject hackTargetObject { get; set; }
+    public void Tracking(GameObject _gameObject)
+    {
+        this.transform.position = _gameObject.transform.position;
+        this.transform.localEulerAngles = _gameObject.transform.localEulerAngles;
+    }
+
+
     public override toolTag thisToolTag { get; set; } = toolTag.CCTVHack;
 
     Mesh mesh;
@@ -51,13 +60,13 @@ public class ToolEvent_CCTVHack : ToolEvent
 
     protected override void Enter()
     {
-        EventAdd();
+        EventAdd(hackTargetObject);
     }
 
     protected override void Execute()
     {
 
-        Tracking();
+        Tracking(hackTargetObject);
         PlayerView();
 
         // 対象が破壊されたら消す
@@ -116,7 +125,7 @@ public class ToolEvent_CCTVHack : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        EventRemove(hackTargetObject);
         mesh.Clear();
         miniMesh.Clear();
     }
@@ -173,10 +182,4 @@ public class ToolEvent_CCTVHack : ToolEvent
         miniMesh.triangles = triangles;
         miniMesh.RecalculateNormals();
     }
-
-
-    //public override void ToolAction()
-    //{
-
-    //}
 }

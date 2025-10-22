@@ -2,8 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolEvent_OverHeat : ToolEvent
+public class ToolEvent_OverHeat : ToolEventBase, IToolEventBase_Target
 {
+    // IToolEventBase_Target
+    public GameObject hackTargetObject { get; set; }
+    public void Tracking(GameObject _gameObject)
+    {
+        this.transform.position = _gameObject.transform.position;
+        this.transform.localEulerAngles = _gameObject.transform.localEulerAngles;
+    }
+
+
     public override toolTag thisToolTag { get; set; } = toolTag.OverHeat;
 
     float timer = 0;
@@ -19,7 +28,7 @@ public class ToolEvent_OverHeat : ToolEvent
 
     protected override void Enter()
     {
-        EventAdd();
+        EventAdd(hackTargetObject);
 
         effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.Fire, this.gameObject);
 
@@ -38,7 +47,7 @@ public class ToolEvent_OverHeat : ToolEvent
             damageable.HitDmg(damage, 0);
             damageTimer = damageTime;
         }
-        Tracking();
+        Tracking(hackTargetObject);
 
         // 終了設定
         timer -= GameTimer.Instance.GetScaledDeltaTime();
@@ -52,6 +61,6 @@ public class ToolEvent_OverHeat : ToolEvent
 
     protected override void Exit()
     {
-        EventRemove();
+        EventRemove(hackTargetObject);
     }
 }

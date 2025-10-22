@@ -155,7 +155,7 @@ public class DeckSystem : MonoBehaviour
         //if (playTool != toolTag.none)
         {
             toolEventManager.EventPlay(toolDataBank.toolDataList[(int)toolHand[_index]].toolEvent, _target);
-            HandTrash(_index);
+            //HandTrash(_index);
             //ToolMove(toolHand, index, toolTrash);
 
             //ToolEvent eventObj = Instantiate(toolDataBank.toolDataList[(int)toolHand[index]].toolEvent, _hackObject.transform.position, Quaternion.identity);
@@ -180,6 +180,18 @@ public class DeckSystem : MonoBehaviour
         return toolDataBank.toolDataList[(int)_tool].toolText;
     }
 
+    public bool ReturnToolNeedTarget(toolTag _tool)
+    {
+        if (toolDataBank.toolDataList[(int)_tool].toolEvent.TryGetComponent<IToolEventBase_Target>(out var toolEventBase_Target))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void ToolCostUse(toolTag _tool)
     {
         // ダブルでこすとがつかえるかチェック
@@ -187,7 +199,7 @@ public class DeckSystem : MonoBehaviour
         // 下限を超えないかチェック
         if (ram >= 0)
         {
-            useableRam.RamUse(ram);
+            useableRam.RamUse(toolDataBank.toolDataList[(int)_tool].toolCost);
         }
         else
         {
