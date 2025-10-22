@@ -1,13 +1,22 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 
+enum SpecialAction
+{
+    none,
+    EdgeRun,
+    Blink
+}
 
-public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPosition, IGetPlayerDie, ISetPlayerDied,IReadMaxHitPoint
+public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPosition,
+    IGetPlayerDie, ISetPlayerDied, IReadMaxHitPoint
 {
     public event Action PlayerDie = delegate { };
+
     public Vector3 PlayerPosition { get; private set; }
+
     public int MaxHitPoint { get; private set; }
 
     public float nowHitPoint;
@@ -22,11 +31,16 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
 
     public int MaxHandSize { get; private set; }
 
-    public float RebootTimer { get; private set; } 
+    public float RebootTimer { get; private set; }
 
     public float MoveSpeed { get; }
 
     public List<int> DeckList { get; private set; }
+
+    private SpecialAction SpecialAction = SpecialAction.none;
+
+    public float specialActionCount = 0;
+
 
     public void SetPlayerPosition(Transform transform)
     {
@@ -36,28 +50,35 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
     public PlayerStatus()
     {
         PlayerSaveData saveData = SaveManager.Instance.Load();
+
+        // HP初期化
         MaxHitPoint = saveData.maxHitPoint;
         nowHitPoint = saveData.maxHitPoint;
+
+        // Hack関連初期化
         RamCapacity = saveData.maxRamCapacity;
-
         NowRam = saveData.maxRamCapacity; ;
-        RamRecovary = saveData.RamRecovery;
+        RamRecovary = saveData.ramRecovery;
         MaxHandSize = saveData.maxHandSize;
-
-        MoveSpeed = saveData.moveSpeed;
-
+        IsReboot = true;
+        _ = RamUpdate();
         DeckList = saveData.deckList;
 
-        IsReboot = true;
-
-        _ = RamUpdate();
+        MoveSpeed = saveData.moveSpeed;
     }
 
     public void RamUse(float useRam)
     {
-        NowRam -= useRam;
+        if (0 >= NowRam - useRam)
+        {
+            NowRam = 0;
+            Debug.LogError("使える数より多いRAMを使おうとしてるよ！");
+        }
+        else
+        {
+            NowRam -= useRam;
+        }
     }
-
 
     public void ChangeRam(float addRam)
     {
@@ -65,17 +86,19 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
         // 上限、下限を超えないかチェック
         if (ram <= RamCapacity && ram >= 0)
         {
-            NowRam += ram;
+            NowRam += addRam;
         }
         else
         {
             Debug.LogError("RamAddで上限、下限を超えました");
         }
     }
+
     public async UniTask RamUpdate()
     {
         while (true)
         {
+            // IsRebootがtrueならRamRecovaryの時間まで待機して、Ramを初期値に戻す。
             if (IsReboot)
             {
                 NowRam = 0;
@@ -86,7 +109,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
                     NowRam = RamCapacity;
 
                     RebootTimer = 0;
-                    IsReboot = false;
+                    SetIsReboot(false);
                 }
             }
             await UniTask.Yield();
@@ -107,7 +130,7 @@ public interface IReadMaxHitPoint
 {
     public int MaxHitPoint { get; }
 }
-public interface IReadPosition
+public interface IPosition
 {
     public Vector3 PlayerPosition { get; }
 
@@ -160,9 +183,4 @@ public interface IGetPlayerDie
 public interface ISetPlayerDied
 {
     public void SetDied();
-}
-
-public interface IGetIsHackMode
-{
-    public bool isHackMode { get; }
 }

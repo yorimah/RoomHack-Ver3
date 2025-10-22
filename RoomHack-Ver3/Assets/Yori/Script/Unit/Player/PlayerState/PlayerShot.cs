@@ -66,8 +66,8 @@ public class PlayerShot
 
         BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
 
-        bulletCore.power = gunData.Power;
-        bulletCore.hitStop = 0.1f;
+        bulletCore.stoppingPower = gunData.Power;
+        bulletCore.hitStopTime = 0.1f;
         bulletCore.hitDamegeLayer = hitDamageLayer;
 
 

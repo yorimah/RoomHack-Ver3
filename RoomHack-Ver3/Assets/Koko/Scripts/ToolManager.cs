@@ -43,10 +43,9 @@ public class ToolManager : MonoBehaviour
     public delegate void ToolPlayAction();
     public ToolPlayAction toolPlayAction = () => { };
 
-    private void Start()
-    {
 
-    }
+    [Inject]
+    IPlayerInput playerInput;
 
     private void Update()
     {

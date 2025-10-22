@@ -7,9 +7,9 @@ public class BulletCore : MonoBehaviour, IDamageable
     public float NowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; }
 
-    public int power;
+    public int stoppingPower;
 
-    public float hitStop;
+    public float hitStopTime;
 
     private Rigidbody2D rb;
 
@@ -48,7 +48,7 @@ public class BulletCore : MonoBehaviour, IDamageable
                 // 壁以外ならヒットエフェクト
                 if (damage.hitDamegeLayer != 3) EffectManager.Instance.ActEffect(EffectManager.EffectType.HitDamage, this.transform.position, -(this.transform.localEulerAngles.z) - 90, true);
 
-                damage.HitDmg(power, hitStop);
+                damage.HitDmg(stoppingPower, hitStopTime);
                 Die();
             }
         }

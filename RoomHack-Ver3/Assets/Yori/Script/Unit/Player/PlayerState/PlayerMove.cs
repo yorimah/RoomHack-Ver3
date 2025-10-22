@@ -23,11 +23,13 @@ public class PlayerMove
         return moveVector;
     }
 
-   
-
     public void playerMove()
     {
-        playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
+        if (playerRigidbody2D != null)
+        {
+
+            playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
+        }
     }
 
     public void Blink()
@@ -41,7 +43,6 @@ public class PlayerMove
 
     public void EdgeRun()
     {
-        //PlayerRotation();
         playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
     }
 }

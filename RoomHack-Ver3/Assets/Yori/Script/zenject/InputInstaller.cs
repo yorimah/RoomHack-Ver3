@@ -6,6 +6,5 @@ public class InputInstaller : MonoInstaller<InputInstaller>
     {
         Container.BindInterfacesTo<PlayerInput>().AsSingle();      // PlayerInputをシングルトンとして運用
         Container.BindInterfacesTo<PlayerStatus>().AsSingle();
-        Container.BindInterfacesTo<GameTimer>().AsSingle();
     }
 }
