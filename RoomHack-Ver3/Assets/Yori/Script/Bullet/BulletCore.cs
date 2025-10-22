@@ -32,7 +32,7 @@ public class BulletCore : MonoBehaviour, IDamageable
     private void Update()
     {
         // タイムスケールが1より大きいならそのままの速度、小さいならGameTimer.Instance.customTimeScale分遅くなる
-        rb.linearVelocity = GameTimer.Instance.IsHackTime ? initVel : initVel * GameTimer.Instance.GetCustomTimeScale();
+        rb.linearVelocity = GameTimer.Instance.IsHackTime ? initVel * GameTimer.Instance.GetCustomTimeScale() : initVel;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
