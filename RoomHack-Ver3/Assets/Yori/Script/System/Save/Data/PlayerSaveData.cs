@@ -7,7 +7,7 @@ public class PlayerSaveData
     public int maxHitPoint;
     public float moveSpeed;
     public float maxRamCapacity;
-    public float RamRecovery;
+    public float ramRecovery;
     public int maxHandSize;
     public List<int> deckList;
 }

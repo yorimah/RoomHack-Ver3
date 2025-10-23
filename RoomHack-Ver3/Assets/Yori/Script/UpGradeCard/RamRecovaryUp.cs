@@ -8,7 +8,7 @@ public class RamRecovaryUp : MonoBehaviour, ICardType
     public PlayerSaveData Choiced(PlayerSaveData _data)
     {
         data = _data;
-        data.RamRecovery += 0.5f * cardLevel;
+        data.ramRecovery += 0.5f * cardLevel;
         return data;
     }
 }

@@ -19,7 +19,7 @@ public class BombCore : MonoBehaviour
     private GameObject blastGameObject;
 
     [Inject]
-    IReadPosition readOnlyPlayerPoision;
+    IPosition readOnlyPlayerPoision;
 
     public Vector3 PlayerPosition { get { return readOnlyPlayerPoision.PlayerPosition; } }
 

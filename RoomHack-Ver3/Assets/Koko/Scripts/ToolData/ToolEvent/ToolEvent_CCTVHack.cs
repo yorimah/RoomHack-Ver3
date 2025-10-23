@@ -141,7 +141,7 @@ public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
         Vector3[] vertices = new Vector3[segment + 2];
         int[] triangles = new int[segment * 3];
 
-        // 中心はプレイヤー
+        // 中心は自分
         vertices[0] = this.transform.position;
 
         for (int i = 0; i < segment; i++)

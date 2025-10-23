@@ -54,8 +54,6 @@ public class PlayerInput:IPlayerInput
         gameInput.Player.Reload.canceled += ReleseReload;
         gameInput.Enable();
         Updata();
-
-        Debug.Log("生成");
     }
     private void OnMove(InputAction.CallbackContext context)
     {

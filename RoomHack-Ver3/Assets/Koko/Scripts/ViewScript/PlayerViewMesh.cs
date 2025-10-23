@@ -14,7 +14,7 @@ public class PlayerViewMesh : MonoBehaviour
     private GameObject meshObject;
 
     [Inject]
-    IReadPosition readPosition;
+    IPosition readPosition;
     private void Awake()
     {
         MeshInit();

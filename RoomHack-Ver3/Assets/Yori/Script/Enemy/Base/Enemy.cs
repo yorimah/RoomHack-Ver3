@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public float shotIntervalTime;
 
     [Inject]
-    IReadPosition readOnlyPlayerPoision;
+    IPosition readOnlyPlayerPoision;
 
     public Vector3 PlayerPosition { get { return readOnlyPlayerPoision.PlayerPosition; } }
 

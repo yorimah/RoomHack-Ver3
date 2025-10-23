@@ -17,7 +17,7 @@ public class PlayerCore : MonoBehaviour, IDamageable
     IPlayerInput playerInput;
 
     [Inject]
-    IReadPosition readPosition;
+    IPosition position;
 
     [Inject]
     ISetPlayerDied setPlayerDied;
@@ -42,7 +42,7 @@ public class PlayerCore : MonoBehaviour, IDamageable
 
     public void Update()
     {
-        readPosition.SetPlayerPosition(this.transform);
+        position.SetPlayerPosition(this.transform);
     }
 
     public void Die()
