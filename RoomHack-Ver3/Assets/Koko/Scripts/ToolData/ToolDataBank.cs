@@ -39,8 +39,8 @@ public enum toolTag
     LightResource,
     FastReload,
     InstantMemory,
-    MemoryDeposit,
     Accelerate,
+    MemoryDeposit,
 }
 
 public enum toolType

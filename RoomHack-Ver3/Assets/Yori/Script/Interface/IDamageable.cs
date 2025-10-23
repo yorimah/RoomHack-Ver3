@@ -15,6 +15,7 @@
 
     public void HitDmg(int dmg, float hitStop)
     {
+
         NowHitPoint -= dmg;
         if (NowHitPoint <= 0)
         {

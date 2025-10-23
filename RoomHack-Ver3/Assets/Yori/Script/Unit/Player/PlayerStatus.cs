@@ -65,11 +65,12 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IReadPos
         // 上限、下限を超えないかチェック
         if (ram <= RamCapacity && ram >= 0)
         {
-            NowRam += ram;
+            NowRam += addRam ;
         }
         else
         {
-            Debug.LogError("RamAddで上限、下限を超えました");
+            NowRam = RamCapacity;
+            //Debug.LogError("RamAddで上限、下限を超えました");
         }
     }
     public async UniTask RamUpdate()
