@@ -7,6 +7,7 @@ public class GunData : ScriptableObject
     [SerializeField] private int rate;
     [SerializeField] private int maxBullet;
     [SerializeField] private float reloadTime;
+    [SerializeField] private bool reloadTypeBolt;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float maneuverability;
     [SerializeField] private float recoil;
@@ -16,6 +17,7 @@ public class GunData : ScriptableObject
     public int Rate { get => rate; }
     public int MaxBullet { get => maxBullet; }
     public float ReloadTime { get => reloadTime; }
+    public bool ReloadTypeBolt { get => reloadTypeBolt; }
     public float BulletSpeed { get => bulletSpeed; }
     public float Maneuverability { get => maneuverability; }
     public float Recoil { get => recoil; }

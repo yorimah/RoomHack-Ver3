@@ -64,7 +64,7 @@ public class ToolManager : MonoBehaviour
             if (isRebootHandStay)
             {
                 SeManager.Instance.Play("RebootEnd");
-                if (deckSystem.toolHand.Count < useableRam.MaxHandSize)
+                if (deckSystem.toolHand.Count < useableRam.HandMaxSize)
                 {
                     DeckDraw();
                 }
@@ -89,7 +89,7 @@ public class ToolManager : MonoBehaviour
 
                 // コストが足りるかチェック
                 handCostList[i] = false;
-                if (deckSystem.ReturnToolCost(hand) <= useableRam.NowRam)
+                if (deckSystem.ReturnToolCost(hand) <= useableRam.RamNow)
                 {
                     handCostList[i] = true;
                 }
@@ -175,7 +175,7 @@ public class ToolManager : MonoBehaviour
 
     public void ChangeRam(float changeRam)
     {
-        useableRam.ChangeRam(changeRam);
+        useableRam.RamChange(changeRam);
     }
 
     // ハンドをトラッシュする

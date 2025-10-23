@@ -82,7 +82,7 @@ public class ToolUIController : MonoBehaviour
         trashSign.thisTool = toolTag.none;
         trashSign.isOpen = false;
 
-        useableRam.SetIsReboot(true);
+        useableRam.IsRebootSet(true);
     }
 
     private void Update()
