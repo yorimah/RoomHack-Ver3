@@ -72,7 +72,7 @@ public class PlayerShot
         bulletCore.hitDamegeLayer = hitDamageLayer;
 
 
-        float rand = UnityEngine.Random.Range(-diffusionRate, diffusionRate);
+        float rand = Random.Range(-diffusionRate, diffusionRate);
 
 
         Vector2 shotDirection = Quaternion.Euler(0, 0, player.transform.eulerAngles.z + rand) * Vector3.up;

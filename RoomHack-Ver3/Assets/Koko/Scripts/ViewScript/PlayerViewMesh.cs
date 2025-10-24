@@ -15,21 +15,28 @@ public class PlayerViewMesh : MonoBehaviour
 
     [Inject]
     IPosition readPosition;
+
+    ViewerGenarater viewerGenarater;
+    ViewerGenarater viewerGenarater2;
     private void Awake()
     {
         MeshInit();
     }
     private void MeshInit()
     {
-        meshObject = Instantiate(triangle);
-        meshObject.transform.localPosition = Vector2.zero;
+        //meshObject = Instantiate(triangle);
+        //meshObject.transform.localPosition = Vector2.zero;
 
-        mesh = new Mesh();
-        meshObject.GetComponent<MeshFilter>().mesh = mesh;
+        //mesh = new Mesh();
+        //meshObject.GetComponent<MeshFilter>().mesh = mesh;
+        viewerGenarater2 = new(triangle,this.gameObject,targetLm);
     }
     private void Update()
     {
-        PlayerView();
+        // PlayerView();
+
+        //viewerGenarater.CircleViewerUpdate();
+        viewerGenarater2.CircleViewerUpdate(360);
     }
     private void PlayerView()
     {
