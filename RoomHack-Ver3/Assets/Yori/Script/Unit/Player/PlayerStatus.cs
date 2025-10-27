@@ -11,25 +11,29 @@ enum SpecialAction
 }
 
 public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPosition,
-    IGetPlayerDie, ISetPlayerDied, IReadMaxHitPoint
+    IGetPlayerDie, ISetPlayerDied, IReadMaxHitPoint, IHaveGun
 {
+    public int BulletMax { get; private set; }
+
+    public int BulletNow { get; private set; }
+
     public event Action PlayerDie = delegate { };
 
     public Vector3 PlayerPosition { get; private set; }
 
-    public int MaxHitPoint { get; private set; }
+    public int hitPointMax { get; private set; }
 
-    public float nowHitPoint;
+    public float hitPointNow;
 
     public float RamCapacity { get; }
 
-    public float NowRam { get; private set; }
+    public float RamNow { get; private set; }
 
     public float RamRecovary { get; private set; }
 
     public bool IsReboot { get; private set; } = false;
 
-    public int MaxHandSize { get; private set; }
+    public int HandMaxSize { get; private set; }
 
     public float RebootTimer { get; private set; }
 
@@ -42,7 +46,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     public float specialActionCount = 0;
 
 
-    public void SetPlayerPosition(Transform transform)
+    public void PlayerPositionSet(Transform transform)
     {
         PlayerPosition = transform.position;
     }
@@ -52,14 +56,14 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         PlayerSaveData saveData = SaveManager.Instance.Load();
 
         // HP初期化
-        MaxHitPoint = saveData.maxHitPoint;
-        nowHitPoint = saveData.maxHitPoint;
+        hitPointMax = saveData.maxHitPoint;
+        hitPointNow = saveData.maxHitPoint;
 
         // Hack関連初期化
         RamCapacity = saveData.maxRamCapacity;
-        NowRam = saveData.maxRamCapacity; ;
+        RamNow = saveData.maxRamCapacity; ;
         RamRecovary = saveData.ramRecovery;
-        MaxHandSize = saveData.maxHandSize;
+        HandMaxSize = saveData.maxHandSize;
         IsReboot = true;
         _ = RamUpdate();
         DeckList = saveData.deckList;
@@ -69,24 +73,24 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
     public void RamUse(float useRam)
     {
-        if (0 >= NowRam - useRam)
+        if (0 >= RamNow - useRam)
         {
-            NowRam = 0;
+            RamNow = 0;
             Debug.LogError("使える数より多いRAMを使おうとしてるよ！");
         }
         else
         {
-            NowRam -= useRam;
+            RamNow -= useRam;
         }
     }
 
-    public void ChangeRam(float addRam)
+    public void RamChange(float addRam)
     {
-        float ram = NowRam + addRam;
+        float ram = RamNow + addRam;
         // 上限、下限を超えないかチェック
         if (ram <= RamCapacity && ram >= 0)
         {
-            NowRam += addRam;
+            RamNow += addRam;
         }
         else
         {
@@ -101,40 +105,101 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
             // IsRebootがtrueならRamRecovaryの時間まで待機して、Ramを初期値に戻す。
             if (IsReboot)
             {
-                NowRam = 0;
+                RamNow = 0;
                 RebootTimer += GameTimer.Instance.GetScaledDeltaTime();
 
                 if (RebootTimer >= RamRecovary)
                 {
-                    NowRam = RamCapacity;
+                    RamNow = RamCapacity;
 
                     RebootTimer = 0;
-                    SetIsReboot(false);
+                    IsRebootSet(false);
                 }
             }
             await UniTask.Yield();
         }
     }
-    public void SetIsReboot(bool setBool)
+    public void IsRebootSet(bool setBool)
     {
         IsReboot = setBool;
     }
 
-    public void SetDied()
+    public void DieSet()
     {
         PlayerDie();
+    }
+
+    public void BulletUse()
+    {
+        int usedBullet = --BulletNow;
+        if (usedBullet >= 0)
+        {
+            BulletNow = usedBullet;
+        }
+        else
+        {
+            Debug.LogError("残弾が下限突破してます！ UseBullet :" + usedBullet + "NowBullet :" + BulletNow);
+        }
+    }
+
+
+
+    public void BulletSet(int _MaxBullet)
+    {
+        if (_MaxBullet == 0)
+        {
+            Debug.LogError("最大の弾がゼロです！ MaxBullet :" + _MaxBullet);
+        }
+        else
+        {
+            BulletMax = _MaxBullet;
+            BulletNow = _MaxBullet;
+        }
+    }
+
+    public async UniTask BulletBoltReload(float ReloadTime)
+    {
+        for (int i = BulletNow; i < BulletMax; i++)
+        {
+            float timer = 0;
+            // 全体リロード時間を最大弾数で割って一回当たりのリロード時間にする。
+            while (ReloadTime / BulletMax >= timer)
+            {
+                timer += GameTimer.Instance.GetScaledDeltaTime();
+                await UniTask.Yield();
+            }
+            BulletNow++;
+        }
+        Debug.Log("ボルト式リロード終了 BulletMax :" + BulletMax);
+    }
+
+    public void BulletAdd(int BulletAdd)
+    {
+        int BulletAdded = BulletNow + BulletAdd;
+        if (BulletAdded <= BulletMax)
+        {
+            BulletNow = BulletAdded;
+        }
+        else
+        {
+            Debug.LogError("最大値を超えて弾を追加しようとしてます！");
+        }
+    }
+    public void BulletResume()
+    {
+        BulletNow = 0;
     }
 }
 
 public interface IReadMaxHitPoint
 {
-    public int MaxHitPoint { get; }
+    public int hitPointMax { get; }
 }
 public interface IPosition
 {
     public Vector3 PlayerPosition { get; }
 
-    public void SetPlayerPosition(Transform transform);
+    public void PlayerPositionSet(Transform transform);
 }
 
 public interface IReadOnlyMoveSpeed
@@ -146,7 +211,7 @@ public interface IUseableRam
 {
     public float RamCapacity { get; }
 
-    public float NowRam { get; }
+    public float RamNow { get; }
 
     public float RamRecovary { get; }
 
@@ -155,13 +220,13 @@ public interface IUseableRam
     public float RebootTimer { get; }
     public void RamUse(float useRam);
 
-    public void ChangeRam(float addRam);
+    public void RamChange(float addRam);
 
-    public int MaxHandSize { get; }
+    public int HandMaxSize { get; }
 
     public UniTask RamUpdate();
 
-    public void SetIsReboot(bool setBoll);
+    public void IsRebootSet(bool setBoll);
 }
 
 public interface IDeckList
@@ -171,8 +236,23 @@ public interface IDeckList
 
 public interface IGetHelth
 {
-    public float GetMaxHitPoint();
-    public float GetNowHitPoint();
+    public float MaxHitPointGet();
+    public float NowHitPointGet();
+}
+
+public interface IHaveGun
+{
+    public int BulletMax { get; }
+
+    public int BulletNow { get; }
+
+    public void BulletUse();
+
+    public void BulletSet(int maxBullet);
+
+    public void BulletAdd(int BulletAdd);
+
+    public void BulletResume();   
 }
 
 public interface IGetPlayerDie
@@ -182,5 +262,5 @@ public interface IGetPlayerDie
 
 public interface ISetPlayerDied
 {
-    public void SetDied();
+    public void DieSet();
 }

@@ -6,7 +6,8 @@ public class PlayerActionState : IPlayerState
     PlayerStateContoller playerStateContoller;
 
     IPlayerInput playerInput;
-    public PlayerActionState(Rigidbody2D playerRigidBody, float moveSpeed, PlayerStateContoller _playerStateContoller, IPlayerInput playerInput)
+    public PlayerActionState(Rigidbody2D playerRigidBody, float moveSpeed, PlayerStateContoller _playerStateContoller,
+        IPlayerInput playerInput)
     {
         this.playerInput = playerInput;
         playerStateContoller = _playerStateContoller;

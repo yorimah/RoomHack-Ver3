@@ -195,7 +195,7 @@ public class DeckSystem : MonoBehaviour
     public void ToolCostUse(toolTag _tool)
     {
         // ダブルでこすとがつかえるかチェック
-        float ram = useableRam.NowRam - toolDataBank.toolDataList[(int)_tool].toolCost;
+        float ram = useableRam.RamNow - toolDataBank.toolDataList[(int)_tool].toolCost;
         // 下限を超えないかチェック
         if (ram >= 0)
         {

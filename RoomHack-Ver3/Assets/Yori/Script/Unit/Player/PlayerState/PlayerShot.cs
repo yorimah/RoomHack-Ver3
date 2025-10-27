@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using UnityEngine;
 
 public class PlayerShot
 {
@@ -25,27 +26,27 @@ public class PlayerShot
 
     GunData gunData;
 
-    private int nowBullet;
-    private int maxBullet;
-
     private int hitDamageLayer = 1;
     private Material shotRanageMaterial;
     private GameObject bulletPre;
 
     IPlayerInput playerInput;
+
+    IHaveGun haveGun;
     public PlayerShot(GunData _gunData, Material _shotRanageMaterial, GameObject _bulletPre,
-        GameObject _player, IPlayerInput _playerInput)
+        GameObject _player, IPlayerInput _playerInput, IHaveGun _haveGun)
     {
         player = _player;
         playerInput = _playerInput;
+        haveGun = _haveGun;
         gunData = _gunData;
-        maxBullet = gunData.MaxBullet;
-        nowBullet = maxBullet;
+        haveGun.BulletSet(gunData.MaxBullet);
         shotRanageMaterial = _shotRanageMaterial;
         shotRange = new GameObject(player.gameObject.name + "shotRangge");
         shotRange.AddComponent<MeshRenderer>();
         shotRange.AddComponent<MeshFilter>();
         shotRange.transform.localPosition = Vector2.zero;
+
 
         mesh = new Mesh();
         shotRange.GetComponent<MeshFilter>().mesh = mesh;
@@ -60,7 +61,7 @@ public class PlayerShot
     }
     private void GunFire()
     {
-        GameObject bulletGameObject = Object.Instantiate(bulletPre, player.transform.position, Quaternion.identity);
+        GameObject bulletGameObject = UnityEngine.Object.Instantiate(bulletPre, player.transform.position, Quaternion.identity);
 
         Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();
 
@@ -83,36 +84,40 @@ public class PlayerShot
     private Vector3 mousePosition;
 
     private Vector3 direction;
+
+
     public void Shot()
     {
         if (player == null)
         {
             return;
         }
+
         PlayerRotation();
         ShotRangeView();
+
         diffusionRate = Mathf.Clamp(diffusionRate, gunData.MinDiffusionRate, gunData.MaxDiffusionRate);
         diffusionRate -= diffusionRate * GameTimer.Instance.GetScaledDeltaTime();
 
         if (playerInput.GetOnReload() && shotSection != ShotSection.Reload)
         {
-            nowBullet = 0;
             shotSection = ShotSection.Reload;
         }
+
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
             case ShotSection.shot:
-                if (playerInput.GetOnClick() && nowBullet > 0)
+                if (playerInput.GetOnClick() && haveGun.BulletNow > 0)
                 {
                     GunFire();
-                    shotSection++;
-                    nowBullet--;
+                    haveGun.BulletUse();
                     diffusionRate += gunData.Recoil;
+                    timer = 0;
+                    shotSection++;
                 }
-                else if (nowBullet <= 0)
+                else if (haveGun.BulletNow == 0)
                 {
-                    nowBullet = 0;
                     shotSection = ShotSection.Reload;
                 }
                 break;
@@ -128,22 +133,48 @@ public class PlayerShot
                 }
                 break;
             case ShotSection.Reload:
-                if (gunData.ReloadTime <= timer)
+                if (gunData.ReloadTypeBolt)
                 {
-                    nowBullet = maxBullet;
-                    timer = 0;
-                    shotSection = ShotSection.shot;
+                    if (playerInput.GetOnClick())
+                    {
+                        Debug.Log("ボルト式キャンセル終了 BulletNow :" + haveGun.BulletNow);
+                        timer = 0;
+                        shotSection = ShotSection.shot;
+                    }
+                    if (gunData.ReloadTime / haveGun.BulletMax <= timer)
+                    {
+                        haveGun.BulletAdd(1);
+                        if (haveGun.BulletNow == haveGun.BulletMax)
+                        {
+                            timer = 0;
+                            shotSection = ShotSection.shot;
+                            Debug.Log("ボルト式リロード終了 BulletNows :" + haveGun.BulletNow);
+                        }                    
+                    }
+                    else
+                    {                        
+                        timer += GameTimer.Instance.GetScaledDeltaTime();
+                    }
                 }
                 else
                 {
-                    timer += GameTimer.Instance.GetScaledDeltaTime();
+                    if (gunData.ReloadTime <= timer)
+                    {
+                        haveGun.BulletAdd(gunData.MaxBullet);
+                        shotSection = ShotSection.shot;
+                        Debug.Log("マガジン式リロード終了 BulletNow :" + haveGun.BulletNow);
+                    }
+                    else
+                    {
+                        haveGun.BulletResume();
+                        timer += GameTimer.Instance.GetScaledDeltaTime();
+                    }
                 }
                 break;
             default:
                 break;
         }
     }
-
     private void PlayerRotation()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -156,7 +187,7 @@ public class PlayerShot
 
     public void ShotRangeView()
     {
-        if (mesh!=null)
+        if (mesh != null)
         {
             mesh.Clear();
 
@@ -194,6 +225,6 @@ public class PlayerShot
             mesh.vertices = vertices;
             mesh.triangles = triangles;
             mesh.RecalculateNormals();
-        }        
+        }
     }
 }

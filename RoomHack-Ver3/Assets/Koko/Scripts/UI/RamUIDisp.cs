@@ -46,7 +46,7 @@ public class RamUIDisp : MonoBehaviour
     private void Update()
     {
 
-        nowRamCap = (int)useableRam.NowRam;
+        nowRamCap = (int)useableRam.RamNow;
 
         for (int i = 0; i < maxRamCap; i++)
         {
@@ -86,9 +86,9 @@ public class RamUIDisp : MonoBehaviour
         }
 
         //現在のramの値が変わると
-        if (useableRam.NowRam != nowRamCap)
+        if (useableRam.RamNow != nowRamCap)
         {
-            nowRamCap = (int)useableRam.NowRam;
+            nowRamCap = (int)useableRam.RamNow;
 
             // 表示切替
             for (int i = 0; i < maxRamCap; i++)

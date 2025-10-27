@@ -29,25 +29,28 @@ public class PlayerCore : MonoBehaviour, IDamageable
     [Inject]
     IReadMaxHitPoint readMaxHitPoint;
 
+    [Inject]
+    IHaveGun haveGun;
+
     PlayerStateContoller playerStateContoller;
 
     public void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerStateContoller = new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
-            10, gameObject, playerInput);
-        MaxHitPoint = readMaxHitPoint.MaxHitPoint;
-        NowHitPoint = readMaxHitPoint.MaxHitPoint;
+            10, gameObject, playerInput,haveGun);
+        MaxHitPoint = readMaxHitPoint.hitPointMax;
+        NowHitPoint = readMaxHitPoint.hitPointMax;
     }
 
     public void Update()
     {
-        position.SetPlayerPosition(this.transform);
+        position.PlayerPositionSet(this.transform);
     }
 
     public void Die()
     {
         playerStateContoller.DieChangeState();
-        setPlayerDied.SetDied();
+        setPlayerDied.DieSet();
     }
 }

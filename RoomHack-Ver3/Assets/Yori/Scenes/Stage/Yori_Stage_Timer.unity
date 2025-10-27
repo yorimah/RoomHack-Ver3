@@ -397,7 +397,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 273839729}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -541,7 +541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 273839729}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.31354558, w: 0.94957316}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297c829e16e55fc42824820028805619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCore
-  gunData: {fileID: 11400000, guid: 1ffeef39f38baff45954570e35c50ca4, type: 2}
+  gunData: {fileID: 11400000, guid: 954bfb21ea026874185eb83efcba5612, type: 2}
   material: {fileID: 2100000, guid: 9d26c622fb1e6ba46b912d71ab4b77ba, type: 2}
   bulletPre: {fileID: 3977915479246264570, guid: 1470d23071be6ec419420aff69cb0e58, type: 3}
 --- !u!1 &329995984
@@ -3791,10 +3791,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MouseCursor
       objectReference: {fileID: 0}
-    - target: {fileID: 4215893410743604857, guid: 2eee952eca1404c478a85b1e5046d05b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6631470658697121929, guid: 2eee952eca1404c478a85b1e5046d05b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3852,10 +3848,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerDataUIDemo
       objectReference: {fileID: 0}
-    - target: {fileID: 7554511116041994133, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7557431831620123614, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3895,14 +3887,6 @@ PrefabInstance:
     - target: {fileID: 7557431831620123614, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7632210068158088353, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7632210068158088353, guid: 49b79b25ced68e946a98af689116b5f3, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
