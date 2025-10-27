@@ -46,7 +46,7 @@ public class GameTimer
 
     public void SetHackModeTimeScale()
     {
-        SetTimeScale(0.1f);
+        SetTimeScale(0.05f);
         IsHackTime = true;
     }
     public void SetAcitionModeTimeScale()
