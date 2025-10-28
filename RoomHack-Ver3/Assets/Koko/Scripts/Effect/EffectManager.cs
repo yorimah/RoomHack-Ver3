@@ -16,6 +16,9 @@ public class EffectManager : MonoBehaviour
         }
 
         Instance = this;
+
+        // リスト生成
+        EffectManagerInit();
     }
 
     public enum EffectType
@@ -38,7 +41,7 @@ public class EffectManager : MonoBehaviour
     List<List<GameObject>> poolList = new List<List<GameObject>>();
     GameObject useableEffect;
 
-    private void Start()
+    private void EffectManagerInit()
     {
         foreach (var item in effectPrefab)
         {
@@ -67,20 +70,23 @@ public class EffectManager : MonoBehaviour
         if (useableEffect == null)
         {
             //Debug.Log("effe");
-            useableEffect = Instantiate(effectPrefab[(int)_effectType], this.transform);
+            useableEffect = Instantiate(effectPrefab[(int)_effectType],_pos, Quaternion.identity , this.transform);
             pool.Add(useableEffect);
         }
 
-        // エフェクト移動、起動
+        // エフェクト位置修正
         useableEffect.transform.position = _pos;
 
+        // エフェクト角度修正
         Vector3 rot = useableEffect.transform.localEulerAngles;
         rot.x = _rot;
         useableEffect.transform.localEulerAngles = rot;
 
+        // エフェクト起動
         useableEffect.SetActive(true);
         useableEffect.GetComponent<ParticleSystem>().Play();
 
+        // タイムスケールのオンオフ
         if (_isScaleTime) StartCoroutine(EffectSpeedScaled(useableEffect));
 
         //StartCoroutine(EffectUpdate(useableEffect, _time, _isScaleTime));
@@ -103,10 +109,10 @@ public class EffectManager : MonoBehaviour
     }
 
     // エフェクト追従版
-    public GameObject ActEffect(EffectType _effectType, GameObject _target)
+    public GameObject ActEffect(EffectType _effectType, GameObject _target, float _rotOffset)
     {
-        GameObject effect = ActEffect(_effectType, _target.transform.position, 0, true);
-        StartCoroutine(EffectPositionTrace(effect, _target));
+        GameObject effect = ActEffect(_effectType, _target.transform.position, _target.transform.localEulerAngles.z, true);
+        StartCoroutine(EffectPositionTrace(effect, _target, _rotOffset));
         return effect;
     }
 
@@ -131,12 +137,21 @@ public class EffectManager : MonoBehaviour
     }
 
     // 対象追従
-    IEnumerator EffectPositionTrace(GameObject _effect, GameObject _target)
+    IEnumerator EffectPositionTrace(GameObject _effect, GameObject _target, float _rotOffset)
     {
         while (_effect.activeSelf)
         {
             //Debug.Log("追跡中！" + timer +" / "+ _effect +"  / "+ _target);
-            if (_target != null) _effect.transform.position = _target.transform.position;
+            if (_target != null) 
+            {
+                _effect.transform.position = _target.transform.position;
+
+                Vector3 rot = _effect.transform.localEulerAngles;
+                rot.x = _target.transform.localEulerAngles.z + _rotOffset;
+                //rot.x = _target.transform.localEulerAngles.z;
+                _effect.transform.localEulerAngles = rot;
+                Debug.Log(rot);
+            }
 
             yield return null;
         }
