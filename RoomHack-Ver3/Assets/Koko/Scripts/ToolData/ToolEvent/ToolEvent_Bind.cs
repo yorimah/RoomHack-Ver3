@@ -26,7 +26,7 @@ public class ToolEvent_Bind : ToolEventBase, IToolEventBase_Target
         // 開始処理
         EventAdd(hackTargetObject);
 
-        effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.Bad, this.gameObject);
+        effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.Bad, this.gameObject, 0);
 
         targetData = hackTargetObject.GetComponent<Enemy>();
         startSpeed = targetData.moveSpeed;

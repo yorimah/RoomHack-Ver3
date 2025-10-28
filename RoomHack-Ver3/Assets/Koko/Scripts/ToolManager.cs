@@ -82,6 +82,8 @@ public class ToolManager : MonoBehaviour
             toolUIController.handCostList = handCostList;
             toolUIController.handPlayList = handPlayList;
 
+            ramUIDisp.willUseRam = 0;
+
             // 手札チェック
             for (int i = 0; i < deckSystem.toolHand.Count; i++)
             {
@@ -112,7 +114,7 @@ public class ToolManager : MonoBehaviour
                 // 対象不要ツールならタゲなしでもプレイ可能
                 if (!deckSystem.ReturnToolNeedTarget(hand))
                 {
-                    Debug.Log(hand + "は対象不要");
+                    //Debug.Log(hand + "は対象不要");
                     handPlayList[i] = true;
                 }
 
@@ -122,6 +124,8 @@ public class ToolManager : MonoBehaviour
                     // 消費RAM表示
                     ramUIDisp.willUseRam = deckSystem.ReturnToolCost(hand);
 
+                    //Debug.Log(ramUIDisp.willUseRam);
+
                     // 右クリック入力
                     if (Input.GetKeyDown(KeyCode.Mouse1))
                     {
@@ -130,12 +134,9 @@ public class ToolManager : MonoBehaviour
                         {
                             deckSystem.ToolCostUse(hand);
                             HandPlay(i, targetObject);
+                            toolPlayAction();
                         }
                     }
-                }
-                else
-                {
-                    ramUIDisp.willUseRam = 0;
                 }
             }
         }
