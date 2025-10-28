@@ -16,6 +16,9 @@ public class EffectManager : MonoBehaviour
         }
 
         Instance = this;
+
+        // リスト生成
+        EffectManagerInit();
     }
 
     public enum EffectType
@@ -30,20 +33,17 @@ public class EffectManager : MonoBehaviour
     }
 
     // エフェクトを登録
-    [SerializeField]
-    GameObject[] EffectPrefab;
-
-    //[SerializeField]
-    //int effectNum;
+    [SerializeField, Header("要アタッチ、EffectTypeと対応するように")]
+    GameObject[] effectPrefab;
 
     // 各エフェクト毎にList管理
     [SerializeField]
     List<List<GameObject>> poolList = new List<List<GameObject>>();
     GameObject useableEffect;
 
-    private void Start()
+    private void EffectManagerInit()
     {
-        foreach (var item in EffectPrefab)
+        foreach (var item in effectPrefab)
         {
             poolList.Add(new List<GameObject>());
         }
@@ -70,20 +70,23 @@ public class EffectManager : MonoBehaviour
         if (useableEffect == null)
         {
             //Debug.Log("effe");
-            useableEffect = Instantiate(EffectPrefab[(int)_effectType], this.transform);
+            useableEffect = Instantiate(effectPrefab[(int)_effectType],_pos, Quaternion.identity , this.transform);
             pool.Add(useableEffect);
         }
 
-        // エフェクト移動、起動
+        // エフェクト位置修正
         useableEffect.transform.position = _pos;
 
+        // エフェクト角度修正
         Vector3 rot = useableEffect.transform.localEulerAngles;
         rot.x = _rot;
         useableEffect.transform.localEulerAngles = rot;
 
+        // エフェクト起動
         useableEffect.SetActive(true);
         useableEffect.GetComponent<ParticleSystem>().Play();
 
+        // タイムスケールのオンオフ
         if (_isScaleTime) StartCoroutine(EffectSpeedScaled(useableEffect));
 
         //StartCoroutine(EffectUpdate(useableEffect, _time, _isScaleTime));
@@ -106,36 +109,12 @@ public class EffectManager : MonoBehaviour
     }
 
     // エフェクト追従版
-    public GameObject ActEffect(EffectType _effectType, GameObject _target)
+    public GameObject ActEffect(EffectType _effectType, GameObject _target, float _rotOffset)
     {
-        GameObject effect = ActEffect(_effectType, _target.transform.position, 0, true);
-        StartCoroutine(EffectPositionTrace(effect, _target));
+        GameObject effect = ActEffect(_effectType, _target.transform.position, _target.transform.localEulerAngles.z, true);
+        StartCoroutine(EffectPositionTrace(effect, _target, _rotOffset));
         return effect;
     }
-
-
-    // エフェクトの表示をオフに
-    //IEnumerator EffectUpdate(GameObject _effect, float _time, bool _isScaleTime)
-    //{
-    //    float timer = 0;
-
-    //    while (timer < _time)
-    //    {
-
-    //        timer += GameTimer.Instance.ScaledDeltaTime;
-
-    //        // パーティクル再生速度変更
-    //        if (_isScaleTime)
-    //        {
-    //            var main = _effect.GetComponent<ParticleSystem>().main;
-    //            main.simulationSpeed = GameTimer.Instance.customTimeScale;
-    //        }
-
-    //        yield return null;
-    //    }
-
-    //    _effect.SetActive(false);
-    //}
 
     // エフェクト再生速度を調整するか否か
     IEnumerator EffectSpeedScaled(GameObject _effect)
@@ -158,14 +137,79 @@ public class EffectManager : MonoBehaviour
     }
 
     // 対象追従
-    IEnumerator EffectPositionTrace(GameObject _effect, GameObject _target)
+    IEnumerator EffectPositionTrace(GameObject _effect, GameObject _target, float _rotOffset)
     {
         while (_effect.activeSelf)
         {
             //Debug.Log("追跡中！" + timer +" / "+ _effect +"  / "+ _target);
-            if (_target != null) _effect.transform.position = _target.transform.position;
+            if (_target != null) 
+            {
+                _effect.transform.position = _target.transform.position;
+
+                Vector3 rot = _effect.transform.localEulerAngles;
+                rot.x = _target.transform.localEulerAngles.z + _rotOffset;
+                //rot.x = _target.transform.localEulerAngles.z;
+                _effect.transform.localEulerAngles = rot;
+                Debug.Log(rot);
+            }
 
             yield return null;
         }
+    }
+
+
+
+    // 数値エフェクト
+    [SerializeField, Header("要アタッチ")]
+    GameObject numEffectPrefab;
+    List<GameObject> numPoolList = new List<GameObject>();
+
+    // 数値エフェクト起動
+    public GameObject ActEffect(int _num, Vector2 _pos, float _lifeTime)
+    {
+        useableEffect = null;
+
+        List<GameObject> pool = numPoolList;
+
+        // 使ってないオブジェクトを検索
+        foreach (var item in pool)
+        {
+            if (item.activeSelf == false)
+            {
+                useableEffect = item;
+                break;
+            }
+        }
+
+        // 使ってないオブジェクトが見つからないなら新しく生成
+        if (useableEffect == null)
+        {
+            //Debug.Log("effe");
+            useableEffect = Instantiate(numEffectPrefab, this.transform);
+            pool.Add(useableEffect);
+        }
+
+        // エフェクト移動、起動
+        useableEffect.transform.position = _pos;
+        useableEffect.SetActive(true);
+        TextMesh textMesh = useableEffect.GetComponent<TextMesh>();
+        textMesh.color = new Color(1, 0, 0, 1);
+        textMesh.text = _num.ToString();
+        StartCoroutine(NumEffectLifeTime(useableEffect, _lifeTime));
+
+        return useableEffect;
+    }
+
+    IEnumerator NumEffectLifeTime(GameObject _numEffect, float _lifeTime)
+    {
+        float timer = 0;
+        while (timer <= _lifeTime)
+        {
+            float alpha = 1 - (timer / _lifeTime);
+            _numEffect.GetComponent<TextMesh>().color = new Color(1, 0, 0, alpha);
+            yield return null;
+            timer += Time.deltaTime;
+        }
+        _numEffect.SetActive(false);
     }
 }

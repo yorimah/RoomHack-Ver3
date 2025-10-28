@@ -27,7 +27,8 @@ public class ToolUIController : MonoBehaviour
     Vector2 actTrashPos = new Vector2(-1000, -320);
 
     [SerializeField]
-    Vector2 actHandPos = new Vector2(0, -680);
+    Vector2 actHandPos = new Vector2(1000, 0);
+    //new Vector2(0, -680)
 
     [SerializeField]
     Vector2 hackDeckPos = new Vector2(-800, 0);
@@ -36,7 +37,8 @@ public class ToolUIController : MonoBehaviour
     Vector2 hackTrashPos = new Vector2(-800, -320);
 
     [SerializeField]
-    Vector2 hackHandPos = new Vector2(0, -480);
+    Vector2 hackHandPos = new Vector2(800, 0);
+    //new Vector2(0, -480)
 
     [SerializeField]
     float handSpace = 200;
@@ -214,8 +216,10 @@ public class ToolUIController : MonoBehaviour
 
             // 初期設定
             Vector2 firstHandPos;
-            firstHandPos.x = ((handToolUIList.Count - 1) * -(handSpace / 2)) + handSpace * i;
-            firstHandPos.y = 0;
+            //firstHandPos.x = ((handToolUIList.Count - 1) * -(handSpace / 2)) + handSpace * i;
+            //firstHandPos.y = 0;
+            firstHandPos.x = 0;
+            firstHandPos.y = ((handToolUIList.Count - 1) * -(handSpace / 2)) + handSpace * i;
             hand.toScale = new Vector2(1f, 1f);
             hand.isTextDisp = false;
             hand.isBlackOut = true;
@@ -224,7 +228,8 @@ public class ToolUIController : MonoBehaviour
             //if (deckSystem.ReturnToolCost(hand.thisTool) > Player.Instance.nowRam)
             if (!handCostList[i])
             {
-                firstHandPos.y = -100;
+                //firstHandPos.y = -100;
+                firstHandPos.x += 100;
                 hand.isBlackOut = true;
             }
             else
@@ -253,7 +258,8 @@ public class ToolUIController : MonoBehaviour
                 if (isHandOn && i == handOnIndex)
                 {
 
-                    firstHandPos.y = 100;
+                    //firstHandPos.y = 100;
+                    firstHandPos.x -= 100;
                     hand.toScale = new Vector2(1.2f, 1.2f);
                     hand.isTextDisp = true;
                     hand.isBlackOut = true;

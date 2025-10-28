@@ -33,7 +33,7 @@ public class CameraPositionController : MonoBehaviour
     {
         if (targetObject != null)
         {
-            this.transform.position = targetObject.transform.position;
+            //this.transform.position = targetObject.transform.position;
 
             // ロックオン時仮アニメーション再生
             if (targetObject != playerObject.gameObject)
@@ -115,8 +115,10 @@ public class CameraPositionController : MonoBehaviour
         }
         else
         {
-            this.transform.position = playerObject.transform.position;
-            targetObject = playerObject;
+            this.transform.position = Vector2.zero;
+            targetObject = null;
+            //this.transform.position = playerObject.transform.position;
+            //targetObject = playerObject;
 
             //isStart = false;
         }
