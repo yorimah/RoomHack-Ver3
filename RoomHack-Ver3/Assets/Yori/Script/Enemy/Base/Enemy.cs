@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public List<toolTag> canHackToolTag { get; set; } = new List<toolTag>();
     public List<ToolEventBase> nowHackEvent { get; set; } = new List<ToolEventBase>();
 
+    public bool CanHack { get; set; } = false;
+
     // ダメージ関連
     public float MaxHitPoint { get; private set; } = 5;
     public float NowHitPoint { get; set; }

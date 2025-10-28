@@ -6,6 +6,8 @@ public interface IHackObject
 
     public List<ToolEventBase> nowHackEvent { get; set; }
 
+    public bool CanHack { get; set; }
+
     //public void Hacking(toolTag _toolTag);
 
 

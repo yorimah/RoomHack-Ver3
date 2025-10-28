@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Granade:BombCore
+public class Granade : BombCore
 {
     [SerializeField, Header("爆発までの秒数")]
     private float explosionTimer = 3;
@@ -16,7 +16,7 @@ public class Granade:BombCore
     public float hitStop;
 
     private CircleCollider2D granadeCollider;
-    bool isExplosion;    
+    bool isExplosion;
 
     public void Start()
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public enum GunNo
@@ -18,7 +17,7 @@ public class Player : MonoBehaviour, IHackObject
     // ハッキング初期化
     public List<toolTag> canHackToolTag { get; set; }
     public List<ToolEventBase> nowHackEvent { get; set; }
-
+    public bool CanHack { get; set; } = true;
 
     public int maxBullet;
     public int nowBullet;
@@ -97,32 +96,32 @@ public class Player : MonoBehaviour, IHackObject
     }
     void Awake()
     {
-    //    PlayerDataInit();
+        //    PlayerDataInit();
 
-    //    GunDataInit();
+        //    GunDataInit();
 
-    //    // Singletonチェック
-    //    if (Instance != null && Instance != this)
-    //    {
-    //        Destroy(gameObject); // 重複を防止
-    //        return;
-    //    }
+        //    // Singletonチェック
+        //    if (Instance != null && Instance != this)
+        //    {
+        //        Destroy(gameObject); // 重複を防止
+        //        return;
+        //    }
 
-    //    Instance = this;
+        //    Instance = this;
 
-    //    states = new Dictionary<StateType, IState>()
-    //{
-    //    { StateType.Action, new PlayerActionState(this) },
-    //    { StateType.Hack, new PlayerHackState(this) },
-    //};
-    //    stateType = StateType.Action;
-    //    currentState = states[stateType];
+        //    states = new Dictionary<StateType, IState>()
+        //{
+        //    { StateType.Action, new PlayerActionState(this) },
+        //    { StateType.Hack, new PlayerHackState(this) },
+        //};
+        //    stateType = StateType.Action;
+        //    currentState = states[stateType];
 
-    //    rb = GetComponent<Rigidbody2D>();
+        //    rb = GetComponent<Rigidbody2D>();
 
-    //    // ハッキング初期化
-    //    canHackToolTag = new List<toolTag> { toolTag.EdgeRun, toolTag.Blink};
-    //    nowHackEvent = new List<ToolEvent>();
+        //    // ハッキング初期化
+        //    canHackToolTag = new List<toolTag> { toolTag.EdgeRun, toolTag.Blink};
+        //    nowHackEvent = new List<ToolEvent>();
     }
 
     private void PlayerDataInit()
@@ -162,7 +161,7 @@ public class Player : MonoBehaviour, IHackObject
     }
     public void Die()
     {
-        
+
     }
 
     // Ram回復系 by koko

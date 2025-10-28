@@ -132,7 +132,7 @@ public class Missile : BombCore, IDamageable
     }
     public void Die()
     {
-        effect.SetActive(false);
+        //effect.SetActive(false);
         Destroy(gameObject);
         Destroy(meshObject, 0.5f);
     }

@@ -10,6 +10,8 @@ public class CCTV : MonoBehaviour, IHackObject
     public List<toolTag> canHackToolTag { get; set; } = new List<toolTag>();
     public List<ToolEventBase> nowHackEvent { get; set; } = new List<ToolEventBase>();
 
+    public bool CanHack { get; set; } = false;
+
     List<Mesh> mesh = new List<Mesh>();
 
     [SerializeField]

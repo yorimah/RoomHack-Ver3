@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using Zenject;
 public class MissileTurretGun : Enemy
 {
     public void Start()
@@ -19,4 +19,6 @@ public class MissileTurretGun : Enemy
 
         canHackToolTag = new List<toolTag> { toolTag.CCTVHack, toolTag.Blind, toolTag.OverHeat, toolTag.Detonation };
     }
+
+    public class Factory : PlaceholderFactory<MissileTurretGun> { }
 }
