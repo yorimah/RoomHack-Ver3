@@ -76,6 +76,10 @@ public class ViewerGenarater
                     viewDistance, targetLayerMask);
                 if (hit.collider != null)
                 {
+                    if (hit.collider.TryGetComponent<IHackObject>(out var hackObj))
+                    {
+                        hackObj.CanHack = true;
+                    }
                     // 障害物に当たったらその地点を頂点にする
                     vertices[i + 1] = hit.point;
                 }
