@@ -39,6 +39,7 @@ public class PlayerStateContoller
         globalState.Enter();
         Update();
     }
+
     public async void Update()
     {
         while (true)
@@ -60,6 +61,7 @@ public class PlayerStateContoller
         }
 
     }
+
     public void ChangeState(PlayerStateType type)
     {
         Debug.Log("ステートを" + type.ToString() + "に変更！");

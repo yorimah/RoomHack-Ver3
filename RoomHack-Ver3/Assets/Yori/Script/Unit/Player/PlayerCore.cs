@@ -38,7 +38,7 @@ public class PlayerCore : MonoBehaviour, IDamageable
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerStateContoller = new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
-            10, gameObject, playerInput,haveGun);
+            10, gameObject, playerInput, haveGun);
         MaxHitPoint = readMaxHitPoint.hitPointMax;
         NowHitPoint = readMaxHitPoint.hitPointMax;
     }

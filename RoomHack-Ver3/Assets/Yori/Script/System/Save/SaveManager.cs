@@ -69,7 +69,7 @@ public class SaveManager
         {
             score_Stage = 0,
             score_DestoryEnemy = 0,
-            gunNo = 0,
+            gunName = GunName.HandGun,
             maxHitPoint = 100,
             moveSpeed = 5,
             maxRamCapacity = 10,

@@ -2,22 +2,25 @@
 using UnityEngine;
 public class PlayerActionState : IPlayerState
 {
-    private PlayerMove playerMove;
+    PlayerMove playerMove;
     PlayerStateContoller playerStateContoller;
 
     IPlayerInput playerInput;
-    public PlayerActionState(Rigidbody2D playerRigidBody, float moveSpeed, PlayerStateContoller _playerStateContoller,
-        IPlayerInput playerInput)
+
+    public PlayerActionState(Rigidbody2D playerRigidBody, float moveSpeed,
+        PlayerStateContoller _playerStateContoller, IPlayerInput _playerInput)
     {
-        this.playerInput = playerInput;
+        playerInput = _playerInput;
         playerStateContoller = _playerStateContoller;
-        playerMove = new PlayerMove(playerRigidBody, moveSpeed, this.playerInput);
-       
+        playerMove = new PlayerMove(playerRigidBody, moveSpeed, playerInput);
+
     }
+
     public void Enter()
     {
         playerInput.ChangeState += ChangeState;
     }
+
     public async UniTask Execute()
     {
         playerMove.playerMove();
@@ -27,13 +30,16 @@ public class PlayerActionState : IPlayerState
         {
             ChangeState();
         }
+
         await UniTask.Yield();
     }
+
     private void ChangeState()
     {
         playerStateContoller.ChangeState(PlayerStateType.Hack);
         GameTimer.Instance.SetHackModeTimeScale();
     }
+
     public void Exit()
     {
         playerInput.ChangeState -= ChangeState;

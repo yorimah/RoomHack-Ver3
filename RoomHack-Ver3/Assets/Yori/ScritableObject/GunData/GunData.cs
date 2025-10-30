@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using System;
 
+public enum GunName
+{
+    HandGun,
+    AssuleRifle,
+    SniperRifle,
+    SubMachineGun,
+}
 [CreateAssetMenu(menuName = "GunData")]
 public class GunData : ScriptableObject
 {
+    [SerializeField] private GunName gunName;
     [SerializeField] private int power;
     [SerializeField] private int rate;
     [SerializeField] private int maxBullet;
@@ -13,6 +23,7 @@ public class GunData : ScriptableObject
     [SerializeField] private float recoil;
     [SerializeField] private float minDiffusionRate;
     [SerializeField] private float maxDiffusionRate;
+    public GunName GunName { get => gunName; }
     public int Power { get => power; }
     public int Rate { get => rate; }
     public int MaxBullet { get => maxBullet; }
