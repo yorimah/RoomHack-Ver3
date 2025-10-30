@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Zenject;
 public class PlayerViewMesh : MonoBehaviour
 {
     [SerializeField, Header("視界に使用するメッシュ")]
@@ -10,25 +9,19 @@ public class PlayerViewMesh : MonoBehaviour
     LayerMask targetLm;
     // 分割数
     private int segment = 360;
-    private Mesh mesh;
-
-    [Inject]
-    IPosition readPosition;
+    //private Mesh mesh;
 
     ViewerGenarater viewerGenarater;
-    private void Awake()
+    private void Start()
     {
         MeshInit();
     }
     private void MeshInit()
     {
-        viewerGenarater = new(viewMesh,this.gameObject,targetLm);
+        viewerGenarater = new(viewMesh, this.gameObject, targetLm, segment, viewRadial);
     }
     private void Update()
     {
-        // PlayerView();
-
-        //viewerGenarater.CircleViewerUpdate();
-        viewerGenarater.CircleViewerUpdate(360);
+        viewerGenarater.CircleViewerUpdate();
     }
 }

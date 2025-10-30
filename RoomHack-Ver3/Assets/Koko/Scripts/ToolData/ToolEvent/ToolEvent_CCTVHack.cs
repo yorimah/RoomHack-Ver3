@@ -34,7 +34,7 @@ public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
     ViewerGenarater circleViewerGenarater;
 
     Enemy enemy;
-
+    bool notEnemy;
     private void Start()
     {
 
@@ -49,6 +49,11 @@ public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
         if (hackTargetObject.TryGetComponent<Enemy>(out var _enemy))
         {
             enemy = _enemy;
+            notEnemy = false;
+        }
+        else
+        {
+            notEnemy = true;
         }
     }
 
@@ -56,9 +61,12 @@ public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
     {
         halfViewerGenarater.CircleViewerUpdate(60);
         circleViewerGenarater.CircleViewerUpdate(360);
-        if (enemy.died)
+        if (!notEnemy)
         {
-            EventEnd();
+            if (enemy.died)
+            {
+                EventEnd();
+            }
         }
         Tracking(hackTargetObject);
     }

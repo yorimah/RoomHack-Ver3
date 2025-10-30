@@ -12,6 +12,8 @@ public class CCTV : MonoBehaviour, IHackObject
 
     public bool CanHack { get; set; } = false;
 
+    public bool IsView { get; set; }
+
     List<Mesh> mesh = new List<Mesh>();
 
     [SerializeField]

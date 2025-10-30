@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     public bool CanHack { get; set; } = false;
 
+    public bool IsView { get; set; }
+
     // ダメージ関連
     public float MaxHitPoint { get; private set; } = 5;
     public float NowHitPoint { get; set; }
@@ -136,10 +138,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         {
             Handles.Label(transform.position + Vector3.up * 2f, "実行ステート " + currentState.ToString(), style);
         }
-        //Handles.Label(transform.position + Vector3.up * 2.5f, "NowFireWall " + NowFireWall.ToString(), style);
-
-
-        Handles.Label(transform.position + Vector3.up * 2.5f, "視界チェック " + CanHack, style);
+        Handles.Label(transform.position + Vector3.up * 2.5f, "CanHack " + CanHack.ToString(), style);
     }
 #endif
 }
