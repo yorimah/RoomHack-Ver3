@@ -137,6 +137,9 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
             Handles.Label(transform.position + Vector3.up * 2f, "実行ステート " + currentState.ToString(), style);
         }
         //Handles.Label(transform.position + Vector3.up * 2.5f, "NowFireWall " + NowFireWall.ToString(), style);
+
+
+        Handles.Label(transform.position + Vector3.up * 2.5f, "視界チェック " + CanHack, style);
     }
 #endif
 }
