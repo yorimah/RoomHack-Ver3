@@ -12,7 +12,6 @@ public enum PlayerStateType
     num
 }
 
-
 public class PlayerStateContoller
 {
     IPlayerState currentState;

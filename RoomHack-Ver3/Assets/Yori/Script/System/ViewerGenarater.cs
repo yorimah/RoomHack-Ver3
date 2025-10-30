@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class ViewerGenarater
 {
@@ -14,6 +15,9 @@ public class ViewerGenarater
     LayerMask targetLayerMask;
 
     GameObject viewerObject;
+
+    Vector3[] vertices;
+    int[] triangles;
     /// <summary>
     /// 生成する視界のプレハブ、生成するオブジェクト、壁として認識するレイヤー、円の分割数、半径。
     /// 表示する視界一つにつき一つ生成すること
@@ -40,6 +44,9 @@ public class ViewerGenarater
 
         mesh = new Mesh();
         viewerObject.GetComponent<MeshFilter>().mesh = mesh;
+
+        vertices = new Vector3[segment + 2];
+        triangles = new int[segment * 3];
     }
 
     public void ViewDestroy()
@@ -48,18 +55,20 @@ public class ViewerGenarater
         Object.Destroy(viewerObject);
     }
 
+    List<IHackObject> preViewHackObjects = new List<IHackObject>();
+    List<IHackObject> nowViewHackObjects = new List<IHackObject>();
+
     /// <summary>
     /// 初期は円の視界を生成。
     /// </summary>
     /// <param name="viewerAngle"></param>
     public void CircleViewerUpdate(float viewerAngle = 360)
     {
+        nowViewHackObjects.Clear();
+
         if (mesh != null)
         {
             mesh.Clear();
-
-            Vector3[] vertices = new Vector3[segment + 2];
-            int[] triangles = new int[segment * 3];
 
             // 中心は生成するオブジェクト
             vertices[0] = geneGameObject.transform.position;
@@ -72,21 +81,32 @@ public class ViewerGenarater
                 Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
                 Vector3 dir = rot * geneGameObject.transform.up;
 
-                RaycastHit2D hit = Physics2D.Raycast(geneGameObject.transform.position, dir,
+                RaycastHit2D wallHit = Physics2D.Raycast(geneGameObject.transform.position, dir,
                     viewDistance, targetLayerMask);
-                if (hit.collider != null)
+
+                if (wallHit.collider != null)
                 {
-                    if (hit.collider.TryGetComponent<IHackObject>(out var hackObj))
-                    {
-                        hackObj.CanHack = true;
-                    }
                     // 障害物に当たったらその地点を頂点にする
-                    vertices[i + 1] = hit.point;
+                    vertices[i + 1] = wallHit.point;
                 }
                 else
                 {
                     // 何もなければ円周上の点
                     vertices[i + 1] = geneGameObject.transform.position + dir * viewDistance;
+                }
+                RaycastHit2D hackHit = Physics2D.Raycast(geneGameObject.transform.position + dir.normalized / 2, dir,
+                    viewDistance);
+                if (hackHit.collider != null)
+                {
+                    // 見つけたリストに入ってなかったら見つけたリストぶち込む
+                    if (hackHit.collider.TryGetComponent<IHackObject>(out var hackObject))
+                    {
+                        if (!nowViewHackObjects.Contains(hackObject))
+                        {
+                            nowViewHackObjects.Add(hackObject);
+                            hackObject.CanHack = true;
+                        }
+                    }
                 }
                 if (i < segment)
                 {
@@ -99,6 +119,17 @@ public class ViewerGenarater
                     triangles[start + 2] = i + 1;
                 }
             }
+
+            // 今見つけたやつと前フレームで見つけたやつを見て、なかったらCanHackをfalseにする。
+            foreach (var prevHackObj in preViewHackObjects)
+            {
+                if (!nowViewHackObjects.Contains(prevHackObj))
+                {
+                    prevHackObj.CanHack = false;
+                }
+            }
+            preViewHackObjects.Clear();
+            preViewHackObjects.AddRange(nowViewHackObjects);
 
             mesh.vertices = vertices;
             mesh.triangles = triangles;
