@@ -18,15 +18,15 @@ public class CameraPositionController : MonoBehaviour
     [SerializeField, Header("animationobj")]
     private GameObject tagetAnimObj;
 
-    private GameObject insTagetAnimObj;
+    private GameObject insTargetAnimObj;
 
     [SerializeField, Header("playerObj")]
     private GameObject playerObject;
     private void Start()
     {
 
-        insTagetAnimObj = Instantiate(tagetAnimObj);
-        insTagetAnimObj.SetActive(false);
+        insTargetAnimObj = Instantiate(tagetAnimObj);
+        insTargetAnimObj.SetActive(false);
     }
 
     private void Update()
@@ -35,33 +35,39 @@ public class CameraPositionController : MonoBehaviour
         {
             //this.transform.position = targetObject.transform.position;
 
+            // 対象が視界外ならnull化
+            if (targetObject.TryGetComponent<IHackObject>(out var hackObject))
+            {
+                if (!hackObject.CanHack) targetObject = null;
+            }
+
             // ロックオン時仮アニメーション再生
             if (targetObject != playerObject.gameObject)
             {
-                insTagetAnimObj.transform.position = targetObject.transform.position;
-                insTagetAnimObj.SetActive(true);
+                insTargetAnimObj.transform.position = targetObject.transform.position;
+                insTargetAnimObj.SetActive(true);
             }
             else
             {
-                insTagetAnimObj.SetActive(false);
+                insTargetAnimObj.SetActive(false);
             }
 
-            // debug
-            if (targetObject.TryGetComponent<IHackObject>(out var hackObject))
-            {
-                string hoge = null;
-                foreach (var item in hackObject.nowHackEvent)
-                {
-                    hoge += item.name;
-                    hoge += ", ";
-                }
-                //Debug.Log(hoge);
-            }
+            //// デバッグするだけ
+            //if (targetObject.TryGetComponent<IHackObject>(out var hackObject))
+            //{
+            //    string hoge = null;
+            //    foreach (var item in hackObject.nowHackEvent)
+            //    {
+            //        hoge += item.name;
+            //        hoge += ", ";
+            //    }
+            //    Debug.Log(hoge);
+            //}
 
         }
         else
         {
-            insTagetAnimObj.SetActive(false);
+            insTargetAnimObj.SetActive(false);
         }
 
         if (GameTimer.Instance.IsHackTime)
@@ -83,9 +89,13 @@ public class CameraPositionController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 // タゲ取得
-                if (GetMousePositionObject() != null)
+                GameObject hackObject = GetMousePositionObject();
+                if (hackObject != null)
                 {
-                    targetObject = GetMousePositionObject();
+                    if (hackObject.GetComponent<IHackObject>().CanHack)
+                    {
+                        targetObject = hackObject;
+                    }
                 }
 
                 // マウスドラッグ初期設定
@@ -94,29 +104,32 @@ public class CameraPositionController : MonoBehaviour
 
             }
 
-            // カメラドラッグ
-            if (Input.GetKey(KeyCode.Mouse1))
-            {
-                Vector3 mouseVec = Input.mousePosition - mouseStartPos;
+            //// カメラドラッグ
+            //if (Input.GetKey(KeyCode.Mouse1))
+            //{
+            //    Vector3 mouseVec = Input.mousePosition - mouseStartPos;
 
-                // ドラッグするとオブジェクト解除
-                if (Mathf.Abs(mouseVec.x) > targetOutNum || Mathf.Abs(mouseVec.y) > targetOutNum)
-                {
-                    targetObject = null;
-                }
+            //    // ドラッグするとオブジェクト解除
+            //    if (Mathf.Abs(mouseVec.x) > targetOutNum || Mathf.Abs(mouseVec.y) > targetOutNum)
+            //    {
+            //        targetObject = null;
+            //    }
 
-                if (targetObject == null)
-                {
-                    // ハックオブジェがなかった場合のポジション処理
-                    this.transform.position = cameraStartPos - mouseVec / 100;
-                }
-            }
+            //    if (targetObject == null)
+            //    {
+            //        // ハックオブジェがなかった場合のポジション処理
+            //        this.transform.position = cameraStartPos - mouseVec / 100;
+            //    }
+            //}
 
         }
         else
         {
+            // お試しでカメラ固定
             this.transform.position = Vector2.zero;
             targetObject = null;
+
+            // カメラをプレイヤー追従
             //this.transform.position = playerObject.transform.position;
             //targetObject = playerObject;
 

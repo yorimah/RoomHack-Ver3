@@ -1,8 +1,8 @@
 {
-  "score_Stage": 0,
-  "score_DestoryEnemy": 276,
+  "score_Stage": 1,
+  "score_DestoryEnemy": 399,
   "gunNo": 0,
-  "maxHitPoint": 100,
+  "maxHitPoint": 110,
   "moveSpeed": 5.0,
   "maxRamCapacity": 10.0,
   "ramRecovery": 1.0,

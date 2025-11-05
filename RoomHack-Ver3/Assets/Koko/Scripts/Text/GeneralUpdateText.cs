@@ -4,20 +4,13 @@ using UnityEngine.UI;
 public class GeneralUpdateText : MonoBehaviour
 {
     public string inputText = "hello world";
-
     public int delay = 0;
-
-    [SerializeField, Tooltip("テキスト開始スイッチ")]
     public bool isRunning = false;
 
-    //アクティブ状態になると動作開始
-    [SerializeField, Tooltip("アクティブ時に起動するかどうか")]
-    bool activeStart = true;
+    string nowText;
 
     int timer = 0;
-
     int textIndex = 0;
-
     Text dispText;
     
     void Start()
@@ -31,17 +24,19 @@ public class GeneralUpdateText : MonoBehaviour
     
     void Update()
     {
-        if (this.gameObject.activeInHierarchy && !isRunning)
+        // テキストが変更されたらリセット
+        if (nowText != inputText)
         {
-            isRunning = true;
+            nowText = inputText;
+            dispText.text = null;
             textIndex = 0;
         }
 
         // 起動中
-        if (isRunning)
+        if (isRunning && nowText != null)
         {
             // テキスト送り
-            if (textIndex < inputText.Length)
+            if (textIndex < nowText.Length)
             {
                 if (timer >= delay)
                 {
@@ -55,7 +50,7 @@ public class GeneralUpdateText : MonoBehaviour
             // ディレイ0なら即座に全文出る
             if (delay == 0)
             {
-                textIndex = inputText.Length;
+                textIndex = nowText.Length;
             }
 
         }
@@ -65,6 +60,6 @@ public class GeneralUpdateText : MonoBehaviour
         }
 
         // テキスト表示
-        dispText.text = inputText.Substring(0, textIndex);
+        dispText.text = nowText.Substring(0, textIndex);
     }
 }

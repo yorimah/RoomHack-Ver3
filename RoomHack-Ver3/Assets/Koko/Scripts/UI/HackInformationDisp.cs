@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class HackInformationDisp : MonoBehaviour
 {
@@ -7,15 +6,14 @@ public class HackInformationDisp : MonoBehaviour
     CameraPositionController cameraPositionController;
 
     [SerializeField]
-    Text nameText;
+    GeneralUpdateText nameText;
 
     [SerializeField]
-    Text hpText;
+    GeneralUpdateText hpText;
 
     [SerializeField]
-    Text nowHackText;
+    GeneralUpdateText nowHackText;
 
-    [SerializeField]
     GameObject target;
 
     private void Update()
@@ -31,24 +29,24 @@ public class HackInformationDisp : MonoBehaviour
 
                 target = cameraPositionController.targetObject;
 
-                nameText.text = target.name;
+                nameText.inputText = target.name;
 
                 if (target.TryGetComponent<IDamageable>(out var damageable))
                 {
-                    hpText.text = damageable.NowHitPoint.ToString() + " / " + damageable.MaxHitPoint.ToString();
+                    hpText.inputText = damageable.NowHitPoint.ToString() + " / " + damageable.MaxHitPoint.ToString();
                 }
                 else
                 {
-                    hpText.text = "UnBroken";
+                    hpText.inputText = "UnBroken";
                 }
                 
                 if (target.TryGetComponent<IHackObject>(out var hackObject))
                 {
-                    nowHackText.text = null;
+                    nowHackText.inputText = null;
                     foreach (var item in hackObject.nowHackEvent)
                     {
-                        nowHackText.text += item.name;
-                        nowHackText.text += "\n";
+                        nowHackText.inputText += item.name;
+                        nowHackText.inputText += "\n";
                     }
                 }
 

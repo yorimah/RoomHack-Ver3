@@ -101,15 +101,17 @@ public class ToolManager : MonoBehaviour
                 handPlayList[i] = false;
                 if (cameraPositionController.targetObject != null)
                 {
-                    if (cameraPositionController.targetObject.TryGetComponent<IHackObject>(out var ho))
+                    if (cameraPositionController.targetObject.TryGetComponent<IHackObject>(out var hackObj))
                     {
-                        if (ho.canHackToolTag.Contains(hand))
+                        if (hackObj.canHackToolTag.Contains(hand))
                         {
                             handPlayList[i] = true;
                             targetObject = cameraPositionController.targetObject;
                         }
                     }
                 }
+
+
 
                 // 対象不要ツールならタゲなしでもプレイ可能
                 if (!deckSystem.ReturnToolNeedTarget(hand))
