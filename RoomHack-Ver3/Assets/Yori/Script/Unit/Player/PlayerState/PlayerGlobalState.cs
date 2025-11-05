@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerGlobalState : IPlayerState
 {
     private PlayerShot playerShot;
-    public PlayerGlobalState(GunData gunData, Material material, IPlayerInput playerInput,  
+    public PlayerGlobalState(IGunData gunData, Material material, IPlayerInput playerInput,  
         GameObject bulletPre, GameObject player,IHaveGun haveGun)
     {
         playerShot = new PlayerShot(gunData, material, player, bulletPre, playerInput,haveGun);

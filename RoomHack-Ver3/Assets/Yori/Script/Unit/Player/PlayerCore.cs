@@ -5,9 +5,6 @@ public class PlayerCore : MonoBehaviour, IDamageable
     Rigidbody2D playerRigidBody;
 
     [SerializeField]
-    GunData gunData;
-
-    [SerializeField]
     Material material;
 
     [SerializeField]
@@ -34,6 +31,8 @@ public class PlayerCore : MonoBehaviour, IDamageable
 
     PlayerStateContoller playerStateContoller;
 
+    [Inject]
+    IGunData gunData;
     public void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();

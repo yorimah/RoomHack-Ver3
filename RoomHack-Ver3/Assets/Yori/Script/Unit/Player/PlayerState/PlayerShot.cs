@@ -35,19 +35,23 @@ public class PlayerShot
 
     Vector3[] vertices;
     int[] triangles;
-    public PlayerShot(GunData _gunData, Material _shotRanageMaterial, GameObject _bulletPre,
+
+    IGunData getGunData;
+    public PlayerShot(IGunData _getGunData, Material _shotRanageMaterial, GameObject _bulletPre,
         GameObject _player, IPlayerInput _playerInput, IHaveGun _haveGun)
     {
         player = _player;
         playerInput = _playerInput;
         haveGun = _haveGun;
-        gunData = _gunData;
+        getGunData = _getGunData;
         haveGun.BulletSet(gunData.MaxBullet);
         shotRanageMaterial = _shotRanageMaterial;
         shotRange = new GameObject(player.gameObject.name + "shotRangge");
         shotRange.AddComponent<MeshRenderer>();
         shotRange.AddComponent<MeshFilter>();
         shotRange.transform.localPosition = Vector2.zero;
+
+        gunData = getGunData.GetGunData(haveGun.GunName);
 
 
         mesh = new Mesh();

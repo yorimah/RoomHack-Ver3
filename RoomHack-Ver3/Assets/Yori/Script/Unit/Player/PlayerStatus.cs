@@ -17,7 +17,9 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
     public int BulletNow { get; private set; }
 
-    public GunData gunData { get; private set; }
+    public GunName GunName { get; private set; }
+
+    public GunData GunData { get; private set; }
 
     public int HaveGunNo { get; private set; }
 
@@ -75,7 +77,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         MoveSpeed = saveData.moveSpeed;
 
         // 銃関連初期化
-         
+        GunName = saveData.gunName;
 
     }
 
@@ -234,7 +236,9 @@ public interface IGetHelth
 
 public interface IHaveGun
 {
-    public GunData gunData { get; }
+    public GunName GunName { get; }
+
+    public GunData GunData { get; }
 
     public int BulletMax { get; }
 
