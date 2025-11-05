@@ -89,9 +89,13 @@ public class CameraPositionController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 // タゲ取得
-                if (GetMousePositionObject() != null)
+                GameObject hackObject = GetMousePositionObject();
+                if (hackObject != null)
                 {
-                    targetObject = GetMousePositionObject();
+                    if (hackObject.GetComponent<IHackObject>().CanHack)
+                    {
+                        targetObject = hackObject;
+                    }
                 }
 
                 // マウスドラッグ初期設定

@@ -70,7 +70,7 @@ public class EffectManager : MonoBehaviour
         if (useableEffect == null)
         {
             //Debug.Log("effe");
-            useableEffect = Instantiate(effectPrefab[(int)_effectType],_pos, Quaternion.identity , this.transform);
+            useableEffect = Instantiate(effectPrefab[(int)_effectType], this.transform);
             pool.Add(useableEffect);
         }
 
@@ -81,6 +81,7 @@ public class EffectManager : MonoBehaviour
         Vector3 rot = useableEffect.transform.localEulerAngles;
         rot.x = _rot;
         useableEffect.transform.localEulerAngles = rot;
+        Debug.Log(_rot + " / " + rot);
 
         // エフェクト起動
         useableEffect.SetActive(true);
@@ -88,8 +89,6 @@ public class EffectManager : MonoBehaviour
 
         // タイムスケールのオンオフ
         if (_isScaleTime) StartCoroutine(EffectSpeedScaled(useableEffect));
-
-        //StartCoroutine(EffectUpdate(useableEffect, _time, _isScaleTime));
 
         return useableEffect;
     }
