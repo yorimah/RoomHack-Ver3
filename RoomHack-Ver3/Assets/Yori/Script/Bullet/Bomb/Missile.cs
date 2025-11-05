@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zenject;
 
 public class Missile : BombCore, IDamageable
 {
@@ -37,6 +38,17 @@ public class Missile : BombCore, IDamageable
     // エフェクト用
     GameObject effect;
 
+    IPosition playerPosition;
+
+    [Inject]
+    public void Construct(float _hitStop, Vector2 shotDire, IPosition _position, Vector2 InitPos)
+    {
+        transform.up = shotDire;
+        transform.position = InitPos + shotDire.normalized * 0.5f;
+        playerPosition = _position;
+        hitStop = _hitStop;
+    }
+
     public void Start()
     {
         spriteRen = GetComponent<SpriteRenderer>();
@@ -68,7 +80,7 @@ public class Missile : BombCore, IDamageable
             MissileMove();
 
             if (timer >= explosionTimer)
-            {                
+            {
                 EffectManager.Instance.ActEffect(EffectManager.EffectType.Bomb, this.transform.position, 0, true);
                 isFire = true;
             }
@@ -115,7 +127,7 @@ public class Missile : BombCore, IDamageable
             boost = 1;
         }
         // ターゲット方向
-        Vector2 toTarget = ((Vector2)PlayerPosition - rb.position).normalized;
+        Vector2 toTarget = ((Vector2)playerPosition.PlayerPosition - rb.position).normalized;
 
         // 現在の速度方向（正規化）
         Vector2 currentDir = rb.linearVelocity.normalized;
@@ -141,5 +153,10 @@ public class Missile : BombCore, IDamageable
         rb.linearVelocity = Vector2.zero;
         colorAlpha = 0;
         Bomb();
+    }
+
+    public class Factory : PlaceholderFactory<float, Vector2, IPosition, Vector2, Missile>
+    {
+
     }
 }
