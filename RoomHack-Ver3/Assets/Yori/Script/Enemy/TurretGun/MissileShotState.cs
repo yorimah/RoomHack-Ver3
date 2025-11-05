@@ -19,8 +19,6 @@ public class MissileShotState : IEnemyState
     // Player情報
     private PlayerCheack playerCheack;
 
-
-
     [SerializeField, Header("ミサイルクールタイム")]
     float missileCoolTime = 5;
 
@@ -96,15 +94,9 @@ public class MissileShotState : IEnemyState
     }
     public void MissileShot()
     {
-        //GameObject bulletGameObject = Object.Instantiate(enemy.bulletObject, enemy.transform.position, Quaternion.identity);
-
-        //Missile MissileCore = bulletGameObject.GetComponent<Missile>();
-
         Vector2 shotDirection = Quaternion.Euler(0, 0, enemy.transform.eulerAngles.z) * Vector3.up;
 
         missileFactory.Create(0.1f, shotDirection, enemy.getIPosition, enemy.transform.position);
-        //MissileCore.hitStop = 0.1f;
-        //bulletGameObject.transform.up = shotDirection;
     }
     public void Exit()
     {
