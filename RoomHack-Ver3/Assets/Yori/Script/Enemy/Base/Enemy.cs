@@ -75,6 +75,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     public Vector3 PlayerPosition { get { return readOnlyPlayerPoision.PlayerPosition; } }
 
+    public IPosition getIPosition { get { return readOnlyPlayerPoision; } }
+
     public void Awake()
     {
         GunDataInit();

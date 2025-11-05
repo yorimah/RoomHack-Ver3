@@ -21,9 +21,8 @@ public class HitStopper : MonoBehaviour
 
     private IEnumerator HitStopCoroutine(float duration)
     {
-        float originalTimeScale = GameTimer.Instance.GetCustomTimeScale();
-        GameTimer.Instance.SetTimeScale(0);
+        GameTimer.Instance.SetCustumTimeScale(0);
         yield return new WaitForSecondsRealtime(duration);
-        GameTimer.Instance.SetTimeScale(originalTimeScale);
+        GameTimer.Instance.SetCustumTimeScale(GameTimer.Instance.GetCustomTimeScale());
     }
 }

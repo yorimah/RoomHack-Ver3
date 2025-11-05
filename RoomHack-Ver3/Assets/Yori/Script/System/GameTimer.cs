@@ -39,19 +39,19 @@ public class GameTimer
     /// カスタムタイムスケールを使用してるところが遅くなります。0～5の間
     /// </summary>
     /// <param name="scale"></param>
-    public void SetTimeScale(float scale)
+    public void SetCustumTimeScale(float scale)
     {
         customTimeScale = Mathf.Clamp(scale, 0f, 5f);
     }
 
     public void SetHackModeTimeScale()
     {
-        SetTimeScale(0.02f);
+        SetCustumTimeScale(0.05f);
         IsHackTime = true;
     }
     public void SetAcitionModeTimeScale()
     {
-        SetTimeScale(1f);
+        SetCustumTimeScale(1f);
         IsHackTime = false;
     }
 

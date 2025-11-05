@@ -1,13 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
-public enum GunNo
-{
-    HandGun,
-    AssultRifle,
-    SniperRifle,
-    SubMachineGun
-}
 public class Player : MonoBehaviour, IHackObject
 {
     public float maxHitPoint { get; set; }
@@ -61,7 +53,7 @@ public class Player : MonoBehaviour, IHackObject
 
     private Rigidbody2D rb;
 
-    private GunNo gunNo;
+   // private GunNo gunNo;
     public enum StateType
     {
         Action,

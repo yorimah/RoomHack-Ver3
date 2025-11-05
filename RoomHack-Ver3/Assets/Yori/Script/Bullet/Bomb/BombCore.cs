@@ -18,11 +18,6 @@ public class BombCore : MonoBehaviour
     [SerializeField, Header("ExprosionPrefab")]
     private GameObject blastGameObject;
 
-    [Inject]
-    IPosition readOnlyPlayerPoision;
-
-    public Vector3 PlayerPosition { get { return readOnlyPlayerPoision.PlayerPosition; } }
-
     private BombBlast bombBlast;
     public void Bomb()
     {

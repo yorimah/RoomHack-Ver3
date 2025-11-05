@@ -17,6 +17,10 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
     public int BulletNow { get; private set; }
 
+    public GunData gunData { get; private set; }
+
+    public int HaveGunNo { get; private set; }
+
     public event Action PlayerDie = delegate { };
 
     public Vector3 PlayerPosition { get; private set; }
@@ -69,6 +73,10 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         DeckList = saveData.deckList;
 
         MoveSpeed = saveData.moveSpeed;
+
+        // 銃関連初期化
+         
+
     }
 
     public void RamUse(float useRam)
@@ -157,22 +165,6 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         }
     }
 
-    public async UniTask BulletBoltReload(float ReloadTime)
-    {
-        for (int i = BulletNow; i < BulletMax; i++)
-        {
-            float timer = 0;
-            // 全体リロード時間を最大弾数で割って一回当たりのリロード時間にする。
-            while (ReloadTime / BulletMax >= timer)
-            {
-                timer += GameTimer.Instance.GetScaledDeltaTime();
-                await UniTask.Yield();
-            }
-            BulletNow++;
-        }
-        Debug.Log("ボルト式リロード終了 BulletMax :" + BulletMax);
-    }
-
     public void BulletAdd(int BulletAdd)
     {
         int BulletAdded = BulletNow + BulletAdd;
@@ -242,6 +234,8 @@ public interface IGetHelth
 
 public interface IHaveGun
 {
+    public GunData gunData { get; }
+
     public int BulletMax { get; }
 
     public int BulletNow { get; }
@@ -252,7 +246,7 @@ public interface IHaveGun
 
     public void BulletAdd(int BulletAdd);
 
-    public void BulletResume();   
+    public void BulletResume();
 }
 
 public interface IGetPlayerDie

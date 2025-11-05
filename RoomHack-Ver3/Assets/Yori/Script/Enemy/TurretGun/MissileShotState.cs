@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Cysharp.Threading.Tasks;
 
 public class MissileShotState : IEnemyState
 {
@@ -24,10 +23,15 @@ public class MissileShotState : IEnemyState
 
     [SerializeField, Header("ミサイルクールタイム")]
     float missileCoolTime = 5;
-    public MissileShotState(Enemy _enemy)
+
+    Missile.Factory missileFactory;
+
+    public MissileShotState(Enemy _enemy, Missile.Factory _MissileFactory)
     {
         enemy = _enemy;
         EnemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
+
+        missileFactory = _MissileFactory;
 
         // プレイヤー情報初期化
         playerCheack = enemy.playerCheack;
@@ -41,7 +45,7 @@ public class MissileShotState : IEnemyState
     public void Execute()
     {
         //プレイヤー方向に向く
-        playerCheack.RotationFoward(enemy.transform,enemy.PlayerPosition);
+        playerCheack.RotationFoward(enemy.transform, enemy.PlayerPosition);
         //発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
@@ -92,15 +96,15 @@ public class MissileShotState : IEnemyState
     }
     public void MissileShot()
     {
-        GameObject bulletGameObject = Object.Instantiate(enemy.bulletObject, enemy.transform.position, Quaternion.identity);
+        //GameObject bulletGameObject = Object.Instantiate(enemy.bulletObject, enemy.transform.position, Quaternion.identity);
 
-        Missile bulletCore = bulletGameObject.GetComponent<Missile>();
+        //Missile MissileCore = bulletGameObject.GetComponent<Missile>();
 
         Vector2 shotDirection = Quaternion.Euler(0, 0, enemy.transform.eulerAngles.z) * Vector3.up;
 
-        bulletCore.hitDamegeLayer = enemy.hitDamegeLayer;
-        bulletCore.hitStop = 0.1f;
-        bulletGameObject.transform.up = shotDirection;
+        missileFactory.Create(0.1f, shotDirection, enemy.getIPosition, enemy.transform.position);
+        //MissileCore.hitStop = 0.1f;
+        //bulletGameObject.transform.up = shotDirection;
     }
     public void Exit()
     {

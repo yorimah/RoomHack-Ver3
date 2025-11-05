@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerShot
 {
@@ -33,6 +32,9 @@ public class PlayerShot
     IPlayerInput playerInput;
 
     IHaveGun haveGun;
+
+    Vector3[] vertices;
+    int[] triangles;
     public PlayerShot(GunData _gunData, Material _shotRanageMaterial, GameObject _bulletPre,
         GameObject _player, IPlayerInput _playerInput, IHaveGun _haveGun)
     {
@@ -58,10 +60,14 @@ public class PlayerShot
         mr.sortingOrder = 10;
 
         bulletPre = _bulletPre;
+
+        vertices = new Vector3[segment + 2];
+        triangles = new int[segment * 3];
     }
+
     private void GunFire()
     {
-        GameObject bulletGameObject = UnityEngine.Object.Instantiate(bulletPre, player.transform.position, Quaternion.identity);
+        GameObject bulletGameObject = Object.Instantiate(bulletPre, player.transform.position, Quaternion.identity);
 
         Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();
 
@@ -93,7 +99,10 @@ public class PlayerShot
             return;
         }
 
+        // マウスの方向に向く
         PlayerRotation();
+
+        // 撃つブレのメッシュ表示
         ShotRangeView();
 
         diffusionRate = Mathf.Clamp(diffusionRate, gunData.MinDiffusionRate, gunData.MaxDiffusionRate);
@@ -135,46 +144,58 @@ public class PlayerShot
             case ShotSection.Reload:
                 if (gunData.ReloadTypeBolt)
                 {
-                    if (playerInput.GetOnClick())
-                    {
-                        Debug.Log("ボルト式キャンセル終了 BulletNow :" + haveGun.BulletNow);
-                        timer = 0;
-                        shotSection = ShotSection.shot;
-                    }
-                    if (gunData.ReloadTime / haveGun.BulletMax <= timer)
-                    {
-                        haveGun.BulletAdd(1);
-                        if (haveGun.BulletNow == haveGun.BulletMax)
-                        {
-                            timer = 0;
-                            shotSection = ShotSection.shot;
-                            Debug.Log("ボルト式リロード終了 BulletNows :" + haveGun.BulletNow);
-                        }                    
-                    }
-                    else
-                    {                        
-                        timer += GameTimer.Instance.GetScaledDeltaTime();
-                    }
+                    BoltReload();
                 }
                 else
                 {
-                    if (gunData.ReloadTime <= timer)
-                    {
-                        haveGun.BulletAdd(gunData.MaxBullet);
-                        shotSection = ShotSection.shot;
-                        Debug.Log("マガジン式リロード終了 BulletNow :" + haveGun.BulletNow);
-                    }
-                    else
-                    {
-                        haveGun.BulletResume();
-                        timer += GameTimer.Instance.GetScaledDeltaTime();
-                    }
+                    MagazineReload();
                 }
                 break;
             default:
                 break;
         }
     }
+
+    private void BoltReload()
+    {
+        if (playerInput.GetOnClick())
+        {
+            Debug.Log("ボルト式キャンセル終了 BulletNow :" + haveGun.BulletNow);
+            timer = 0;
+            shotSection = ShotSection.shot;
+        }
+        if (gunData.ReloadTime / haveGun.BulletMax <= timer)
+        {
+            haveGun.BulletAdd(1);
+            if (haveGun.BulletNow == haveGun.BulletMax)
+            {
+                timer = 0;
+                shotSection = ShotSection.shot;
+                Debug.Log("ボルト式リロード終了 BulletNows :" + haveGun.BulletNow);
+            }
+        }
+        else
+        {
+            timer += GameTimer.Instance.GetScaledDeltaTime();
+        }
+    }
+
+
+    private void MagazineReload()
+    {
+        if (gunData.ReloadTime <= timer)
+        {
+            haveGun.BulletAdd(gunData.MaxBullet);
+            shotSection = ShotSection.shot;
+            Debug.Log("マガジン式リロード終了 BulletNow :" + haveGun.BulletNow);
+        }
+        else
+        {
+            haveGun.BulletResume();
+            timer += GameTimer.Instance.GetScaledDeltaTime();
+        }
+    }
+
     private void PlayerRotation()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -190,9 +211,6 @@ public class PlayerShot
         if (mesh != null)
         {
             mesh.Clear();
-
-            Vector3[] vertices = new Vector3[segment + 2];
-            int[] triangles = new int[segment * 3];
 
             // 中心はプレイヤー
             vertices[0] = player.transform.position;
