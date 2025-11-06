@@ -78,7 +78,6 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
         // 銃関連初期化
         GunName = saveData.gunName;
-
     }
 
     public void RamUse(float useRam)

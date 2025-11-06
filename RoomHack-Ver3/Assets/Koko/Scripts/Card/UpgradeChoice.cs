@@ -112,6 +112,7 @@ public class UpgradeChoice : MonoBehaviour
     }
     private void Update()
     {
+        // デバッグ用
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
