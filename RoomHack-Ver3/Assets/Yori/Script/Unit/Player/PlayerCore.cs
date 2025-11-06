@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Zenject;
+using Cysharp.Threading.Tasks;
 public class PlayerCore : MonoBehaviour, IDamageable
 {
     Rigidbody2D playerRigidBody;
@@ -24,7 +25,7 @@ public class PlayerCore : MonoBehaviour, IDamageable
     public int hitDamegeLayer { get; private set; } = 1;
 
     [Inject]
-    IReadMaxHitPoint readMaxHitPoint;
+    IGetMaxHitPoint getMaxHitPoint;
 
     [Inject]
     IHaveGun haveGun;
@@ -32,14 +33,14 @@ public class PlayerCore : MonoBehaviour, IDamageable
     PlayerStateContoller playerStateContoller;
 
     [Inject]
-    IGunData gunData;
+    IGetGunData gunData;
     public void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerStateContoller = new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
             10, gameObject, playerInput, haveGun);
-        MaxHitPoint = readMaxHitPoint.hitPointMax;
-        NowHitPoint = readMaxHitPoint.hitPointMax;
+        MaxHitPoint = getMaxHitPoint.maxHitPoint;
+        NowHitPoint = getMaxHitPoint.maxHitPoint;
     }
 
     public void Update()

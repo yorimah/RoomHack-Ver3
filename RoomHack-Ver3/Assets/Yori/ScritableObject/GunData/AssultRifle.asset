@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e71c88a32e5a64dbfa1892ce95088c, type: 3}
   m_Name: AssultRifle
   m_EditorClassIdentifier: 
+  gunName: 1
   power: 60
   rate: 3
-  MAXMAGAZINE: 30
+  maxBullet: 0
   reloadTime: 3
+  reloadTypeBolt: 0
   bulletSpeed: 30
-  Maneuverability: 0
+  maneuverability: 0
   recoil: 2
+  minDiffusionRate: 0
+  maxDiffusionRate: 0

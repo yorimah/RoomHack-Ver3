@@ -36,14 +36,15 @@ public class PlayerShot
     Vector3[] vertices;
     int[] triangles;
 
-    IGunData getGunData;
-    public PlayerShot(IGunData _getGunData, Material _shotRanageMaterial, GameObject _bulletPre,
+    IGetGunData getGunData;
+    public PlayerShot(IGetGunData _getGunData, Material _shotRanageMaterial, GameObject _bulletPre,
         GameObject _player, IPlayerInput _playerInput, IHaveGun _haveGun)
     {
         player = _player;
         playerInput = _playerInput;
         haveGun = _haveGun;
         getGunData = _getGunData;
+        gunData = getGunData.GetGunData(haveGun.GunName);
         haveGun.BulletSet(gunData.MaxBullet);
         shotRanageMaterial = _shotRanageMaterial;
         shotRange = new GameObject(player.gameObject.name + "shotRangge");
@@ -51,7 +52,7 @@ public class PlayerShot
         shotRange.AddComponent<MeshFilter>();
         shotRange.transform.localPosition = Vector2.zero;
 
-        gunData = getGunData.GetGunData(haveGun.GunName);
+        
 
 
         mesh = new Mesh();

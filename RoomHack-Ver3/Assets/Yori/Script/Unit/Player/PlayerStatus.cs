@@ -11,7 +11,7 @@ enum SpecialAction
 }
 
 public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPosition,
-    IGetPlayerDie, ISetPlayerDied, IReadMaxHitPoint, IHaveGun
+    IGetPlayerDie, ISetPlayerDied, IGetMaxHitPoint, IHaveGun
 {
     public int BulletMax { get; private set; }
 
@@ -27,7 +27,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
     public Vector3 PlayerPosition { get; private set; }
 
-    public int hitPointMax { get; private set; }
+    public int maxHitPoint { get; private set; }
 
     public float hitPointNow;
 
@@ -62,7 +62,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         PlayerSaveData saveData = SaveManager.Instance.Load();
 
         // HP初期化
-        hitPointMax = saveData.maxHitPoint;
+        maxHitPoint = saveData.maxHitPoint;
         hitPointNow = saveData.maxHitPoint;
 
         // Hack関連初期化
@@ -185,9 +185,9 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     }
 }
 
-public interface IReadMaxHitPoint
+public interface IGetMaxHitPoint
 {
-    public int hitPointMax { get; }
+    public int maxHitPoint { get; }
 }
 public interface IPosition
 {

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e71c88a32e5a64dbfa1892ce95088c, type: 3}
   m_Name: SniperRifle
   m_EditorClassIdentifier: 
+  gunName: 2
   power: 80
   rate: 1
   maxBullet: 5

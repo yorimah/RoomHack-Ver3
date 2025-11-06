@@ -22,7 +22,7 @@ public class PlayerStateContoller
 
     private CancellationTokenSource cancellationTokenSource;
 
-    public PlayerStateContoller(Rigidbody2D playerRigidBody, IGunData gunData, Material material,
+    public PlayerStateContoller(Rigidbody2D playerRigidBody, IGetGunData gunData, Material material,
         GameObject bulletPre, float moveSpeed, GameObject player, IPlayerInput playerInput, IHaveGun haveGun)
     {
         cancellationTokenSource = new CancellationTokenSource();
