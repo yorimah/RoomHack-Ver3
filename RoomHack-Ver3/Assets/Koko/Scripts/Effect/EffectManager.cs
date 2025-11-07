@@ -81,7 +81,7 @@ public class EffectManager : MonoBehaviour
         Vector3 rot = useableEffect.transform.localEulerAngles;
         rot.x = _rot;
         useableEffect.transform.localEulerAngles = rot;
-        Debug.Log(_rot + " / " + rot);
+        //Debug.Log(_rot + " / " + rot);
 
         // エフェクト起動
         useableEffect.SetActive(true);
@@ -140,16 +140,21 @@ public class EffectManager : MonoBehaviour
     {
         while (_effect.activeSelf)
         {
-            //Debug.Log("追跡中！" + timer +" / "+ _effect +"  / "+ _target);
-            if (_target != null) 
+            Debug.Log("追跡中！ / " + _effect + "  / " + _target);
+            if (_target != null)
             {
                 _effect.transform.position = _target.transform.position;
 
-                Vector3 rot = _effect.transform.localEulerAngles;
-                rot.x = _target.transform.localEulerAngles.z + _rotOffset;
-                //rot.x = _target.transform.localEulerAngles.z;
-                _effect.transform.localEulerAngles = rot;
-                Debug.Log(rot);
+                //Vector3 rot = _effect.transform.localEulerAngles;
+                //rot.x = _target.transform.localEulerAngles.z + _rotOffset;
+                ////rot.x = _target.transform.localEulerAngles.z;
+                //_effect.transform.localEulerAngles = rot;
+                _effect.transform.rotation = Quaternion.Euler(
+                -_target.transform.eulerAngles.z + _rotOffset,
+                _rotOffset,
+                -_rotOffset
+                );
+                //Debug.Log(rot);
             }
 
             yield return null;
