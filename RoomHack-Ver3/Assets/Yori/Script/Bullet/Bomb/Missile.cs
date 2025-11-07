@@ -48,7 +48,6 @@ public class Missile : BombCore, IDamageable
         playerPosition = _position;
         hitStop = _hitStop;
     }
-
     public void Start()
     {
         spriteRen = GetComponent<SpriteRenderer>();
@@ -60,7 +59,7 @@ public class Missile : BombCore, IDamageable
         SeManager.Instance.Play("MissleMove");
 
         // missileエフェクト用
-        effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.MissileFire, this.gameObject, 270);
+        effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.MissileFire, this.gameObject, 90);
     }
 
     private void Update()

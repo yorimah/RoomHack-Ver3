@@ -1,15 +1,8 @@
 {
-<<<<<<< HEAD
-  "score_Stage": 1,
-  "score_DestoryEnemy": 407,
+  "score_Stage": 0,
+  "score_DestoryEnemy": 4,
   "gunName": 0,
-  "maxHitPoint": 110,
-=======
-  "score_Stage": 3,
-  "score_DestoryEnemy": 10,
-  "gunName": 0,
-  "maxHitPoint": 120,
->>>>>>> main
+  "maxHitPoint": 100,
   "moveSpeed": 5.0,
   "maxRamCapacity": 10.0,
   "ramRecovery": 1.0,
@@ -23,7 +16,6 @@
     2,
     3,
     3,
-    4,
     4
   ]
 }
