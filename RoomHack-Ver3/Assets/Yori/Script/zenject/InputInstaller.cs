@@ -10,5 +10,6 @@ public class InputInstaller : MonoInstaller<InputInstaller>
         Container.BindInterfacesTo<PlayerStatus>().AsSingle();
         Container.BindFactory<float, Vector2, IPosition,Vector2, Missile, Missile.Factory>()
                        .FromComponentInNewPrefab(missilePre);
+        Container.BindInterfacesTo<GunDataList>().AsSingle();
     }
 }

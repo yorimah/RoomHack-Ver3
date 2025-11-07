@@ -111,8 +111,10 @@ public class Missile : BombCore, IDamageable
             }
         }
     }
+
     [Range(0f, 1f)]
     public float inertia = 0.9f;       // 慣性の強さ（大きいほど鈍い）
+
     private void MissileMove()
     {
 

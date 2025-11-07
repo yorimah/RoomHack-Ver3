@@ -11,13 +11,15 @@ enum SpecialAction
 }
 
 public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPosition,
-    IGetPlayerDie, ISetPlayerDied, IReadMaxHitPoint, IHaveGun
+    IGetPlayerDie, ISetPlayerDied, IGetMaxHitPoint, IHaveGun
 {
     public int BulletMax { get; private set; }
 
     public int BulletNow { get; private set; }
 
-    public GunData gunData { get; private set; }
+    public GunName GunName { get; private set; }
+
+    public GunData GunData { get; private set; }
 
     public int HaveGunNo { get; private set; }
 
@@ -25,7 +27,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
     public Vector3 PlayerPosition { get; private set; }
 
-    public int hitPointMax { get; private set; }
+    public int maxHitPoint { get; private set; }
 
     public float hitPointNow;
 
@@ -60,7 +62,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         PlayerSaveData saveData = SaveManager.Instance.Load();
 
         // HP初期化
-        hitPointMax = saveData.maxHitPoint;
+        maxHitPoint = saveData.maxHitPoint;
         hitPointNow = saveData.maxHitPoint;
 
         // Hack関連初期化
@@ -75,8 +77,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         MoveSpeed = saveData.moveSpeed;
 
         // 銃関連初期化
-         
-
+        GunName = saveData.gunName;
     }
 
     public void RamUse(float useRam)
@@ -183,9 +184,9 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     }
 }
 
-public interface IReadMaxHitPoint
+public interface IGetMaxHitPoint
 {
-    public int hitPointMax { get; }
+    public int maxHitPoint { get; }
 }
 public interface IPosition
 {
@@ -234,7 +235,9 @@ public interface IGetHelth
 
 public interface IHaveGun
 {
-    public GunData gunData { get; }
+    public GunName GunName { get; }
+
+    public GunData GunData { get; }
 
     public int BulletMax { get; }
 
