@@ -5,6 +5,7 @@ public class BulletCore : MonoBehaviour, IDamageable
     public float MaxHitPoint { get; set; }
 
     public float NowHitPoint { get; set; }
+
     public int hitDamegeLayer { get; set; }
 
     public int stoppingPower;

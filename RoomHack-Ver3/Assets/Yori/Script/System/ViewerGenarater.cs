@@ -18,6 +18,7 @@ public class ViewerGenarater
 
     Vector3[] vertices;
     int[] triangles;
+
     /// <summary>
     /// 生成する視界のプレハブ、生成するオブジェクト、壁として認識するレイヤー、円の分割数、半径。
     /// 表示する視界一つにつき一つ生成すること
@@ -25,8 +26,8 @@ public class ViewerGenarater
     /// <param name="viewerPrefab"></param>
     /// <param name="_geneGameObject"></param>
     /// <param name="_targetLayerMask"></param>
-    /// <param name="segment"></param>
-    /// <param name="viewDistance"></param>
+    /// <param name="_segment"></param>
+    /// <param name="_viewDistance"></param>
     public ViewerGenarater(GameObject viewerPrefab, GameObject _geneGameObject, LayerMask _targetLayerMask,
         int _segment = 360, float _viewDistance = 20f)
     {

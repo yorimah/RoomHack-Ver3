@@ -52,16 +52,13 @@ public class PlayerShot
         shotRange.AddComponent<MeshFilter>();
         shotRange.transform.localPosition = Vector2.zero;
 
-        
-
-
         mesh = new Mesh();
         shotRange.GetComponent<MeshFilter>().mesh = mesh;
 
         var mr = shotRange.GetComponent<MeshRenderer>();
-        // 仮の色
+        
         mr.material = new Material(shotRanageMaterial);
-        mr.material.color = new Color(1, 1, 0, 0.3f); // 半透明黄色
+        mr.material.color = new Color(1, 1, 0, 0.3f); // 半透明黄色(仮)
         mr.sortingOrder = 10;
 
         bulletPre = _bulletPre;

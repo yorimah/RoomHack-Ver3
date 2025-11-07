@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
-using Cysharp.Threading.Tasks;
 public class PlayerCore : MonoBehaviour, IDamageable
 {
-    Rigidbody2D playerRigidBody;
-
     [SerializeField]
     Material material;
 
@@ -20,20 +17,22 @@ public class PlayerCore : MonoBehaviour, IDamageable
     [Inject]
     ISetPlayerDied setPlayerDied;
 
-    public float MaxHitPoint { get; private set; }
-    public float NowHitPoint { get; set; }
-    public int hitDamegeLayer { get; private set; } = 1;
-
     [Inject]
     IGetMaxHitPoint getMaxHitPoint;
 
     [Inject]
     IHaveGun haveGun;
 
-    PlayerStateContoller playerStateContoller;
-
     [Inject]
     IGetGunData gunData;
+
+    PlayerStateContoller playerStateContoller;
+
+    Rigidbody2D playerRigidBody;
+
+    public float MaxHitPoint { get; private set; }
+    public float NowHitPoint { get; set; }
+    public int hitDamegeLayer { get; private set; } = 1;
     public void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();

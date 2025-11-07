@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Threading;
 
 public class GameOverSceneManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class GameOverSceneManager : MonoBehaviour
     bool sequenceEnd;
     int skipValue = 1;
 
+    private CancellationTokenSource cancellationTokenSource;
     private void Start()
     {
         // セーブデータ読み込み
@@ -33,42 +35,51 @@ public class GameOverSceneManager : MonoBehaviour
         GameOverText[3].GetComponent<Text>().text = "destroy : " + data.score_DestoryEnemy;
 
         BgmManager.Instance.Play("GameOver");
-
+        cancellationTokenSource = new CancellationTokenSource();
         // コルーチン起動
-        GameOverSequence().Forget();
+        GameOverSequence().AttachExternalCancellation(cancellationTokenSource.Token);
     }
 
     async UniTask GameOverSequence()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(skipValue));
-
-        for (int i = 0; i < 100; i++)
+        try
         {
-            moveValue++;
-            redScreen_Up.anchoredPosition = new Vector2(0, 270 + moveValue * 4);
-            redScreen_Down.anchoredPosition = new Vector2(0, -270 - moveValue * 4);
-            if (skipValue == 1)
+            await UniTask.Delay(TimeSpan.FromSeconds(skipValue));
+
+            for (int i = 0; i < 100; i++)
             {
-                await UniTask.Yield();
+                moveValue++;
+                redScreen_Up.anchoredPosition = new Vector2(0, 270 + moveValue * 4);
+                redScreen_Down.anchoredPosition = new Vector2(0, -270 - moveValue * 4);
+                if (skipValue == 1)
+                {
+                    await UniTask.Yield();
+                }
             }
+
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
+            GameOverText[0].SetActive(true);
+
+            await UniTask.Delay(TimeSpan.FromSeconds(1f * skipValue));
+            GameOverText[1].SetActive(true);
+
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
+            GameOverText[2].SetActive(true);
+
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
+            GameOverText[3].SetActive(true);
+
+            await UniTask.Delay(TimeSpan.FromSeconds(1f * skipValue));
+            GameOverText[4].SetActive(true);
+
+            sequenceEnd = true;
         }
-
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
-        GameOverText[0].SetActive(true);
-
-        await UniTask.Delay(TimeSpan.FromSeconds(1f * skipValue));
-        GameOverText[1].SetActive(true);
-
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
-        GameOverText[2].SetActive(true);
-
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
-        GameOverText[3].SetActive(true);
-
-        await UniTask.Delay(TimeSpan.FromSeconds(1f * skipValue));
-        GameOverText[4].SetActive(true);
-
-        sequenceEnd = true;
+        catch (OperationCanceledException)
+        {
+            Debug.Log("終了！");
+            throw;
+        }
+       
     }
 
     private void Update()
@@ -77,6 +88,7 @@ public class GameOverSceneManager : MonoBehaviour
         {
             if (sequenceEnd == true)
             {
+                cancellationTokenSource.Cancel();
                 BgmManager.Instance.StopImmediately();
                 saveManager.DeleteSave();
                 SceneManager.LoadScene("TitleDemoScene");
