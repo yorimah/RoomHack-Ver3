@@ -8,7 +8,7 @@ public class PlayerViewMesh : MonoBehaviour
     [SerializeField]
     LayerMask targetLm;
     // 分割数
-    private int segment = 360;
+    private int segment = 720;
     //private Mesh mesh;
 
     ViewerGenarater viewerGenarater;
