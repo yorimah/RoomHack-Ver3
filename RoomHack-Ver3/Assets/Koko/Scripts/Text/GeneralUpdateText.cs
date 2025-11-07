@@ -60,6 +60,6 @@ public class GeneralUpdateText : MonoBehaviour
         }
 
         // テキスト表示
-        dispText.text = nowText.Substring(0, textIndex);
+        if (nowText != null) dispText.text = nowText.Substring(0, textIndex);
     }
 }

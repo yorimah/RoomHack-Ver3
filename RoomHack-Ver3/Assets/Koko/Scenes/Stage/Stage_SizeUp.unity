@@ -462,7 +462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 273839729}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.052765083, w: 0.998607}
+  m_LocalRotation: {x: -0, y: -0, z: -0.29629096, w: 0.95509773}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3598,6 +3598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fae7c487310f94fbd9f60a9318a33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputInstaller
+  missilePre: {fileID: 7934828133250085043, guid: bae09c21d94cdc5408ea9036ef8103e1, type: 3}
 --- !u!114 &1250157915
 MonoBehaviour:
   m_ObjectHideFlags: 0
