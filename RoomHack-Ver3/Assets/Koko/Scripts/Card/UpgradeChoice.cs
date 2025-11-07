@@ -25,7 +25,7 @@ public class UpgradeChoice : MonoBehaviour
 
         for (int i = 0; i < upGradeCardData.upGradeCardList.Count; i++)
         {
-            var iCard = upGradeCardData.upGradeCardList[i].cardType.GetComponent<ICardType>();
+            ICardType iCard = upGradeCardData.upGradeCardList[i].cardType.GetComponent<ICardType>();
             iCard.cardLevel = upGradeCardData.upGradeCardList[i].CardLevel;
             // ステージがすすむごとに出る重みを変える。
             if (data.score_Stage <= 5)
@@ -91,11 +91,11 @@ public class UpgradeChoice : MonoBehaviour
     public int Choose()
     {
         // 0～重みの総和の範囲の乱数値取得
-        var randomPoint = Random.Range(0, _totalWeight);
+        float randomPoint = Random.Range(0, _totalWeight);
 
         // 乱数値が属する要素を先頭から順に選択
-        var currentWeight = 0f;
-        for (var i = 0; i < upGradeCardData.upGradeCardList.Count; i++)
+        float currentWeight = 0f;
+        for (int i = 0; i < upGradeCardData.upGradeCardList.Count; i++)
         {
             // 現在要素までの重みの総和を求める
             currentWeight += upGradeCardData.upGradeCardList[i].cardType.GetComponent<ICardType>().cardWeight;

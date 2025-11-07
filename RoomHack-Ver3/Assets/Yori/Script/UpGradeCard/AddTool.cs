@@ -9,25 +9,26 @@ public class AddTool : MonoBehaviour, ICardType
     public int cardWeight { get; set; } = 10;
     public int cardLevel { get; set; } = 1;
 
-    public AddTool()
-    {
-        switch (toolTag)
-        {
-            case toolTag.none:
-                break;
-            case toolTag.CCTVHack:
-                break;
-            case toolTag.Bind:
-                break;
-            case toolTag.Blind:
-                break;
-            case toolTag.OverHeat:
-                break;
-            case toolTag.Detonation:
-                cardLevel = 3;
-                break;
-        }
-    }
+    //public AddTool()
+    //{
+    //    switch (toolTag)
+    //    {
+    //        case toolTag.none:
+    //            break;
+    //        case toolTag.CCTVHack:
+    //            break;
+    //        case toolTag.Bind:
+    //            break;
+    //        case toolTag.Blind:
+    //            break;
+    //        case toolTag.OverHeat:
+    //            break;
+    //        case toolTag.Detonation:
+    //            cardLevel = 3;
+    //            break;
+    //    }
+    //}
+
     public PlayerSaveData Choiced(PlayerSaveData _data)
     {
         data = _data;
