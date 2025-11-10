@@ -1,17 +1,22 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 public class GameManeger : MonoBehaviour
 {
     PlayerSaveData data;
 
-    [SerializeField, Header("敵をいれてね")]
-    List<Enemy> eList;
+    private List<Enemy> eList;
 
     int enemyCount;
+    [Inject]
+    IGetEnemyList getEnemyList;
+
     void Start()
     {
+        eList = getEnemyList.GetEnemies();
         data = SaveManager.Instance.Load();
+        CheckDestroy();
     }
 
     // Update is called once per frame
@@ -37,7 +42,7 @@ public class GameManeger : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (enemyCount <= 0 )
+        if (enemyCount <= 0 && collision.name == "Player")
         {
             SaveManager.Instance.Save(data);
             SceneManager.LoadScene("UpgradeTest");

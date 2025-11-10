@@ -15,11 +15,16 @@ public class GunDataList : ISetGunData, IGetGunData
     }
     public GunData GetGunData(GunName gunName)
     {
-        foreach (var item in gunDataList)
+        if (gunDataList.Count <= 0)
         {
-            if (item.GunName == gunName)
+            Debug.LogError("guDataListに数値が入ってないよ！");
+            return null;
+        }
+        foreach (var gunData in gunDataList)
+        {
+            if (gunData.GunName == gunName)
             {
-                return item;
+                return gunData;
             }
         }
         Debug.LogError("そんな名前の銃はないよ！");
