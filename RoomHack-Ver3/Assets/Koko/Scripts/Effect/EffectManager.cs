@@ -78,10 +78,11 @@ public class EffectManager : MonoBehaviour
         useableEffect.transform.position = _pos;
 
         // エフェクト角度修正
-        Vector3 rot = useableEffect.transform.localEulerAngles;
-        rot.x = _rot;
-        useableEffect.transform.localEulerAngles = rot;
-        //Debug.Log(_rot + " / " + rot);
+        useableEffect.transform.rotation = Quaternion.Euler(
+                0,
+                0,
+                _rot
+                );
 
         // エフェクト起動
         useableEffect.SetActive(true);
@@ -150,9 +151,9 @@ public class EffectManager : MonoBehaviour
                 ////rot.x = _target.transform.localEulerAngles.z;
                 //_effect.transform.localEulerAngles = rot;
                 _effect.transform.rotation = Quaternion.Euler(
-                -_target.transform.eulerAngles.z + _rotOffset,
-                _rotOffset,
-                -_rotOffset
+                0,
+                0,
+                _target.transform.eulerAngles.z + _rotOffset
                 );
                 //Debug.Log(rot);
             }

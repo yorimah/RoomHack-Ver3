@@ -2,16 +2,16 @@
 
 public class HackInformationDisp : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField, Header("要アタッチ")]
     CameraPositionController cameraPositionController;
 
-    [SerializeField]
+    [SerializeField, Header("要アタッチ")]
     GeneralUpdateText nameText;
 
-    [SerializeField]
+    [SerializeField, Header("要アタッチ")]
     GeneralUpdateText hpText;
 
-    [SerializeField]
+    [SerializeField, Header("要アタッチ")]
     GeneralUpdateText nowHackText;
 
     GameObject target;
