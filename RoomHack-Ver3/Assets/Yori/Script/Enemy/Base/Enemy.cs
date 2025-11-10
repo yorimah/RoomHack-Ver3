@@ -73,6 +73,9 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     [Inject]
     IPosition readOnlyPlayerPoision;
 
+    [Inject]
+    ISetEnemeyList setEnemeyList;
+
     public Vector3 PlayerPosition { get { return readOnlyPlayerPoision.PlayerPosition; } }
 
     public IPosition getIPosition { get { return readOnlyPlayerPoision; } }
@@ -82,6 +85,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         GunDataInit();
 
         NowHitPoint = MaxHitPoint;
+
+        setEnemeyList.EnemyListAdd(this);
     }
 
     protected EnemyStateType statetype;
