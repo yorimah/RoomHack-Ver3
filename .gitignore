@@ -72,4 +72,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 RoomHack-Ver3/ProjectSettings/ShaderGraphSettings.asset
 *.mp4
-RoomHack-Ver3/Assets/editorSaves/player_save.json
+RoomHack-Ver3/Assets/EditorSaves/player_save.json
