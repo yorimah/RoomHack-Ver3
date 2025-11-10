@@ -44,3 +44,13 @@ public class GameManeger : MonoBehaviour
         }
     }
 }
+
+
+public class EnemyList
+{
+
+}
+
+public interface IEnmeyList
+{
+}
