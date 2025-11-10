@@ -216,6 +216,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7036135640426318001, guid: b413a7ce4e7891049b1b002513c95d39, type: 3}
   m_PrefabInstance: {fileID: 192037281}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &192037283 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8343352222379165354, guid: b413a7ce4e7891049b1b002513c95d39, type: 3}
+  m_PrefabInstance: {fileID: 192037281}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e812ce485a553824a9349d6c4af0465a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &273839729
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +537,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7036135640426318001, guid: b413a7ce4e7891049b1b002513c95d39, type: 3}
   m_PrefabInstance: {fileID: 806158957}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &344368661 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8343352222379165354, guid: b413a7ce4e7891049b1b002513c95d39, type: 3}
+  m_PrefabInstance: {fileID: 806158957}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e812ce485a553824a9349d6c4af0465a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &356041951
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,6 +689,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7036135640426318001, guid: b413a7ce4e7891049b1b002513c95d39, type: 3}
   m_PrefabInstance: {fileID: 398631988}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &398631990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8343352222379165354, guid: b413a7ce4e7891049b1b002513c95d39, type: 3}
+  m_PrefabInstance: {fileID: 398631988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e812ce485a553824a9349d6c4af0465a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &437731832
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +941,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7036135640426318001, guid: b413a7ce4e7891049b1b002513c95d39, type: 3}
   m_PrefabInstance: {fileID: 749457163}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &749457165 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8343352222379165354, guid: b413a7ce4e7891049b1b002513c95d39, type: 3}
+  m_PrefabInstance: {fileID: 749457163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e812ce485a553824a9349d6c4af0465a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &806158957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3230,6 +3274,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: YoriSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 2265871565616073911, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1080452679}
     - target: {fileID: 4227297991499851073, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.56546
@@ -3270,6 +3318,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8595205920645200822, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
+      propertyPath: 'eList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 344368661}
+    - target: {fileID: 8595205920645200822, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
+      propertyPath: 'eList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 398631990}
+    - target: {fileID: 8595205920645200822, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
+      propertyPath: 'eList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 192037283}
+    - target: {fileID: 8595205920645200822, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
+      propertyPath: 'eList.Array.data[3]'
+      value: 
+      objectReference: {fileID: 749457165}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
