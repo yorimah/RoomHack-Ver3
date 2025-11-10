@@ -141,7 +141,7 @@ public class EffectManager : MonoBehaviour
     {
         while (_effect.activeSelf)
         {
-            Debug.Log("追跡中！ / " + _effect + "  / " + _target);
+            //Debug.Log("追跡中！ / " + _effect + "  / " + _target);
             if (_target != null)
             {
                 _effect.transform.position = _target.transform.position;
