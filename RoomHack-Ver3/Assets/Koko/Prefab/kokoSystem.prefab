@@ -426,13 +426,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraEffectController
       objectReference: {fileID: 0}
-    - target: {fileID: 4711234047745253768, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
+    - target: {fileID: 3582540534951285437, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.101
       objectReference: {fileID: 0}
-    - target: {fileID: 4711234047745253768, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
+    - target: {fileID: 3582540534951285437, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.04159
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711234047745253768, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711234047745253768, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4711234047745253768, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_LocalPosition.z
