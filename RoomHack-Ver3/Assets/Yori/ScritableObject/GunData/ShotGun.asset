@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e71c88a32e5a64dbfa1892ce95088c, type: 3}
-  m_Name: TurretGun
-  m_EditorClassIdentifier: 
-  gunName: 0
-  power: 50
-  rate: 10
-  maxBullet: 0
-  reloadTime: 0
-  reloadTypeBolt: 0
-  bulletSpeed: 25
-  maneuverability: 0
+  m_Name: ShotGun
+  m_EditorClassIdentifier: Assembly-CSharp::GunData
+  gunName: 4
+  power: 30
+  rate: 2
+  maxBullet: 5
+  reloadTime: 2
+  reloadTypeBolt: 1
+  bulletSpeed: 20
+  maneuverability: -0.5
   recoil: 0
-  minDiffusionRate: 0
-  maxDiffusionRate: 0
-  shotBulletNum: 1
+  minDiffusionRate: 10
+  maxDiffusionRate: 15
+  shotBulletNum: 10

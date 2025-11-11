@@ -8,6 +8,8 @@ public enum GunName
     AssuleRifle,
     SniperRifle,
     SubMachineGun,
+    ShotGun,
+    Revolver
 }
 [CreateAssetMenu(menuName = "GunData")]
 public class GunData : ScriptableObject
@@ -23,6 +25,7 @@ public class GunData : ScriptableObject
     [SerializeField] private float recoil;
     [SerializeField] private float minDiffusionRate;
     [SerializeField] private float maxDiffusionRate;
+    [SerializeField] private int shotBulletNum;
     public GunName GunName { get => gunName; }
     public int Power { get => power; }
     public int Rate { get => rate; }
@@ -35,4 +38,5 @@ public class GunData : ScriptableObject
     public float MinDiffusionRate { get => minDiffusionRate; }
     public float MaxDiffusionRate { get => maxDiffusionRate; }
     public float ShotIntervalTime { get => 1f / rate; }
+    public int ShotBulletNum { get => shotBulletNum; }
 }

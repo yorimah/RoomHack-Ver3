@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e71c88a32e5a64dbfa1892ce95088c, type: 3}
   m_Name: HandGun
   m_EditorClassIdentifier: 
+  gunName: 0
   power: 40
   rate: 3
   maxBullet: 10
   reloadTime: 3
+  reloadTypeBolt: 0
   bulletSpeed: 20
   maneuverability: 0
   recoil: 2
   minDiffusionRate: 1
   maxDiffusionRate: 15
+  shotBulletNum: 1

@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e71c88a32e5a64dbfa1892ce95088c, type: 3}
   m_Name: FlySecurityDroneGun
   m_EditorClassIdentifier: 
+  gunName: 0
   power: 30
   rate: 1
-  MaxMagazine: 1
-  reload: 0
+  maxBullet: 0
+  reloadTime: 0
+  reloadTypeBolt: 0
   bulletSpeed: 10
+  maneuverability: 0
+  recoil: 0
+  minDiffusionRate: 0
+  maxDiffusionRate: 0
+  shotBulletNum: 1

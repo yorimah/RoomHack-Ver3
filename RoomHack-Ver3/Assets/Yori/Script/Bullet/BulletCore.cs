@@ -30,11 +30,13 @@ public class BulletCore : MonoBehaviour, IDamageable
     {
         Destroy(gameObject);
     }
+    
     private void Update()
     {
         // タイムスケールが1より大きいならそのままの速度、小さいならGameTimer.Instance.customTimeScale分遅くなる
         rb.linearVelocity = GameTimer.Instance.IsHackTime ? initVel * GameTimer.Instance.GetCustomTimeScale() : initVel;
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<BulletCore>(out var bullet))

@@ -15,6 +15,7 @@ public class AfterImageEffecter : MonoBehaviour
         affterImageSprite = this.GetComponent<SpriteRenderer>().sprite;
         initColor = this.GetComponent<SpriteRenderer>().color;
         initColor.a = 0.5f;
+        affterImageObjects = new GameObject(gameObject.name + "AfferImages");
     }
 
     void Update()

@@ -56,7 +56,7 @@ public class PlayerShot
         shotRange.GetComponent<MeshFilter>().mesh = mesh;
 
         var mr = shotRange.GetComponent<MeshRenderer>();
-        
+
         mr.material = new Material(shotRanageMaterial);
         mr.material.color = new Color(1, 1, 0, 0.3f); // 半透明黄色(仮)
         mr.sortingOrder = 10;
@@ -69,29 +69,28 @@ public class PlayerShot
 
     private void GunFire()
     {
-        GameObject bulletGameObject = Object.Instantiate(bulletPre, player.transform.position, Quaternion.identity);
+        haveGun.BulletUse();
+        diffusionRate += gunData.Recoil;
 
-        Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();
+        for (int i = 0; i < gunData.ShotBulletNum; i++)
+        {
+            float rand = Random.Range(-diffusionRate, diffusionRate);
+            GameObject bulletGameObject = Object.Instantiate(bulletPre, player.transform.position,
+                Quaternion.identity);
 
-        BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
+            Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();
 
-        bulletCore.stoppingPower = gunData.Power;
-        bulletCore.hitStopTime = 0.1f;
-        bulletCore.hitDamegeLayer = hitDamageLayer;
+            BulletCore bulletCore = bulletGameObject.GetComponent<BulletCore>();
 
-
-        float rand = Random.Range(-diffusionRate, diffusionRate);
-
-
-        Vector2 shotDirection = Quaternion.Euler(0, 0, player.transform.eulerAngles.z + rand) * Vector3.up;
-        bulletRigit.linearVelocity = shotDirection * gunData.BulletSpeed;
-        bulletGameObject.transform.up = shotDirection;
+            bulletCore.stoppingPower = gunData.Power;
+            bulletCore.hitStopTime = 0.1f;
+            bulletCore.hitDamegeLayer = hitDamageLayer;
+            bulletGameObject.transform.localScale *= gunData.ShotBulletNum/20;
+            Vector2 shotDirection = Quaternion.Euler(0, 0, player.transform.eulerAngles.z + rand) * Vector3.up;
+            bulletRigit.linearVelocity = shotDirection * gunData.BulletSpeed;
+            bulletGameObject.transform.up = shotDirection;
+        }
     }
-
-
-    private Vector3 mousePosition;
-
-    private Vector3 direction;
 
 
     public void Shot()
@@ -104,7 +103,7 @@ public class PlayerShot
         // マウスの方向に向く
         PlayerRotation();
 
-        // 撃つブレのメッシュ表示
+        // 撃つ向きとブレのメッシュ表示
         ShotRangeView();
 
         diffusionRate = Mathf.Clamp(diffusionRate, gunData.MinDiffusionRate, gunData.MaxDiffusionRate);
@@ -122,8 +121,6 @@ public class PlayerShot
                 if (playerInput.GetOnClick() && haveGun.BulletNow > 0)
                 {
                     GunFire();
-                    haveGun.BulletUse();
-                    diffusionRate += gunData.Recoil;
                     timer = 0;
                     shotSection++;
                 }
@@ -200,8 +197,8 @@ public class PlayerShot
 
     private void PlayerRotation()
     {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = mousePosition - player.transform.position;
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = mousePosition - player.transform.position;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);

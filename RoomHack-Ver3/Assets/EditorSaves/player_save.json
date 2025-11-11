@@ -1,7 +1,7 @@
 {
   "score_Stage": 0,
-  "score_DestoryEnemy": 5,
-  "gunName": 0,
+  "score_DestoryEnemy": 28,
+  "gunName": 4,
   "maxHitPoint": 100,
   "moveSpeed": 5.0,
   "maxRamCapacity": 10.0,
