@@ -85,7 +85,6 @@ public class PlayerShot
             bulletCore.stoppingPower = gunData.Power;
             bulletCore.hitStopTime = 0.1f;
             bulletCore.hitDamegeLayer = hitDamageLayer;
-            bulletGameObject.transform.localScale *= gunData.ShotBulletNum/20;
             Vector2 shotDirection = Quaternion.Euler(0, 0, player.transform.eulerAngles.z + rand) * Vector3.up;
             bulletRigit.linearVelocity = shotDirection * gunData.BulletSpeed;
             bulletGameObject.transform.up = shotDirection;
