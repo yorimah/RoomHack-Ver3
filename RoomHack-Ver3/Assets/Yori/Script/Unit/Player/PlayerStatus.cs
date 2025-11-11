@@ -157,7 +157,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     {
         if (_MaxBullet == 0)
         {
-            Debug.LogError("最大の弾がゼロです！ MaxBullet :" + _MaxBullet);
+            Debug.LogError("最大の弾がゼロです！ MaxBullet :" + _MaxBullet + " GunName :" + GunName.ToString());
         }
         else
         {

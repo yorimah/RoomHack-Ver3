@@ -15,7 +15,7 @@ MonoBehaviour:
   gunName: 3
   power: 40
   rate: 10
-  maxBullet: 0
+  maxBullet: 20
   reloadTime: 3
   reloadTypeBolt: 0
   bulletSpeed: 20

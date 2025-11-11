@@ -33,13 +33,19 @@ public class PlayerCore : MonoBehaviour, IDamageable
     public float MaxHitPoint { get; private set; }
     public float NowHitPoint { get; set; }
     public int hitDamegeLayer { get; private set; } = 1;
+
+    //　セッターや初期化はawakeで行うこと
     public void Awake()
     {
-        playerRigidBody = GetComponent<Rigidbody2D>();
-        playerStateContoller = new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
-            10, gameObject, playerInput, haveGun);
+        playerRigidBody = GetComponent<Rigidbody2D>();       
         MaxHitPoint = getMaxHitPoint.maxHitPoint;
         NowHitPoint = getMaxHitPoint.maxHitPoint;
+    }
+
+    public void Start()
+    {
+        playerStateContoller = new PlayerStateContoller(playerRigidBody, gunData, material, bulletPre,
+           10, gameObject, playerInput, haveGun);
     }
 
     public void Update()
