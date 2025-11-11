@@ -108,6 +108,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 4196412565444808851}
     m_Modifications:
     - target: {fileID: 104994227719486585, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 104994227719486585, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: hackCamera
       value: 
       objectReference: {fileID: 8593524584175221004}
@@ -199,6 +203,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1910609279871365272, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d03f087720cbe8419d7e778c8f790c3, type: 2}
     - target: {fileID: 1994309279567980273, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: cameraPositionController
       value: 
@@ -211,14 +219,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 350
       objectReference: {fileID: 0}
+    - target: {fileID: 4513634002868484273, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d03f087720cbe8419d7e778c8f790c3, type: 2}
+    - target: {fileID: 4932298869728194472, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 8131471068358221887}
     - target: {fileID: 7115736500871607840, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: m_Name
       value: HackManagerCanvasDemo
       objectReference: {fileID: 0}
+    - target: {fileID: 7718322137508568915, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d03f087720cbe8419d7e778c8f790c3, type: 2}
     - target: {fileID: 8220217736563107377, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: cameraPositionController
       value: 
       objectReference: {fileID: 3308171536614540230}
+    - target: {fileID: 8548699377971697637, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d03f087720cbe8419d7e778c8f790c3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -441,6 +465,10 @@ PrefabInstance:
     - target: {fileID: 1601151018137243781, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: orthographic size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837195521502245492, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2457523619027667085, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_Name

@@ -131,10 +131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: YoriSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 2804716411762150223, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4227297991499851073, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1850,18 +1846,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 614548257136591934, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 9d03f087720cbe8419d7e778c8f790c3, type: 2}
-    - target: {fileID: 1401053618233526495, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217592480491097111, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 9d03f087720cbe8419d7e778c8f790c3, type: 2}
     - target: {fileID: 4196412565444808851, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1906,32 +1890,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: kokoSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 6230592468020091662, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1848160427}
-    - target: {fileID: 7252939090035827523, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 9d03f087720cbe8419d7e778c8f790c3, type: 2}
-    - target: {fileID: 8725852306987363317, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 9d03f087720cbe8419d7e778c8f790c3, type: 2}
-    - target: {fileID: 9196244969107260110, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
---- !u!20 &1848160427 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8131471068358221887, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-  m_PrefabInstance: {fileID: 1398904799}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1901513478
 PrefabInstance:
   m_ObjectHideFlags: 0
