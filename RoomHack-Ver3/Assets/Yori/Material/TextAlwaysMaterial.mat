@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Test
-  m_Shader: {fileID: 4800000, guid: 6841a2724ce26ac4db4e5a3344197896, type: 3}
+  m_Name: TextAlwaysMaterial
+  m_Shader: {fileID: 4800000, guid: 9fe42a5be93ede64bb3b0ace5b065fee, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

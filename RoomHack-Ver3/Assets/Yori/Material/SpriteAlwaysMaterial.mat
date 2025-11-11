@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SimpleMaterial
-  m_Shader: {fileID: 4800000, guid: e2fefa1344fea7b4dacdd7ae39b2f258, type: 3}
+  m_Name: SpriteAlwaysMaterial
+  m_Shader: {fileID: 4800000, guid: dec2d6127222f134ba25745f0c929145, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
