@@ -63,7 +63,7 @@ public class ViewerGenarater
     /// 初期は円の視界を生成。
     /// </summary>
     /// <param name="viewerAngle"></param>
-    public void CircleViewerUpdate(float viewerAngle = 360)
+    public void CircleViewerUpdate(Vector3 startRot , float viewerAngle = 360)
     {
         nowViewHackObjects.Clear();
 
@@ -80,7 +80,7 @@ public class ViewerGenarater
                 float diffusionAngle = -halhAngle + (viewerAngle / segment) * i;
 
                 Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
-                Vector3 dir = rot * geneGameObject.transform.up;
+                Vector3 dir = rot * startRot;
 
                 RaycastHit2D wallHit = Physics2D.Raycast(geneGameObject.transform.position, dir,
                     viewDistance, targetLayerMask);

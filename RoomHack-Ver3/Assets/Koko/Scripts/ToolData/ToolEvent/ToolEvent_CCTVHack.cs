@@ -59,8 +59,8 @@ public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
 
     protected override void Execute()
     {
-        halfViewerGenarater.CircleViewerUpdate(60);
-        circleViewerGenarater.CircleViewerUpdate(360);
+        halfViewerGenarater.CircleViewerUpdate(transform.up, 60);
+        circleViewerGenarater.CircleViewerUpdate(transform.up, 360);
         if (!notEnemy)
         {
             if (enemy.died)

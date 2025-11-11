@@ -22,6 +22,6 @@ public class PlayerViewMesh : MonoBehaviour
     }
     private void Update()
     {
-        viewerGenarater.CircleViewerUpdate();
+        viewerGenarater.CircleViewerUpdate(Vector3.one);
     }
 }
