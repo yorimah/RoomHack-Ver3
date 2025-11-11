@@ -115,6 +115,10 @@ PrefabInstance:
       propertyPath: actionCamera
       value: 
       objectReference: {fileID: 8131471068358221887}
+    - target: {fileID: 390032736160352299, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 798387189228875511, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -199,6 +203,14 @@ PrefabInstance:
       propertyPath: cameraPositionController
       value: 
       objectReference: {fileID: 3308171536614540230}
+    - target: {fileID: 2619400136596846740, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 3362018483105126384, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 7115736500871607840, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: m_Name
       value: HackManagerCanvasDemo
@@ -433,14 +445,6 @@ PrefabInstance:
     - target: {fileID: 2457523619027667085, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_Name
       value: CameraEffectController
-      objectReference: {fileID: 0}
-    - target: {fileID: 3582540534951285437, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.101
-      objectReference: {fileID: 0}
-    - target: {fileID: 3582540534951285437, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.04159
       objectReference: {fileID: 0}
     - target: {fileID: 4711234047745253768, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
       propertyPath: m_LocalPosition.x
