@@ -107,6 +107,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4196412565444808851}
     m_Modifications:
+    - target: {fileID: 104994227719486585, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: hackCamera
+      value: 
+      objectReference: {fileID: 8593524584175221004}
+    - target: {fileID: 104994227719486585, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: actionCamera
+      value: 
+      objectReference: {fileID: 8131471068358221887}
     - target: {fileID: 798387189228875511, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -482,5 +490,15 @@ PrefabInstance:
 --- !u!4 &2846571708832026930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4711234047745253768, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
+  m_PrefabInstance: {fileID: 7413109174462640314}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &8131471068358221887 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1601151018137243781, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
+  m_PrefabInstance: {fileID: 7413109174462640314}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &8593524584175221004 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1270844747867572662, guid: 054906c09a29cc144982dea8e33b9928, type: 3}
   m_PrefabInstance: {fileID: 7413109174462640314}
   m_PrefabAsset: {fileID: 0}
