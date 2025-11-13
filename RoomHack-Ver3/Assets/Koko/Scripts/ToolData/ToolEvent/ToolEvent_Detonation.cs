@@ -13,7 +13,7 @@ public class ToolEvent_Detonation : ToolEventBase
     }
 
 
-    public override toolTag thisToolTag { get; set; } = toolTag.Detonation;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.Detonation;
 
     [SerializeField]
     GameObject granadePrefab;

@@ -15,7 +15,7 @@ public class ToolGetSceneManager : MonoBehaviour
     GeneralUpdateText explainText;
 
     [SerializeField, Header("選択肢に出るツールをつっこむべし")]
-    List<toolTag> addToolList = new List<toolTag>();
+    List<ToolTag> addToolList = new List<ToolTag>();
 
     List<ToolUI> toolUIList = new List<ToolUI>();
 

@@ -11,7 +11,7 @@ public class ToolDataBank : ScriptableObject
 [System.Serializable]
 public class ToolData
 {
-    public toolTag toolTag;
+    public ToolTag toolTag;
     public toolType toolType;
     public string toolName;
     public int toolCost;
@@ -25,7 +25,7 @@ public class ToolData
 
 
 
-public enum toolTag
+public enum ToolTag
 {
     none,
     CCTVHack,

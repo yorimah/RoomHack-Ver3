@@ -2,7 +2,7 @@
 
 public class ToolEvent_Accelerate : ToolEventBase
 {
-    public override toolTag thisToolTag { get; set; } = toolTag.Accelerate;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.Accelerate;
 
     protected override void Enter()
     {

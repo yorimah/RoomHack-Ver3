@@ -6,7 +6,7 @@ using UnityEngine;
 // 使わない可能性あり
 public class ToolDeckList : MonoBehaviour
 {
-    public List<toolTag> deckList = new List<toolTag>();
+    public List<ToolTag> deckList = new List<ToolTag>();
 }
 
 ////System.Serializableを設定しないと、データを保持できない(シリアライズできない)ので注意

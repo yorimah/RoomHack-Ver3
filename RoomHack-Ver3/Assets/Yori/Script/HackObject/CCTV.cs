@@ -7,7 +7,7 @@ using UnityEngine;
 public class CCTV : MonoBehaviour, IHackObject
 {
     // ハッキング実装
-    public List<toolTag> canHackToolTag { get; set; } = new List<toolTag>();
+    public List<ToolTag> canHackToolTag { get; set; } = new List<ToolTag>();
     public List<ToolEventBase> nowHackEvent { get; set; } = new List<ToolEventBase>();
 
     public bool CanHack { get; set; } = false;
@@ -40,7 +40,7 @@ public class CCTV : MonoBehaviour, IHackObject
     private void Awake()
     {
         // HackData初期化
-        canHackToolTag = new List<toolTag> { toolTag.CCTVHack };
+        canHackToolTag = new List<ToolTag> { ToolTag.CCTVHack };
     }
 
 

@@ -2,7 +2,7 @@
 
 public class ToolEvent_LightResource : ToolEventBase
 {
-    public override toolTag thisToolTag { get; set; } = toolTag.LightResource;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.LightResource;
 
     protected override void Enter()
     {

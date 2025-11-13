@@ -2,7 +2,7 @@
 
 public class ToolEvent_EdgeRun : ToolEventBase
 {
-    public override toolTag thisToolTag { get; set; } = toolTag.EdgeRun;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.EdgeRun;
 
     protected override void Enter()
     {

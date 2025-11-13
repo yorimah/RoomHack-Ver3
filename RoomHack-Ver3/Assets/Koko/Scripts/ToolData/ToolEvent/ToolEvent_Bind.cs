@@ -11,7 +11,7 @@ public class ToolEvent_Bind : ToolEventBase, IToolEventBase_Target
     }
 
 
-    public override toolTag thisToolTag { get; set; } = toolTag.Bind;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.Bind;
 
     float timer = 0;
     float lifeTime = 5;
