@@ -655,10 +655,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740b3aa3ec4499746ada1635a40d2434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToolGetSceneManager
+  toolGetDataList: {fileID: 11400000, guid: 36645534180ab5f48b3463f0d0624890, type: 2}
+  selectableToolNum: 3
   toolUIPrefab: {fileID: 6729901770542991060, guid: 66a57fb8bf0040b46bbe9ae311756511, type: 3}
   toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
   explainText: {fileID: 1078112843}
-  addToolList: 010000000200000003000000
+  addToolList: 
   sideSpace: 500
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
