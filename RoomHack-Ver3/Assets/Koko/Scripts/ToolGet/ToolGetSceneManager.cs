@@ -58,6 +58,7 @@ public class ToolGetSceneManager : MonoBehaviour
                 {
                     // リストに追加
                     addToolList.Add(dataList[j].toolTag);
+                    // 取得済みのツールをリストから削除
                     dataList.RemoveAt(j);
                     break;
                 }

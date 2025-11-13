@@ -660,7 +660,6 @@ MonoBehaviour:
   toolUIPrefab: {fileID: 6729901770542991060, guid: 66a57fb8bf0040b46bbe9ae311756511, type: 3}
   toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
   explainText: {fileID: 1078112843}
-  addToolList: 
   sideSpace: 500
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
