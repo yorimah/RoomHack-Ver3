@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+[CreateAssetMenu(menuName = "ToolGetDataList")]
+public class ToolGetDataList : ScriptableObject
+{
+    public List<ToolGetData> upGradeCardList = new List<ToolGetData>();
+}
 
 public class ToolGetData : MonoBehaviour
 {
@@ -9,6 +15,6 @@ public class ToolGetData : MonoBehaviour
     public class UpGradeData
     {
         public ToolTag toolTag;
-        public int cardWeight;
+        public int toolWeight;
     }
 }
