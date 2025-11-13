@@ -59,7 +59,7 @@ public class Missile : BombCore, IDamageable
         SeManager.Instance.Play("MissleMove");
 
         // missileエフェクト用
-        effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.MissileFire, this.gameObject, -90);
+        effect = EffectManager.Instance.ActEffect_Trace(EffectManager.EffectType.MissileFire, this.gameObject, -90);
     }
 
     private void Update()

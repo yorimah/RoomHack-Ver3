@@ -6,7 +6,7 @@ public class UITest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            EffectManager.Instance.ActEffect(-10, this.transform.position, 1);
+            EffectManager.Instance.ActEffect_Num(-10, this.transform.position, 1);
         }
     }
 }

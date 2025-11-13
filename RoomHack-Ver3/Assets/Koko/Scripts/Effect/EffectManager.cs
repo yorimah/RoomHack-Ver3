@@ -21,6 +21,7 @@ public class EffectManager : MonoBehaviour
         EffectManagerInit();
     }
 
+    // エフェクト種類、下のリストと対応するように
     public enum EffectType
     {
         HitDamage,
@@ -101,7 +102,7 @@ public class EffectManager : MonoBehaviour
     }
 
     // エフェクト制限時間版
-    public GameObject ActEffect(EffectType _effectType, Vector2 _pos, float _rot, bool _isScaleTime, float _lifeTime)
+    public GameObject ActEffect_Time(EffectType _effectType, Vector2 _pos, float _rot, bool _isScaleTime, float _lifeTime)
     {
         GameObject effect = ActEffect(_effectType, _pos, _rot, _isScaleTime);
         StartCoroutine(EffectLifeTime(effect, _lifeTime));
@@ -109,7 +110,7 @@ public class EffectManager : MonoBehaviour
     }
 
     // エフェクト追従版
-    public GameObject ActEffect(EffectType _effectType, GameObject _target, float _rotOffset)
+    public GameObject ActEffect_Trace(EffectType _effectType, GameObject _target, float _rotOffset)
     {
         GameObject effect = ActEffect(_effectType, _target.transform.position, _target.transform.localEulerAngles.z, true);
         StartCoroutine(EffectPositionTrace(effect, _target, _rotOffset));
@@ -170,7 +171,7 @@ public class EffectManager : MonoBehaviour
     List<GameObject> numPoolList = new List<GameObject>();
 
     // 数値エフェクト起動
-    public GameObject ActEffect(int _num, Vector2 _pos, float _lifeTime)
+    public GameObject ActEffect_Num(int _num, Vector2 _pos, float _lifeTime)
     {
         useableEffect = null;
 
