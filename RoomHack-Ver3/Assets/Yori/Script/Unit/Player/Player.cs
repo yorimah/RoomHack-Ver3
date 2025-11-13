@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IHackObject
     public int hitDamegeLayer { get; set; } = 1;
 
     // ハッキング初期化
-    public List<toolTag> canHackToolTag { get; set; }
+    public List<ToolTag> canHackToolTag { get; set; }
     public List<ToolEventBase> nowHackEvent { get; set; }
     public bool CanHack { get; set; } = true;
 

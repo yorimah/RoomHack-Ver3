@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ToolEvent_None : ToolEventBase
 {
-    public override toolTag thisToolTag { get;  set; } = toolTag.none;
+    public override ToolTag thisToolTag { get;  set; } = ToolTag.none;
 
     protected override void Enter()
     {

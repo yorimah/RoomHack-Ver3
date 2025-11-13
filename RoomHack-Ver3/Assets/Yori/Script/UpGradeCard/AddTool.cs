@@ -4,7 +4,7 @@ public class AddTool : MonoBehaviour, ICardType
 {
     
     [SerializeField, Header("追加するカードの種類")]
-    private toolTag toolTag;
+    private ToolTag toolTag;
     PlayerSaveData data;
     public int cardWeight { get; set; } = 10;
     public int cardLevel { get; set; } = 1;

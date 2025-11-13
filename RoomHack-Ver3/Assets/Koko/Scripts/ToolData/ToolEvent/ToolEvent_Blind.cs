@@ -11,7 +11,7 @@ public class ToolEvent_Blind : ToolEventBase, IToolEventBase_Target
     }
 
 
-    public override toolTag thisToolTag { get; set; } = toolTag.Blind;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.Blind;
 
     float timer = 0;
     float lifeTime = 5;
@@ -25,7 +25,7 @@ public class ToolEvent_Blind : ToolEventBase, IToolEventBase_Target
     {
         EventAdd(hackTargetObject);
 
-        effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.Bad, this.gameObject, 0);
+        effect = EffectManager.Instance.ActEffect_Trace(EffectManager.EffectType.Bad, this.gameObject, 0);
 
         targetData = hackTargetObject.GetComponent<Enemy>();
         startInterval = targetData.shotIntervalTime;

@@ -87,7 +87,7 @@ public class ToolManager : MonoBehaviour
             // 手札チェック
             for (int i = 0; i < deckSystem.toolHand.Count; i++)
             {
-                toolTag hand = deckSystem.toolHand[i];
+                ToolTag hand = deckSystem.toolHand[i];
 
                 // コストが足りるかチェック
                 handCostList[i] = false;
@@ -147,10 +147,10 @@ public class ToolManager : MonoBehaviour
 
     public void DeckDraw()
     {
-        toolTag drawTool = deckSystem.DeckDraw();
+        ToolTag drawTool = deckSystem.DeckDraw();
 
         // デッキ切れチェック
-        if (drawTool != toolTag.none)
+        if (drawTool != ToolTag.none)
         {
 
             toolUIController.DeckDraw(drawTool);
@@ -198,17 +198,17 @@ public class ToolManager : MonoBehaviour
         toolUIController.TrashRefresh();
     }
 
-    public List<toolTag> GetDeckData()
+    public List<ToolTag> GetDeckData()
     {
         return deckSystem.toolDeck;
     }
 
-    public List<toolTag> GetHandData()
+    public List<ToolTag> GetHandData()
     {
         return deckSystem.toolHand;
     }
 
-    public List<toolTag> GetTrashData()
+    public List<ToolTag> GetTrashData()
     {
         return deckSystem.toolTrash;
     }

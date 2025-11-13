@@ -12,7 +12,7 @@ public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
     }
 
 
-    public override toolTag thisToolTag { get; set; } = toolTag.CCTVHack;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.CCTVHack;
 
     [SerializeField]
     private float diffusionRate = 60;

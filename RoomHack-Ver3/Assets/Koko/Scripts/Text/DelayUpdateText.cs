@@ -4,6 +4,9 @@ using System.Collections;
 
 public class DelayUpdateText : MonoBehaviour
 {
+    // 試作品
+    // GeneralUpdateTextを使ってね
+
     [SerializeField]
     float delay = 0;
 

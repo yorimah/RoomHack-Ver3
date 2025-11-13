@@ -3,7 +3,7 @@
 public class ToolEvent_FastReload : ToolEventBase
 {
 
-    public override toolTag thisToolTag { get; set; } = toolTag.FastReload;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.FastReload;
 
     protected override void Enter()
     {

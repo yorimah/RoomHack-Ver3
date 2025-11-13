@@ -73,7 +73,7 @@ public class ToolUIController : MonoBehaviour
         signToolUI.GetComponent<RectTransform>().localPosition = actDeckPos;
         deckSign = signToolUI.GetComponent<ToolUI>();
         deckSign.toMovePosition = actDeckPos;
-        deckSign.thisTool = toolTag.none;
+        deckSign.thisTool = ToolTag.none;
         deckSign.isOpen = false;
 
         // トラッシュ置き場
@@ -81,7 +81,7 @@ public class ToolUIController : MonoBehaviour
         signToolUI.GetComponent<RectTransform>().localPosition = actTrashPos;
         trashSign = signToolUI.GetComponent<ToolUI>();
         trashSign.toMovePosition = actTrashPos;
-        trashSign.thisTool = toolTag.none;
+        trashSign.thisTool = ToolTag.none;
         trashSign.isOpen = false;
 
         useableRam.IsRebootSet(true);
@@ -134,7 +134,7 @@ public class ToolUIController : MonoBehaviour
         HandControl();
     }
 
-    ToolUI ToolUIGenerate(Vector2 _rectPos, toolTag _thisTool, bool _isOpen)
+    ToolUI ToolUIGenerate(Vector2 _rectPos, ToolTag _thisTool, bool _isOpen)
     {
         GameObject newToolUIObject = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
         newToolUIObject.GetComponent<RectTransform>().localPosition = _rectPos;
@@ -161,7 +161,7 @@ public class ToolUIController : MonoBehaviour
         trashToolUIList.Clear();
     }
 
-    public void DeckDraw(toolTag drawTool)
+    public void DeckDraw(ToolTag drawTool)
     {
         handToolUIList.Add(ToolUIGenerate(nowDeckPos, drawTool, false));
 

@@ -7,13 +7,13 @@ public class DeckSystem : MonoBehaviour
     ToolDataBank toolDataBank;
 
     [SerializeField, Header("saveから拾ったリスト")]
-    List<toolTag> setList = new List<toolTag>();
+    List<ToolTag> setList = new List<ToolTag>();
 
-    public List<toolTag> toolDeck = new List<toolTag>();
+    public List<ToolTag> toolDeck = new List<ToolTag>();
 
-    public List<toolTag> toolHand = new List<toolTag>();
+    public List<ToolTag> toolHand = new List<ToolTag>();
 
-    public List<toolTag> toolTrash = new List<toolTag>();
+    public List<ToolTag> toolTrash = new List<ToolTag>();
 
     //[SerializeField]
     //public int handSize = 5;
@@ -34,9 +34,9 @@ public class DeckSystem : MonoBehaviour
         DeckGenerate();
     }
 
-    toolTag ToolMove(List<toolTag> _fromToolList, int _index, List<toolTag> _toToolList)
+    ToolTag ToolMove(List<ToolTag> _fromToolList, int _index, List<ToolTag> _toToolList)
     {
-        toolTag moveTool = toolTag.none;
+        ToolTag moveTool = ToolTag.none;
 
         if (_fromToolList.Count > _index)
         {
@@ -52,9 +52,9 @@ public class DeckSystem : MonoBehaviour
         return moveTool;
     }
 
-    public void Shuffle(List<toolTag> _tools)
+    public void Shuffle(List<ToolTag> _tools)
     {
-        List<toolTag> processingList = new List<toolTag>();
+        List<ToolTag> processingList = new List<ToolTag>();
 
         for (int i = 0; i < _tools.Count; i++)
         {
@@ -84,9 +84,9 @@ public class DeckSystem : MonoBehaviour
         Shuffle(toolDeck);
     }
 
-    public toolTag DeckDraw()
+    public ToolTag DeckDraw()
     {
-        toolTag drawTool;
+        ToolTag drawTool;
 
         //if (handSize <= toolHand.Count)
         //{
@@ -98,7 +98,7 @@ public class DeckSystem : MonoBehaviour
             if (toolDeck.Count <= 0)
             {
                 //Debug.Log("デッキ切れ");
-                drawTool = toolTag.none;
+                drawTool = ToolTag.none;
             }
             else
             {
@@ -110,7 +110,7 @@ public class DeckSystem : MonoBehaviour
         return drawTool;
     }
 
-    public toolTag HandTrash(int _index)
+    public ToolTag HandTrash(int _index)
     {
         //toolTag trashTool;
 
@@ -130,7 +130,7 @@ public class DeckSystem : MonoBehaviour
         return ToolMove(toolHand, _index, toolTrash);
     }
 
-    public toolTag HandPlay(int _index, GameObject _target)
+    public ToolTag HandPlay(int _index, GameObject _target)
     {
         //toolTag playTool;
 
@@ -150,7 +150,7 @@ public class DeckSystem : MonoBehaviour
 
         //return playTool;
 
-        toolTag playTool = toolHand[_index];
+        ToolTag playTool = toolHand[_index];
 
         //if (playTool != toolTag.none)
         {
@@ -165,22 +165,22 @@ public class DeckSystem : MonoBehaviour
         return playTool;
     }
 
-    public toolType ReturnToolType(toolTag _tool)
+    public toolType ReturnToolType(ToolTag _tool)
     {
         return toolDataBank.toolDataList[(int)_tool].toolType;
     }
 
-    public int ReturnToolCost(toolTag _tool)
+    public int ReturnToolCost(ToolTag _tool)
     {
         return toolDataBank.toolDataList[(int)_tool].toolCost;
     }
 
-    public string ReturnToolText(toolTag _tool)
+    public string ReturnToolText(ToolTag _tool)
     {
         return toolDataBank.toolDataList[(int)_tool].toolText;
     }
 
-    public bool ReturnToolNeedTarget(toolTag _tool)
+    public bool ReturnToolNeedTarget(ToolTag _tool)
     {
         if (toolDataBank.toolDataList[(int)_tool].toolEvent.TryGetComponent<IToolEventBase_Target>(out var toolEventBase_Target))
         {
@@ -192,7 +192,7 @@ public class DeckSystem : MonoBehaviour
         }
     }
 
-    public void ToolCostUse(toolTag _tool)
+    public void ToolCostUse(ToolTag _tool)
     {
         // ダブルでこすとがつかえるかチェック
         float ram = useableRam.RamNow - toolDataBank.toolDataList[(int)_tool].toolCost;
@@ -207,9 +207,9 @@ public class DeckSystem : MonoBehaviour
         }
     }
 
-    public List<toolTag> IntToDeck(List<int> _list)
+    public List<ToolTag> IntToDeck(List<int> _list)
     {
-        List<toolTag> toolDeckList = new List<toolTag>();
+        List<ToolTag> toolDeckList = new List<ToolTag>();
 
         for (int i = 0; i < _list.Count; i++)
         {

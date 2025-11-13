@@ -11,7 +11,7 @@ public class ToolEvent_Bind : ToolEventBase, IToolEventBase_Target
     }
 
 
-    public override toolTag thisToolTag { get; set; } = toolTag.Bind;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.Bind;
 
     float timer = 0;
     float lifeTime = 5;
@@ -26,7 +26,7 @@ public class ToolEvent_Bind : ToolEventBase, IToolEventBase_Target
         // 開始処理
         EventAdd(hackTargetObject);
 
-        effect = EffectManager.Instance.ActEffect(EffectManager.EffectType.Bad, this.gameObject, 0);
+        effect = EffectManager.Instance.ActEffect_Trace(EffectManager.EffectType.Bad, this.gameObject, 0);
 
         targetData = hackTargetObject.GetComponent<Enemy>();
         startSpeed = targetData.moveSpeed;

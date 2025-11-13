@@ -3,7 +3,7 @@
 public abstract class ToolEventBase : MonoBehaviour
 {
     [HideInInspector]
-    public abstract toolTag thisToolTag { get; set; }
+    public abstract ToolTag thisToolTag { get; set; }
 
     //public GameObject hackTargetObject;
 

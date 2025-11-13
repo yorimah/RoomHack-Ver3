@@ -2,7 +2,7 @@
 
 public class ToolEvent_InstantMemory : ToolEventBase
 {
-    public override toolTag thisToolTag { get; set; } = toolTag.InstantMemory;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.InstantMemory;
 
     [SerializeField, Header("Ram回復量")]
     int AddRam = 3;
