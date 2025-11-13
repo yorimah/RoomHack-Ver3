@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c55d81c40fa82472f9f268c7751f2afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugMode: 1
-  MaxAudioSources: 10
+  DebugMode: 0
+  MaxAudioSources: 50
   Volume: 1
