@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: testToolGetList
+  m_EditorClassIdentifier: Assembly-CSharp::ToolGetDataList
+  dataList:
+  - toolTag: 1
+    toolWeight: 5
+  - toolTag: 2
+    toolWeight: 5
+  - toolTag: 3
+    toolWeight: 5
+  - toolTag: 4
+    toolWeight: 5
+  - toolTag: 5
+    toolWeight: 5

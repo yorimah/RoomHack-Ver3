@@ -5,16 +5,21 @@ using System.Collections.Generic;
 
 public class ToolGetSceneManager : MonoBehaviour
 {
+    [SerializeField, Header("ツールのデータ入力、外部から入力されたし")]
+    public ToolGetDataList toolGetDataList;
+
+    [SerializeField, Header("選択肢の数")]
+    int selectableToolNum = 3;
+
     [SerializeField, Header("ToolUIPrefabをアタッチ")]
     ToolUI toolUIPrefab;
 
-    [SerializeField, Header("tooldataアタッチ")]
+    [SerializeField, Header("toolDataBankアタッチ")]
     ToolDataBank toolDataBank;
 
     [SerializeField, Header("textアタッチ")]
     GeneralUpdateText explainText;
 
-    [SerializeField, Header("選択肢に出るツールをつっこむべし")]
     List<ToolTag> addToolList = new List<ToolTag>();
 
     List<ToolUI> toolUIList = new List<ToolUI>();
@@ -26,6 +31,43 @@ public class ToolGetSceneManager : MonoBehaviour
 
     private void Start()
     {
+        // ランダムなtoolをリストに入力、重複しない
+        List<ToolGetData> dataList = new List<ToolGetData>();
+        dataList.AddRange(toolGetDataList.dataList);
+
+        for (int i = 0; i < selectableToolNum; i++)
+        {
+            // 全体値を決定
+            int totalWeight = 0;
+            for (int j = 0; j < dataList.Count; j++)
+            {
+                totalWeight += dataList[j].toolWeight;
+            }
+            //Debug.Log(totalWeight);
+
+            // ランダムの値を生成
+            int rand = Random.Range(1, totalWeight);
+            //Debug.Log(rand);
+
+            // ランダムな値に該当するtoolを決定
+            int nowWeight = 0;
+            for (int j = 0; j < dataList.Count; j++)
+            {
+                nowWeight += dataList[j].toolWeight;
+                if (nowWeight >= rand)
+                {
+                    // リストに追加
+                    addToolList.Add(dataList[j].toolTag);
+                    // 取得済みのツールをリストから削除
+                    dataList.RemoveAt(j);
+                    break;
+                }
+            }
+            //Debug.Log(nowWeight);
+        }
+
+
+        // toolUI生成
         for (int i = 0; i < addToolList.Count; i++)
         {
             ToolUI instanceToolUI = Instantiate(toolUIPrefab, this.transform.position, Quaternion.identity, this.transform);
@@ -55,6 +97,7 @@ public class ToolGetSceneManager : MonoBehaviour
                     toolUIList[i].toScale = new Vector2(2, 2);
                     explainText.inputText = toolDataBank.toolDataList[(int)toolUIList[i].thisTool].toolText;
 
+                    // 選択クリック
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         isSelected = true;
@@ -69,6 +112,7 @@ public class ToolGetSceneManager : MonoBehaviour
         }
     }
 
+    // 選択後の演出
     IEnumerator ToolSelected(ToolUI _toolUI)
     {
         // 取らなかったやつ移動
