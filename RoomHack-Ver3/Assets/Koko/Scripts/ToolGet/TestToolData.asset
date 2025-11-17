@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: testToolGetList
+  m_Name: TestToolData
   m_EditorClassIdentifier: Assembly-CSharp::ToolGetDataList
   dataList:
   - toolTag: 1
-    toolWeight: 5
+    toolWeight: 1
   - toolTag: 2
-    toolWeight: 5
+    toolWeight: 1
   - toolTag: 3
-    toolWeight: 5
+    toolWeight: 1
   - toolTag: 4
-    toolWeight: 5
+    toolWeight: 10
   - toolTag: 5
-    toolWeight: 5
+    toolWeight: 10
