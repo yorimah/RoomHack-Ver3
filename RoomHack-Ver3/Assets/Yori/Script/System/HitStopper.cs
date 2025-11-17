@@ -23,6 +23,13 @@ public class HitStopper : MonoBehaviour
     {
         GameTimer.Instance.SetCustumTimeScale(0);
         yield return new WaitForSecondsRealtime(duration);
-        GameTimer.Instance.SetCustumTimeScale(GameTimer.Instance.GetCustomTimeScale());
+        if (GameTimer.Instance.IsHackTime)
+        {
+            GameTimer.Instance.SetHackModeTimeScale();
+        }
+        else
+        {
+            GameTimer.Instance.SetAcitionModeTimeScale();
+        }
     }
 }
