@@ -4,7 +4,7 @@ public class WindowMove : MonoBehaviour
 {
     Vector3 mouseStartPos;
     Vector3 cameraStartPos;
-
+    public bool canDrag;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -12,29 +12,30 @@ public class WindowMove : MonoBehaviour
             // マウスドラッグ初期設定
             mouseStartPos = Input.mousePosition;
             cameraStartPos = GetComponent<RectTransform>().position;
-
+            GetMousePositionObject();
         }
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) & canDrag)
         {
-
             Vector3 mouseVec = Input.mousePosition - mouseStartPos;
-            Debug.Log(mouseVec);
-            GetComponent<RectTransform>().position = cameraStartPos + mouseVec/100;
+            GetComponent<RectTransform>().position = cameraStartPos + mouseVec / 100;
+        }
+        else
+        {
+            canDrag = false;
         }
     }
 
-    GameObject GetMousePositionObject()
+    private void GetMousePositionObject()
     {
-        GameObject obj = null;
-
         // レイ射出
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 10.0f))
-        {
-            Debug.Log(hit.point);
-        }
+        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
 
-        return obj;
+        foreach (RaycastHit2D hit in hitsss)
+        {
+            if (hit.collider.TryGetComponent<WindowMove>(out var moveWindow))
+            {
+                moveWindow.canDrag = true;
+            }
+        }
     }
 }
