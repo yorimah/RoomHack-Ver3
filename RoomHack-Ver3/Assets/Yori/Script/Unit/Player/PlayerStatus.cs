@@ -12,7 +12,7 @@ enum SpecialAction
 
 public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPosition,
     IGetPlayerDie, ISetPlayerDied, IGetMaxHitPoint, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
-    IStatusSave,IRelicStatusEffect
+    IStatusSave, IRelicStatusEffect
 {
     public int ScoreDestroy { get; private set; }
     public int BulletMax { get; private set; }
@@ -106,7 +106,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
     public void RamUse(float useRam)
     {
-        if (0 >= RamNow - useRam)
+        if (0 > RamNow - useRam)
         {
             RamNow = 0;
             Debug.LogError("使える数より多いRAMを使おうとしてるよ！");
@@ -121,7 +121,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     {
         float ram = RamNow + addRam;
         // 上限、下限を超えないかチェック
-        if (ram <= RamCapacity && ram >= 0)
+        if (ram < RamCapacity && ram > 0)
         {
             RamNow += addRam;
         }
@@ -215,11 +215,13 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         return ScoreDestroy;
     }
 
-    public void MovePlus(int plusNum) {
+    public void MovePlus(int plusNum)
+    {
         MoveSpeed += plusNum;
     }
 
-    public void RamHeal(int healNum) {
+    public void RamHeal(int healNum)
+    {
         RamChange(healNum);
     }
     public void DeckDraw()
@@ -326,7 +328,8 @@ public interface IStatusSave
     public PlayerSaveData playerSave();
 }
 
-public interface IRelicStatusEffect{
+public interface IRelicStatusEffect
+{
     public void MovePlus(int moveSpeedPlus);
     public void RamHeal(int ramHeal);
     public void DeckDraw();
