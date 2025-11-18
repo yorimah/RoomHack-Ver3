@@ -95,7 +95,7 @@ public class ViewerGenarater
                     // 何もなければ円周上の点
                     vertices[i + 1] = geneGameObject.transform.position + dir * viewDistance;
                 }
-                RaycastHit2D[] hackHits = Physics2D.RaycastAll(geneGameObject.transform.position + dir.normalized / 2, dir,
+                RaycastHit2D[] hackHits = Physics2D.RaycastAll(geneGameObject.transform.position, dir,
                     viewDistance);
                 foreach (var hackHit in hackHits)
                 {
