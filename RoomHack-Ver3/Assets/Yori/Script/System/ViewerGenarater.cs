@@ -29,7 +29,7 @@ public class ViewerGenarater
     /// <param name="_segment"></param>
     /// <param name="_viewDistance"></param>
     public ViewerGenarater(GameObject viewerPrefab, GameObject _geneGameObject, LayerMask _targetLayerMask,
-        int _segment = 360, float _viewDistance = 20f)
+        int _segment = 720, float _viewDistance = 20f)
     {
         geneGameObject = _geneGameObject;
 
@@ -63,7 +63,7 @@ public class ViewerGenarater
     /// 初期は円の視界を生成。
     /// </summary>
     /// <param name="viewerAngle"></param>
-    public void CircleViewerUpdate(Vector3 startRot , float viewerAngle = 360)
+    public void CircleViewerUpdate(Vector3 startRot, float viewerAngle = 360)
     {
         nowViewHackObjects.Clear();
 
@@ -95,20 +95,24 @@ public class ViewerGenarater
                     // 何もなければ円周上の点
                     vertices[i + 1] = geneGameObject.transform.position + dir * viewDistance;
                 }
-                RaycastHit2D hackHit = Physics2D.Raycast(geneGameObject.transform.position + dir.normalized / 2, dir,
+                RaycastHit2D[] hackHits = Physics2D.RaycastAll(geneGameObject.transform.position, dir,
                     viewDistance);
-                if (hackHit.collider != null)
+                foreach (var hackHit in hackHits)
                 {
-                    // 見つけたリストに入ってなかったら見つけたリストぶち込む
-                    if (hackHit.collider.TryGetComponent<IHackObject>(out var hackObject))
+                    if (hackHit.collider != null)
                     {
-                        if (!nowViewHackObjects.Contains(hackObject))
+                        // 見つけたリストに入ってなかったら見つけたリストぶち込む
+                        if (hackHit.collider.TryGetComponent<IHackObject>(out var hackObject))
                         {
-                            nowViewHackObjects.Add(hackObject);
-                            hackObject.CanHack = true;
+                            if (!nowViewHackObjects.Contains(hackObject))
+                            {
+                                nowViewHackObjects.Add(hackObject);
+                                hackObject.CanHack = true;
+                            }
                         }
                     }
                 }
+
                 if (i < segment)
                 {
                     int start = i * 3;
