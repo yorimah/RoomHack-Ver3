@@ -43,7 +43,7 @@ public class ToolEvent_Bind : ToolEventBase, IToolEventBase_Target
 
         // 終了条件
         timer -= GameTimer.Instance.GetScaledDeltaTime();
-        if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
+        if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.isDead))
         {
             EventEnd();
         }

@@ -51,7 +51,7 @@ public class ToolEvent_OverHeat : ToolEventBase, IToolEventBase_Target
 
         // 終了設定
         timer -= GameTimer.Instance.GetScaledDeltaTime();
-        if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.died))
+        if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.isDead))
         {
             
             effect.GetComponent<ParticleSystem>().Stop();

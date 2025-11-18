@@ -63,7 +63,7 @@ public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
         circleViewerGenarater.CircleViewerUpdate(transform.up, 360);
         if (!notEnemy)
         {
-            if (enemy.died)
+            if (enemy.isDead)
             {
                 EventEnd();
             }

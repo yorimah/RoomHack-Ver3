@@ -11,8 +11,9 @@ enum SpecialAction
 }
 
 public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPosition,
-    IGetPlayerDie, ISetPlayerDied, IGetMaxHitPoint, IHaveGun
+    IGetPlayerDie, ISetPlayerDied, IGetMaxHitPoint, IHaveGun, IGetPlayerScore, ISetScoreDestroy, IStatusSave
 {
+    public int ScoreDestroy { get; private set; }
     public int BulletMax { get; private set; }
 
     public int BulletNow { get; private set; }
@@ -56,10 +57,10 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     {
         PlayerPosition = transform.position;
     }
-
+    PlayerSaveData saveData;
     public PlayerStatus()
     {
-        PlayerSaveData saveData = SaveManager.Instance.Load();
+        saveData = SaveManager.Instance.Load();
 
         // HP初期化
         maxHitPoint = saveData.maxHitPoint;
@@ -78,6 +79,28 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
         // 銃関連初期化
         GunName = saveData.gunName;
+
+        ScoreDestroy = saveData.score_DestoryEnemy;
+    }
+
+    public PlayerSaveData playerSave()
+    {
+        // HP初期化
+        saveData.maxHitPoint = maxHitPoint;
+
+        // Hack関連初期化
+        saveData.maxRamCapacity = RamCapacity;
+        saveData.ramRecovery = RamCapacity;
+        saveData.maxHandSize = HandMaxSize;
+        saveData.deckList = DeckList;
+
+        saveData.moveSpeed = MoveSpeed;
+
+        // 銃関連初期化
+        saveData.gunName = GunName;
+
+        saveData.score_DestoryEnemy = ScoreDestroy;
+        return saveData;
     }
 
     public void RamUse(float useRam)
@@ -151,8 +174,6 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         }
     }
 
-
-
     public void BulletSet(int _MaxBullet)
     {
         if (_MaxBullet == 0)
@@ -181,6 +202,16 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     public void BulletResume()
     {
         BulletNow = 0;
+    }
+
+    public void AddScoreDestroy(int addScore)
+    {
+        ScoreDestroy += addScore;
+    }
+
+    public int GetDestroyScore()
+    {
+        return ScoreDestroy;
     }
 }
 
@@ -260,4 +291,23 @@ public interface IGetPlayerDie
 public interface ISetPlayerDied
 {
     public void DieSet();
+}
+
+public interface IGetPlayerScore
+{
+
+    public int GetDestroyScore();
+}
+
+public interface ISetScoreDestroy
+{
+
+    public int ScoreDestroy { get; }
+
+    public void AddScoreDestroy(int addScore);
+}
+
+public interface IStatusSave
+{
+    public PlayerSaveData playerSave();
 }

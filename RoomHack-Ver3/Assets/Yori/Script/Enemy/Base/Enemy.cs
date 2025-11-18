@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     [SerializeField, Header("弾")]
     public GameObject bulletObject;
     // 死亡フラグ
-    public bool died = false;
+    public bool isDead = false;
 
     public float shotIntervalTime;
 
@@ -79,6 +79,9 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public Vector3 PlayerPosition { get { return readOnlyPlayerPoision.PlayerPosition; } }
 
     public IPosition getIPosition { get { return readOnlyPlayerPoision; } }
+
+    [Inject]
+    ISetScoreDestroy setScoreDestroy;
 
     public void Awake()
     {
@@ -116,7 +119,9 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     public void Die()
     {
-        died = true;
+        setScoreDestroy.AddScoreDestroy(1);
+        //setEnemeyList.EnemyListRemove(this);
+        isDead = true;
         ChangeState(EnemyStateType.Die);
     }
 
