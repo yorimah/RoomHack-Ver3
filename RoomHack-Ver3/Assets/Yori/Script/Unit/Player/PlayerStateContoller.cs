@@ -64,7 +64,7 @@ public class PlayerStateContoller
 
     public void ChangeState(PlayerStateType type)
     {
-        Debug.Log("ステートを" + type.ToString() + "に変更！");
+        //Debug.Log("ステートを" + type.ToString() + "に変更！");
         currentState?.Exit();
         currentState = states[type];
         currentState?.Enter();
