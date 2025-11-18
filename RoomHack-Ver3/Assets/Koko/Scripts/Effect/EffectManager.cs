@@ -38,7 +38,6 @@ public class EffectManager : MonoBehaviour
     GameObject[] effectPrefab;
 
     // 各エフェクト毎にList管理
-    [SerializeField]
     List<List<GameObject>> poolList = new List<List<GameObject>>();
     GameObject useableEffect;
 

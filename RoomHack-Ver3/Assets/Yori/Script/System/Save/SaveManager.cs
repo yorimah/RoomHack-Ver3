@@ -73,7 +73,7 @@ public class SaveManager
             maxHitPoint = 100,
             moveSpeed = 5,
             maxRamCapacity = 10,
-            ramRecovery = 1,
+            ramRecovery = 0.01f, //実質廃止
             maxHandSize = 5,
             deckList = new List<int>
             {

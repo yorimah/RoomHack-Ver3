@@ -44,5 +44,8 @@ TagManager:
   - name: playerView
     uniqueID: 995719265
     locked: 0
+  - name: EffectLayer
+    uniqueID: 4102097855
+    locked: 0
   m_RenderingLayers:
   - Default

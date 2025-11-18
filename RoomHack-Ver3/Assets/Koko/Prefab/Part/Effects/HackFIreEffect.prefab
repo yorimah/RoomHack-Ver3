@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4186131261355189398}
   - component: {fileID: 5531788893526613368}
   m_Layer: 10
-  m_Name: HackFireEffect
+  m_Name: HackFIreEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4803,7 +4803,7 @@ ParticleSystemRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
