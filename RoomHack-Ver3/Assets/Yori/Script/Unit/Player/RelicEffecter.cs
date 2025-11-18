@@ -17,7 +17,10 @@ public class RelicEffecter : MonoBehaviour
     {
         foreach (var item in relicEffecters)
         {
-            item.RelicEffect();
+            if (item.RelicEffectTrriger())
+            {
+                item.RelicEffect();
+            }
         }
     }
 }
@@ -35,18 +38,18 @@ public class DestroyerEffectBase : IRelicEffecter
 {
     IGetPlayerScore getScore;
     int nowScore;
+
+    IRelicStatusEffect relicStatusEffect;
     public DestroyerEffectBase(IGetPlayerScore _getScore)
     {
         getScore = _getScore;
+        nowScore = getScore.GetDestroyScore();
     }
     public string relicName { get; private set; }
     public bool canUse { get; private set; }
     public virtual void RelicEffect()
     {
-        if (RelicEffectTrriger())
-        {
-
-        }
+        Debug.Log("敵が死んだから起動したよ");
     }
     public bool RelicEffectTrriger()
     {

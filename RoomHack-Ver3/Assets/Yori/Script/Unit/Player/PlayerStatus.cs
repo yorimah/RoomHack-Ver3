@@ -11,7 +11,8 @@ enum SpecialAction
 }
 
 public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPosition,
-    IGetPlayerDie, ISetPlayerDied, IGetMaxHitPoint, IHaveGun, IGetPlayerScore, ISetScoreDestroy, IStatusSave
+    IGetPlayerDie, ISetPlayerDied, IGetMaxHitPoint, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
+    IStatusSave,IRelicStatusEffect
 {
     public int ScoreDestroy { get; private set; }
     public int BulletMax { get; private set; }
@@ -44,7 +45,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
     public float RebootTimer { get; private set; }
 
-    public float MoveSpeed { get; }
+    public float MoveSpeed { get; private set; }
 
     public List<int> DeckList { get; private set; }
 
@@ -213,6 +214,19 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     {
         return ScoreDestroy;
     }
+
+    public void MovePlus(int plusNum) {
+        MoveSpeed += plusNum;
+    }
+
+    public void RamHeal(int healNum) {
+        RamChange(healNum);
+    }
+    public void DeckDraw()
+    {
+        Debug.Log("ドロー！");
+    }
+
 }
 
 public interface IGetMaxHitPoint
@@ -310,4 +324,10 @@ public interface ISetScoreDestroy
 public interface IStatusSave
 {
     public PlayerSaveData playerSave();
+}
+
+public interface IRelicStatusEffect{
+    public void MovePlus(int moveSpeedPlus);
+    public void RamHeal(int ramHeal);
+    public void DeckDraw();
 }
