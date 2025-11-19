@@ -12,8 +12,11 @@ enum SpecialAction
 
 public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPosition,
     IGetPlayerDie, ISetPlayerDied, IGetMaxHitPoint, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
-    IStatusSave, IRelicStatusEffect
+    IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList
 {
+    public List<int> relicEffecters { get; private set; }
+
+
     public int ScoreDestroy { get; private set; }
     public int BulletMax { get; private set; }
 
@@ -82,6 +85,8 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         GunName = saveData.gunName;
 
         ScoreDestroy = saveData.score_DestoryEnemy;
+
+        relicEffecters = saveData.relicEffecters;
     }
 
     public PlayerSaveData playerSave()
@@ -101,6 +106,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         saveData.gunName = GunName;
 
         saveData.score_DestoryEnemy = ScoreDestroy;
+        saveData.relicEffecters = relicEffecters;
         return saveData;
     }
 
@@ -228,7 +234,15 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     {
         Debug.Log("ドロー！");
     }
+    public void AddRelic(RelicName relicEffecter)
+    {
+        relicEffecters.Add((int)relicEffecter);
+    }
 
+    public void RemoveRelic(RelicName relicEffecter)
+    {
+        relicEffecters.Remove((int)relicEffecter);
+    }
 }
 
 public interface IGetMaxHitPoint
@@ -333,4 +347,16 @@ public interface IRelicStatusEffect
     public void MovePlus(int moveSpeedPlus);
     public void RamHeal(int ramHeal);
     public void DeckDraw();
+}
+
+public interface ISetRelicList
+{
+    public void AddRelic(RelicName relic);
+
+    public void RemoveRelic(RelicName relic);
+}
+
+public interface IGetRelicList
+{
+    public List<int> relicEffecters { get; }
 }

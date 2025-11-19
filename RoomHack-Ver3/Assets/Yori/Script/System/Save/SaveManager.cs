@@ -44,7 +44,6 @@ public class SaveManager
         //Debug.Log("ロードちゅー");
         var json = File.ReadAllText(SaveFilePath);
         return JsonConvert.DeserializeObject<PlayerSaveData>(json);
-
     }
 
     /// <summary>
@@ -77,8 +76,9 @@ public class SaveManager
             maxHandSize = 5,
             deckList = new List<int>
             {
-                1,1,1,1,2,2,3,3,4
-            }
+                1, 1, 1, 1, 2, 2, 3, 3, 4
+            },
+            relicEffecters = new List<int> { 0 }
         };
     }
 }
