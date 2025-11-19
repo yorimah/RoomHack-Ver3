@@ -101,6 +101,10 @@ public class ViewerGenarater
                 {
                     if (hackHit.collider != null)
                     {
+                        if (hackHit.collider.gameObject.layer == 7)
+                        {
+                            break;
+                        }
                         // 見つけたリストに入ってなかったら見つけたリストぶち込む
                         if (hackHit.collider.TryGetComponent<IHackObject>(out var hackObject))
                         {
