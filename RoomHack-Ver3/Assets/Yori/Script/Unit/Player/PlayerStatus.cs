@@ -96,7 +96,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
 
         // Hack関連初期化
         saveData.maxRamCapacity = RamCapacity;
-        saveData.ramRecovery = RamCapacity;
+        saveData.ramRecovery = RamRecovary;
         saveData.maxHandSize = HandMaxSize;
         saveData.deckList = DeckList;
 
