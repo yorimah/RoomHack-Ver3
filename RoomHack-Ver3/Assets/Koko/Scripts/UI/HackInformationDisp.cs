@@ -29,7 +29,6 @@ public class HackInformationDisp : MonoBehaviour
 
                 target = cameraPositionController.targetObject;
 
-                nameText.inputText = target.name;
 
                 if (target.TryGetComponent<IDamageable>(out var damageable))
                 {
@@ -42,10 +41,12 @@ public class HackInformationDisp : MonoBehaviour
                 
                 if (target.TryGetComponent<IHackObject>(out var hackObject))
                 {
+                    nameText.inputText = hackObject.HackObjectName;
+
                     nowHackText.inputText = null;
                     foreach (var item in hackObject.nowHackEvent)
                     {
-                        nowHackText.inputText += item.name;
+                        nowHackText.inputText += item.thisToolTag.ToString();
                         nowHackText.inputText += "\n";
                     }
                 }
