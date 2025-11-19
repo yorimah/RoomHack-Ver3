@@ -1,11 +1,11 @@
 {
   "score_Stage": 0,
-  "score_DestoryEnemy": 50,
+  "score_DestoryEnemy": 58,
   "gunName": 0,
   "maxHitPoint": 100,
   "moveSpeed": 5.0,
   "maxRamCapacity": 10.0,
-  "ramRecovery": 0.01,
+  "ramRecovery": 10.0,
   "maxHandSize": 7,
   "deckList": [
     1,

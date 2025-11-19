@@ -17,20 +17,26 @@ public class GameManeger : MonoBehaviour
         eList = getEnemyList.GetEnemies();
     }
 
+    private void Update()
+    {
+        ClearCheck();
+    }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Player")
+        if (collision.name == "Player") ClearCheck();
+    }
+
+    void ClearCheck()
+    {
+        foreach (var enemy in eList)
         {
-            foreach (var enemy in eList)
+            if (!enemy.isDead)
             {
-                if (!enemy.isDead)
-                {
-                    return;
-                }
+                return;
             }
-            SaveManager.Instance.Save(statusSave.playerSave());
-            SceneManager.LoadScene("UpgradeTest");
         }
+        SaveManager.Instance.Save(statusSave.playerSave());
+        SceneManager.LoadScene("UpgradeTest");
     }
 }

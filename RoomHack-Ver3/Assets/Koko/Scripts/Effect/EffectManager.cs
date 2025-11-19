@@ -94,7 +94,7 @@ public class EffectManager : MonoBehaviour
         return useableEffect;
     }
 
-    // エフェクト簡略版
+    // エフェクト簡略版（角度不要）
     public GameObject ActEffect(EffectType _effectType, Vector2 _pos)
     {
         return ActEffect(_effectType, _pos, 0, true);
