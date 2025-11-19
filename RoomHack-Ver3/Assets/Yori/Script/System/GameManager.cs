@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
-public class GameManeger : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     private List<Enemy> eList;
+
+    private bool isClear = false;
 
     [Inject]
     IGetEnemyList getEnemyList;
@@ -19,7 +22,7 @@ public class GameManeger : MonoBehaviour
 
     private void Update()
     {
-        ClearCheck();
+        if (!isClear) ClearCheck();
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -36,6 +39,16 @@ public class GameManeger : MonoBehaviour
                 return;
             }
         }
+
+        StartCoroutine(ClearSequence());
+        isClear = true;
+    }
+
+    IEnumerator ClearSequence()
+    {
+
+
+        yield return new WaitForSeconds(1);
         SaveManager.Instance.Save(statusSave.playerSave());
         SceneManager.LoadScene("UpgradeTest");
     }
