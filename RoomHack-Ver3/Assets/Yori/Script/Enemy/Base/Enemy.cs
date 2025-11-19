@@ -83,6 +83,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     [Inject]
     ISetScoreDestroy setScoreDestroy;
 
+    public string HackObjectName { get; protected set; }
+    
     public void Awake()
     {
         GunDataInit();
@@ -90,6 +92,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         NowHitPoint = MaxHitPoint;
 
         setEnemeyList.EnemyListAdd(this);
+
+        HackObjectName = GetType().Name;
     }
 
     protected EnemyStateType statetype;

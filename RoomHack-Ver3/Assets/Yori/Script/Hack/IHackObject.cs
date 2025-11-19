@@ -9,4 +9,6 @@ public interface IHackObject
 
     public bool CanHack { get; set; }
 
+    public string HackObjectName { get; }
+
 }

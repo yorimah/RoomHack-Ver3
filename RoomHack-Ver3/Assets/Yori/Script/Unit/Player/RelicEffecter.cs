@@ -49,10 +49,7 @@ public enum RelicName
     destoryHPHeal,
     destoryRamHeal,
 }
-public class RelicGenarater
-{
 
-}
 public interface IRelicEffecter
 {
     public RelicName relicName { get; }
@@ -73,7 +70,6 @@ public class DestroyerEffectBase : IRelicEffecter
         relicName = _relicName;
     }
     IRelicStatusEffect relicStatusEffect;
-    public bool canUse { get; private set; }
     public virtual void RelicEffect()
     {
         Debug.Log(relicName + " : が起動したよ");
