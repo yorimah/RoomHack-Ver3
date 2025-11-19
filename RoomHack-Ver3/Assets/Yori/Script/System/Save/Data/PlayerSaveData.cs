@@ -10,4 +10,5 @@ public class PlayerSaveData
     public float ramRecovery;
     public int maxHandSize;
     public List<int> deckList;
+    public List<int> relicEffecters;
 }
