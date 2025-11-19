@@ -41,7 +41,7 @@ public class SaveManager
             Save(newsave);
             return newsave;
         }
-        Debug.Log("ロードちゅー");
+        //Debug.Log("ロードちゅー");
         var json = File.ReadAllText(SaveFilePath);
         return JsonConvert.DeserializeObject<PlayerSaveData>(json);
     }

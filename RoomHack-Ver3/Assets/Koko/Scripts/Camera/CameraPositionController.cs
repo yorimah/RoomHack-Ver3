@@ -38,11 +38,15 @@ public class CameraPositionController : MonoBehaviour
             // 対象が視界外ならnull化
             if (targetObject.TryGetComponent<IHackObject>(out var hackObject))
             {
-                if (!hackObject.CanHack) targetObject = null;
+                if (!hackObject.CanHack)
+                {
+                    targetObject = null;
+                }
+                
             }
 
             // ロックオン時仮アニメーション再生
-            if (targetObject != playerObject.gameObject)
+            if (targetObject != playerObject.gameObject && targetObject != null)
             {
                 insTargetAnimObj.transform.position = targetObject.transform.position;
                 insTargetAnimObj.SetActive(true);
@@ -128,6 +132,7 @@ public class CameraPositionController : MonoBehaviour
             // お試しでカメラ固定
             this.transform.position = Vector2.zero;
             targetObject = null;
+
 
             // カメラをプレイヤー追従
             //this.transform.position = playerObject.transform.position;
