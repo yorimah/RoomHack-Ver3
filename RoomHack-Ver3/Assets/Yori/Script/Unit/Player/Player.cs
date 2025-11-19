@@ -53,14 +53,14 @@ public class Player : MonoBehaviour, IHackObject
 
     private Rigidbody2D rb;
 
-   // private GunNo gunNo;
+    // private GunNo gunNo;
     public enum StateType
     {
         Action,
         Hack,
         num
     }
-
+    public string HackObjectName { get; private set; } = "proxy";
     //public IState currentState;
     //public StateType stateType;
     //public Dictionary<StateType, IState> states;

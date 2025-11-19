@@ -1,7 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Threading;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class CCTV : MonoBehaviour, IHackObject
@@ -37,6 +35,8 @@ public class CCTV : MonoBehaviour, IHackObject
 
     public CancellationToken token;
     CancellationTokenSource cts;
+
+    public string HackObjectName { get; private set; } = "CCTV";
     private void Awake()
     {
         // HackData初期化
