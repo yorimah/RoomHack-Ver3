@@ -16,6 +16,9 @@ public class RelicEffecter : MonoBehaviour
 
     [Inject]
     IGetHitPoint getHitPoint;
+
+    [Inject]
+    ISetHitPoint setHitPoint;
     public void Start()
     {
         foreach (var relic in relicList.relicEffecters)
@@ -29,7 +32,7 @@ public class RelicEffecter : MonoBehaviour
         switch (relicName)
         {
             case RelicName.destoryHPHeal:
-                return new HitPointHeal(getScore);
+                return new HitPointHeal(getScore, setHitPoint);
             case RelicName.destoryRamHeal:
                 return new RamHeal(getScore);
             case RelicName.destroyDeckDraw:
@@ -108,7 +111,7 @@ public class HitPointHeal : DestroyerEffectBase
         if (RelicEffectTrriger())
         {
             Debug.Log("HP回復！");
-            setHitPoint.SetNowHitPoint(3);
+            setHitPoint.HealNowHitPoint(3);
         }
     }
 }

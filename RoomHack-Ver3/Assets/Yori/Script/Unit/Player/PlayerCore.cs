@@ -45,7 +45,7 @@ public class PlayerCore : MonoBehaviour, IDamageable
     //　セッターや初期化はawakeで行うこと
     public void Awake()
     {
-        playerRigidBody = GetComponent<Rigidbody2D>();       
+        playerRigidBody = GetComponent<Rigidbody2D>();
         MaxHitPoint = getHitPoint.MaxHitPoint;
         NowHitPoint = getHitPoint.MaxHitPoint;
     }
@@ -59,13 +59,29 @@ public class PlayerCore : MonoBehaviour, IDamageable
     public void Update()
     {
         position.PlayerPositionSet(this.transform);
-        setHitPoint.SetNowHitPoint(NowHitPoint);
     }
 
     public void Die()
     {
         playerStateContoller.DieChangeState();
         setPlayerDied.DieSet();
+    }
+
+    public void HitDmg(int dmg, float hitStop)
+    {
+        setHitPoint.DamageHitPoint(dmg);
+        if (getHitPoint.NowHitPoint <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            if (hitDamegeLayer == 2)
+            {
+                SeManager.Instance.Play("Hit");
+            }
+            HitStopper.Instance.StopTime(hitStop);
+        }
     }
 
 #if UNITY_EDITOR
@@ -76,7 +92,10 @@ public class PlayerCore : MonoBehaviour, IDamageable
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.white;
         style.fontSize = 14;
-        Handles.Label(transform.position + Vector3.up * 1f, "HP " + NowHitPoint.ToString(), style);
+        if (getHitPoint != null)
+        {
+            Handles.Label(transform.position + Vector3.up * 1f, "HP " + getHitPoint.NowHitPoint.ToString(), style);
+        }
     }
 #endif
 }

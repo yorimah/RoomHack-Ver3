@@ -60,4 +60,21 @@ public class BulletCore : MonoBehaviour, IDamageable
             }
         }
     }
+
+    public void HitDmg(int dmg, float hitStop)
+    {
+        NowHitPoint -= dmg;
+        if (NowHitPoint <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            if (hitDamegeLayer == 2)
+            {
+                SeManager.Instance.Play("Hit");
+            }
+            HitStopper.Instance.StopTime(hitStop);
+        }
+    }
 }

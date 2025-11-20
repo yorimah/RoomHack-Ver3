@@ -244,9 +244,14 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         relicEffecters.Remove((int)relicEffecter);
     }
 
-    public void SetNowHitPoint(float setHp)
+    public void DamageHitPoint(float dmg)
     {
-        NowHitPoint = setHp;
+        NowHitPoint -= dmg;
+    }
+
+    public void HealNowHitPoint(int healPoint)
+    {
+        NowHitPoint += healPoint;
     }
 
     public void MoveSpeedUp(float plusNum)
@@ -374,7 +379,9 @@ public interface IGetHitPoint
 
 public interface ISetHitPoint
 {
-    public void SetNowHitPoint(float setHp);
+    public void DamageHitPoint(float dmg);
+
+    public void HealNowHitPoint(int healPoint);
 }
 
 public interface ISetMoveSpeed

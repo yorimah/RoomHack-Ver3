@@ -140,7 +140,22 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         moveSpeed += gunData.Maneuverability;
         recoil = gunData.Recoil;
     }
-
+    public void HitDmg(int dmg, float hitStop)
+    {
+        NowHitPoint -= dmg;
+        if (NowHitPoint <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            if (hitDamegeLayer == 2)
+            {
+                SeManager.Instance.Play("Hit");
+            }
+            HitStopper.Instance.StopTime(hitStop);
+        }
+    }
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {

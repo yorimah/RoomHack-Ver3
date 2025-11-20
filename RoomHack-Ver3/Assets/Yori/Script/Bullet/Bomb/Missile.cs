@@ -155,7 +155,22 @@ public class Missile : BombCore, IDamageable
         colorAlpha = 0;
         Bomb();
     }
-
+    public void HitDmg(int dmg, float hitStop)
+    {
+        NowHitPoint -= dmg;
+        if (NowHitPoint <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            if (hitDamegeLayer == 2)
+            {
+                SeManager.Instance.Play("Hit");
+            }
+            HitStopper.Instance.StopTime(hitStop);
+        }
+    }
     public class Factory : PlaceholderFactory<float, Vector2, IPosition, Vector2, Missile>
     {
 
