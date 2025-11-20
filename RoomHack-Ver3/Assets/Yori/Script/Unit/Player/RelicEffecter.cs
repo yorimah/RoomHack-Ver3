@@ -11,6 +11,11 @@ public class RelicEffecter : MonoBehaviour
     [Inject]
     IGetRelicList relicList;
 
+    [Inject]
+    ISetMoveSpeed setMoveSpeed;
+
+    [Inject]
+    IGetHitPoint getHitPoint;
     public void Start()
     {
         foreach (var relic in relicList.relicEffecters)
@@ -24,9 +29,13 @@ public class RelicEffecter : MonoBehaviour
         switch (relicName)
         {
             case RelicName.destoryHPHeal:
-                return new HitPointHeal(getScore, relicName);
+                return new HitPointHeal(getScore);
             case RelicName.destoryRamHeal:
-                return new RamHeal(getScore, relicName);
+                return new RamHeal(getScore);
+            case RelicName.destroyDeckDraw:
+                return new DeckDraw(getScore);
+            case RelicName.halfHitPointMoveSpeedUp:
+                return new HalfMoveSpeed(getHitPoint, setMoveSpeed);
         }
         return null;
     }
@@ -36,10 +45,7 @@ public class RelicEffecter : MonoBehaviour
         {
             foreach (var item in relicEffecters)
             {
-                if (item.RelicEffectTrriger())
-                {
-                    item.RelicEffect();
-                }
+                item.RelicEffect();
             }
         }
     }
@@ -48,6 +54,8 @@ public enum RelicName
 {
     destoryHPHeal,
     destoryRamHeal,
+    destroyDeckDraw,
+    halfHitPointMoveSpeedUp,
 }
 
 public interface IRelicEffecter
@@ -63,16 +71,18 @@ public class DestroyerEffectBase : IRelicEffecter
     public RelicName relicName { get; private set; }
     public IGetPlayerScore getScore { get; }
     public int nowScore { get; private set; }
-    public DestroyerEffectBase(IGetPlayerScore _getScore, RelicName _relicName)
+    public DestroyerEffectBase(IGetPlayerScore _getScore)
     {
         getScore = _getScore;
         nowScore = getScore.GetDestroyScore();
-        relicName = _relicName;
     }
     IRelicStatusEffect relicStatusEffect;
     public virtual void RelicEffect()
     {
-        Debug.Log(relicName + " : が起動したよ");
+        if (RelicEffectTrriger())
+        {
+            Debug.Log(relicName + " : が起動したよ");
+        }
     }
     public bool RelicEffectTrriger()
     {
@@ -87,27 +97,95 @@ public class DestroyerEffectBase : IRelicEffecter
 
 public class HitPointHeal : DestroyerEffectBase
 {
-    public HitPointHeal(IGetPlayerScore _getScore, RelicName _relicName) : base(_getScore, _relicName)
+    ISetHitPoint setHitPoint;
+    public HitPointHeal(IGetPlayerScore _getScore,ISetHitPoint _setHitPoint) : base(_getScore)
     {
-        _relicName = RelicName.destoryHPHeal;
+        setHitPoint = _setHitPoint;
     }
 
     public override void RelicEffect()
     {
-        Debug.Log("HP回復！");
+        if (RelicEffectTrriger())
+        {
+            Debug.Log("HP回復！");
+            setHitPoint.SetNowHitPoint(3);
+        }
     }
 }
 
 public class RamHeal : DestroyerEffectBase
 {
-    public RamHeal(IGetPlayerScore _getScore, RelicName _relicName) : base(_getScore, _relicName)
+    public RamHeal(IGetPlayerScore _getScore) : base(_getScore)
     {
-        _relicName = RelicName.destoryHPHeal;
     }
 
     public override void RelicEffect()
     {
-        Debug.Log("Ram回復！");
+        if (RelicEffectTrriger())
+        {
+            Debug.Log("Ram回復！");
+        }
     }
+}
+
+
+public class DeckDraw : DestroyerEffectBase
+{
+    public DeckDraw(IGetPlayerScore _getScore) : base(_getScore)
+    {
+
+    }
+
+    public override void RelicEffect()
+    {
+        if (RelicEffectTrriger())
+        {
+            ToolManager.Instance.DeckDraw();
+        }
+    }
+}
+
+public class HalfHitPointEffectBase : IRelicEffecter
+{
+    protected IGetHitPoint getHitPoint;
+    public RelicName relicName { get; private set; }
+    public HalfHitPointEffectBase(IGetHitPoint _getHitPoint)
+    {
+        getHitPoint = _getHitPoint;
+    }
+
+    public virtual void RelicEffect()
+    {
+        if (RelicEffectTrriger())
+        {
+            Debug.Log(relicName + " : が起動したよ");
+        }
+    }
+    public bool RelicEffectTrriger()
+    {
+        if (getHitPoint.MaxHitPoint / 2 >= getHitPoint.NowHitPoint)
+        {
+            return true;
+        }
+        return false;
+    }
+}
+
+public class HalfMoveSpeed : HalfHitPointEffectBase
+{
+    ISetMoveSpeed setMoveSpeed;
+    public HalfMoveSpeed(IGetHitPoint _getHitPoint, ISetMoveSpeed _setMoveSpeed) : base(_getHitPoint)
+    {
+        setMoveSpeed = _setMoveSpeed;
+    }
+    public override void RelicEffect()
+    {
+        if (RelicEffectTrriger())
+        {
+            // 仮の値
+            setMoveSpeed.MoveSpeedUp(10);
+        }
+    }
+
 }
 

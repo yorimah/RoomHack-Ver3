@@ -10,12 +10,16 @@ enum SpecialAction
     Blink
 }
 
-public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPosition,
-    IGetPlayerDie, ISetPlayerDied, IGetMaxHitPoint, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
-    IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList
+public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
+    IGetPlayerDie, ISetPlayerDied, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
+    IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList, ISetHitPoint, IGetHitPoint
+    , ISetMoveSpeed
 {
-    public List<int> relicEffecters { get; private set; }
 
+    public int MaxHitPoint { get; private set; }
+    public float NowHitPoint { get; private set; }
+
+    public List<int> relicEffecters { get; private set; }
 
     public int ScoreDestroy { get; private set; }
     public int BulletMax { get; private set; }
@@ -31,10 +35,6 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     public event Action PlayerDie = delegate { };
 
     public Vector3 PlayerPosition { get; private set; }
-
-    public int maxHitPoint { get; private set; }
-
-    public float hitPointNow;
 
     public float RamCapacity { get; }
 
@@ -67,8 +67,8 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
         saveData = SaveManager.Instance.Load();
 
         // HP初期化
-        maxHitPoint = saveData.maxHitPoint;
-        hitPointNow = saveData.maxHitPoint;
+        MaxHitPoint = saveData.maxHitPoint;
+        NowHitPoint = saveData.maxHitPoint;
 
         // Hack関連初期化
         RamCapacity = saveData.maxRamCapacity;
@@ -92,7 +92,7 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     public PlayerSaveData playerSave()
     {
         // HP初期化
-        saveData.maxHitPoint = maxHitPoint;
+        saveData.maxHitPoint = MaxHitPoint;
 
         // Hack関連初期化
         saveData.maxRamCapacity = RamCapacity;
@@ -243,11 +243,16 @@ public class PlayerStatus : IReadOnlyMoveSpeed, IUseableRam, IDeckList, IPositio
     {
         relicEffecters.Remove((int)relicEffecter);
     }
-}
 
-public interface IGetMaxHitPoint
-{
-    public int maxHitPoint { get; }
+    public void SetNowHitPoint(float setHp)
+    {
+        NowHitPoint = setHp;
+    }
+
+    public void MoveSpeedUp(float plusNum)
+    {
+        MoveSpeed = saveData.moveSpeed + plusNum;
+    }
 }
 public interface IPosition
 {
@@ -256,7 +261,7 @@ public interface IPosition
     public void PlayerPositionSet(Transform transform);
 }
 
-public interface IReadOnlyMoveSpeed
+public interface IGetMoveSpeed
 {
     public float MoveSpeed { get; }
 }
@@ -359,4 +364,20 @@ public interface ISetRelicList
 public interface IGetRelicList
 {
     public List<int> relicEffecters { get; }
+}
+
+public interface IGetHitPoint
+{
+    public float NowHitPoint { get; }
+    public int MaxHitPoint { get; }
+}
+
+public interface ISetHitPoint
+{
+    public void SetNowHitPoint(float setHp);
+}
+
+public interface ISetMoveSpeed
+{
+    public void MoveSpeedUp(float moveSpeed);
 }

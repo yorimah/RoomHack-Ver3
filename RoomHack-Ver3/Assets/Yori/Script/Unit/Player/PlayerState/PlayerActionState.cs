@@ -7,12 +7,12 @@ public class PlayerActionState : IPlayerState
 
     IPlayerInput playerInput;
 
-    public PlayerActionState(Rigidbody2D playerRigidBody, float moveSpeed,
+    public PlayerActionState(Rigidbody2D playerRigidBody, IGetMoveSpeed getMoveSpeed,
         PlayerStateContoller _playerStateContoller, IPlayerInput _playerInput)
     {
         playerInput = _playerInput;
         playerStateContoller = _playerStateContoller;
-        playerMove = new PlayerMove(playerRigidBody, moveSpeed, playerInput);
+        playerMove = new PlayerMove(playerRigidBody, getMoveSpeed, playerInput);
 
     }
 
