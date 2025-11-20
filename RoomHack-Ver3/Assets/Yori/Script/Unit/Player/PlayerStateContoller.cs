@@ -23,12 +23,12 @@ public class PlayerStateContoller
     private CancellationTokenSource cancellationTokenSource;
 
     public PlayerStateContoller(Rigidbody2D playerRigidBody, IGetGunData gunData, Material material,
-        GameObject bulletPre, float moveSpeed, GameObject player, IPlayerInput playerInput, IHaveGun haveGun)
+        GameObject bulletPre, IGetMoveSpeed getMoveSpeed, GameObject player, IPlayerInput playerInput, IHaveGun haveGun)
     {
         cancellationTokenSource = new CancellationTokenSource();
         states = new Dictionary<PlayerStateType, IPlayerState>()
     {
-        { PlayerStateType.Action, new PlayerActionState(playerRigidBody,moveSpeed,this,playerInput) },
+        { PlayerStateType.Action, new PlayerActionState(playerRigidBody,getMoveSpeed,this,playerInput) },
         { PlayerStateType.Hack, new PlayerHackState(this,playerInput) },
         { PlayerStateType.Die, new PlayerDieState() },
     };

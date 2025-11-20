@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Threading;
 
 public class GameOverSceneManager : MonoBehaviour
 {
@@ -37,23 +37,32 @@ public class GameOverSceneManager : MonoBehaviour
         BgmManager.Instance.Play("GameOver");
         cancellationTokenSource = new CancellationTokenSource();
         // コルーチン起動
-        GameOverSequence().AttachExternalCancellation(cancellationTokenSource.Token);
+
+        var linked = CancellationTokenSource.CreateLinkedTokenSource(
+        cancellationTokenSource.Token,
+        this.GetCancellationTokenOnDestroy()
+         );
+
+        _ = GameOverSequence(linked.Token);
     }
 
-    async UniTask GameOverSequence()
+    async UniTask GameOverSequence(CancellationToken token)
     {
         try
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(skipValue));
+            await UniTask.Delay(TimeSpan.FromSeconds(skipValue), cancellationToken: token);
 
             for (int i = 0; i < 100; i++)
             {
                 moveValue++;
+
+                token.ThrowIfCancellationRequested();
+
                 redScreen_Up.anchoredPosition = new Vector2(0, 270 + moveValue * 4);
                 redScreen_Down.anchoredPosition = new Vector2(0, -270 - moveValue * 4);
                 if (skipValue == 1)
                 {
-                    await UniTask.Yield();
+                    await UniTask.Yield(token);
                 }
             }
 
@@ -79,7 +88,7 @@ public class GameOverSceneManager : MonoBehaviour
             Debug.Log("終了！");
             throw;
         }
-       
+
     }
 
     private void Update()

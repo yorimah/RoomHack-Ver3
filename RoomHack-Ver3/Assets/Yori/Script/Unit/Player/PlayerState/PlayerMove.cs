@@ -6,13 +6,13 @@ public class PlayerMove
 
     private Rigidbody2D playerRigidbody2D;
 
-    private float moveSpeed;
+    private IGetMoveSpeed getMoveSpeed;
 
     IPlayerInput playerInput;
 
-    public PlayerMove(Rigidbody2D _playerRigidBody, float _moveSpeed, IPlayerInput _playerInput)
+    public PlayerMove(Rigidbody2D _playerRigidBody, IGetMoveSpeed _getMoveSpeed, IPlayerInput _playerInput)
     {
-        moveSpeed = _moveSpeed;
+        getMoveSpeed = _getMoveSpeed;
         playerRigidbody2D = _playerRigidBody;
         playerInput = _playerInput;
     }
@@ -28,7 +28,7 @@ public class PlayerMove
         if (playerRigidbody2D != null)
         {
 
-            playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
+            playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), getMoveSpeed.MoveSpeed);
         }
     }
 
@@ -43,6 +43,6 @@ public class PlayerMove
 
     public void EdgeRun()
     {
-        playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), moveSpeed);
+        playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), getMoveSpeed.MoveSpeed);
     }
 }

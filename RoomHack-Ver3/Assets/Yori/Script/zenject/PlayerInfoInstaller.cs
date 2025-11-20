@@ -6,7 +6,7 @@ public class PlayerInfoInstaller : MonoInstaller<PlayerInfoInstaller>
     {
         
         Container
-            .Bind<IReadOnlyMoveSpeed>()
+            .Bind<IGetMoveSpeed>()
             .To<PlayerStatus>()
             .AsCached();        
         Container.Bind<IUseableRam>()
