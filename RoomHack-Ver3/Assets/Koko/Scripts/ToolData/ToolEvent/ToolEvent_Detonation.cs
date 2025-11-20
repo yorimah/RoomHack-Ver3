@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolEvent_Detonation : ToolEventBase
+public class ToolEvent_Detonation : ToolEventBase, IToolEventBase_Target
 {
     // IToolEventBase_Target
     public GameObject hackTargetObject { get; set; }

@@ -47,34 +47,52 @@ public class ToolManager : MonoBehaviour
     [Inject]
     IPlayerInput playerInput;
 
+    private void Start()
+    {
+        for (int i = 0; i < useableRam.HandMaxSize; i++)
+        {
+            //Debug.Log("hikimasita");
+            DeckDraw();
+        }
+
+        toolUIController.ToolUIControllerStart();
+    }
+
     private void Update()
     {
         // reboot関連
-        if (useableRam.IsReboot)
-        {
-            for (int i = 0; i < deckSystem.toolHand.Count; i++)
-            {
-                HandTrash(0);
-            }
-            isRebootHandStay = true;
-        }
-        else
-        {
-            // 手札再配置
-            if (isRebootHandStay)
-            {
-                SeManager.Instance.Play("RebootEnd");
-                if (deckSystem.toolHand.Count < useableRam.HandMaxSize)
-                {
-                    DeckDraw();
-                }
-                else
-                {
-                    isRebootHandStay = false;
-                    //Debug.Log("rebootEnd!");
-                }
-            }
-        }
+        // 廃止につきStartに移行
+        //if (useableRam.IsReboot)
+        //{
+        //    Debug.Log("リブート中");
+
+        //    for (int i = 0; i < deckSystem.toolHand.Count; i++)
+        //    {
+        //        HandTrash(0);
+        //    }
+        //    isRebootHandStay = true;
+        //}
+        //else
+        //{
+        //    Debug.Log("リブート中じゃないよ");
+
+        //    // 手札再配置
+        //    if (isRebootHandStay)
+        //    {
+        //        Debug.Log("手札くばるよ");
+
+        //        //SeManager.Instance.Play("RebootEnd");
+        //        if (deckSystem.toolHand.Count < useableRam.HandMaxSize)
+        //        {
+        //            DeckDraw();
+        //        }
+        //        else
+        //        {
+        //            isRebootHandStay = false;
+        //            //Debug.Log("rebootEnd!");
+        //        }
+        //    }
+        //}
 
         // ハッキングモード
         if (GameTimer.Instance.IsHackTime)
@@ -143,6 +161,7 @@ public class ToolManager : MonoBehaviour
             }
         }
 
+        toolUIController.ToolUIControllerUpdate();
     }
 
     public void DeckDraw()

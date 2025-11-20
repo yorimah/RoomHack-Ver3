@@ -50,6 +50,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         SaveManager.Instance.Save(statusSave.playerSave());
-        SceneManager.LoadScene("UpgradeTest");
+        SceneManager.LoadScene("ToolGetScene");
     }
 }

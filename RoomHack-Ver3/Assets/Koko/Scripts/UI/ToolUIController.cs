@@ -65,7 +65,7 @@ public class ToolUIController : MonoBehaviour
     [Inject]
     IUseableRam useableRam;
 
-    private void Start()
+    public void ToolUIControllerStart()
     {
 
         // デッキ置き場
@@ -87,7 +87,7 @@ public class ToolUIController : MonoBehaviour
         useableRam.IsRebootSet(true);
     }
 
-    private void Update()
+    public void ToolUIControllerUpdate()
     {
         deckSign.toMovePosition = nowDeckPos;
         trashSign.toMovePosition = nowTrashPos;
@@ -223,6 +223,8 @@ public class ToolUIController : MonoBehaviour
             hand.toScale = new Vector2(1f, 1f);
             hand.isTextDisp = false;
             hand.isBlackOut = true;
+
+            //Debug.Log(handCostList[i]);
 
             // ツールコストが足りるかチェック
             //if (deckSystem.ReturnToolCost(hand.thisTool) > Player.Instance.nowRam)

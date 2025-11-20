@@ -138,7 +138,7 @@ public class ToolGetSceneManager : MonoBehaviour
         SaveManager.Instance.Save(data);
 
         // シーン移動
-        SceneManager.LoadScene("TitleDemoScene");
+        SceneManager.LoadScene("Stage1-1");
     }
 
 }

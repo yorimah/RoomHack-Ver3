@@ -47,9 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119b1f6e07510694ca854a10e896d932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hackTargetObject: {fileID: 0}
-  isEventAct: 0
-  granadePrefab: {fileID: 4985064114369217356, guid: c0dc44628e0c1b74ea965af6a1405386, type: 3}
+  granadePrefab: {fileID: 3860658990502912699, guid: ca99dbeed0836bf4d9487ac69b38fc01, type: 3}
 --- !u!212 &-5948950346671298764
 SpriteRenderer:
   m_ObjectHideFlags: 0

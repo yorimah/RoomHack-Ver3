@@ -11,5 +11,5 @@ public class ToolGetDataList : ScriptableObject
 public class ToolGetData
 {
     public ToolTag toolTag;
-    public int toolWeight;
+    public int toolWeight = 10;
 }

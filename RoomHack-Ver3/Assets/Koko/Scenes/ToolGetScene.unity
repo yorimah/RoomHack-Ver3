@@ -540,6 +540,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e584c8c7333ab4b2b825ba6ed1554fc1, type: 3}
+--- !u!1 &1903568789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1903568791}
+  - component: {fileID: 1903568790}
+  m_Layer: 0
+  m_Name: DebugSceneReload
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1903568790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903568789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc20c14b6d636f4c84aff8f4b5bac20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugSceneReload
+--- !u!4 &1903568791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903568789}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.81663, y: -0.33289, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1949182556
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +597,6 @@ GameObject:
   - component: {fileID: 1949182558}
   - component: {fileID: 1949182557}
   - component: {fileID: 1949182561}
-  - component: {fileID: 1949182562}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -656,24 +699,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740b3aa3ec4499746ada1635a40d2434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToolGetSceneManager
-  toolGetDataList: {fileID: 11400000, guid: 49c518a75401ba04998fb8d12a311945, type: 2}
+  toolGetDataList: {fileID: 11400000, guid: 5410a41466eb23040941b06e89eb808d, type: 2}
   selectableToolNum: 3
   toolUIPrefab: {fileID: 6729901770542991060, guid: 66a57fb8bf0040b46bbe9ae311756511, type: 3}
   toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
   explainText: {fileID: 1078112843}
   sideSpace: 500
---- !u!114 &1949182562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949182556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fc20c14b6d636f4c84aff8f4b5bac20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DebugSceneReload
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -683,3 +714,4 @@ SceneRoots:
   - {fileID: 1949182560}
   - {fileID: 277501421}
   - {fileID: 1886319710}
+  - {fileID: 1903568791}
