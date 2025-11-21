@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 public class PlayerUITest : MonoBehaviour
 {
@@ -22,39 +20,43 @@ public class PlayerUITest : MonoBehaviour
     [SerializeField]
     GameObject bulletBar;
 
-    //[Inject]
-    //IDamageable getHelth;
+    [Inject]
+    IGetHitPoint getHelth;
     [Inject]
     IPosition readPosition;
 
+    [Inject]
+    IHaveGun haveGun;
+
+    [Inject]
+    IGetGunData getGunData;
     private void Start()
     {
-       //maxHp = getHelth.MaxHitPoint;
+        maxHp = getHelth.MaxHitPoint;
 
-       // maxBullet = Player.Instance.maxBullet;
-
+        maxBullet = getGunData.GetGunData(haveGun.GunName).MaxBullet;
     }
 
     private void Update()
     {
         // Playerに追従
-       // this.transform.position = readPosition.PlayerPosition;
+        this.transform.position = readPosition.PlayerPosition;
 
         // 現在HP取得
-        //nowHp = getHelth.NowHitPoint;
+        nowHp = getHelth.NowHitPoint;
 
         // HPバーサイズ変更
-        //Vector3 hpScale = hpBar.gameObject.transform.localScale;
-        //hpScale.x = nowHp / maxHp;
-        //hpBar.gameObject.transform.localScale = hpScale;
+        Vector3 hpScale = hpBar.gameObject.transform.localScale;
+        hpScale.x = nowHp / maxHp;
+        hpBar.gameObject.transform.localScale = hpScale;
 
-        // 現在残弾取得
-        //nowBullet = Player.Instance.nowBullet;
+        //現在残弾取得
+        nowBullet = haveGun.BulletNow;
 
         // 残弾バーサイズ変更
-        //Vector3 bulletScale = bulletBar.gameObject.transform.localScale;
-        //bulletScale.x = nowBullet / maxBullet;
-        //bulletBar.gameObject.transform.localScale = bulletScale;
+        Vector3 bulletScale = bulletBar.gameObject.transform.localScale;
+        bulletScale.x = nowBullet / maxBullet;
+        bulletBar.gameObject.transform.localScale = bulletScale;
 
     }
 }
