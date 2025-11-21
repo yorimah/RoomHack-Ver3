@@ -12,5 +12,6 @@ public class InputInstaller : MonoInstaller<InputInstaller>
                        .FromComponentInNewPrefab(missilePre);
         Container.BindInterfacesTo<GunDataList>().AsSingle();
         Container.BindInterfacesTo<EnemyList>().AsSingle();
+        Container.BindInterfacesTo<ClearManager>().AsSingle();
     }
 }

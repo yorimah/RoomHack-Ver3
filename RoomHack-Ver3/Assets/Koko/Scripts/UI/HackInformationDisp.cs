@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Zenject;
+using System.Collections.Generic;
 
 public class HackInformationDisp : MonoBehaviour
 {
@@ -14,13 +16,30 @@ public class HackInformationDisp : MonoBehaviour
     [SerializeField, Header("要アタッチ")]
     GeneralUpdateText nowHackText;
 
+    [SerializeField]
+    GeneralUpdateText enemyNumText;
+
     GameObject target;
+
+    [Inject]
+    IGetEnemyList getEnemyList;
 
     private void Update()
     {
+        List<Enemy> enemies = new List<Enemy>();
+        enemies.AddRange(getEnemyList.GetEnemies());
+        int enemyNum = enemies.Count;
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i].isDead)
+            {
+                enemyNum--;
+            }
+        }
+        enemyNumText.inputText = "Enemy:" + enemyNum.ToString();
+
         if (GameTimer.Instance.IsHackTime)
         {
-
             if (cameraPositionController.targetObject != null)
             {
                 nameText.gameObject.SetActive(true);
@@ -29,7 +48,7 @@ public class HackInformationDisp : MonoBehaviour
 
                 target = cameraPositionController.targetObject;
 
-
+                // HP表記
                 if (target.TryGetComponent<IDamageable>(out var damageable))
                 {
                     hpText.inputText = damageable.NowHitPoint.ToString() + " / " + damageable.MaxHitPoint.ToString();
@@ -39,6 +58,8 @@ public class HackInformationDisp : MonoBehaviour
                     hpText.inputText = "UnBroken";
                 }
                 
+                // ハッキング対象の名前表記
+                // ハッキング内容表記
                 if (target.TryGetComponent<IHackObject>(out var hackObject))
                 {
                     nameText.inputText = hackObject.HackObjectName;

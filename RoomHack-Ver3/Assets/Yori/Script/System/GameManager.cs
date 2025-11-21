@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
     private List<Enemy> eList;
 
-    private bool isClear = false;
+    [Inject]
+    IGetFloorData getFloorData;
 
     [Inject]
     IGetEnemyList getEnemyList;
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isClear) ClearCheck();
+        if (!getFloorData.isClear) ClearCheck();
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -41,15 +42,41 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(ClearSequence());
-        isClear = true;
+        getFloorData.SetClear();
     }
 
     IEnumerator ClearSequence()
     {
 
+        GameTimer.Instance.SetCustumTimeScale(0);
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    GameTimer.Instance.SetCustumTimeScale(1 - i*0.1f);
+        //    yield return new WaitForSeconds(0.1f);
+        //}
 
         yield return new WaitForSeconds(1);
         SaveManager.Instance.Save(statusSave.playerSave());
         SceneManager.LoadScene("ToolGetScene");
+    }
+
+
+}
+
+
+public interface IGetFloorData
+{
+    public bool isClear { get; }
+
+    public void SetClear();
+}
+
+public class ClearManager:IGetFloorData
+{
+    public bool isClear { get; private set; }
+    
+    public void SetClear()
+    {
+        isClear = true;
     }
 }
