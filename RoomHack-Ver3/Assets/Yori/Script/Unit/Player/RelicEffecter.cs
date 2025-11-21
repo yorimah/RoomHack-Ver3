@@ -19,6 +19,9 @@ public class RelicEffecter : MonoBehaviour
 
     [Inject]
     ISetHitPoint setHitPoint;
+
+    [Inject]
+    IUseableRam useableRam;
     public void Start()
     {
         foreach (var relic in relicList.relicEffecters)
@@ -34,7 +37,7 @@ public class RelicEffecter : MonoBehaviour
             case RelicName.destoryHPHeal:
                 return new HitPointHeal(getScore, setHitPoint);
             case RelicName.destoryRamHeal:
-                return new RamHeal(getScore);
+                return new RamHeal(getScore,useableRam);
             case RelicName.destroyDeckDraw:
                 return new DeckDraw(getScore);
             case RelicName.halfHitPointMoveSpeedUp:
@@ -118,15 +121,17 @@ public class HitPointHeal : DestroyerEffectBase
 
 public class RamHeal : DestroyerEffectBase
 {
-    public RamHeal(IGetPlayerScore _getScore) : base(_getScore)
+    IUseableRam useableRam;
+    public RamHeal(IGetPlayerScore _getScore,IUseableRam _usebleRam) : base(_getScore)
     {
+        useableRam = _usebleRam;
     }
 
     public override void RelicEffect()
     {
         if (RelicEffectTrriger())
         {
-            Debug.Log("Ram回復！");
+            useableRam.RamChange(3);
         }
     }
 }
