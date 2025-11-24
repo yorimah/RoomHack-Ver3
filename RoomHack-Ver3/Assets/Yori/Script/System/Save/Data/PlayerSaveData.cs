@@ -11,4 +11,6 @@ public class PlayerSaveData
     public int maxHandSize;
     public List<int> deckList;
     public List<int> relicEffecters;
+    public int nowFloor;
+    public int stageRange;
 }

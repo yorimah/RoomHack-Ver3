@@ -23,6 +23,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Koko/Scenes/ToolGetScene.unity
     guid: e9ace5abd1e7f7c48bee51a380652de7
+  - enabled: 1
+    path: Assets/Koko/Scenes/Stage/Stage_test.unity
+    guid: 6cf8df16a767f434f844776cb4c267ac
+  - enabled: 1
+    path: Assets/Yori/Scenes/Test/YoriTestScene.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Koko/Scenes/Stage/StageTemplate.unity
+    guid: 1449368c6f2648849937df42dd3c337a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 56988ac99d692c44db17ae2b6721ec62, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 73438e5457cd9e041a9119920164c835, type: 3}

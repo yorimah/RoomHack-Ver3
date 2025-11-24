@@ -2,11 +2,15 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+// UnityEditor 名前空間はエディタ専用機能を使う場合に必要
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class ToolGetSceneManager : MonoBehaviour
 {
     [SerializeField, Header("ツールのデータ入力、外部から入力されたし")]
-    public ToolGetDataList toolGetDataList;
+    ToolGetDataList toolGetDataList;
 
     [SerializeField, Header("選択肢の数")]
     int selectableToolNum = 3;
@@ -28,6 +32,17 @@ public class ToolGetSceneManager : MonoBehaviour
     float sideSpace = 500;
 
     bool isSelected = false;
+
+    // [HideInInspector] 実行時にはこの文字列だけあれば良いのでインスペクタからは隠す
+    [HideInInspector]
+    [SerializeField] private List<string> sceneToLoad;
+
+    // #if UNITY_EDITOR ～ #endif で囲まれた部分はエディタ上でのみ有効になる
+#if UNITY_EDITOR
+    // インスペクタに表示するためのSceneAsset型変数
+    [Header("遷移先シーン選択")] // インスペクタに見出しを表示
+    [SerializeField] private List<SceneAsset> sceneAsset; // ここにシーンファイルをD&Dする
+#endif
 
     private void Start()
     {
@@ -135,10 +150,42 @@ public class ToolGetSceneManager : MonoBehaviour
         // データ追加
         PlayerSaveData data = SaveManager.Instance.Load();
         data.deckList.Add((int)_toolUI.thisTool);
-        SaveManager.Instance.Save(data);
-
-        // シーン移動
-        SceneManager.LoadScene("Stage1-1");
+        if (data.nowFloor < data.stageRange)
+        {
+            int stageNum = Random.Range(0, sceneToLoad.Count);
+            // シーン移動
+            if (!string.IsNullOrEmpty(sceneToLoad[stageNum]))
+            {
+                data.nowFloor++;
+                SaveManager.Instance.Save(data);
+                SceneManager.LoadScene(sceneToLoad[stageNum]);
+            }
+            else
+            {
+                Debug.LogError("遷移先のシーン名が設定されていません！");
+            }
+        }
+        else
+        {
+            SaveManager.Instance.Save(data);
+            SceneManager.LoadScene("YoriTestScene");
+        }
     }
+
+    // OnValidateメソッドもエディタ専用
+#if UNITY_EDITOR
+    // インスペクタで値が変更された時などに自動で呼ばれるメソッド
+    private void OnValidate()
+    {
+        sceneToLoad.Clear();
+        foreach (var scene in sceneAsset)
+        {
+            if (scene != null)
+            {
+                sceneToLoad.Add(scene.name); // 名前だけを保持
+            }
+        }
+    }
+#endif
 
 }

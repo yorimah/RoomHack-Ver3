@@ -78,7 +78,10 @@ public class SaveManager
             {
                 1, 1, 1, 1, 2, 2, 3, 3, 4
             },
-            relicEffecters = new List<int> { 0 }
+            relicEffecters = new List<int> { 0 },
+            nowFloor = 0,
+            stageRange = 0
+
         };
     }
 }

@@ -8,8 +8,8 @@ public class ToolGetDataList : ScriptableObject
 }
 
 [System.Serializable]
-public class ToolGetData
+public struct ToolGetData
 {
     public ToolTag toolTag;
-    public int toolWeight = 10;
+    public int toolWeight;
 }
