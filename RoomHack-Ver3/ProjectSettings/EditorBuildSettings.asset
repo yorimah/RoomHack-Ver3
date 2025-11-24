@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Koko/Scenes/TitleDemoScene.unity
     guid: 949d02fe74ed92f4abfa34880e81bf6c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Yori/Scenes/Stage/Yori_Stage_Timer.unity
     guid: ba92ffe1667523443a3f6d4ec0484ace
   - enabled: 1

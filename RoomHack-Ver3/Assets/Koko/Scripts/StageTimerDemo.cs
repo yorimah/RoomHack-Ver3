@@ -27,6 +27,7 @@ public class StageTimerDemo : MonoBehaviour
         if (timer <= 0)
         {
             timer = 0;
+            SceneManager.LoadScene("GameOverDemoScene");
         }
 
         dispText.text = timer.ToString("00.00");
