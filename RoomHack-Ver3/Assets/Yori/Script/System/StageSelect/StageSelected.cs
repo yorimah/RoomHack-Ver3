@@ -1,18 +1,16 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class StageSelected : MonoBehaviour
 {
-    /// <summary>
-    /// あとで変更べつスクリプトで変更できるようにする
-    /// </summary>
-    [SerializeField, Header("ポップアップするオブジェクト")]
-    private RectTransform windowObject;
+    private RectTransform windowRect;
 
     [SerializeField]
     private RectTransform backGlound;
 
     [SerializeField]
     private GameObject buttomObj;
+
     private RectTransform buttomRect;
 
     private bool isClick = false;
@@ -21,12 +19,24 @@ public class StageSelected : MonoBehaviour
 
     Vector3 windowInitPos;
 
+    [SerializeField]
+    private GameObject windowsObject;
+
     float waitSeconds = 0.01f;
+    private string sceneToLoad;
+
+    public void SetScene(string setScene)
+    {
+        sceneToLoad = setScene;
+    }
+
+
     public void Start()
     {
-        dragCollider = windowObject.GetComponent<BoxCollider2D>();
+        dragCollider = windowsObject.GetComponent<BoxCollider2D>();
         dragCollider.enabled = false;
-        windowInitPos = windowObject.transform.position;
+        windowRect = windowsObject.GetComponent<RectTransform>();
+        windowInitPos = windowRect.transform.position;
         buttomRect = buttomObj.GetComponent<RectTransform>();
     }
     public void ClickStageSelect()
@@ -40,18 +50,18 @@ public class StageSelected : MonoBehaviour
 
     public async UniTask PopUpStageSelect()
     {
-        windowObject.sizeDelta += new Vector2(0, 10);
-        while (windowObject.rect.width < Screen.width / 2)
+        windowRect.sizeDelta += new Vector2(0, 10);
+        while (windowRect.rect.width < Screen.width / 2)
         {
-            windowObject.sizeDelta += new Vector2(Screen.width / 10, 0);
+            windowRect.sizeDelta += new Vector2(Screen.width / 10, 0);
             await UniTask.WaitForSeconds(waitSeconds);
         }
-        while (windowObject.rect.height < Screen.height / 2)
+        while (windowRect.rect.height < Screen.height / 2)
         {
-            windowObject.sizeDelta += new Vector2(0, Screen.height / 10);
+            windowRect.sizeDelta += new Vector2(0, Screen.height / 10);
             await UniTask.WaitForSeconds(waitSeconds);
         }
-        windowObject.sizeDelta = new Vector2(Screen.width / 2, Screen.height / 2);
+        windowRect.sizeDelta = new Vector2(Screen.width / 2, Screen.height / 2);
         dragCollider.enabled = true;
         buttomObj.SetActive(true);
     }
@@ -68,19 +78,19 @@ public class StageSelected : MonoBehaviour
     public async UniTask FadeOutWindow()
     {
         buttomObj.SetActive(false);
-        while (windowObject.rect.height > 100)
+        while (windowRect.rect.height > 100)
         {
-            windowObject.sizeDelta -= new Vector2(0, Screen.height / 10);
+            windowRect.sizeDelta -= new Vector2(0, Screen.height / 10);
             await UniTask.WaitForSeconds(waitSeconds);
         }
-        while (windowObject.rect.width > 100)
+        while (windowRect.rect.width > 100)
         {
-            windowObject.sizeDelta -= new Vector2(Screen.width / 10, 0);
+            windowRect.sizeDelta -= new Vector2(Screen.width / 10, 0);
             await UniTask.WaitForSeconds(waitSeconds);
         }
         buttomObj.SetActive(false);
-        windowObject.sizeDelta = Vector2.zero;
-        windowObject.transform.position = windowInitPos;
+        windowRect.sizeDelta = Vector2.zero;
+        windowRect.transform.position = windowInitPos;
         isClick = false;
     }
     Vector2 wasMaximize;
@@ -90,14 +100,14 @@ public class StageSelected : MonoBehaviour
         {
             if (!isMaximize)
             {
-                wasPos = windowObject.transform.position;
-                wasMaximize = windowObject.sizeDelta;
+                wasPos = windowRect.transform.position;
+                wasMaximize = windowRect.sizeDelta;
                 _ = MaximizeWindow();
                 isMaximize = true;
             }
             else
             {
-                windowObject.sizeDelta = wasMaximize;
+                windowRect.sizeDelta = wasMaximize;
                 isMaximize = false;
             }
         }
@@ -106,42 +116,46 @@ public class StageSelected : MonoBehaviour
     bool isMaximize = false;
     public void Update()
     {
-        if (isMaximize && windowObject.transform.position != wasPos && isClick)
+        if (isMaximize && windowRect.transform.position != wasPos && isClick)
         {
-            windowObject.transform.position = wasPos;
-            windowObject.sizeDelta = wasMaximize;
+            windowRect.transform.position = wasPos;
+            windowRect.sizeDelta = wasMaximize;
             isMaximize = false;
         }
 
-
         // windowobjのサイズが変わったらサイズを合わせる
-        if (backGlound.sizeDelta != windowObject.sizeDelta)
+        if (backGlound.sizeDelta != windowRect.sizeDelta)
         {
-            backGlound.sizeDelta = windowObject.sizeDelta;
+            backGlound.sizeDelta = windowRect.sizeDelta;
         }
 
-        if (buttomRect.sizeDelta != windowObject.sizeDelta)
+        if (buttomRect.sizeDelta != windowRect.sizeDelta)
         {
-            buttomRect.sizeDelta = windowObject.sizeDelta;
-            dragCollider.size = new Vector2(windowObject.sizeDelta.x, 40);
-            dragCollider.offset = new Vector2(0, windowObject.sizeDelta.y / 2f - dragCollider.size.y / 2f);
+            buttomRect.sizeDelta = windowRect.sizeDelta;
+            dragCollider.size = new Vector2(windowRect.sizeDelta.x, 40);
+            dragCollider.offset = new Vector2(0, windowRect.sizeDelta.y / 2f - dragCollider.size.y / 2f);
         }
 
     }
     public async UniTask MaximizeWindow()
     {
-        windowObject.transform.position = windowInitPos;
-        while (windowObject.rect.width < Screen.width)
+        windowRect.transform.position = windowInitPos;
+        while (windowRect.rect.width < Screen.width)
         {
-            windowObject.sizeDelta += new Vector2(Screen.width / 10, 0);
+            windowRect.sizeDelta += new Vector2(Screen.width / 10, 0);
             await UniTask.WaitForSeconds(waitSeconds);
         }
-        while (windowObject.rect.height < Screen.height)
+        while (windowRect.rect.height < Screen.height)
         {
-            windowObject.sizeDelta += new Vector2(0, Screen.height / 10);
+            windowRect.sizeDelta += new Vector2(0, Screen.height / 10);
             await UniTask.WaitForSeconds(waitSeconds);
         }
-        windowObject.sizeDelta = new Vector2(Screen.width, Screen.height);
+        windowRect.sizeDelta = new Vector2(Screen.width, Screen.height);
+    }
+
+    public void Accept()
+    {
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
 
