@@ -24,7 +24,7 @@ public class DroneMoveState : IEnemyState
     {
         moveDire = Random.value < 0.5f ? -1 : 1;
         direction = Random.value < 0.5f ? -1 : 1;
-        SeManager.Instance.Play("Drone");
+       // SeManager.Instance.Play("Drone");
     }
 
     public void Execute()
@@ -39,8 +39,8 @@ public class DroneMoveState : IEnemyState
         flipTimer += Time.deltaTime;
         if (flipTimer >= flipInterval)
         {
-            SeManager.Instance.StopImmediately("Drone");
-            SeManager.Instance.Play("Drone");
+            //SeManager.Instance.StopImmediately("Drone");
+            //SeManager.Instance.Play("Drone");
             moveDire = Random.value < 0.5f ? -1 : 1;
             direction = Random.value < 0.5f ? -1 : 1;
             flipTimer = 0f;

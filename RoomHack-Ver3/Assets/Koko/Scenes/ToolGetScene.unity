@@ -661,7 +661,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -699,12 +699,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740b3aa3ec4499746ada1635a40d2434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToolGetSceneManager
+<<<<<<< HEAD
   toolGetDataList: {fileID: 11400000, guid: b9c2b2188e3b65041808d0ee0ecca81d, type: 2}
+=======
+  toolGetDataList: {fileID: 11400000, guid: d1dd7224d3a9604418cf62cf85b8126b, type: 2}
+>>>>>>> main
   selectableToolNum: 3
   toolUIPrefab: {fileID: 6729901770542991060, guid: 66a57fb8bf0040b46bbe9ae311756511, type: 3}
   toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
   explainText: {fileID: 1078112843}
   sideSpace: 500
+  sceneToLoad:
+  - Stage1-1
+  sceneAsset:
+  - {fileID: 102900000, guid: 3d7a449e124df7641842b7c3b41c97f6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
