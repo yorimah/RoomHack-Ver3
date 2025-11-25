@@ -10,8 +10,8 @@ public class EffectTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Vector3 pos = this.transform.position;
-            pos.z = -1;
-            Debug.Log(pos);
+            //pos.z = -1;
+            //Debug.Log(pos);
             EffectManager.Instance.ActEffect(EffectManager.EffectType.HitDamage, pos, this.transform.localEulerAngles.z, true);
         }
     }

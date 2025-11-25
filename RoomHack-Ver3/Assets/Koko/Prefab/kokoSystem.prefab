@@ -208,6 +208,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 8131471068358221887}
+    - target: {fileID: 4932298869728194472, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 995719265
+      objectReference: {fileID: 0}
     - target: {fileID: 7115736500871607840, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: m_Name
       value: HackManagerCanvasDemo

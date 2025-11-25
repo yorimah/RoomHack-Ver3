@@ -48,7 +48,9 @@ public class GameManager : MonoBehaviour
     IEnumerator ClearSequence()
     {
 
-        GameTimer.Instance.SetCustumTimeScale(0);
+        GameTimer.Instance.playTime = 0;
+        //GameTimer.Instance.PauseGame();
+
         //for (int i = 0; i < 10; i++)
         //{
         //    GameTimer.Instance.SetCustumTimeScale(1 - i*0.1f);

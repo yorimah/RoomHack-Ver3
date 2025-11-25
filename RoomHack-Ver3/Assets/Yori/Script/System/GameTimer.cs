@@ -13,7 +13,7 @@ public class GameTimer
 
     public float GetCustomTimeScale()
     {
-        return customTimeScale;
+        return customTimeScale * playTime;
     }
 
     /// <summary>
@@ -23,7 +23,7 @@ public class GameTimer
 
     public float GetScaledDeltaTime()
     {
-        return ScaledDeltaTime;
+        return ScaledDeltaTime * playTime;
     }
 
     private float UnscaledDeltaTime => Time.unscaledDeltaTime * customTimeScale;
@@ -43,6 +43,10 @@ public class GameTimer
     {
         customTimeScale = Mathf.Clamp(scale, 0f, 5f);
     }
+
+    // ゲーム演出用の仮変数
+    // 後で要修正 bykoko
+    public int playTime = 1;
 
     public void SetHackModeTimeScale()
     {
