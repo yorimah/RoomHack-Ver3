@@ -27,7 +27,6 @@ public class PlayerMove
     {
         if (playerRigidbody2D != null)
         {
-
             playerRigidbody2D.linearVelocity = PlayerMoveVector(playerInput.MoveValue(), getMoveSpeed.MoveSpeed);
         }
     }

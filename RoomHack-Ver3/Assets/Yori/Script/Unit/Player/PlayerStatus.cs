@@ -72,7 +72,6 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         // Hack関連初期化
         RamCapacity = saveData.maxRamCapacity;
-        RamNow = saveData.maxRamCapacity; ;
         RamRecovary = saveData.ramRecovery;
         HandMaxSize = saveData.maxHandSize;
         IsReboot = true;

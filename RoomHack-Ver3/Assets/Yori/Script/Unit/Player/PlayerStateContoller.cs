@@ -33,7 +33,7 @@ public class PlayerStateContoller
         { PlayerStateType.Die, new PlayerDieState() },
     };
         globalState = new PlayerGlobalState(gunData, material, playerInput, player, bulletPre, haveGun, playerRigidBody);
-        stateType = PlayerStateType.Action;
+        stateType = PlayerStateType.Hack;
         currentState = states[stateType];
         currentState.Enter();
         globalState.Enter();
@@ -46,6 +46,7 @@ public class PlayerStateContoller
         {
             try
             {
+                await UniTask.WaitUntil(() => GameTimer.Instance.playTime > 0);
                 await currentState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
                 await globalState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
             }

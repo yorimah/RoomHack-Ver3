@@ -20,7 +20,6 @@ public class PlayerGlobalState : IPlayerState
     public async UniTask Execute()
     {
         playerShot.Shot();
-        rigidbody2D.linearVelocity *= GameTimer.Instance.playTime;
         await UniTask.Yield();
     }
 
