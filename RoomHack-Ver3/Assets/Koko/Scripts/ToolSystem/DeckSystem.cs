@@ -27,7 +27,7 @@ public class DeckSystem : MonoBehaviour
     [Inject]
     IDeckList deckListData;
 
-    private void Start()
+    public void DeckSystemStart()
     {
         setList = IntToDeck(deckListData.DeckList);
 
