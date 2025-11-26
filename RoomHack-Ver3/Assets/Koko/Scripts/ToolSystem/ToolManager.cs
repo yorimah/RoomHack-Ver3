@@ -49,6 +49,8 @@ public class ToolManager : MonoBehaviour
 
     private void Start()
     {
+        deckSystem.DeckSystemStart();
+
         toolUIController.ToolUIControllerStart();
 
         for (int i = 0; i < useableRam.HandMaxSize; i++)
@@ -63,43 +65,43 @@ public class ToolManager : MonoBehaviour
     {
         // reboot関連
         // 廃止につきStartに移行
-        //if (useableRam.IsReboot)
-        //{
-        //    Debug.Log("リブート中");
+        {
+            //if (useableRam.IsReboot)
+            //{
+            //    Debug.Log("リブート中");
 
-        //    for (int i = 0; i < deckSystem.toolHand.Count; i++)
-        //    {
-        //        HandTrash(0);
-        //    }
-        //    isRebootHandStay = true;
-        //}
-        //else
-        //{
-        //    Debug.Log("リブート中じゃないよ");
+            //    for (int i = 0; i < deckSystem.toolHand.Count; i++)
+            //    {
+            //        HandTrash(0);
+            //    }
+            //    isRebootHandStay = true;
+            //}
+            //else
+            //{
+            //    Debug.Log("リブート中じゃないよ");
 
-        //    // 手札再配置
-        //    if (isRebootHandStay)
-        //    {
-        //        Debug.Log("手札くばるよ");
+            //    // 手札再配置
+            //    if (isRebootHandStay)
+            //    {
+            //        Debug.Log("手札くばるよ");
 
-        //        //SeManager.Instance.Play("RebootEnd");
-        //        if (deckSystem.toolHand.Count < useableRam.HandMaxSize)
-        //        {
-        //            DeckDraw();
-        //        }
-        //        else
-        //        {
-        //            isRebootHandStay = false;
-        //            //Debug.Log("rebootEnd!");
-        //        }
-        //    }
-        //}
+            //        //SeManager.Instance.Play("RebootEnd");
+            //        if (deckSystem.toolHand.Count < useableRam.HandMaxSize)
+            //        {
+            //            DeckDraw();
+            //        }
+            //        else
+            //        {
+            //            isRebootHandStay = false;
+            //            //Debug.Log("rebootEnd!");
+            //        }
+            //    }
+            //}
+        }
 
         // ハッキングモード
         if (GameTimer.Instance.IsHackTime)
         {
-            toolUIController.handCostList = handCostList;
-            toolUIController.handPlayList = handPlayList;
 
             ramUIDisp.willUseRam = 0;
 
@@ -116,7 +118,7 @@ public class ToolManager : MonoBehaviour
                 }
 
 
-                // 対象取れるかチェック
+                // 対象取れてるかチェック
                 handPlayList[i] = false;
                 if (cameraPositionController.targetObject != null)
                 {
@@ -129,8 +131,6 @@ public class ToolManager : MonoBehaviour
                         }
                     }
                 }
-
-
 
                 // 対象不要ツールならタゲなしでもプレイ可能
                 if (!deckSystem.ReturnToolNeedTarget(hand))
@@ -161,6 +161,10 @@ public class ToolManager : MonoBehaviour
                     }
                 }
             }
+
+            // 手札チェックの結果をToolUIControllerに入力
+            toolUIController.handCostList = handCostList;
+            toolUIController.handPlayList = handPlayList;
         }
 
         toolUIController.ToolUIControllerUpdate();
