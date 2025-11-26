@@ -49,13 +49,14 @@ public class ToolManager : MonoBehaviour
 
     private void Start()
     {
+        toolUIController.ToolUIControllerStart();
+
         for (int i = 0; i < useableRam.HandMaxSize; i++)
         {
             //Debug.Log("hikimasita");
             DeckDraw();
         }
 
-        toolUIController.ToolUIControllerStart();
     }
 
     private void Update()

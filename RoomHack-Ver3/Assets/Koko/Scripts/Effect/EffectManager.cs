@@ -31,6 +31,7 @@ public class EffectManager : MonoBehaviour
         Bomb,
         Success,
         MissileFire,
+        Time,
     }
 
     // エフェクトを登録

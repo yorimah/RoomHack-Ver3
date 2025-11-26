@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ClearSequence()
     {
 
+        yield return new WaitForSeconds(0.5f);
         GameTimer.Instance.playTime = 0;
         //GameTimer.Instance.PauseGame();
 

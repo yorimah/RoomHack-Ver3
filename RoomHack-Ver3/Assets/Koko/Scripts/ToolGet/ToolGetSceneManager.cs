@@ -168,7 +168,7 @@ public class ToolGetSceneManager : MonoBehaviour
         else
         {
             SaveManager.Instance.Save(data);
-            SceneManager.LoadScene("YoriTestScene");
+            SceneManager.LoadScene("StageEffectDemo");
         }
     }
 

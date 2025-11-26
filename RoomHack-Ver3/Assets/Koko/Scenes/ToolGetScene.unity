@@ -530,7 +530,8 @@ MonoBehaviour:
   explainText: {fileID: 876527538}
   sideSpace: 500
   sceneToLoad: []
-  sceneAsset: []
+  sceneAsset:
+  - {fileID: 0}
 --- !u!1 &1195791531
 GameObject:
   m_ObjectHideFlags: 0

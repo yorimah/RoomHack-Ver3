@@ -67,6 +67,9 @@ public class ToolUIController : MonoBehaviour
 
     public void ToolUIControllerStart()
     {
+        nowDeckPos = actDeckPos;
+        nowTrashPos = actTrashPos;
+        nowHandPos = actHandPos;
 
         // デッキ置き場
         GameObject signToolUI = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
