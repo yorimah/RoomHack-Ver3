@@ -46,6 +46,7 @@ public class PlayerStateContoller
         {
             try
             {
+                await UniTask.WaitUntil(() => GameTimer.Instance.playTime > 0);
                 await currentState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
                 await globalState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
             }
