@@ -100,7 +100,7 @@ public class ToolManager : MonoBehaviour
         }
 
         // ハッキングモード
-        if (GameTimer.Instance.IsHackTime)
+        //if (GameTimer.Instance.IsHackTime)
         {
 
             ramUIDisp.willUseRam = 0;

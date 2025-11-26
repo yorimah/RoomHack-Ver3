@@ -92,6 +92,7 @@ public class ToolUIController : MonoBehaviour
 
     public void ToolUIControllerUpdate()
     {
+        // ポジション関連の入力
         deckSign.toMovePosition = nowDeckPos;
         trashSign.toMovePosition = nowTrashPos;
 
@@ -112,18 +113,21 @@ public class ToolUIController : MonoBehaviour
 
 
         // デッキクリックでリブート開始
-        //if (Input.GetMouseButtonDown(0) && deckSign.isPointerOn)
-        //{
-        //    SeManager.Instance.Play("RebootStart");
-        //    //Debug.Log("Rebooting!");
-        //    UnitCore.Instance.isRebooting = true;
-        //}
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    SeManager.Instance.Play("RebootStart");
-        //    //Debug.Log("Rebooting!");
-        //    UnitCore.Instance.isRebooting = true;
-        //}
+        // 廃止
+        {
+            //if (Input.GetMouseButtonDown(0) && deckSign.isPointerOn)
+            //{
+            //    SeManager.Instance.Play("RebootStart");
+            //    //Debug.Log("Rebooting!");
+            //    UnitCore.Instance.isRebooting = true;
+            //}
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    SeManager.Instance.Play("RebootStart");
+            //    //Debug.Log("Rebooting!");
+            //    UnitCore.Instance.isRebooting = true;
+            //}
+        }
 
         // リフレッシュリスト処理
         RefreshDestroy();
@@ -131,7 +135,7 @@ public class ToolUIController : MonoBehaviour
         HandOnIndexCheck();
 
 
-        // trashが上じゃないとチェックがバグる
+        // trashがhandより上じゃないとチェックがバグる
         TrashControl();
 
         HandControl();
@@ -231,6 +235,7 @@ public class ToolUIController : MonoBehaviour
 
             // ツールコストが足りるかチェック
             //if (deckSystem.ReturnToolCost(hand.thisTool) > Player.Instance.nowRam)
+            //Debug.Log(handCostList[i] + " / " + i);
             if (!handCostList[i])
             {
                 //firstHandPos.y = -100;

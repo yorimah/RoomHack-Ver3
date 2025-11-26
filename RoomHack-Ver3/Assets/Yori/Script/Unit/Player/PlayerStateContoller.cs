@@ -33,7 +33,7 @@ public class PlayerStateContoller
         { PlayerStateType.Die, new PlayerDieState() },
     };
         globalState = new PlayerGlobalState(gunData, material, playerInput, player, bulletPre, haveGun, playerRigidBody);
-        stateType = PlayerStateType.Hack;
+        stateType = PlayerStateType.Action;
         currentState = states[stateType];
         currentState.Enter();
         globalState.Enter();
