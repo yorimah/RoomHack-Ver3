@@ -13,7 +13,7 @@ enum SpecialAction
 public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     IGetPlayerDie, ISetPlayerDied, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
     IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList, ISetHitPoint, IGetHitPoint
-    , ISetMoveSpeed
+    , ISetMoveSpeed, IGetSaveData
 {
 
     public int MaxHitPoint { get; private set; }
@@ -126,13 +126,17 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     {
         float ram = RamNow + addRam;
         // 上限、下限を超えないかチェック
-        if (ram < RamCapacity && ram > 0)
+        if (ram > RamCapacity)
         {
-            RamNow += addRam;
+            RamNow = RamCapacity;
+        }
+        else if (ram < 0)
+        {
+            RamNow = 0;
         }
         else
         {
-            Debug.LogError("RamAddで上限、下限を超えました");
+            RamNow = ram;
         }
     }
 
@@ -256,6 +260,11 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     public void MoveSpeedUp(float plusNum)
     {
         MoveSpeed = saveData.moveSpeed + plusNum;
+    }
+
+    public PlayerSaveData GetPlayerSaveData()
+    {
+        return saveData;
     }
 }
 public interface IPosition
@@ -386,4 +395,9 @@ public interface ISetHitPoint
 public interface ISetMoveSpeed
 {
     public void MoveSpeedUp(float moveSpeed);
+}
+
+public interface IGetSaveData
+{
+    public PlayerSaveData GetPlayerSaveData();
 }

@@ -6,7 +6,12 @@ using System.Collections;
 public class FloorInformationManager : MonoBehaviour
 {
     [Inject]
-    IGetFloorData floorData;
+    IGetCleaFlag floorData;
+
+    [Inject]
+    IGetSaveData getSaveData;
+
+    PlayerSaveData saveData;
 
     [SerializeField]
     GeneralUpdateText updateText;
@@ -14,11 +19,11 @@ public class FloorInformationManager : MonoBehaviour
     [SerializeField]
     Text timerText;
 
-    public int floorNum = 0;
-
     private void Start()
     {
         EffectManager.Instance.ActEffect(EffectManager.EffectType.Time, new Vector2(0, 6));
+
+        saveData = getSaveData.GetPlayerSaveData();
 
         StartCoroutine(StartSequence());
     }
@@ -38,7 +43,7 @@ public class FloorInformationManager : MonoBehaviour
     {
         timerText.gameObject.SetActive(false);
         updateText.gameObject.SetActive(true);
-        updateText.inputText = "FLOOR " + floorNum;
+        updateText.inputText = "FLOOR " + saveData.nowFloor;
         this.transform.position = new Vector2(0, 20);
 
         GameTimer.Instance.playTime = 0;
@@ -55,6 +60,4 @@ public class FloorInformationManager : MonoBehaviour
 
         GameTimer.Instance.playTime = 1;
     }
-
-
 }
