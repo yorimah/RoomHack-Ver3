@@ -5,10 +5,13 @@ public class PlayerHackState : IPlayerState
     IPlayerInput playerInput;
     PlayerStateContoller playerStateContoller;
 
-    public PlayerHackState(PlayerStateContoller _playerStateContoller, IPlayerInput _playerInput)
+    Rigidbody2D rigidbody2D;
+
+    public PlayerHackState(PlayerStateContoller _playerStateContoller, IPlayerInput _playerInput, Rigidbody2D _rigidbody2D)
     {
         playerInput = _playerInput;
         playerStateContoller = _playerStateContoller;
+        rigidbody2D = _rigidbody2D;
     }
 
     public void Enter()
@@ -18,6 +21,7 @@ public class PlayerHackState : IPlayerState
 
     public async UniTask Execute()
     {
+        rigidbody2D.linearVelocity *= GameTimer.Instance.GetScaledDeltaTime();
         if (playerInput.MoveValue() != Vector2.zero)
         {
             ChangeState();
