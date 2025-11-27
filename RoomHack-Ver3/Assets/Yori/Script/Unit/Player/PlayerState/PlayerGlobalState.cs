@@ -5,7 +5,7 @@ public class PlayerGlobalState : IPlayerState
 {
     private PlayerShot playerShot;
     public PlayerGlobalState(IGetGunData gunData, Material material, IPlayerInput playerInput,  
-        GameObject bulletPre, GameObject player,IHaveGun haveGun,Rigidbody2D _rigidbody2D)
+        GameObject bulletPre, GameObject player,IHaveGun haveGun)
     {
         playerShot = new PlayerShot(gunData, material, player, bulletPre, playerInput,haveGun);
     }
@@ -17,6 +17,7 @@ public class PlayerGlobalState : IPlayerState
 
     public async UniTask Execute()
     {
+        await UniTask.WaitUntil(() => GameTimer.Instance.playTime > 0);
         playerShot.Shot();
         await UniTask.Yield();
     }

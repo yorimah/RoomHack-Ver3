@@ -48,7 +48,17 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
     public float RebootTimer { get; private set; }
 
-    public float MoveSpeed { get; private set; }
+    private float baseMoveSpeed;
+
+    private float plusMoveSpeed;
+
+    public float MoveSpeed
+    {
+        get
+        { return baseMoveSpeed + plusMoveSpeed; }
+        private set
+        { }
+    }
 
     public List<int> DeckList { get; private set; }
 
@@ -78,7 +88,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         _ = RamUpdate();
         DeckList = saveData.deckList;
 
-        MoveSpeed = saveData.moveSpeed;
+        baseMoveSpeed = saveData.moveSpeed;
 
         // 銃関連初期化
         GunName = saveData.gunName;
@@ -99,7 +109,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         saveData.maxHandSize = HandMaxSize;
         saveData.deckList = DeckList;
 
-        saveData.moveSpeed = MoveSpeed;
+        saveData.moveSpeed = baseMoveSpeed;
 
         // 銃関連初期化
         saveData.gunName = GunName;
@@ -255,7 +265,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
     public void MoveSpeedUp(float plusNum)
     {
-        MoveSpeed = saveData.moveSpeed + plusNum;
+        plusMoveSpeed = plusNum;
     }
 }
 public interface IPosition

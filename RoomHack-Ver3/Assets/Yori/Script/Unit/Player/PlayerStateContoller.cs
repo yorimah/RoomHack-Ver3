@@ -29,10 +29,10 @@ public class PlayerStateContoller
         states = new Dictionary<PlayerStateType, IPlayerState>()
     {
         { PlayerStateType.Action, new PlayerActionState(playerRigidBody,getMoveSpeed,this,playerInput) },
-        { PlayerStateType.Hack, new PlayerHackState(this,playerInput) },
+        { PlayerStateType.Hack, new PlayerHackState(this,playerInput,playerRigidBody) },
         { PlayerStateType.Die, new PlayerDieState() },
     };
-        globalState = new PlayerGlobalState(gunData, material, playerInput, player, bulletPre, haveGun, playerRigidBody);
+        globalState = new PlayerGlobalState(gunData, material, playerInput, player, bulletPre, haveGun);
         stateType = PlayerStateType.Action;
         currentState = states[stateType];
         currentState.Enter();
@@ -46,8 +46,8 @@ public class PlayerStateContoller
         {
             try
             {
-                await UniTask.WaitUntil(() => GameTimer.Instance.playTime > 0);
                 await currentState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
+                await UniTask.WaitUntil(() => GameTimer.Instance.playTime > 0);
                 await globalState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
             }
             catch (OperationCanceledException)
