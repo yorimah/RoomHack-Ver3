@@ -83,19 +83,4 @@ public class PlayerCore : MonoBehaviour, IDamageable
             HitStopper.Instance.StopTime(hitStop);
         }
     }
-
-#if UNITY_EDITOR
-
-    void OnDrawGizmos()
-    {
-        // デバッグ用表示
-        GUIStyle style = new GUIStyle();
-        style.normal.textColor = Color.white;
-        style.fontSize = 14;
-        if (getHitPoint != null)
-        {
-            Handles.Label(transform.position + Vector3.up * 1f, "HP " + getHitPoint.NowHitPoint.ToString(), style);
-        }
-    }
-#endif
 }

@@ -154,7 +154,7 @@ public class ToolManager : MonoBehaviour
                         if (handCostList[i] && handPlayList[i])
                         {
                             deckSystem.ToolCostUse(hand);
-                            Debug.Log(i);
+                            //Debug.Log(i);
                             HandPlay(i, targetObject);
                             toolPlayAction();
                         }
