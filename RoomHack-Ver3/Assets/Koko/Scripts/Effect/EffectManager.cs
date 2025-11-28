@@ -110,10 +110,18 @@ public class EffectManager : MonoBehaviour
     }
 
     // エフェクト追従版
-    public GameObject ActEffect_Trace(EffectType _effectType, GameObject _target, float _rotOffset)
+    public GameObject ActEffect_PositionTrace(EffectType _effectType, GameObject _target, Vector2 _posOffset)
     {
         GameObject effect = ActEffect(_effectType, _target.transform.position, _target.transform.localEulerAngles.z, true);
-        StartCoroutine(EffectPositionTrace(effect, _target, _rotOffset));
+        StartCoroutine(EffectPositionTrace(effect, _target, _posOffset));
+        return effect;
+    }
+
+    public GameObject ActEffect_Trace(EffectType _effectType, GameObject _target, Vector2 _posOffset, float _rotOffset)
+    {
+        GameObject effect = ActEffect(_effectType, _target.transform.position, _target.transform.localEulerAngles.z, true);
+        StartCoroutine(EffectPositionTrace(effect, _target, _posOffset));
+        StartCoroutine(EffectRotationTrace(effect, _target, _rotOffset));
         return effect;
     }
 
@@ -138,19 +146,26 @@ public class EffectManager : MonoBehaviour
     }
 
     // 対象追従
-    IEnumerator EffectPositionTrace(GameObject _effect, GameObject _target, float _rotOffset)
+    IEnumerator EffectPositionTrace(GameObject _effect, GameObject _target, Vector2 _posOffset)
     {
         while (_effect.activeSelf)
         {
             //Debug.Log("追跡中！ / " + _effect + "  / " + _target);
             if (_target != null)
             {
-                _effect.transform.position = _target.transform.position;
+                _effect.transform.position = _target.transform.position + (Vector3)_posOffset;
+            }
 
-                //Vector3 rot = _effect.transform.localEulerAngles;
-                //rot.x = _target.transform.localEulerAngles.z + _rotOffset;
-                ////rot.x = _target.transform.localEulerAngles.z;
-                //_effect.transform.localEulerAngles = rot;
+            yield return null;
+        }
+    }
+    IEnumerator EffectRotationTrace(GameObject _effect, GameObject _target, float _rotOffset)
+    {
+        while (_effect.activeSelf)
+        {
+            //Debug.Log("追跡中！ / " + _effect + "  / " + _target);
+            if (_target != null)
+            {
                 _effect.transform.rotation = Quaternion.Euler(
                 0,
                 0,
@@ -162,7 +177,6 @@ public class EffectManager : MonoBehaviour
             yield return null;
         }
     }
-
 
 
     // 数値エフェクト

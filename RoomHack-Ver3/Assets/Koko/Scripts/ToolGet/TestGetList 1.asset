@@ -23,3 +23,11 @@ MonoBehaviour:
     toolWeight: 1
   - toolTag: 5
     toolWeight: 1
+  - toolTag: 8
+    toolWeight: 1
+  - toolTag: 9
+    toolWeight: 1
+  - toolTag: 10
+    toolWeight: 1
+  - toolTag: 11
+    toolWeight: 1

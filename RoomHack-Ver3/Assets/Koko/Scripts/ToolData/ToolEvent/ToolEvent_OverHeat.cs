@@ -30,7 +30,7 @@ public class ToolEvent_OverHeat : ToolEventBase, IToolEventBase_Target
     {
         EventAdd(hackTargetObject);
 
-        effect = EffectManager.Instance.ActEffect_Trace(EffectManager.EffectType.Fire, this.gameObject, 0);
+        effect = EffectManager.Instance.ActEffect_PositionTrace(EffectManager.EffectType.Fire, this.gameObject, Vector2.zero);
 
         damageable = hackTargetObject.GetComponent<IDamageable>();
 

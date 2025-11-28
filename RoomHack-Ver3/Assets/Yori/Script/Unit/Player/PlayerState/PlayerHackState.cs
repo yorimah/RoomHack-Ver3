@@ -21,7 +21,7 @@ public class PlayerHackState : IPlayerState
 
     public async UniTask Execute()
     {
-        rigidbody2D.linearVelocity *= GameTimer.Instance.GetScaledDeltaTime();
+        //rigidbody2D.linearVelocity *= GameTimer.Instance.GetScaledDeltaTime();
         if (playerInput.MoveValue() != Vector2.zero)
         {
             ChangeState();
