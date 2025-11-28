@@ -25,7 +25,7 @@ public class ToolEvent_Blind : ToolEventBase, IToolEventBase_Target
     {
         EventAdd(hackTargetObject);
 
-        effect = EffectManager.Instance.ActEffect_Trace(EffectManager.EffectType.Bad, this.gameObject, 0);
+        effect = EffectManager.Instance.ActEffect_PositionTrace(EffectManager.EffectType.Bad, this.gameObject, Vector2.zero);
 
         targetData = hackTargetObject.GetComponent<Enemy>();
         startInterval = targetData.shotIntervalTime;

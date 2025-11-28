@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     private List<Enemy> eList;
 
     [Inject]
-    IGetFloorData getFloorData;
+    IGetCleaFlag getFloorData;
 
     [Inject]
     IGetEnemyList getEnemyList;
@@ -67,14 +67,14 @@ public class GameManager : MonoBehaviour
 }
 
 
-public interface IGetFloorData
+public interface IGetCleaFlag
 {
     public bool isClear { get; }
 
     public void SetClear();
 }
 
-public class ClearManager:IGetFloorData
+public class ClearManager:IGetCleaFlag
 {
     public bool isClear { get; private set; }
     

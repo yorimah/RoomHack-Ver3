@@ -23,8 +23,8 @@ public class BombCore : MonoBehaviour
     {
         SeManager.Instance.Play("Explosion");
         bombBlast = Instantiate(blastGameObject, this.transform.position, Quaternion.identity).GetComponent<BombBlast>();
-        bombBlast.explosionPower = explosionPower;
         bombBlast.explosionRadial = explosionRadial;
+        bombBlast.explosionPower = explosionPower;
         bombBlast.isExplosion = true;
     }
 

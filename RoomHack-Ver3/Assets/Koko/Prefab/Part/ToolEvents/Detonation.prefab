@@ -110,5 +110,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   blastGameObject: {fileID: 8453913145913770808, guid: 2d12e5ed4ad34f1458bc36c266505459, type: 3}
-  explosionTimer: 3
+  explosionTimer: 0.5
   hitStop: 0
