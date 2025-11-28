@@ -150,13 +150,13 @@ public class ToolGetSceneManager : MonoBehaviour
         // データ追加
         PlayerSaveData data = SaveManager.Instance.Load();
         data.deckList.Add((int)_toolUI.thisTool);
+        data.nowFloor++;
         if (data.nowFloor < data.stageRange)
         {
-            int stageNum = Random.Range(0, sceneToLoad.Count);
+            int stageNum = Random.Range(0, sceneToLoad.Count - 1);
             // シーン移動
-            if (!string.IsNullOrEmpty(sceneToLoad[stageNum]))
+            if ((sceneToLoad[stageNum]) != null)
             {
-                data.nowFloor++;
                 SaveManager.Instance.Save(data);
                 SceneManager.LoadScene(sceneToLoad[stageNum]);
             }

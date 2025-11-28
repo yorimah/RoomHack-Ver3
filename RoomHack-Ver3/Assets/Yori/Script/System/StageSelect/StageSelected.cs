@@ -25,9 +25,11 @@ public class StageSelected : MonoBehaviour
     float waitSeconds = 0.01f;
     private string sceneToLoad;
 
-    public void SetScene(string setScene)
+    private int stageRange;
+    public void SetScene(string setScene, int _stageRange)
     {
         sceneToLoad = setScene;
+        stageRange = _stageRange;
     }
 
 
@@ -155,6 +157,10 @@ public class StageSelected : MonoBehaviour
 
     public void Accept()
     {
+        PlayerSaveData saveData = SaveManager.Instance.Load();
+        saveData.stageRange = stageRange;
+        saveData.nowFloor = 0;
+        SaveManager.Instance.Save(saveData);
         SceneManager.LoadScene(sceneToLoad);
     }
 }
