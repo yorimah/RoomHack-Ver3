@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using Zenject;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+
 public class PlayerCore : MonoBehaviour, IDamageable
 {
     [SerializeField]
