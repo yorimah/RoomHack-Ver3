@@ -9,6 +9,7 @@ public enum PlayerStateType
     Action,
     Hack,
     Die,
+    Pause,
     num
 }
 
@@ -30,10 +31,11 @@ public class PlayerStateContoller
     {
         { PlayerStateType.Action, new PlayerActionState(playerRigidBody,getMoveSpeed,this,playerInput) },
         { PlayerStateType.Hack, new PlayerHackState(this,playerInput,playerRigidBody) },
+        { PlayerStateType.Pause, new PlayerPauseState(this,playerRigidBody) },
         { PlayerStateType.Die, new PlayerDieState() },
     };
-        globalState = new PlayerGlobalState(gunData, material, playerInput, player, bulletPre, haveGun);
-        stateType = PlayerStateType.Action;
+        globalState = new PlayerGlobalState(gunData, material, playerInput, player, bulletPre, haveGun, this);
+        stateType = PlayerStateType.Pause;
         currentState = states[stateType];
         currentState.Enter();
         globalState.Enter();
@@ -47,7 +49,6 @@ public class PlayerStateContoller
             try
             {
                 await currentState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
-                await UniTask.WaitUntil(() => GameTimer.Instance.playTime > 0);
                 await globalState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
             }
             catch (OperationCanceledException)
