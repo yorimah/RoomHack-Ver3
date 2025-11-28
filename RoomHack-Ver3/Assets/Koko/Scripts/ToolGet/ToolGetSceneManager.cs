@@ -155,7 +155,7 @@ public class ToolGetSceneManager : MonoBehaviour
         {
             int stageNum = Random.Range(0, sceneToLoad.Count - 1);
             // シーン移動
-            if ((sceneToLoad[stageNum]) != null)
+            if (sceneToLoad[stageNum] != null)
             {
                 SaveManager.Instance.Save(data);
                 SceneManager.LoadScene(sceneToLoad[stageNum]);
@@ -168,28 +168,7 @@ public class ToolGetSceneManager : MonoBehaviour
         else
         {
             SaveManager.Instance.Save(data);
-            //SceneManager.LoadScene("StageEffectDemo");
-
-            // おためし設置、ステージランダム偏移
-            int rand = Random.Range(1, 4);
-            switch(rand)
-            {
-                case 1:
-                    SceneManager.LoadScene("DemoStage1-1");
-                    break;
-
-                case 2:
-                    SceneManager.LoadScene("DemoStage1-2");
-                    break;
-
-                case 3:
-                    SceneManager.LoadScene("DemoStage1-3");
-                    break;
-
-                case 4:
-                    SceneManager.LoadScene("TitleDemoScene");
-                    break;
-            }
+            SceneManager.LoadScene("StageEffectDemo");
         }
     }
 
