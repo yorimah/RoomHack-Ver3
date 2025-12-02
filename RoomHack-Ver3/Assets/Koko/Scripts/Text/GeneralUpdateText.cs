@@ -13,7 +13,7 @@ public class GeneralUpdateText : MonoBehaviour
     int textIndex = 0;
     Text dispText;
     
-    void Start()
+    void Awake()
     {
         dispText = GetComponent<Text>();
         //if (dispText == null)
