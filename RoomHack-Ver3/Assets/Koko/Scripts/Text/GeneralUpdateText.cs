@@ -13,23 +13,22 @@ public class GeneralUpdateText : MonoBehaviour
     int textIndex = 0;
     Text dispText;
     
-    void Start()
+    void Awake()
     {
         dispText = GetComponent<Text>();
-        if (dispText == null)
-        {
-            Debug.LogError("テキストにアタッチしてください : " + this.gameObject);
-        }
+        //if (dispText == null)
+        //{
+        //    Debug.LogError("テキストにアタッチしてください : " + this.gameObject);
+        //}
     }
     
     void Update()
     {
         // テキストが変更されたらリセット
-        if (nowText != inputText)
+        if (nowText != inputText || !isRunning)
         {
             nowText = inputText;
-            dispText.text = null;
-            textIndex = 0;
+            DispTextReset();
         }
 
         // 起動中
@@ -61,5 +60,16 @@ public class GeneralUpdateText : MonoBehaviour
 
         // テキスト表示
         if (nowText != null) dispText.text = nowText.Substring(0, textIndex);
+    }
+
+    private void OnEnable()
+    {
+        DispTextReset();
+    }
+
+    public void DispTextReset()
+    {
+        dispText.text = null;
+        textIndex = 0;
     }
 }
