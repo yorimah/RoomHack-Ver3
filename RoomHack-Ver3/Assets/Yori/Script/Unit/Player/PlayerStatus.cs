@@ -264,7 +264,14 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
     public void HealNowHitPoint(int healPoint)
     {
-        NowHitPoint += healPoint;
+        if (MaxHitPoint <= NowHitPoint + healPoint)
+        {
+            NowHitPoint = MaxHitPoint;
+        }
+        else
+        {
+            NowHitPoint += healPoint;
+        }
     }
 
     public void MoveSpeedUp(float plusNum)
@@ -353,13 +360,11 @@ public interface ISetPlayerDied
 
 public interface IGetPlayerScore
 {
-
     public int GetDestroyScore();
 }
 
 public interface ISetScoreDestroy
 {
-
     public int ScoreDestroy { get; }
 
     public void AddScoreDestroy(int addScore);
@@ -380,7 +385,6 @@ public interface IRelicStatusEffect
 public interface ISetRelicList
 {
     public void AddRelic(RelicName relic);
-
     public void RemoveRelic(RelicName relic);
 }
 
@@ -398,7 +402,6 @@ public interface IGetHitPoint
 public interface ISetHitPoint
 {
     public void DamageHitPoint(float dmg);
-
     public void HealNowHitPoint(int healPoint);
 }
 

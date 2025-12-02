@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Yori/Scenes/Test/UpgradeTest.unity
     guid: 5c7164800dbdc8c4fa2490945f7dd403
   - enabled: 1
+    path: Assets/Koko/Scenes/ToolGetScene.unity
+    guid: e9ace5abd1e7f7c48bee51a380652de7
+  - enabled: 1
     path: Assets/Koko/Scenes/Stage/Demo/DemoStage1-1.unity
     guid: 3d7a449e124df7641842b7c3b41c97f6
   - enabled: 1
@@ -26,9 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Koko/Scenes/Stage/Demo/DemoStage1-3.unity
     guid: 7724485bee0d00f4a8bf94d1b2c3e24a
-  - enabled: 1
-    path: Assets/Koko/Scenes/ToolGetScene.unity
-    guid: e9ace5abd1e7f7c48bee51a380652de7
   - enabled: 1
     path: Assets/Koko/Scenes/Stage/Stage_test.unity
     guid: 6cf8df16a767f434f844776cb4c267ac

@@ -2,7 +2,6 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System.Collections;
 using System.Collections.Generic;
 
 public class StageSelecter : MonoBehaviour
@@ -17,19 +16,19 @@ public class StageSelecter : MonoBehaviour
     [Header("遷移先シーン選択")] // インスペクタに見出しを表示
     [SerializeField] private List<SceneAsset> sceneAsset; // ここにシーンファイルをD&Dする
 #endif
+    [SerializeField, Header("ステージセレクトボタン")]
+    private List<StageSelected> selectButtomList = new List<StageSelected>();
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        foreach (var selcetButtom in selectButtomList)
+        {
+            int rand = Random.Range(0, sceneToLoad.Count - 1);
+            selcetButtom.SetScene(sceneToLoad[rand], 3);
+            sceneToLoad.Remove(sceneToLoad[rand]);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
 #if UNITY_EDITOR
     // インスペクタで値が変更された時などに自動で呼ばれるメソッド
