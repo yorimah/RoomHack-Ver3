@@ -2,11 +2,13 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class TooUIListDisp : MonoBehaviour
+public class ToolUIListDisp : MonoBehaviour
 {
     [SerializeField, Header("要アタッチ")]
     ToolUI toolUIPrefab;
 
+    [SerializeField, Header("要アタッチ")]
+    GameObject blind;
 
     public bool isDisp = false;
 
@@ -25,6 +27,8 @@ public class TooUIListDisp : MonoBehaviour
 
         if (isDisp)
         {
+            blind.SetActive(true);
+
             // プレハブ生成必要枚数以下なら
             while (inputToolList.Count > toolUIList.Count)
             {
@@ -61,6 +65,7 @@ public class TooUIListDisp : MonoBehaviour
                         toolUIList[i].isTextDisp = true;
                         toolUIList[i].isBlackOut = true;
                         toolUIList[i].toScale = new Vector2(1.2f, 1.2f);
+                        //Debug.Log(toolUIList[i].thisTool);
                     }
                     else
                     {
@@ -71,6 +76,7 @@ public class TooUIListDisp : MonoBehaviour
                 }
                 else
                 {
+                    // 非表示
                     toolUIList[i].gameObject.SetActive(false);
                     toolUIList[i].toMovePosition = startPos;
                 }
@@ -79,13 +85,19 @@ public class TooUIListDisp : MonoBehaviour
         }
         else
         {
+            blind.SetActive(false);
+
             for (int i = 0; i < toolUIList.Count; i++)
             {
                 toolUIList[i].isOpen = false;
                 toolUIList[i].toMovePosition = startPos;
 
-                // 目標地点に到達、かつ動きも止まったら
-                if (Vector2.Distance(toolUIList[i].GetComponent<RectTransform>().localPosition, startPos) < 0.1 && !toolUIList[i].isMove)
+                toolUIList[i].isTextDisp = false;
+                toolUIList[i].isBlackOut = false;
+                toolUIList[i].toScale = new Vector2(1.0f, 1.0f);
+
+                // 目標地点に到達
+                if (Vector2.Distance(toolUIList[i].GetComponent<RectTransform>().localPosition, startPos) < 10 /*&& !toolUIList[i].isMove*/)
                 {
                     // 表示を消す
                     toolUIList[i].gameObject.SetActive(false);
