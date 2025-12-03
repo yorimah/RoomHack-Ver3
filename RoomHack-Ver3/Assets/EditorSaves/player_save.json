@@ -1,6 +1,6 @@
 {
   "score_Stage": 0,
-  "score_DestoryEnemy": 53,
+  "score_DestoryEnemy": 45,
   "gunName": 0,
   "maxHitPoint": 100,
   "moveSpeed": 5.0,
@@ -24,13 +24,17 @@
     2,
     5,
     5,
+    10,
+    3,
     2,
-    1,
-    3
+    3,
+    9,
+    5,
+    9
   ],
   "relicEffecters": [
     0
   ],
-  "nowFloor": 0,
-  "stageRange": 3
+  "nowFloor": 8,
+  "stageRange": 0
 }

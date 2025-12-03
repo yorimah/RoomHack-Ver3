@@ -24,6 +24,12 @@ public class ToolGetSceneManager : MonoBehaviour
     [SerializeField, Header("textアタッチ")]
     GeneralUpdateText explainText;
 
+    [SerializeField, Header("ToolUIListDispCanvasあたっち")]
+    ToolUIListDisp toolUIListDispCanvas;
+
+    [SerializeField, Header("deckIconアタッチ")]
+    ToolUI deckIcon;
+
     List<ToolTag> addToolList = new List<ToolTag>();
 
     List<ToolUI> toolUIList = new List<ToolUI>();
@@ -32,6 +38,10 @@ public class ToolGetSceneManager : MonoBehaviour
     float sideSpace = 500;
 
     bool isSelected = false;
+
+
+    PlayerSaveData data;
+
 
     // [HideInInspector] 実行時にはこの文字列だけあれば良いのでインスペクタからは隠す
     [HideInInspector]
@@ -46,6 +56,10 @@ public class ToolGetSceneManager : MonoBehaviour
 
     private void Start()
     {
+        // セーブデータをロード
+        data = SaveManager.Instance.Load();
+        toolUIListDispCanvas.inputToolList = IntToDeck(data.deckList);
+
         // ランダムなtoolをリストに入力、重複しない
         List<ToolGetData> dataList = new List<ToolGetData>();
         dataList.AddRange(toolGetDataList.dataList);
@@ -100,30 +114,56 @@ public class ToolGetSceneManager : MonoBehaviour
 
     private void Update()
     {
+        // toolUIListDataCanvasの設定
+        toolUIListDispCanvas.startPos = deckIcon.GetComponent<RectTransform>().localPosition;
+
         // 選択中
         if (!isSelected)
         {
-            for (int i = 0; i < toolUIList.Count; i++)
+            if (toolUIListDispCanvas.isDisp)
             {
-                // マウスがツールの上に載ったら
-                if (toolUIList[i].isPointerOn)
+                if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    // 拡大して説明文
-                    toolUIList[i].toScale = new Vector2(2, 2);
-                    explainText.inputText = toolDataBank.toolDataList[(int)toolUIList[i].thisTool].toolText;
-
-                    // 選択クリック
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
-                    {
-                        isSelected = true;
-                        StartCoroutine(ToolSelected(toolUIList[i]));
-                    }
-                }
-                else
-                {
-                    toolUIList[i].toScale = new Vector2(1.5f, 1.5f);
+                    toolUIListDispCanvas.isDisp = false;
                 }
             }
+            else
+            {
+                // デッキクリックでデッキリスト表示
+                if (deckIcon.isPointerOn && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    toolUIListDispCanvas.isDisp = true;
+                }
+
+                // 取得可能ツールの表示設定
+                for (int i = 0; i < toolUIList.Count; i++)
+                {
+                    // マウスがツールの上に載ったら
+                    if (toolUIList[i].isPointerOn)
+                    {
+                        // 拡大して説明文
+                        toolUIList[i].toScale = new Vector2(2, 2);
+                        explainText.inputText = toolDataBank.toolDataList[(int)toolUIList[i].thisTool].toolText;
+
+                        // 選択クリック
+                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            isSelected = true;
+                            StartCoroutine(ToolSelected(toolUIList[i]));
+                        }
+                    }
+                    else
+                    {
+                        toolUIList[i].toScale = new Vector2(1.5f, 1.5f);
+                    }
+                }
+            }
+        }
+        else
+        {
+            
+            toolUIListDispCanvas.isDisp = false;    // デッキ表示は停止
+            deckIcon.toMovePosition = new Vector2(-1500, 0); // アイコンを画面外へ
         }
     }
 
@@ -142,13 +182,13 @@ public class ToolGetSceneManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        _toolUI.toMovePosition = new Vector2(0, 1000);
+        // 取得ツールUI移動
+        _toolUI.toMovePosition = new Vector2(-1500, 0);
         explainText.inputText = null;
 
         yield return new WaitForSeconds(1f);
 
         // データ追加
-        PlayerSaveData data = SaveManager.Instance.Load();
         data.deckList.Add((int)_toolUI.thisTool);
         data.nowFloor++;
         if (data.nowFloor < data.stageRange)
@@ -170,6 +210,18 @@ public class ToolGetSceneManager : MonoBehaviour
             SaveManager.Instance.Save(data);
             SceneManager.LoadScene("StageEffectDemo");
         }
+    }
+
+    public List<ToolTag> IntToDeck(List<int> _list)
+    {
+        List<ToolTag> toolDeckList = new List<ToolTag>();
+
+        for (int i = 0; i < _list.Count; i++)
+        {
+            toolDeckList.Add(toolDataBank.toolDataList[_list[i]].toolTag);
+        }
+
+        return toolDeckList;
     }
 
     // OnValidateメソッドもエディタ専用
