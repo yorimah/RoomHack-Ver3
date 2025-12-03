@@ -35,7 +35,7 @@ public class WindowDragManager : MonoBehaviour
             foreach (var dragScaler in dragScalers)
             {
                 Debug.Log(dragScaler);
-                dragScaler.DragMove(additionVec, mouseStartPos);
+                dragScaler.DragMove(dragScaler.DragVec, mouseStartPos);
             }
         }
     }

@@ -54,7 +54,7 @@ public class windowScaler : MonoBehaviour, IDragScaler
         //{
         //    // マウスドラッグ初期設定
         //    //mouseStartPos = Input.mousePosition;
-           
+
         //}
 
         //if (Input.GetKey(KeyCode.Mouse0))
@@ -85,7 +85,7 @@ public class windowScaler : MonoBehaviour, IDragScaler
         }
 
     }
-   
+
 
     public void DragMove(Vector2 dragPoint, Vector3 mouseStartPos)
     {
@@ -95,8 +95,8 @@ public class windowScaler : MonoBehaviour, IDragScaler
             dragPoint.y * mouseVec.y + sizeDelta.y);
         parentObject.sizeDelta = moveVec;
         Vector3 move = new Vector3(
-            dragPoint.x * (mouseVec.x / 2) + moveRect.x,
-            dragPoint.y * (mouseVec.y / 2) + moveRect.y,
+            dragPoint.x * mouseVec.x / 2 + moveRect.x,
+            dragPoint.y * mouseVec.y / 2 + moveRect.y,
             moveRect.z);
         parentObject.localPosition = move;
     }
