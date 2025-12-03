@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 
-public class windowScaler : MonoBehaviour
+public class windowScaler : MonoBehaviour, IDragScaler
 {
     private RectTransform parentObject;
-    Vector3 mouseStartPos;
     public bool canDrag;
 
     Vector2 sizeDelta;
@@ -21,7 +20,7 @@ public class windowScaler : MonoBehaviour
     [SerializeField, Header("つまむ場所")]
     private DragPoint drag;
 
-    public Vector2 dragVec { get; private set; }
+    public Vector2 DragVec { get; private set; }
     void Start()
     {
         dragCollider = GetComponent<BoxCollider2D>();
@@ -29,36 +28,39 @@ public class windowScaler : MonoBehaviour
         switch (drag)
         {
             case DragPoint.LEFT:
-                dragVec = new Vector2(-1, 0);
+                DragVec = new Vector2(-1, 0);
                 break;
             case DragPoint.UP:
-                dragVec = new Vector2(0, 1);
+                DragVec = new Vector2(0, 1);
                 break;
             case DragPoint.RIGHT:
-                dragVec = new Vector2(1, 0);
+                DragVec = new Vector2(1, 0);
                 break;
             case DragPoint.DOWN:
-                dragVec = new Vector2(0, -1);
+                DragVec = new Vector2(0, -1);
                 break;
             default:
                 break;
         }
     }
-
+    public void ClickInit()
+    {
+        sizeDelta = parentObject.sizeDelta;
+        moveRect = parentObject.localPosition;
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            // マウスドラッグ初期設定
-            mouseStartPos = Input.mousePosition;
-            sizeDelta = parentObject.sizeDelta;
-            moveRect = parentObject.localPosition;
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    // マウスドラッグ初期設定
+        //    //mouseStartPos = Input.mousePosition;
+           
+        //}
 
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            GetMousePositionObject();
-        }
+        //if (Input.GetKey(KeyCode.Mouse0))
+        //{
+        //    GetMousePositionObject();
+        //}
         switch (drag)
         {
             case DragPoint.LEFT:
@@ -83,22 +85,9 @@ public class windowScaler : MonoBehaviour
         }
 
     }
-    private void GetMousePositionObject()
-    {
-        // レイ射出
-        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
-        Vector2 additionVec = Vector2.zero;
-        foreach (RaycastHit2D hit in hitsss)
-        {
-            if (hit.collider.TryGetComponent<windowScaler>(out var moveWindow))
-            {
-                additionVec += moveWindow.dragVec;
-            }
-        }
-        DragMove(additionVec);
-    }
+   
 
-    private void DragMove(Vector2 dragPoint)
+    public void DragMove(Vector2 dragPoint, Vector3 mouseStartPos)
     {
         Vector3 mouseVec = Input.mousePosition - mouseStartPos;
         Vector2 moveVec = new Vector2(
@@ -111,4 +100,13 @@ public class windowScaler : MonoBehaviour
             moveRect.z);
         parentObject.localPosition = move;
     }
+}
+
+public interface IDragScaler
+{
+    public Vector2 DragVec { get; }
+
+    public void DragMove(Vector2 dragPoint, Vector3 mouseStartPos);
+
+    public void ClickInit();
 }

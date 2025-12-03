@@ -32,7 +32,7 @@ public class WindowMove : MonoBehaviour
         
         foreach (RaycastHit2D hit in hitsss)
         {
-            Debug.Log(hit.collider.gameObject.name);
+            //Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.TryGetComponent<WindowMove>(out var moveWindow))
             {
                 moveWindow.canDrag = true;
