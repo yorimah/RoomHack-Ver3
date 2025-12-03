@@ -29,9 +29,10 @@ public class WindowMove : MonoBehaviour
     {
         // レイ射出
         RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
-
+        
         foreach (RaycastHit2D hit in hitsss)
         {
+            Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.TryGetComponent<WindowMove>(out var moveWindow))
             {
                 moveWindow.canDrag = true;

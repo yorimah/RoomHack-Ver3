@@ -164,7 +164,7 @@ public class StageSelected : MonoBehaviour
     }
     public async UniTask MaximizeWindow()
     {
-        windowRect.transform.position = windowInitPos;
+        windowRect.transform.position = Vector2.zero;
         while (windowRect.rect.width < Screen.width)
         {
             windowRect.sizeDelta += new Vector2(Screen.width / 10, 0);
