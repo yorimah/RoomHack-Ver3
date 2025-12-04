@@ -3,26 +3,30 @@
 public class WindowMove : MonoBehaviour
 {
     Vector3 mouseStartPos;
-    Vector3 cameraStartPos;
+    Vector3 dragStartPos;
     public bool canDrag;
+
+    private RectTransform rectTransform;
+
+    private BoxCollider2D boxCollider;
+
+    private void Start()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        boxCollider = GetComponent<BoxCollider2D>();
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            // マウスドラッグ初期設定
-            mouseStartPos = Input.mousePosition;
-            cameraStartPos = GetComponent<RectTransform>().position;
-            GetMousePositionObject();
-        }
-        if (Input.GetKey(KeyCode.Mouse0) & canDrag)
-        {
-            Vector3 mouseVec = Input.mousePosition - mouseStartPos;
-            GetComponent<RectTransform>().position = cameraStartPos + mouseVec / 100;
-        }
-        else
-        {
-            canDrag = false;
-        }
+        boxCollider.size = rectTransform.sizeDelta * 0.9f;
+    }
+    public void DragStart()
+    {
+        dragStartPos = GetComponent<RectTransform>().position;
+    }
+    public void DragMove(Vector3 mouseStartPos)
+    {
+        Vector3 mouseVec = Input.mousePosition - mouseStartPos;
+        GetComponent<RectTransform>().position = dragStartPos + mouseVec / 100;
     }
 
     private void GetMousePositionObject()
@@ -32,6 +36,7 @@ public class WindowMove : MonoBehaviour
 
         foreach (RaycastHit2D hit in hitsss)
         {
+            //Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.TryGetComponent<WindowMove>(out var moveWindow))
             {
                 moveWindow.canDrag = true;

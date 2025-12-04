@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class StageSelected : MonoBehaviour
 {
     private RectTransform windowRect;
@@ -26,10 +27,21 @@ public class StageSelected : MonoBehaviour
     private string sceneToLoad;
 
     private int stageRange;
+
+    [SerializeField]
+    private GameObject stageTitle;
+    private GeneralUpdateText titleText;
+    private RectTransform stageTitleRect;
+
+    [SerializeField]
+    private Text selectButtomText;
+
     public void SetScene(string setScene, int _stageRange)
     {
         sceneToLoad = setScene;
         stageRange = _stageRange;
+        selectButtomText = selectButtomText.GetComponent<Text>();
+        selectButtomText.text = sceneToLoad;
     }
 
 
@@ -40,6 +52,10 @@ public class StageSelected : MonoBehaviour
         windowRect = windowsObject.GetComponent<RectTransform>();
         windowInitPos = windowRect.transform.position;
         buttomRect = buttomObj.GetComponent<RectTransform>();
+        titleText = stageTitle.GetComponent<GeneralUpdateText>();
+        titleText.delay = 3;
+        stageTitleRect = stageTitle.GetComponent<RectTransform>();
+ 
     }
     public void ClickStageSelect()
     {
@@ -66,6 +82,8 @@ public class StageSelected : MonoBehaviour
         windowRect.sizeDelta = new Vector2(Screen.width / 2, Screen.height / 2);
         dragCollider.enabled = true;
         buttomObj.SetActive(true);
+        titleText.inputText = sceneToLoad;
+        titleText.isRunning = true;
     }
 
     public void Exit()
@@ -90,6 +108,8 @@ public class StageSelected : MonoBehaviour
             windowRect.sizeDelta -= new Vector2(Screen.width / 10, 0);
             await UniTask.WaitForSeconds(waitSeconds);
         }
+        titleText.inputText = " ";
+        titleText.isRunning = false;
         buttomObj.SetActive(false);
         windowRect.sizeDelta = Vector2.zero;
         windowRect.transform.position = windowInitPos;
@@ -137,11 +157,14 @@ public class StageSelected : MonoBehaviour
             dragCollider.size = new Vector2(windowRect.sizeDelta.x, 40);
             dragCollider.offset = new Vector2(0, windowRect.sizeDelta.y / 2f - dragCollider.size.y / 2f);
         }
-
+        if (stageTitleRect.sizeDelta != windowRect.sizeDelta)
+        {
+            stageTitleRect.sizeDelta = windowRect.sizeDelta;
+        }
     }
     public async UniTask MaximizeWindow()
     {
-        windowRect.transform.position = windowInitPos;
+        windowRect.transform.position = Vector2.zero;
         while (windowRect.rect.width < Screen.width)
         {
             windowRect.sizeDelta += new Vector2(Screen.width / 10, 0);
