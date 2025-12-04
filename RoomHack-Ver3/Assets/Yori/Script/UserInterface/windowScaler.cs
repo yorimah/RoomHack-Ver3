@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
-public class windowScaler : MonoBehaviour, IDragScaler
+public class WindowScaler : MonoBehaviour, IDragScaler
 {
-    private RectTransform parentObject;
     public bool canDrag;
 
     Vector2 sizeDelta;
@@ -21,10 +20,12 @@ public class windowScaler : MonoBehaviour, IDragScaler
     private DragPoint drag;
 
     public Vector2 DragVec { get; private set; }
+    [SerializeField, Header("大きさをを調整するobj")]
+    private RectTransform changeRectObj;
     void Start()
     {
         dragCollider = GetComponent<BoxCollider2D>();
-        parentObject = transform.parent.GetComponent<RectTransform>();
+        changeRectObj = changeRectObj.GetComponent<RectTransform>();
         switch (drag)
         {
             case DragPoint.LEFT:
@@ -45,38 +46,27 @@ public class windowScaler : MonoBehaviour, IDragScaler
     }
     public void ClickInit()
     {
-        sizeDelta = parentObject.sizeDelta;
-        moveRect = parentObject.localPosition;
+        sizeDelta = changeRectObj.sizeDelta;
+        moveRect = changeRectObj.localPosition;
     }
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    // マウスドラッグ初期設定
-        //    //mouseStartPos = Input.mousePosition;
-
-        //}
-
-        //if (Input.GetKey(KeyCode.Mouse0))
-        //{
-        //    GetMousePositionObject();
-        //}
         switch (drag)
         {
             case DragPoint.LEFT:
             case DragPoint.RIGHT:
-                if (dragCollider.size.y != parentObject.sizeDelta.y)
+                if (dragCollider.size.y != changeRectObj.sizeDelta.y)
                 {
-                    Vector2 parentObj = new Vector2(dragCollider.size.x, parentObject.sizeDelta.y);
+                    Vector2 parentObj = new Vector2(dragCollider.size.x, changeRectObj.sizeDelta.y);
                     dragCollider.size = parentObj;
                 }
                 break;
             case DragPoint.UP:
             case DragPoint.DOWN:
 
-                if (dragCollider.size.x != parentObject.sizeDelta.x)
+                if (dragCollider.size.x != changeRectObj.sizeDelta.x)
                 {
-                    Vector2 parentObj = new Vector2(parentObject.sizeDelta.x, dragCollider.size.y);
+                    Vector2 parentObj = new Vector2(changeRectObj.sizeDelta.x, dragCollider.size.y);
                     dragCollider.size = parentObj;
                 }
                 break;
@@ -93,12 +83,12 @@ public class windowScaler : MonoBehaviour, IDragScaler
         Vector2 moveVec = new Vector2(
             dragPoint.x * mouseVec.x + sizeDelta.x,
             dragPoint.y * mouseVec.y + sizeDelta.y);
-        parentObject.sizeDelta = moveVec;
+        changeRectObj.sizeDelta = moveVec;
         Vector3 move = new Vector3(
-            dragPoint.x * mouseVec.x / 2 + moveRect.x,
-            dragPoint.y * mouseVec.y / 2 + moveRect.y,
+           Mathf.Abs(dragPoint.x) * mouseVec.x / 2 + moveRect.x,
+           Mathf.Abs(dragPoint.y) * mouseVec.y / 2 + moveRect.y,
             moveRect.z);
-        parentObject.localPosition = move;
+        changeRectObj.localPosition = move;
     }
 }
 

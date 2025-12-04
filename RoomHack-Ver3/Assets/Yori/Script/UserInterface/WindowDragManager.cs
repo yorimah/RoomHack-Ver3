@@ -11,6 +11,8 @@ public class WindowDragManager : MonoBehaviour
 
     [SerializeField]
     Vector3 mouseStartPos;
+
+    WindowMove windowMove;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,19 +25,27 @@ public class WindowDragManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             dragScalers.Clear();
+            windowMove = null;
             GetMousePositionObject();
             mouseStartPos = Input.mousePosition;
             foreach (var dragScaler in dragScalers)
             {
                 dragScaler.ClickInit();
             }
+            if (windowMove != null)
+            {
+                windowMove.DragStart();
+            }
         }
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            foreach (var dragScaler in dragScalers)
+            if (windowMove != null)
             {
-                Debug.Log(dragScaler);
-                dragScaler.DragMove(dragScaler.DragVec, mouseStartPos);
+                windowMove.DragMove(mouseStartPos);
+            }
+            else if (dragScalers?.Count > 0)
+            {
+                dragScalers[0].DragMove(additionVec, mouseStartPos);
             }
         }
     }
@@ -48,10 +58,21 @@ public class WindowDragManager : MonoBehaviour
         additionVec = Vector2.zero;
         foreach (RaycastHit2D hit in hitsss)
         {
-            if (hit.collider.TryGetComponent<IDragScaler>(out var dragScaler))
+            if (hit.collider.TryGetComponent<WindowMove>(out var _windowMove))
+            {
+                windowMove = _windowMove;
+            }
+            else if (hit.collider.TryGetComponent<IDragScaler>(out var dragScaler))
             {
                 additionVec += dragScaler.DragVec;
-                dragScalers.Add(dragScaler);
+                if (Mathf.Abs(additionVec.x) >= 2 || Mathf.Abs(additionVec.y) >= 2)
+                {
+                    additionVec -= dragScaler.DragVec;
+                }
+                else
+                {
+                    dragScalers.Add(dragScaler);
+                }
             }
         }
     }

@@ -35,6 +35,6 @@
   "relicEffecters": [
     0
   ],
-  "nowFloor": 8,
-  "stageRange": 0
+  "nowFloor": 0,
+  "stageRange": 3
 }
