@@ -58,6 +58,7 @@ public class RelicEffecter : MonoBehaviour
 }
 public enum RelicName
 {
+    none,
     destoryHPHeal,
     destoryRamHeal,
     destroyDeckDraw,

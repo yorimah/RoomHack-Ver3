@@ -258,7 +258,7 @@ MonoBehaviour:
   isPointerOn: 0
   nameText: {fileID: 4135900601387698438}
   costText: {fileID: 3667215152971429843}
-  effectText: {fileID: 2263419818189115029}
+  effectText: {fileID: 370475086305686732}
   isTextDisp: 0
   isBlackOut: 0
 --- !u!1 &8377035333799615666
@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 965796137487132371}
   - component: {fileID: 3011696685050583978}
   - component: {fileID: 2263419818189115029}
+  - component: {fileID: 370475086305686732}
   m_Layer: 5
   m_Name: EffectText
   m_TagString: Untagged
@@ -340,3 +341,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
   m_Text: "\u5BFE\u8C61\u306F10\u79D2\u9593\u306E\u9593\u3001\u6B66\u5668\u304C\u4F7F\u3048\u305A\u3001\u79FB\u52D5\u3067\u304D\u305A\u30013\u79D2\u5F8C\u306B\u7206\u767A\u3057\u3066\u6B7B\u306C"
+--- !u!114 &370475086305686732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8377035333799615666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bad4241ac3b7947bd9c4c7da35718b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GeneralUpdateText
+  inputText: hello world
+  delay: 3
+  isRunning: 1

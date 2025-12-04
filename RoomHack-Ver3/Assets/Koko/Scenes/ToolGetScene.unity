@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GeneralUpdateText
   inputText: 
-  delay: 1
+  delay: 3
   isRunning: 1
 --- !u!1001 &922166861
 PrefabInstance:
