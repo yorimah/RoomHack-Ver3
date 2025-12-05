@@ -12,8 +12,6 @@ public class StageSelected : MonoBehaviour
     [SerializeField]
     private GameObject buttomObj;
 
-    private RectTransform buttomRect;
-
     private bool isClick = false;
 
     private BoxCollider2D dragCollider;
@@ -31,7 +29,6 @@ public class StageSelected : MonoBehaviour
     [SerializeField]
     private GameObject stageTitle;
     private GeneralUpdateText titleText;
-    private RectTransform stageTitleRect;
 
     [SerializeField]
     private Text selectButtomText;
@@ -51,11 +48,9 @@ public class StageSelected : MonoBehaviour
         dragCollider.enabled = false;
         windowRect = windowsObject.GetComponent<RectTransform>();
         windowInitPos = windowRect.transform.position;
-        buttomRect = buttomObj.GetComponent<RectTransform>();
         titleText = stageTitle.GetComponent<GeneralUpdateText>();
         titleText.delay = 3;
-        stageTitleRect = stageTitle.GetComponent<RectTransform>();
- 
+
     }
     public void ClickStageSelect()
     {
@@ -146,21 +141,21 @@ public class StageSelected : MonoBehaviour
         }
 
         // windowobjのサイズが変わったらサイズを合わせる
-        if (backGlound.sizeDelta != windowRect.sizeDelta)
-        {
-            backGlound.sizeDelta = windowRect.sizeDelta;
-        }
+        //if (backGlound.sizeDelta != windowRect.sizeDelta)
+        //{
+        //    backGlound.sizeDelta = windowRect.sizeDelta;
+        //}
 
-        if (buttomRect.sizeDelta != windowRect.sizeDelta)
-        {
-            buttomRect.sizeDelta = windowRect.sizeDelta;
-            dragCollider.size = new Vector2(windowRect.sizeDelta.x, 40);
-            dragCollider.offset = new Vector2(0, windowRect.sizeDelta.y / 2f - dragCollider.size.y / 2f);
-        }
-        if (stageTitleRect.sizeDelta != windowRect.sizeDelta)
-        {
-            stageTitleRect.sizeDelta = windowRect.sizeDelta;
-        }
+        //if (buttomRect.sizeDelta != windowRect.sizeDelta)
+        //{
+        //    buttomRect.sizeDelta = windowRect.sizeDelta;
+        //    dragCollider.size = new Vector2(windowRect.sizeDelta.x, 40);
+        //    dragCollider.offset = new Vector2(0, windowRect.sizeDelta.y / 2f - dragCollider.size.y / 2f);
+        //}
+        //if (stageTitleRect.sizeDelta != windowRect.sizeDelta)
+        //{
+        //    stageTitleRect.sizeDelta = windowRect.sizeDelta;
+        //}
     }
     public async UniTask MaximizeWindow()
     {

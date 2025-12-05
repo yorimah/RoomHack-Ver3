@@ -13,13 +13,11 @@ public class WindowDragManager : MonoBehaviour
     Vector3 mouseStartPos;
 
     WindowMove windowMove;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         dragScalers = new();
     }
-
-    // Update is called once per frame
+    CursorMode CursorMode;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))

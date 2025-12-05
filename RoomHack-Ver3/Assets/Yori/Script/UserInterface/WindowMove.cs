@@ -2,7 +2,6 @@
 
 public class WindowMove : MonoBehaviour
 {
-    Vector3 mouseStartPos;
     Vector3 dragStartPos;
     public bool canDrag;
 
@@ -26,21 +25,14 @@ public class WindowMove : MonoBehaviour
     public void DragMove(Vector3 mouseStartPos)
     {
         Vector3 mouseVec = Input.mousePosition - mouseStartPos;
-        GetComponent<RectTransform>().position = dragStartPos + mouseVec / 100;
-    }
+        Vector3 nextPos = dragStartPos + mouseVec / 100;
 
-    private void GetMousePositionObject()
-    {
-        // レイ射出
-        RaycastHit2D[] hitsss = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
-
-        foreach (RaycastHit2D hit in hitsss)
-        {
-            //Debug.Log(hit.collider.gameObject.name);
-            if (hit.collider.TryGetComponent<WindowMove>(out var moveWindow))
-            {
-                moveWindow.canDrag = true;
-            }
-        }
+        Vector3 aspect = new Vector3(
+            Screen.width  - rectTransform.sizeDelta.x ,
+            Screen.height  - rectTransform.sizeDelta.y ) / 200;
+        rectTransform.position = new Vector3(
+            Mathf.Clamp(nextPos.x, -aspect.x, aspect.x),
+            Mathf.Clamp(nextPos.y, -aspect.y, aspect.y),
+            rectTransform.position.z);
     }
 }
