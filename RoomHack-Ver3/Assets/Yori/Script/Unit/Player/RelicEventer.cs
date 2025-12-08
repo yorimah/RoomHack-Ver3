@@ -35,7 +35,6 @@ public class RelicEventer : MonoBehaviour
             {
                 if (item != null)
                 {
-                    Debug.Log(item);
                     item.RelicEventAction();
                 }
             }
@@ -87,6 +86,23 @@ public class DestroyerEventBase : IRelicEvent
         return false;
     }
 }
+
+public class NoneRelic : IRelicEvent
+{
+
+    public RelicName relicName { get; } = RelicName.none;
+    public void RelicEventAction()
+    {
+
+    }
+
+    public bool RelicEventTrriger()
+    {
+        return false;
+    }
+
+}
+
 
 public class HitPointHeal : DestroyerEventBase
 {

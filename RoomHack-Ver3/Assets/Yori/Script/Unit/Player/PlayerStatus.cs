@@ -97,7 +97,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         ScoreDestroy = saveData.score_DestoryEnemy;
 
-        intRelicEvents = saveData.relicEffecters;
+        intRelicEvents = saveData.relicEvents;
 
         relicEvents = new();
 
@@ -124,7 +124,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         saveData.gunName = GunName;
 
         saveData.score_DestoryEnemy = ScoreDestroy;
-        saveData.relicEffecters = intRelicEvents;
+        saveData.relicEvents = intRelicEvents;
         return saveData;
     }
 
@@ -298,7 +298,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         switch (relicName)
         {
             case RelicName.none:
-                return null;
+                return new NoneRelic();
             case RelicName.destoryHPHeal:
                 return new HitPointHeal(this, this);
             case RelicName.destoryRamHeal:
