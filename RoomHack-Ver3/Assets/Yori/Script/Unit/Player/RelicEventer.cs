@@ -1,32 +1,16 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 public class RelicEventer : MonoBehaviour
 {
-    [SerializeField]
-    List<IRelicEvent> relicEvents = new List<IRelicEvent>();
-    [Inject]
-    IGetPlayerScore getScore;
 
     [Inject]
     IGetRelicList relicList;
 
-    [Inject]
-    ISetMoveSpeed setMoveSpeed;
-
-    [Inject]
-    IGetHitPoint getHitPoint;
-
-    [Inject]
-    ISetHitPoint setHitPoint;
-
-    [Inject]
-    IUseableRam useableRam;
     public void Start()
     {
     }
 
-   
+
     private void Update()
     {
         if (relicList != null)
@@ -35,7 +19,6 @@ public class RelicEventer : MonoBehaviour
             {
                 if (item != null)
                 {
-                    Debug.Log(item);
                     item.RelicEventAction();
                 }
             }
@@ -64,10 +47,11 @@ public class DestroyerEventBase : IRelicEvent
     public RelicName relicName { get; private set; }
     public IGetPlayerScore getScore { get; }
     public int nowScore { get; private set; }
-    public DestroyerEventBase(IGetPlayerScore _getScore)
+    public DestroyerEventBase(IGetPlayerScore _getScore, RelicName _relicName)
     {
         getScore = _getScore;
         nowScore = getScore.GetDestroyScore();
+        relicName = _relicName;
     }
     IRelicStatusEffect relicStatusEffect;
     public virtual void RelicEventAction()
@@ -91,7 +75,7 @@ public class DestroyerEventBase : IRelicEvent
 public class HitPointHeal : DestroyerEventBase
 {
     ISetHitPoint setHitPoint;
-    public HitPointHeal(IGetPlayerScore _getScore,ISetHitPoint _setHitPoint) : base(_getScore)
+    public HitPointHeal(IGetPlayerScore _getScore, ISetHitPoint _setHitPoint, RelicName _relicName) : base(_getScore, _relicName)
     {
         setHitPoint = _setHitPoint;
     }
@@ -109,7 +93,7 @@ public class HitPointHeal : DestroyerEventBase
 public class RamHeal : DestroyerEventBase
 {
     IUseableRam useableRam;
-    public RamHeal(IGetPlayerScore _getScore,IUseableRam _usebleRam) : base(_getScore)
+    public RamHeal(IGetPlayerScore _getScore, IUseableRam _usebleRam, RelicName _relicName) : base(_getScore, _relicName)
     {
         useableRam = _usebleRam;
     }
@@ -126,7 +110,7 @@ public class RamHeal : DestroyerEventBase
 
 public class DeckDraw : DestroyerEventBase
 {
-    public DeckDraw(IGetPlayerScore _getScore) : base(_getScore)
+    public DeckDraw(IGetPlayerScore _getScore, RelicName relicName) : base(_getScore, relicName)
     {
 
     }
@@ -144,8 +128,9 @@ public class HalfHitPointEffectBase : IRelicEvent
 {
     protected IGetHitPoint getHitPoint;
     public RelicName relicName { get; private set; }
-    public HalfHitPointEffectBase(IGetHitPoint _getHitPoint)
+    public HalfHitPointEffectBase(IGetHitPoint _getHitPoint, RelicName relicName)
     {
+        this.relicName = relicName;
         getHitPoint = _getHitPoint;
     }
 
@@ -169,7 +154,7 @@ public class HalfHitPointEffectBase : IRelicEvent
 public class HalfMoveSpeed : HalfHitPointEffectBase
 {
     ISetMoveSpeed setMoveSpeed;
-    public HalfMoveSpeed(IGetHitPoint _getHitPoint, ISetMoveSpeed _setMoveSpeed) : base(_getHitPoint)
+    public HalfMoveSpeed(IGetHitPoint _getHitPoint, ISetMoveSpeed _setMoveSpeed, RelicName relicName) : base(_getHitPoint, relicName)
     {
         setMoveSpeed = _setMoveSpeed;
     }

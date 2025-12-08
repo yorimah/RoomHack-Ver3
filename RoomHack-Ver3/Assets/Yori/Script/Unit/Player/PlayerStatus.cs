@@ -300,17 +300,17 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
             case RelicName.none:
                 return null;
             case RelicName.destoryHPHeal:
-                return new HitPointHeal(this, this);
+                return new HitPointHeal(this, this,relicName);
             case RelicName.destoryRamHeal:
-                return new RamHeal(this, this);
+                return new RamHeal(this, this,relicName);
             case RelicName.destroyDeckDraw:
-                return new DeckDraw(this);
+                return new DeckDraw(this,relicName);
             case RelicName.halfHitPointMoveSpeedUp:
-                return new HalfMoveSpeed(this, this);
+                return new HalfMoveSpeed(this, this,relicName);
         }
         return null;
     }
-    
+
 }
 public interface IPosition
 {
