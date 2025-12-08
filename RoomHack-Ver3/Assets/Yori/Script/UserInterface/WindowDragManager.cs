@@ -13,13 +13,11 @@ public class WindowDragManager : MonoBehaviour
     Vector3 mouseStartPos;
 
     WindowMove windowMove;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         dragScalers = new();
     }
-
-    // Update is called once per frame
+    CursorMode CursorMode;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -39,14 +37,14 @@ public class WindowDragManager : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            if (windowMove != null)
-            {
-                windowMove.DragMove(mouseStartPos);
-            }
-            else if (dragScalers?.Count > 0)
-            {
-                dragScalers[0].DragMove(additionVec, mouseStartPos);
-            }
+            //if (Mathf.Abs( additionVec.x)<1)
+            //{
+            //    windowMove.DragMove(mouseStartPos);
+            //}
+            //else if (dragScalers?.Count > 0)
+            //{
+            //  //  dragScalers[0].DragMove(additionVec, mouseStartPos);
+            //}
         }
     }
 
@@ -58,11 +56,7 @@ public class WindowDragManager : MonoBehaviour
         additionVec = Vector2.zero;
         foreach (RaycastHit2D hit in hitsss)
         {
-            if (hit.collider.TryGetComponent<WindowMove>(out var _windowMove))
-            {
-                windowMove = _windowMove;
-            }
-            else if (hit.collider.TryGetComponent<IDragScaler>(out var dragScaler))
+            if (hit.collider.TryGetComponent<IDragScaler>(out var dragScaler))
             {
                 additionVec += dragScaler.DragVec;
                 if (Mathf.Abs(additionVec.x) >= 2 || Mathf.Abs(additionVec.y) >= 2)
