@@ -79,26 +79,26 @@ public class WindowScaler : MonoBehaviour, IDragScaler, ICanDrag
     }
 
 
-    public void DragMove(Vector2 dragPoint, Vector3 mouseStartPos)
-    {
-        Vector3 mouseVec = Input.mousePosition - mouseStartPos;
-        Vector2 moveVec = new Vector2(
-            dragPoint.x * mouseVec.x + sizeDelta.x,
-            dragPoint.y * mouseVec.y + sizeDelta.y);
-        if (Mathf.Abs(moveRect.x) > 0.5f && Mathf.Abs(moveRect.y) > 0.5f)
-        {
-            changeRectObj.sizeDelta = moveVec;
-            Vector3 move = new Vector3(
-               Mathf.Abs(dragPoint.x) * mouseVec.x / 2 + moveRect.x,
-               Mathf.Abs(dragPoint.y) * mouseVec.y / 2 + moveRect.y,
-               moveRect.z);
-            changeRectObj.localPosition = move;
-        }
-        else
-        {
-            Debug.Log("これ以上ちいさくできないよ！" + moveVec);
-        }
-    }
+    //public void DragMove(Vector2 dragPoint, Vector3 mouseStartPos)
+    //{
+    //    Vector3 mouseVec = Input.mousePosition - mouseStartPos;
+    //    Vector2 moveVec = new Vector2(
+    //        dragPoint.x * mouseVec.x + sizeDelta.x,
+    //        dragPoint.y * mouseVec.y + sizeDelta.y);
+    //    if (Mathf.Abs(moveRect.x) > 0.5f && Mathf.Abs(moveRect.y) > 0.5f)
+    //    {
+    //        changeRectObj.sizeDelta = moveVec;
+    //        Vector3 move = new Vector3(
+    //           Mathf.Abs(dragPoint.x) * mouseVec.x / 2 + moveRect.x,
+    //           Mathf.Abs(dragPoint.y) * mouseVec.y / 2 + moveRect.y,
+    //           moveRect.z);
+    //        changeRectObj.localPosition = move;
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("これ以上ちいさくできないよ！" + moveVec);
+    //    }
+    
     public void DragLayerChange(int changeLayer)
     {
         DragLayer = changeLayer;
@@ -109,7 +109,7 @@ public interface IDragScaler
 {
     public Vector2 DragVec { get; }
 
-    public void DragMove(Vector2 dragPoint, Vector3 mouseStartPos);
+    //public void DragMove(Vector2 dragPoint, Vector3 mouseStartPos);
 
     public void ClickInit();
 }

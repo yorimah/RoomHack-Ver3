@@ -24,35 +24,14 @@ public class RelicEventer : MonoBehaviour
     IUseableRam useableRam;
     public void Start()
     {
-        foreach (var relic in relicList.relicEvents)
-        {
-            relicEvents.Add(RelicIns((RelicName)relic));
-        }
     }
 
-    public IRelicEvent RelicIns(RelicName relicName)
-    {
-        switch (relicName)
-        {
-            case RelicName.none:
-                return null;
-
-            case RelicName.destoryHPHeal:
-                return new HitPointHeal(getScore, setHitPoint);
-            case RelicName.destoryRamHeal:
-                return new RamHeal(getScore,useableRam);
-            case RelicName.destroyDeckDraw:
-                return new DeckDraw(getScore);
-            case RelicName.halfHitPointMoveSpeedUp:
-                return new HalfMoveSpeed(getHitPoint, setMoveSpeed);
-        }
-        return null;
-    }
+   
     private void Update()
     {
-        if (relicEvents != null)
+        if (relicList != null)
         {
-            foreach (var item in relicEvents)
+            foreach (var item in relicList.relicEvents)
             {
                 if (item != null)
                 {

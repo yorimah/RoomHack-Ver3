@@ -19,7 +19,9 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     public int MaxHitPoint { get; private set; }
     public float NowHitPoint { get; private set; }
 
-    public List<int> relicEvents { get; private set; }
+    public List<int> intRelicEvents { get; private set; }
+
+    public List<IRelicEvent> relicEvents { get; private set; }
 
     public int ScoreDestroy { get; private set; }
     public int BulletMax { get; private set; }
@@ -95,7 +97,14 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         ScoreDestroy = saveData.score_DestoryEnemy;
 
-        relicEvents = saveData.relicEffecters;
+        intRelicEvents = saveData.relicEffecters;
+
+        relicEvents = new();
+
+        foreach (var intRelicEvent in intRelicEvents)
+        {
+            relicEvents.Add(RelicIns((RelicName)intRelicEvent));
+        }
     }
 
     public PlayerSaveData playerSave()
@@ -115,7 +124,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         saveData.gunName = GunName;
 
         saveData.score_DestoryEnemy = ScoreDestroy;
-        saveData.relicEffecters = relicEvents;
+        saveData.relicEffecters = intRelicEvents;
         return saveData;
     }
 
@@ -249,12 +258,12 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     }
     public void AddRelic(RelicName relicEffecter)
     {
-        relicEvents.Add((int)relicEffecter);
+        intRelicEvents.Add((int)relicEffecter);
     }
 
     public void RemoveRelic(RelicName relicEffecter)
     {
-        relicEvents.Remove((int)relicEffecter);
+        intRelicEvents.Remove((int)relicEffecter);
     }
 
     public void DamageHitPoint(float dmg)
@@ -283,6 +292,25 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     {
         return saveData;
     }
+
+    public IRelicEvent RelicIns(RelicName relicName)
+    {
+        switch (relicName)
+        {
+            case RelicName.none:
+                return null;
+            case RelicName.destoryHPHeal:
+                return new HitPointHeal(this, this);
+            case RelicName.destoryRamHeal:
+                return new RamHeal(this, this);
+            case RelicName.destroyDeckDraw:
+                return new DeckDraw(this);
+            case RelicName.halfHitPointMoveSpeedUp:
+                return new HalfMoveSpeed(this, this);
+        }
+        return null;
+    }
+    
 }
 public interface IPosition
 {
@@ -390,7 +418,7 @@ public interface ISetRelicList
 
 public interface IGetRelicList
 {
-    public List<int> relicEvents { get; }
+    public List<IRelicEvent> relicEvents { get; }
 }
 
 public interface IGetHitPoint
