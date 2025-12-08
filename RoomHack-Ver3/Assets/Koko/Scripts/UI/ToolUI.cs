@@ -30,7 +30,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // テキストUIアタッチ
     [SerializeField]Text nameText;
     [SerializeField]Text costText;
-    [SerializeField]Text effectText;
+    [SerializeField]GeneralUpdateText effectText;
 
     // 効果表示変数
     bool isNameCostDisp = false;
@@ -122,7 +122,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             //isNameCostDisp = false;
             effectText.gameObject.SetActive(true);
-            effectText.text = toolDataBank.toolDataList[(int)thisTool].toolText;
+            effectText.inputText = toolDataBank.toolDataList[(int)thisTool].toolText;
         }
         else
         {

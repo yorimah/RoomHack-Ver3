@@ -71,6 +71,8 @@ public class ToolUIController : MonoBehaviour
         nowTrashPos = actTrashPos;
         nowHandPos = actHandPos;
 
+        Vector2 signSize = new Vector2(0.5f, 0.5f);
+
         // デッキ置き場
         GameObject signToolUI = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
         signToolUI.GetComponent<RectTransform>().localPosition = actDeckPos;
@@ -79,6 +81,9 @@ public class ToolUIController : MonoBehaviour
         deckSign.thisTool = ToolTag.none;
         deckSign.isOpen = false;
 
+        signToolUI.GetComponent<RectTransform>().localScale = signSize;
+        deckSign.toScale = signSize;
+
         // トラッシュ置き場
         signToolUI = Instantiate(toolUIPrefab, Vector3.zero, Quaternion.identity, this.transform);
         signToolUI.GetComponent<RectTransform>().localPosition = actTrashPos;
@@ -86,6 +91,9 @@ public class ToolUIController : MonoBehaviour
         trashSign.toMovePosition = actTrashPos;
         trashSign.thisTool = ToolTag.none;
         trashSign.isOpen = false;
+
+        signToolUI.GetComponent<RectTransform>().localScale = signSize;
+        trashSign.toScale = signSize;
 
         useableRam.IsRebootSet(true);
     }
@@ -250,19 +258,21 @@ public class ToolUIController : MonoBehaviour
                 }
 
                 // 対象がカード使えるかチェック
-                //GameObject hackObj = null;
-                //if (cameraPositionController.targetObject != null)
-                //{
-                //    if (cameraPositionController.targetObject.TryGetComponent<IHackObject>(out var ho))
-                //    {
-                //        if (ho.canHackToolTag.Contains(hand.thisTool))
-                //        {
-                //            // 使えるカードは明るくなる
-                //            hand.isBlackOut = false;
-                //            hackObj = cameraPositionController.targetObject;
-                //        }
-                //    }
-                //}
+                {
+                    //GameObject hackObj = null;
+                    //if (cameraPositionController.targetObject != null)
+                    //{
+                    //    if (cameraPositionController.targetObject.TryGetComponent<IHackObject>(out var ho))
+                    //    {
+                    //        if (ho.canHackToolTag.Contains(hand.thisTool))
+                    //        {
+                    //            // 使えるカードは明るくなる
+                    //            hand.isBlackOut = false;
+                    //            hackObj = cameraPositionController.targetObject;
+                    //        }
+                    //    }
+                    //}
+                }
 
                 // 手を重ねると情報出る、位置とサイズ移動
                 if (isHandOn && i == handOnIndex)
@@ -317,23 +327,25 @@ public class ToolUIController : MonoBehaviour
     void TrashControl()
     {
         // トラッシュチェックのオンオフ
-        //bool isTrashOn = false;
-        //for (int i = 0; i < trashToolUIList.Count; i++)
-        //{
-        //    if (trashToolUIList[i].isPointerOn) isTrashOn = true;
-        //}
+        {
+            //bool isTrashOn = false;
+            //for (int i = 0; i < trashToolUIList.Count; i++)
+            //{
+            //    if (trashToolUIList[i].isPointerOn) isTrashOn = true;
+            //}
 
-        //if (Input.GetKeyDown(KeyCode.Mouse1))
-        //{
-        //    if (isTrashOn && !isTrashCheck)
-        //    {
-        //        isTrashCheck = true;
-        //    }
-        //    else
-        //    {
-        //        isTrashCheck = false;
-        //    }
-        //}
+            //if (Input.GetKeyDown(KeyCode.Mouse1))
+            //{
+            //    if (isTrashOn && !isTrashCheck)
+            //    {
+            //        isTrashCheck = true;
+            //    }
+            //    else
+            //    {
+            //        isTrashCheck = false;
+            //    }
+            //}
+        }
 
         // trashのtoolUI位置修正
         for (int i = 0; i < trashToolUIList.Count; i++)
