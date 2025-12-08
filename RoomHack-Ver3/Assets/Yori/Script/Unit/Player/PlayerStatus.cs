@@ -19,7 +19,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     public int MaxHitPoint { get; private set; }
     public float NowHitPoint { get; private set; }
 
-    public List<int> relicEffecters { get; private set; }
+    public List<int> relicEvents { get; private set; }
 
     public int ScoreDestroy { get; private set; }
     public int BulletMax { get; private set; }
@@ -95,7 +95,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         ScoreDestroy = saveData.score_DestoryEnemy;
 
-        relicEffecters = saveData.relicEffecters;
+        relicEvents = saveData.relicEffecters;
     }
 
     public PlayerSaveData playerSave()
@@ -115,7 +115,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         saveData.gunName = GunName;
 
         saveData.score_DestoryEnemy = ScoreDestroy;
-        saveData.relicEffecters = relicEffecters;
+        saveData.relicEffecters = relicEvents;
         return saveData;
     }
 
@@ -249,12 +249,12 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     }
     public void AddRelic(RelicName relicEffecter)
     {
-        relicEffecters.Add((int)relicEffecter);
+        relicEvents.Add((int)relicEffecter);
     }
 
     public void RemoveRelic(RelicName relicEffecter)
     {
-        relicEffecters.Remove((int)relicEffecter);
+        relicEvents.Remove((int)relicEffecter);
     }
 
     public void DamageHitPoint(float dmg)
@@ -390,7 +390,7 @@ public interface ISetRelicList
 
 public interface IGetRelicList
 {
-    public List<int> relicEffecters { get; }
+    public List<int> relicEvents { get; }
 }
 
 public interface IGetHitPoint
