@@ -111,6 +111,7 @@ public class ToolUIListDisp : MonoBehaviour
         ToolUI instance = Instantiate(toolUIPrefab, _pos, Quaternion.identity, this.transform);
         instance.GetComponent<RectTransform>().localPosition = _pos;
         instance.gameObject.SetActive(false);
+        instance.isMovePointable = false;
         return instance;
     }
 }

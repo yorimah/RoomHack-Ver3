@@ -180,7 +180,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloorInformationDisp
   updateText: {fileID: 4543293044285078353}
   timerText: {fileID: 3217592480491097111}
-  floorNum: 0
 --- !u!1001 &1269503315141267970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -347,6 +346,46 @@ PrefabInstance:
       propertyPath: cameraPositionController
       value: 
       objectReference: {fileID: 3308171536614540230}
+    - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: actDeckPos.x
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: actDeckPos.y
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: actTrashPos.x
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: actTrashPos.y
+      value: -500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: hackDeckPos.x
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: hackDeckPos.y
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: hackTrashPos.x
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: hackTrashPos.y
+      value: -400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513634002868484273, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513634002868484273, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4932298869728194472, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: m_Camera
       value: 
@@ -369,7 +408,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 798387189228875511, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       insertIndex: 5
       addedObject: {fileID: 1440479679943102282}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7115736500871607840, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4698097500826524788}
   m_SourcePrefab: {fileID: 100100000, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
 --- !u!224 &1806217834621033041 stripped
 RectTransform:
@@ -387,6 +429,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+--- !u!1 &8125801887657214598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7115736500871607840, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+  m_PrefabInstance: {fileID: 1298313664385414310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4698097500826524788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8125801887657214598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff9bc40fddb047439a1c986afc93e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RelicUIManager
+  relicIconPrefab: {fileID: 1075791392572317405, guid: 2f9b954fd69074446a1af2cf96aaff28, type: 3}
+  relicList: 00000000010000000200000003000000
+  relicIsTriggerList: 00000000
+  relicIconUIList: []
+  startPos: {x: -900, y: -450}
+  space: 100
 --- !u!1001 &3133282971434352823
 PrefabInstance:
   m_ObjectHideFlags: 0

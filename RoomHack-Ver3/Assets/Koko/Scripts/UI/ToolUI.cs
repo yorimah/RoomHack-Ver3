@@ -25,6 +25,8 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     // マウスポインターがのってるか否か
     public bool isPointerOn = false;
+    // 移動中でもマウス反応するか
+    public bool isMovePointable = true;
 
 
     // テキストUIアタッチ
@@ -40,7 +42,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         // 動いてない時だけ機能するように変更
-        if (!isMove)
+        if (!isMove || isMovePointable)
         {
             SeManager.Instance.Play("toolMove");
             isPointerOn = true;

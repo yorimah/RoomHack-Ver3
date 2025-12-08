@@ -95,7 +95,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         ScoreDestroy = saveData.score_DestoryEnemy;
 
-        relicEvents = saveData.relicEffecters;
+        relicEvents = saveData.relicEvents;
     }
 
     public PlayerSaveData playerSave()
@@ -115,7 +115,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         saveData.gunName = GunName;
 
         saveData.score_DestoryEnemy = ScoreDestroy;
-        saveData.relicEffecters = relicEvents;
+        saveData.relicEvents = relicEvents;
         return saveData;
     }
 
