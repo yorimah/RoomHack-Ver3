@@ -7,9 +7,6 @@ public class StageSelected : MonoBehaviour
     private RectTransform windowRect;
 
     [SerializeField]
-    private RectTransform backGlound;
-
-    [SerializeField]
     private GameObject buttomObj;
 
     private bool isClick = false;
@@ -139,23 +136,6 @@ public class StageSelected : MonoBehaviour
             windowRect.sizeDelta = wasMaximize;
             isMaximize = false;
         }
-
-        // windowobjのサイズが変わったらサイズを合わせる
-        //if (backGlound.sizeDelta != windowRect.sizeDelta)
-        //{
-        //    backGlound.sizeDelta = windowRect.sizeDelta;
-        //}
-
-        //if (buttomRect.sizeDelta != windowRect.sizeDelta)
-        //{
-        //    buttomRect.sizeDelta = windowRect.sizeDelta;
-        //    dragCollider.size = new Vector2(windowRect.sizeDelta.x, 40);
-        //    dragCollider.offset = new Vector2(0, windowRect.sizeDelta.y / 2f - dragCollider.size.y / 2f);
-        //}
-        //if (stageTitleRect.sizeDelta != windowRect.sizeDelta)
-        //{
-        //    stageTitleRect.sizeDelta = windowRect.sizeDelta;
-        //}
     }
     public async UniTask MaximizeWindow()
     {

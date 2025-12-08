@@ -172,7 +172,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 3
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1160760567}
 --- !u!61 &20200683
 BoxCollider2D:
@@ -666,7 +670,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 2
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1160760567}
 --- !u!61 &82951752
 BoxCollider2D:
@@ -1115,7 +1123,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 0
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1028480514}
 --- !u!1 &158549696
 GameObject:
@@ -1170,7 +1182,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 3
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1837707371}
 --- !u!61 &158549699
 BoxCollider2D:
@@ -1941,7 +1957,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 3
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1296090905}
 --- !u!61 &495396047
 BoxCollider2D:
@@ -2563,7 +2583,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 2
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1296090905}
 --- !u!61 &565359364
 BoxCollider2D:
@@ -3144,7 +3168,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 3
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1028480514}
 --- !u!61 &768328174
 BoxCollider2D:
@@ -3472,7 +3500,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 2
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1028480514}
 --- !u!61 &839097087
 BoxCollider2D:
@@ -3671,7 +3703,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 1
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1837707371}
 --- !u!61 &971858614
 BoxCollider2D:
@@ -4207,7 +4243,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 1
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1160760567}
 --- !u!61 &1069112908
 BoxCollider2D:
@@ -4547,7 +4587,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 2
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1837707371}
 --- !u!61 &1102493284
 BoxCollider2D:
@@ -5471,7 +5515,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 0
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1837707371}
 --- !u!61 &1367707897
 BoxCollider2D:
@@ -5865,7 +5913,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 1
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1028480514}
 --- !u!61 &1576900288
 BoxCollider2D:
@@ -6557,7 +6609,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 0
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1160760567}
 --- !u!61 &1952990745
 BoxCollider2D:
@@ -6760,7 +6816,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 1
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1296090905}
 --- !u!61 &1975490576
 BoxCollider2D:
@@ -7211,7 +7271,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
   canDrag: 0
+  sizeDelta: {x: 0, y: 0}
+  moveRect: {x: 0, y: 0, z: 0}
+  dragCollider: {fileID: 0}
   drag: 0
+  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1296090905}
 --- !u!61 &2087094599
 BoxCollider2D:
@@ -8564,8 +8628,8 @@ RectTransform:
   - {fileID: 7776627332471537103}
   m_Father: {fileID: 3214266685278011891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8588,10 +8652,10 @@ RectTransform:
   - {fileID: 1465560292500005628}
   m_Father: {fileID: 7776582665814339394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1600, y: 1000}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7941484494165655469
 GameObject:
