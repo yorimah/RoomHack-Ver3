@@ -208,7 +208,7 @@ public class ToolGetSceneManager : MonoBehaviour
         else
         {
             SaveManager.Instance.Save(data);
-            SceneManager.LoadScene("TitleDemoScene");
+            SceneManager.LoadScene("DemoStage1-1");
         }
     }
 

@@ -25,6 +25,7 @@ public class RelicUIManager : MonoBehaviour
 
     public void Update()
     {
+
         // 足りなければ生成
         while(relicEventList.Count > relicIconUIList.Count)
         {
@@ -39,7 +40,7 @@ public class RelicUIManager : MonoBehaviour
 
                 // 表示情報設定
                 relicIconUIList[i].thisRelic = relicEventList[i].relicName;
-                relicIconUIList[i].isActivate = relicEventList[i].RelicEventTrriger();
+                relicIconUIList[i].isActive = relicEvent.relicEvents[i].IsEventTrigger;
 
                 // 座標指定
                 Vector2 UIPos = startPos;

@@ -19,7 +19,10 @@ public class RelicEventer : MonoBehaviour
             {
                 if (item != null)
                 {
-                    item.RelicEventAction();
+                    if (item.RelicEventTrigger())
+                    {
+                        item.RelicEventAction();
+                    }
                 }
             }
         }
@@ -39,7 +42,9 @@ public interface IRelicEvent
     public RelicName relicName { get; }
     public void RelicEventAction();
 
-    public bool RelicEventTrriger();
+    public bool RelicEventTrigger();
+
+    public bool IsEventTrigger { get; }
 }
 
 public class DestroyerEventBase : IRelicEvent
@@ -47,6 +52,8 @@ public class DestroyerEventBase : IRelicEvent
     public RelicName relicName { get; private set; }
     public IGetPlayerScore getScore { get; }
     public int nowScore { get; private set; }
+    
+    public bool IsEventTrigger { get;private set; }
     public DestroyerEventBase(IGetPlayerScore _getScore, RelicName _relicName)
     {
         getScore = _getScore;
@@ -56,16 +63,14 @@ public class DestroyerEventBase : IRelicEvent
     IRelicStatusEffect relicStatusEffect;
     public virtual void RelicEventAction()
     {
-        if (RelicEventTrriger())
-        {
-            Debug.Log(relicName + " : が起動したよ");
-        }
+        Debug.Log(relicName + " : が起動したよ");
     }
-    public bool RelicEventTrriger()
+    public bool RelicEventTrigger()
     {
         if (getScore.GetDestroyScore() > nowScore)
         {
             nowScore = getScore.GetDestroyScore();
+            IsEventTrigger = true;
             return true;
         }
         return false;
@@ -76,12 +81,14 @@ public class NoneRelic : IRelicEvent
 {
 
     public RelicName relicName { get; } = RelicName.none;
+
+    public bool IsEventTrigger { get; private set; }
     public void RelicEventAction()
     {
 
     }
 
-    public bool RelicEventTrriger()
+    public bool RelicEventTrigger()
     {
         return false;
     }
@@ -99,11 +106,8 @@ public class HitPointHeal : DestroyerEventBase
 
     public override void RelicEventAction()
     {
-        if (RelicEventTrriger())
-        {
-            Debug.Log("HP回復！");
-            setHitPoint.HealNowHitPoint(3);
-        }
+        Debug.Log("HP回復！");
+        setHitPoint.HealNowHitPoint(3);
     }
 }
 
@@ -117,10 +121,7 @@ public class RamHeal : DestroyerEventBase
 
     public override void RelicEventAction()
     {
-        if (RelicEventTrriger())
-        {
-            useableRam.RamChange(3);
-        }
+        useableRam.RamChange(3);
     }
 }
 
@@ -134,10 +135,7 @@ public class DeckDraw : DestroyerEventBase
 
     public override void RelicEventAction()
     {
-        if (RelicEventTrriger())
-        {
-            ToolManager.Instance.DeckDraw();
-        }
+        ToolManager.Instance.DeckDraw();
     }
 }
 
@@ -145,6 +143,8 @@ public class HalfHitPointEffectBase : IRelicEvent
 {
     protected IGetHitPoint getHitPoint;
     public RelicName relicName { get; private set; }
+
+    public bool IsEventTrigger { get; private set; }
     public HalfHitPointEffectBase(IGetHitPoint _getHitPoint, RelicName relicName)
     {
         this.relicName = relicName;
@@ -153,12 +153,12 @@ public class HalfHitPointEffectBase : IRelicEvent
 
     public virtual void RelicEventAction()
     {
-        if (RelicEventTrriger())
+        if (RelicEventTrigger())
         {
             Debug.Log(relicName + " : が起動したよ");
         }
     }
-    public bool RelicEventTrriger()
+    public bool RelicEventTrigger()
     {
         if (getHitPoint.MaxHitPoint / 2 >= getHitPoint.NowHitPoint)
         {
@@ -177,11 +177,7 @@ public class HalfMoveSpeed : HalfHitPointEffectBase
     }
     public override void RelicEventAction()
     {
-        if (RelicEventTrriger())
-        {
-            // 仮の値
-            setMoveSpeed.MoveSpeedUp(10);
-        }
+        setMoveSpeed.MoveSpeedUp(10);
     }
 
 }
