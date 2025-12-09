@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WindowScaler : MonoBehaviour, IDragScaler
 {
@@ -18,6 +17,18 @@ public class WindowScaler : MonoBehaviour, IDragScaler
     public Vector2 DragVec { get; private set; }
     [SerializeField, Header("大きさをを調整するobj")]
     private RectTransform changeRectObj;
+
+    Vector3 sizeDelta;
+    Vector3 moveRect;
+
+    public void ClickInit(int hierarchy)
+    {
+        Hierarchy = hierarchy;
+        changeRectObj.transform.SetSiblingIndex(Hierarchy);
+        sizeDelta = changeRectObj.sizeDelta;
+        moveRect = changeRectObj.localPosition;
+    }
+
     void Start()
     {
         dragCollider = GetComponent<BoxCollider2D>();
@@ -40,8 +51,14 @@ public class WindowScaler : MonoBehaviour, IDragScaler
                 break;
         }
     }
+
+    public int Hierarchy { get; private set; }
     void Update()
     {
+        if (Hierarchy != changeRectObj.GetSiblingIndex())
+        {
+            Hierarchy = changeRectObj.GetSiblingIndex();
+        }
         switch (drag)
         {
             case DragPoint.LEFT:
@@ -66,37 +83,45 @@ public class WindowScaler : MonoBehaviour, IDragScaler
         }
 
     }
+
+
+
+    public void DragScale(Vector2 dragPoint, Vector3 mouseStartPos)
+    {
+        Vector3 mouseVec = Input.mousePosition - mouseStartPos;
+        Vector2 moveVec = new Vector2(
+            dragPoint.x * mouseVec.x + sizeDelta.x,
+            dragPoint.y * mouseVec.y + sizeDelta.y);
+        changeRectObj.sizeDelta = moveVec;
+        Vector3 move = new Vector3(
+           Mathf.Abs(dragPoint.x) * mouseVec.x / 2 + moveRect.x,
+           Mathf.Abs(dragPoint.y) * mouseVec.y / 2 + moveRect.y,
+           moveRect.z);
+        changeRectObj.localPosition = move;
+    }
 }
 
 public interface IDragScaler
 {
     public Vector2 DragVec { get; }
 
-    //public void DragMove(Vector2 dragPoint, Vector3 mouseStartPos);
+    public int Hierarchy { get; }
+
+    public void DragScale(Vector2 dragPoint, Vector3 mouseStartPos);
+
+    public void ClickInit(int hierarchy);
 
 }
 
 public interface ICanDrag
 {
 
-    public void ClickInit();
+    public void ClickInit(int hierarchy);
+
+    public int Hierarchy { get; }
+
+    public void HierarchySet();
 
 
     public void DragMove(Vector3 mouseStartPos);
-
-    public void DragScale(Vector2 dragPoint, Vector3 mouseStartPos);
-}
-
-
-public interface ISetDragList
-{
-    public void AddDragList(ICanDrag canDrag);
-
-    public void ChangeLayerList(ICanDrag canDrag, int changeLayer);
-
-    public void RemoveDragList(ICanDrag canDrag);
-}
-public interface IGetDragList
-{
-    public List<ICanDrag> GetDragList();
 }

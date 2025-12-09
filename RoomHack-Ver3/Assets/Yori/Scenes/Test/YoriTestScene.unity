@@ -171,12 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 3
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1160760567}
 --- !u!61 &20200683
 BoxCollider2D:
@@ -341,7 +336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d787cd30bbd3d4fa7e949a9929eae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSelected
-  backGlound: {fileID: 345227789}
   buttomObj: {fileID: 1854680853}
   windowsObject: {fileID: 1296090904}
   stageTitle: {fileID: 1368618835}
@@ -440,108 +434,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26180957}
   m_CullTransparentMesh: 1
---- !u!1 &70202510
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 70202514}
-  - component: {fileID: 70202513}
-  - component: {fileID: 70202512}
-  - component: {fileID: 70202511}
-  m_Layer: 5
-  m_Name: Trace_Maney_Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &70202511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70202510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &70202512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70202510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &70202513
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70202510}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 1
-  m_Camera: {fileID: 5790068234861170054}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &70202514
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70202510}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1837707371}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
 --- !u!1 &70674201
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,12 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 2
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1160760567}
 --- !u!61 &82951752
 BoxCollider2D:
@@ -1122,12 +1009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 0
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1028480514}
 --- !u!1 &158549696
 GameObject:
@@ -1181,12 +1063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 3
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1837707371}
 --- !u!61 &158549699
 BoxCollider2D:
@@ -1956,12 +1833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 3
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1296090905}
 --- !u!61 &495396047
 BoxCollider2D:
@@ -2428,108 +2300,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533208297}
   m_CullTransparentMesh: 1
---- !u!1 &542138103
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 542138107}
-  - component: {fileID: 542138106}
-  - component: {fileID: 542138105}
-  - component: {fileID: 542138104}
-  m_Layer: 5
-  m_Name: PlayerBuffCanvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &542138104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 542138103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &542138105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 542138103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &542138106
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 542138103}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 1
-  m_Camera: {fileID: 5790068234861170054}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &542138107
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 542138103}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1028480514}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
 --- !u!1 &565359361
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,12 +2352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 2
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1296090905}
 --- !u!61 &565359364
 BoxCollider2D:
@@ -3167,12 +2932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 3
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1028480514}
 --- !u!61 &768328174
 BoxCollider2D:
@@ -3404,7 +3164,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1999626131}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.28666672
+  m_Size: 0.5733333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3499,12 +3259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 2
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1028480514}
 --- !u!61 &839097087
 BoxCollider2D:
@@ -3617,6 +3372,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!1 &938263740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 938263741}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &938263741
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938263740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &963851582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3702,12 +3492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 1
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1837707371}
 --- !u!61 &971858614
 BoxCollider2D:
@@ -3945,6 +3730,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WindowDragManager
   additionVec: {x: 0, y: 0}
   mouseStartPos: {x: 0, y: 0, z: 0}
+  allDragList:
+  - {fileID: 1160760572}
+  - {fileID: 6235440925706538671}
+  - {fileID: 1296090908}
+  - {fileID: 1028480517}
+  - {fileID: 1837707376}
 --- !u!1 &1028480513
 GameObject:
   m_ObjectHideFlags: 0
@@ -3960,7 +3751,7 @@ GameObject:
   - component: {fileID: 1028480518}
   - component: {fileID: 1028480517}
   m_Layer: 5
-  m_Name: Window
+  m_Name: DefaltWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3973,14 +3764,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028480513}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 533208298}
   - {fileID: 148416108}
-  m_Father: {fileID: 542138107}
+  m_Father: {fileID: 1213312788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4242,12 +4033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 1
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1160760567}
 --- !u!61 &1069112908
 BoxCollider2D:
@@ -4586,12 +4372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 2
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1837707371}
 --- !u!61 &1102493284
 BoxCollider2D:
@@ -4988,7 +4769,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 995719265
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1213312788
@@ -5006,6 +4787,8 @@ RectTransform:
   - {fileID: 1160760567}
   - {fileID: 1296090905}
   - {fileID: 3214266685278011891}
+  - {fileID: 1028480514}
+  - {fileID: 1837707371}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5065,7 +4848,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d787cd30bbd3d4fa7e949a9929eae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSelected
-  backGlound: {fileID: 7776582665814339394}
   buttomObj: {fileID: 5423584026536481994}
   windowsObject: {fileID: 417969653551266976}
   stageTitle: {fileID: 4347561188386449385}
@@ -5179,7 +4961,7 @@ GameObject:
   - component: {fileID: 1296090907}
   - component: {fileID: 1296090906}
   m_Layer: 5
-  m_Name: PopUpWindow2
+  m_Name: StageWindow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5514,12 +5296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 0
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1837707371}
 --- !u!61 &1367707897
 BoxCollider2D:
@@ -5912,12 +5689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 1
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1028480514}
 --- !u!61 &1576900288
 BoxCollider2D:
@@ -6270,7 +6042,7 @@ GameObject:
   - component: {fileID: 1837707374}
   - component: {fileID: 1837707377}
   m_Layer: 5
-  m_Name: Window
+  m_Name: TraceMabeyWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6283,7 +6055,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837707370}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6291,7 +6063,7 @@ RectTransform:
   - {fileID: 1833387350}
   - {fileID: 1121159489}
   - {fileID: 2042247127}
-  m_Father: {fileID: 70202514}
+  m_Father: {fileID: 1213312788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6608,12 +6380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 0
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1160760567}
 --- !u!61 &1952990745
 BoxCollider2D:
@@ -6815,12 +6582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 1
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1296090905}
 --- !u!61 &1975490576
 BoxCollider2D:
@@ -7270,12 +7032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27535ce2f90c59740b2c41a3d55b3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::windowScaler
-  canDrag: 0
-  sizeDelta: {x: 0, y: 0}
-  moveRect: {x: 0, y: 0, z: 0}
-  dragCollider: {fileID: 0}
   drag: 0
-  <DragVec>k__BackingField: {x: 0, y: 0}
   changeRectObj: {fileID: 1296090905}
 --- !u!61 &2087094599
 BoxCollider2D:
@@ -7530,7 +7287,7 @@ GameObject:
   - component: {fileID: 3215711203014415480}
   - component: {fileID: 8851976637255775357}
   m_Layer: 5
-  m_Name: PopUpWindow
+  m_Name: StageWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8843,6 +8600,5 @@ SceneRoots:
   - {fileID: 639658578}
   - {fileID: 1213312788}
   - {fileID: 963851583}
-  - {fileID: 70202514}
-  - {fileID: 542138107}
   - {fileID: 1028142618}
+  - {fileID: 938263741}
