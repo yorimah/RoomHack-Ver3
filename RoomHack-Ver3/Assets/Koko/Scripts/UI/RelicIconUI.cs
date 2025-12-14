@@ -10,7 +10,7 @@ public class RelicIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public RelicName thisRelic;
 
     // 表示系関連
-    public bool isActivate = false;
+    public bool isActive = false;
     public bool isOnpointerTextDisp = true;
 
     // 表示テキスト関連
@@ -78,7 +78,7 @@ public class RelicIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         image.sprite = relicDataBank.relicDataList[(int)thisRelic].iconImage;
         image.color = new Color(1, 1, 1, transparency);
 
-        if (isActivate)
+        if (isActive)
         {
             transparency = 1f;
         }

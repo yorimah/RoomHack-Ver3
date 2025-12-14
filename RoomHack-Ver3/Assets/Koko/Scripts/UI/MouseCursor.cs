@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class MouseCursor : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class MouseCursor : MonoBehaviour
 
     // ショットインターバル用変数
     float time;
+
+    [Inject]
+
 
     void Update()
     {

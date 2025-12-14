@@ -102,7 +102,6 @@ public class ToolManager : MonoBehaviour
         // ハッキングモード
         //if (GameTimer.Instance.IsHackTime)
         {
-
             ramUIDisp.willUseRam = 0;
 
             // 手札チェック
@@ -165,6 +164,11 @@ public class ToolManager : MonoBehaviour
             // 手札チェックの結果をToolUIControllerに入力
             toolUIController.handCostList = handCostList;
             toolUIController.handPlayList = handPlayList;
+        }
+        
+        if (!GameTimer.Instance.IsHackTime)
+        {
+            ramUIDisp.willUseRam = 0;
         }
 
         toolUIController.ToolUIControllerUpdate();
