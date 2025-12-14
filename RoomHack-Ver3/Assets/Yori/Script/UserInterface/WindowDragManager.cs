@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
 public class WindowDragManager : MonoBehaviour
 {
     [SerializeField]
@@ -9,13 +11,16 @@ public class WindowDragManager : MonoBehaviour
     Vector3 mouseStartPos;
     private List<ICanDrag> dragMoves = new();
 
-    [SerializeField]
-    private List<WindowMove> allDragList;
+    [Inject]
+    IGetWindowList getWindowList;
+
+    private List<WindowMove> allDragList = new();
 
     ICanDrag dragMove;
     IDragScaler dragScale;
     void Start()
     {
+        allDragList = getWindowList.WindowMoveList;
     }
     void Update()
     {
@@ -49,8 +54,14 @@ public class WindowDragManager : MonoBehaviour
 
         int dragMoveHierarchy = 0;
         int dragScaleHierarchy = 0;
+        Button button = null;
         foreach (RaycastHit2D hit in hits)
         {
+            if (hit.collider.TryGetComponent<Button>(out var _button))
+            {
+                Debug.Log("ボタン触った");
+                button = _button;
+            }
             if (hit.collider.TryGetComponent<ICanDrag>(out var canDrag))
             {
                 dragMoves.Add(canDrag);
@@ -69,6 +80,13 @@ public class WindowDragManager : MonoBehaviour
                 }
             }
 
+        }
+        if (button != null)
+        {
+            Debug.Log("button触ったよ");
+            dragMove = null;
+            dragScale = null;
+            return;
         }
         if (dragMoveHierarchy > dragScaleHierarchy)
         {
@@ -107,4 +125,23 @@ public class WindowDragManager : MonoBehaviour
             }
         }
     }
+}
+
+public class WindowListHolder : IAddWindoList, IGetWindowList
+{
+    public List<WindowMove> WindowMoveList { get; private set; } = new();
+
+    public void AddWindowList(WindowMove window)
+    {
+        WindowMoveList.Add(window);
+    }
+}
+public interface IGetWindowList
+{
+    public List<WindowMove> WindowMoveList { get; }
+}
+
+public interface IAddWindoList
+{
+    public void AddWindowList(WindowMove window);
 }

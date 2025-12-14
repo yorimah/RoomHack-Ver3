@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Zenject;
 public class WindowMove : MonoBehaviour, ICanDrag
 {
     Vector3 dragStartPos;
@@ -11,6 +11,12 @@ public class WindowMove : MonoBehaviour, ICanDrag
 
     public int Hierarchy { get; private set; }
 
+    [Inject]
+    IAddWindoList addWindoList;
+    public void Awake()
+    {
+        addWindoList.AddWindowList(this);
+    }
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -31,6 +37,10 @@ public class WindowMove : MonoBehaviour, ICanDrag
     void Update()
     {
         boxCollider.size = rectTransform.sizeDelta * 0.9f;
+        if (Hierarchy != transform.GetSiblingIndex())
+        {
+            Hierarchy = transform.GetSiblingIndex();
+        }
     }
     public void DragMove(Vector3 mouseStartPos)
     {

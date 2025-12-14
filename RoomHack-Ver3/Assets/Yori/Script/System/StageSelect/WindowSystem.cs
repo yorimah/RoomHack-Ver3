@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 public class WindowSystem : MonoBehaviour
 {
     protected RectTransform windowRect;
@@ -17,6 +18,8 @@ public class WindowSystem : MonoBehaviour
     private GameObject windowsObject;
 
     protected float waitSeconds = 0.01f;
+    [Inject]
+    IGetWindowList getWindowList;
 
     public void Start()
     {
@@ -30,8 +33,10 @@ public class WindowSystem : MonoBehaviour
     {
         if (!isClick)
         {
-            windowRect.transform.SetSiblingIndex(10);
+            //windowRect.transform.SetSiblingIndex(10);
+            windowRect.GetComponent<WindowMove>().ClickInit(getWindowList.WindowMoveList.Count);
             _ = PopUpWindow();
+            windowRect.sizeDelta = Vector2.zero;
             isClick = true;
         }
     }
@@ -67,12 +72,12 @@ public class WindowSystem : MonoBehaviour
     public virtual async UniTask FadeOutWindow()
     {
         buttomObj.SetActive(false);
-        while (windowRect.rect.height > 100)
+        while (windowRect.rect.height > 10)
         {
             windowRect.sizeDelta -= new Vector2(0, Screen.height / 10);
             await UniTask.WaitForSeconds(waitSeconds);
         }
-        while (windowRect.rect.width > 100)
+        while (windowRect.rect.width > 10)
         {
             windowRect.sizeDelta -= new Vector2(Screen.width / 10, 0);
             await UniTask.WaitForSeconds(waitSeconds);
@@ -81,6 +86,7 @@ public class WindowSystem : MonoBehaviour
         isClick = false;
     }
     Vector2 wasMaximize;
+    Vector2 wasMaximizePos;
     public void Maximize()
     {
         if (isClick)
@@ -88,12 +94,14 @@ public class WindowSystem : MonoBehaviour
             if (!isMaximize)
             {
                 wasMaximize = windowRect.sizeDelta;
+                wasMaximizePos = windowRect.localPosition;
                 _ = MaximizeWindow();
                 isMaximize = true;
             }
             else
             {
                 windowRect.sizeDelta = wasMaximize;
+                windowRect.localPosition = wasMaximizePos;
                 isMaximize = false;
             }
         }
@@ -110,7 +118,6 @@ public class WindowSystem : MonoBehaviour
         //}
 
 
-        Debug.Log(windowRect.localPosition);
     }
     public async UniTask MaximizeWindow()
     {

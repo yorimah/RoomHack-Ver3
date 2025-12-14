@@ -18,7 +18,7 @@ public class WindowScaler : MonoBehaviour, IDragScaler
     [SerializeField, Header("大きさをを調整するobj")]
     private RectTransform changeRectObj;
 
-    Vector3 sizeDelta;
+    Vector2 sizeDelta;
     Vector3 moveRect;
 
     public void ClickInit(int hierarchy)
@@ -85,19 +85,25 @@ public class WindowScaler : MonoBehaviour, IDragScaler
     }
 
 
-
+    private Vector2 minSize = new Vector2(150, 100);
     public void DragScale(Vector2 dragPoint, Vector3 mouseStartPos)
     {
         Vector3 mouseVec = Input.mousePosition - mouseStartPos;
-        Vector2 moveVec = new Vector2(
-            dragPoint.x * mouseVec.x + sizeDelta.x,
-            dragPoint.y * mouseVec.y + sizeDelta.y);
+
+        float scaleVecX = dragPoint.x * mouseVec.x + sizeDelta.x;
+        float scaleVecY = dragPoint.y * mouseVec.y + sizeDelta.y;
+
+        float minScaleX = Mathf.Max(scaleVecX, minSize.x);
+        float minScaley = Mathf.Max(scaleVecY, minSize.y);
+
+        Vector2 moveVec = new Vector2(minScaleX, minScaley);
         changeRectObj.sizeDelta = moveVec;
-        Vector3 move = new Vector3(
-           Mathf.Abs(dragPoint.x) * mouseVec.x / 2 + moveRect.x,
-           Mathf.Abs(dragPoint.y) * mouseVec.y / 2 + moveRect.y,
-           moveRect.z);
-        changeRectObj.localPosition = move;
+
+        Vector2 diffSizeDelt = moveVec - sizeDelta;
+        Vector3 newPos = moveRect;
+        newPos.x += dragPoint.x * diffSizeDelt.x / 2;
+        newPos.y += dragPoint.y * diffSizeDelt.y / 2;
+        changeRectObj.localPosition = newPos;
     }
 }
 
