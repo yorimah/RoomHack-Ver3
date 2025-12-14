@@ -1,64 +1,42 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-public class StageSelected : MonoBehaviour
+public class WindowSystem : MonoBehaviour
 {
-    private RectTransform windowRect;
+    protected RectTransform windowRect;
 
     [SerializeField]
-    private GameObject buttomObj;
+    protected GameObject buttomObj;
 
-    private bool isClick = false;
+    protected bool isClick = false;
 
-    private BoxCollider2D dragCollider;
+    protected BoxCollider2D dragCollider;
 
-    Vector3 windowInitPos;
+    protected Vector3 windowInitPos;
 
     [SerializeField]
     private GameObject windowsObject;
 
-    float waitSeconds = 0.01f;
-    private string sceneToLoad;
-
-    private int stageRange;
-
-    [SerializeField]
-    private GameObject stageTitle;
-    private GeneralUpdateText titleText;
-
-    [SerializeField]
-    private Text selectButtomText;
-
-    public void SetScene(string setScene, int _stageRange)
-    {
-        sceneToLoad = setScene;
-        stageRange = _stageRange;
-        selectButtomText = selectButtomText.GetComponent<Text>();
-        selectButtomText.text = sceneToLoad;
-    }
-
+    protected float waitSeconds = 0.01f;
 
     public void Start()
     {
         dragCollider = windowsObject.GetComponent<BoxCollider2D>();
         dragCollider.enabled = false;
         windowRect = windowsObject.GetComponent<RectTransform>();
-        windowInitPos = windowRect.transform.position;
-        titleText = stageTitle.GetComponent<GeneralUpdateText>();
-        titleText.delay = 3;
+        windowInitPos = windowRect.position;
 
     }
     public void ClickStageSelect()
     {
         if (!isClick)
         {
-            _ = PopUpStageSelect();
+            windowRect.transform.SetSiblingIndex(10);
+            _ = PopUpWindow();
             isClick = true;
         }
     }
 
-    public async UniTask PopUpStageSelect()
+    public virtual async UniTask PopUpWindow()
     {
         windowRect.sizeDelta += new Vector2(0, 10);
         while (windowRect.rect.width < Screen.width / 2)
@@ -74,8 +52,6 @@ public class StageSelected : MonoBehaviour
         windowRect.sizeDelta = new Vector2(Screen.width / 2, Screen.height / 2);
         dragCollider.enabled = true;
         buttomObj.SetActive(true);
-        titleText.inputText = sceneToLoad;
-        titleText.isRunning = true;
     }
 
     public void Exit()
@@ -84,10 +60,11 @@ public class StageSelected : MonoBehaviour
         {
             _ = FadeOutWindow();
             dragCollider.enabled = false;
+            isMaximize = false;
         }
     }
 
-    public async UniTask FadeOutWindow()
+    public virtual async UniTask FadeOutWindow()
     {
         buttomObj.SetActive(false);
         while (windowRect.rect.height > 100)
@@ -100,11 +77,7 @@ public class StageSelected : MonoBehaviour
             windowRect.sizeDelta -= new Vector2(Screen.width / 10, 0);
             await UniTask.WaitForSeconds(waitSeconds);
         }
-        titleText.inputText = " ";
-        titleText.isRunning = false;
         buttomObj.SetActive(false);
-        windowRect.sizeDelta = Vector2.zero;
-        windowRect.transform.position = windowInitPos;
         isClick = false;
     }
     Vector2 wasMaximize;
@@ -114,7 +87,6 @@ public class StageSelected : MonoBehaviour
         {
             if (!isMaximize)
             {
-                wasPos = windowRect.transform.position;
                 wasMaximize = windowRect.sizeDelta;
                 _ = MaximizeWindow();
                 isMaximize = true;
@@ -130,16 +102,21 @@ public class StageSelected : MonoBehaviour
     bool isMaximize = false;
     public void Update()
     {
-        if (isMaximize && windowRect.transform.position != wasPos && isClick)
-        {
-            windowRect.transform.position = wasPos;
-            windowRect.sizeDelta = wasMaximize;
-            isMaximize = false;
-        }
+        //if (isMaximize && windowRect.position != wasPos && isClick)
+        //{
+        //    windowRect.position = wasPos;
+        //    windowRect.sizeDelta = wasMaximize;
+        //    isMaximize = false;
+        //}
+
+
+        Debug.Log(windowRect.localPosition);
     }
     public async UniTask MaximizeWindow()
     {
-        windowRect.transform.position = Vector2.zero;
+        windowRect.localPosition = Vector3.zero;
+        //Debug.Log(windowRect.position);
+        //Debug.Log(windowRect.transform.position);
         while (windowRect.rect.width < Screen.width)
         {
             windowRect.sizeDelta += new Vector2(Screen.width / 10, 0);
@@ -151,15 +128,6 @@ public class StageSelected : MonoBehaviour
             await UniTask.WaitForSeconds(waitSeconds);
         }
         windowRect.sizeDelta = new Vector2(Screen.width, Screen.height);
-    }
-
-    public void Accept()
-    {
-        PlayerSaveData saveData = SaveManager.Instance.Load();
-        saveData.stageRange = stageRange;
-        saveData.nowFloor = 0;
-        SaveManager.Instance.Save(saveData);
-        SceneManager.LoadScene(sceneToLoad);
     }
 }
 

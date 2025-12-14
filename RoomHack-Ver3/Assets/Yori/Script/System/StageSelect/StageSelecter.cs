@@ -17,7 +17,7 @@ public class StageSelecter : MonoBehaviour
     [SerializeField] private List<SceneAsset> sceneAsset; // ここにシーンファイルをD&Dする
 #endif
     [SerializeField, Header("ステージセレクトボタン")]
-    private List<StageSelected> selectButtomList = new List<StageSelected>();
+    private List<WindowStageSelect> selectButtomList = new List<WindowStageSelect>();
 
     void Start()
     {

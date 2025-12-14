@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 26180962}
   - component: {fileID: 26180961}
   - component: {fileID: 26180960}
-  - component: {fileID: 26180959}
+  - component: {fileID: 26180963}
   m_Layer: 5
   m_Name: StageSelectButtom2
   m_TagString: Untagged
@@ -319,27 +319,11 @@ RectTransform:
   - {fileID: 985215947}
   m_Father: {fileID: 1974207634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -377}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 630, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &26180959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26180957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d787cd30bbd3d4fa7e949a9929eae8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StageSelected
-  buttomObj: {fileID: 1854680853}
-  windowsObject: {fileID: 1296090904}
-  stageTitle: {fileID: 1368618835}
-  selectButtomText: {fileID: 985215948}
 --- !u!114 &26180960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,8 +368,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
-        m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
+      - m_Target: {fileID: 26180963}
+        m_TargetAssemblyTypeName: WindowStageSelect, Assembly-CSharp
         m_MethodName: ClickStageSelect
         m_Mode: 1
         m_Arguments:
@@ -434,6 +418,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26180957}
   m_CullTransparentMesh: 1
+--- !u!114 &26180963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26180957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 622e90fdff2603f4ea1a8ca09440ad49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WindowStageSelect
+  buttomObj: {fileID: 1854680853}
+  windowsObject: {fileID: 1296090904}
+  stageTitle: {fileID: 1368618835}
+  selectButtomText: {fileID: 985215948}
 --- !u!1 &70674201
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,8 +757,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
-        m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
+      - m_Target: {fileID: 26180963}
+        m_TargetAssemblyTypeName: WindowStageSelect, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
@@ -1731,7 +1731,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
@@ -1781,6 +1781,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421802960}
   m_CullTransparentMesh: 1
+--- !u!1 &462595957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 462595958}
+  m_Layer: 0
+  m_Name: WindowStageSelect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &462595958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462595957}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1734183.1, y: -2439454.5, z: -9000}
+  m_LocalScale: {x: 90, y: 90, z: 90}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1974207634}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &495396044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,8 +2073,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
-        m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
+      - m_Target: {fileID: 26180963}
+        m_TargetAssemblyTypeName: WindowStageSelect, Assembly-CSharp
         m_MethodName: Accept
         m_Mode: 1
         m_Arguments:
@@ -2175,7 +2206,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
         m_MethodName: Maximize
         m_Mode: 1
@@ -2830,8 +2861,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
-        m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
+      - m_Target: {fileID: 26180963}
+        m_TargetAssemblyTypeName: WindowStageSelect, Assembly-CSharp
         m_MethodName: Maximize
         m_Mode: 1
         m_Arguments:
@@ -3164,7 +3195,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1999626131}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5733333
+  m_Size: 0.28666672
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4563,7 +4594,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 640, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 670, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1160760568
@@ -4808,7 +4839,6 @@ GameObject:
   - component: {fileID: 1293482183}
   - component: {fileID: 1293482182}
   - component: {fileID: 1293482181}
-  - component: {fileID: 1293482180}
   m_Layer: 5
   m_Name: StageSelectButtom
   m_TagString: Untagged
@@ -4836,22 +4866,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -170}
   m_SizeDelta: {x: 630, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1293482180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1293482178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d787cd30bbd3d4fa7e949a9929eae8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StageSelected
-  buttomObj: {fileID: 5423584026536481994}
-  windowsObject: {fileID: 417969653551266976}
-  stageTitle: {fileID: 4347561188386449385}
-  selectButtomText: {fileID: 1072255064}
 --- !u!114 &1293482181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4896,7 +4910,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1293482180}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
         m_MethodName: ClickStageSelect
         m_Mode: 1
@@ -5067,7 +5081,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1296090904}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 069fec86b2468b54ca5c98742561fe24, type: 3}
   m_Name: 
@@ -5194,8 +5208,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
-        m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
+      - m_Target: {fileID: 26180963}
+        m_TargetAssemblyTypeName: WindowStageSelect, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
@@ -5542,8 +5556,7 @@ MonoBehaviour:
   - {fileID: 102900000, guid: f0290873c73448c479d87128f2ec2575, type: 3}
   - {fileID: 102900000, guid: 7724485bee0d00f4a8bf94d1b2c3e24a, type: 3}
   selectButtomList:
-  - {fileID: 1293482180}
-  - {fileID: 26180959}
+  - {fileID: 26180963}
 --- !u!4 &1371520315
 Transform:
   m_ObjectHideFlags: 0
@@ -5885,7 +5898,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
@@ -6521,6 +6534,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 462595958}
   - {fileID: 1293482179}
   - {fileID: 26180958}
   m_Father: {fileID: 2038373033}
@@ -7412,7 +7426,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1293482180}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
         m_MethodName: Accept
         m_Mode: 1
@@ -7486,7 +7500,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
         m_MethodName: Maximize
         m_Mode: 1
@@ -7560,7 +7574,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1293482180}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
@@ -8312,7 +8326,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26180959}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelected, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1

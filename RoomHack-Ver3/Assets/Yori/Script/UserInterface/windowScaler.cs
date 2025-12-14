@@ -122,6 +122,5 @@ public interface ICanDrag
 
     public void HierarchySet();
 
-
     public void DragMove(Vector3 mouseStartPos);
 }
