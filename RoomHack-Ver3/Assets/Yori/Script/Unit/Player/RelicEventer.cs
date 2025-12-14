@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 public class RelicEventer : MonoBehaviour
 {
@@ -52,8 +53,8 @@ public class DestroyerEventBase : IRelicEvent
     public RelicName relicName { get; private set; }
     public IGetPlayerScore getScore { get; }
     public int nowScore { get; private set; }
-    
-    public bool IsEventTrigger { get;private set; }
+
+    public bool IsEventTrigger { get; private set; }
     public DestroyerEventBase(IGetPlayerScore _getScore, RelicName _relicName)
     {
         getScore = _getScore;
@@ -71,9 +72,25 @@ public class DestroyerEventBase : IRelicEvent
         {
             nowScore = getScore.GetDestroyScore();
             IsEventTrigger = true;
+            _ = EventTriggerDown();
             return true;
         }
         return false;
+    }
+
+    public async UniTask EventTriggerDown()
+    {
+        float timer = 0;
+        while (IsEventTrigger)
+        {
+            timer += GameTimer.Instance.GetUnScaledDeltaTime();
+            if (timer >= 0.5f)
+            {
+                Debug.Log("a");
+                IsEventTrigger = false;
+            }
+            await UniTask.Yield();
+        }
     }
 }
 
