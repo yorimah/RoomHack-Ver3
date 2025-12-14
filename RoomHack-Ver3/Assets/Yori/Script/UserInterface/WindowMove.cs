@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Zenject;
 public class WindowMove : MonoBehaviour, ICanDrag
 {
     Vector3 dragStartPos;
@@ -9,23 +9,38 @@ public class WindowMove : MonoBehaviour, ICanDrag
 
     private BoxCollider2D boxCollider;
 
-    Vector2 sizeDelta;
-    Vector3 moveRect;
+    public int Hierarchy { get; private set; }
 
+    [Inject]
+    IAddWindoList addWindoList;
+    public void Awake()
+    {
+        addWindoList.AddWindowList(this);
+    }
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         boxCollider = GetComponent<BoxCollider2D>();
+        Hierarchy = transform.GetSiblingIndex();
     }
-    public void ClickInit()
+    public void ClickInit(int hierarchy)
     {
-        sizeDelta = rectTransform.sizeDelta;
-        moveRect = rectTransform.localPosition;
+        Hierarchy = hierarchy;
+        transform.SetSiblingIndex(Hierarchy);
         dragStartPos = GetComponent<RectTransform>().position;
+    }
+
+    public void HierarchySet()
+    {
+        Hierarchy = transform.GetSiblingIndex();
     }
     void Update()
     {
         boxCollider.size = rectTransform.sizeDelta * 0.9f;
+        if (Hierarchy != transform.GetSiblingIndex())
+        {
+            Hierarchy = transform.GetSiblingIndex();
+        }
     }
     public void DragMove(Vector3 mouseStartPos)
     {
@@ -40,19 +55,5 @@ public class WindowMove : MonoBehaviour, ICanDrag
             Mathf.Clamp(nextPos.x, -aspect.x, aspect.x),
             Mathf.Clamp(nextPos.y, -aspect.y, aspect.y),
             rectTransform.position.z);
-    }
-
-    public void DragScale(Vector2 dragPoint, Vector3 mouseStartPos)
-    {
-        Vector3 mouseVec = Input.mousePosition - mouseStartPos;
-        Vector2 moveVec = new Vector2(
-            dragPoint.x * mouseVec.x + sizeDelta.x,
-            dragPoint.y * mouseVec.y + sizeDelta.y);
-        rectTransform.sizeDelta = moveVec;
-        Vector3 move = new Vector3(
-           Mathf.Abs(dragPoint.x) * mouseVec.x / 2 + moveRect.x,
-           Mathf.Abs(dragPoint.y) * mouseVec.y / 2 + moveRect.y,
-           moveRect.z);
-        rectTransform.localPosition = move;
     }
 }
