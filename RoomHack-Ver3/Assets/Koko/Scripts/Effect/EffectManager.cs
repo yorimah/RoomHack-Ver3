@@ -114,14 +114,17 @@ public class EffectManager : MonoBehaviour
     {
         GameObject effect = ActEffect(_effectType, _target.transform.position, _target.transform.localEulerAngles.z, true);
         StartCoroutine(EffectPositionTrace(effect, _target, _posOffset));
+        StartCoroutine(EffectTraceStoper(effect, _target));
         return effect;
     }
 
+    // エフェクト追従（角度込み）
     public GameObject ActEffect_Trace(EffectType _effectType, GameObject _target, Vector2 _posOffset, float _rotOffset)
     {
         GameObject effect = ActEffect(_effectType, _target.transform.position, _target.transform.localEulerAngles.z, true);
         StartCoroutine(EffectPositionTrace(effect, _target, _posOffset));
         StartCoroutine(EffectRotationTrace(effect, _target, _rotOffset));
+        StartCoroutine(EffectTraceStoper(effect, _target));
         return effect;
     }
 
@@ -142,7 +145,7 @@ public class EffectManager : MonoBehaviour
     IEnumerator EffectLifeTime(GameObject _effect, float _lifeTime)
     {
         yield return new WaitForSeconds(_lifeTime);
-        _effect.SetActive(false);
+        _effect.GetComponent<ParticleSystem>().Stop();
     }
 
     // 対象追従
@@ -176,6 +179,33 @@ public class EffectManager : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    // 追従オブジェクト停止時にエフェクト停止
+    IEnumerator EffectTraceStoper(GameObject _effect, GameObject _target)
+    {
+        while(_effect.activeSelf)
+        {
+
+            if (_target == null)
+            {
+                //Debug.Log("しんだお");
+                _effect.GetComponent<ParticleSystem>().Stop();
+            }
+            else if (!_target.activeSelf)
+            {
+                //Debug.Log("あくてぃぶふぁるす");
+                _effect.GetComponent<ParticleSystem>().Stop();
+            }
+            else
+            {
+                //Debug.Log(_target.name + "はうごいつるお");
+            }
+
+
+            yield return null;
+        }
+
     }
 
 
