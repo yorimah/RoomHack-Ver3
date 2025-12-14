@@ -10,6 +10,12 @@ public class StageTimerDemo : MonoBehaviour
 
     float timer = 0;
 
+    public float GetTimer
+    {
+        get { return timer; }
+        private set { }
+    }
+
     Text dispText;
 
     [Inject]

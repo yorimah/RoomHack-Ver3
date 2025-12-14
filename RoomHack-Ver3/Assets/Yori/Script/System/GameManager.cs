@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         //    yield return new WaitForSeconds(0.1f);
         //}
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         SaveManager.Instance.Save(statusSave.playerSave());
         SceneManager.LoadScene("ToolGetScene");
     }

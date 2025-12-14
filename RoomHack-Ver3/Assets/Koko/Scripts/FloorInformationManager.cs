@@ -13,11 +13,25 @@ public class FloorInformationManager : MonoBehaviour
 
     PlayerSaveData saveData;
 
-    [SerializeField]
-    GeneralUpdateText updateText;
+    [SerializeField] GeneralUpdateText floorText;
+    [SerializeField] GeneralUpdateText readyText;
 
-    [SerializeField]
-    Text timerText;
+    [SerializeField] Text timerText;
+
+    [SerializeField] Text effectTimerText;
+    float effectTimerNum = 0;
+
+    [SerializeField] Image startScreen;
+    [SerializeField] Image clearScreen;
+    //[SerializeField] Image redScreen;
+    [SerializeField] Image bandScreen;
+
+    float startTransparency = 0;
+    float clearTransparency = 0;
+    //float redScreenPosY = 0;
+
+
+    bool isClearTrigger = false;
 
     private void Start()
     {
@@ -26,38 +40,76 @@ public class FloorInformationManager : MonoBehaviour
         saveData = getSaveData.GetPlayerSaveData();
 
         StartCoroutine(StartSequence());
+
+        startTransparency = 1;
+
+        Debug.Log("SE_FloorReady");
     }
 
     private void Update()
     {
+        effectTimerNum += Time.deltaTime * 10 / 3;
+        effectTimerText.text = effectTimerNum.ToString("00.00");
+        if (effectTimerNum >= 10) effectTimerText.gameObject.SetActive(false);
+
+        startScreen.color = new Color(0.066f, 0.055f, 0.09f, startTransparency);
+        clearScreen.color = new Color(1, 1, 1, clearTransparency);
+        startTransparency *= 0.98f;
+        clearTransparency *= 0.95f;
+
+        //redScreen.rectTransform.anchoredPosition = new Vector2(0, redScreenPosY);
+        //redScreenPosY = timerText.GetComponent<StageTimerDemo>().
+
         if (floorData.isClear)
         {
-            timerText.gameObject.SetActive(false);
-            updateText.gameObject.SetActive(true);
-            updateText.inputText = "FLOOR CLEAR";
-            this.transform.position = new Vector2(0, -20);
+            Debug.Log("SE_FloorClear");
+
+            bandScreen.gameObject.SetActive(true);
+            floorText.gameObject.SetActive(true);
+            floorText.inputText = "FLOOR CLEAR";
+
+            effectTimerText.gameObject.SetActive(true);
+            effectTimerText.text = timerText.text;
+
+            //this.transform.position = new Vector2(0, -20);
+
+            if (!isClearTrigger)
+            {
+                clearTransparency = 0.25f;
+                isClearTrigger = true;
+            }
         }
     }
 
     IEnumerator StartSequence()
     {
+        bandScreen.gameObject.SetActive(true);
+
         timerText.gameObject.SetActive(false);
-        updateText.gameObject.SetActive(true);
-        updateText.inputText = "FLOOR " + saveData.nowFloor;
-        this.transform.position = new Vector2(0, 20);
+        floorText.gameObject.SetActive(true);
+        floorText.inputText = "FLOOR " + saveData.nowFloor;
+        //this.transform.position = new Vector2(0, 20);
 
         GameTimer.Instance.playTime = 0;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
 
-        this.transform.position = Vector2.zero;
 
-        yield return new WaitForSeconds(1);
+        readyText.gameObject.SetActive(true);
+        readyText.inputText = "READY";
+
+        yield return new WaitForSeconds(1.5f);
 
 
         timerText.gameObject.SetActive(true);
-        updateText.gameObject.SetActive(false);
+        floorText.gameObject.SetActive(false);
+        readyText.gameObject.SetActive(false);
 
         GameTimer.Instance.playTime = 1;
+
+        clearTransparency = 0.25f;
+        Debug.Log("SE_FloorStart");
+
+        bandScreen.gameObject.SetActive(false);
     }
 }
