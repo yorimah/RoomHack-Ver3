@@ -48,9 +48,15 @@ public class FloorInformationManager : MonoBehaviour
 
     private void Update()
     {
-        effectTimerNum += Time.deltaTime * 10 / 3;
+        if (effectTimerNum < 10)
+        { 
+            effectTimerNum += Time.deltaTime * 10 / 3;
+        }
+        else
+        {
+            effectTimerNum = 10;
+        }
         effectTimerText.text = effectTimerNum.ToString("00.00");
-        if (effectTimerNum >= 10) effectTimerText.gameObject.SetActive(false);
 
         startScreen.color = new Color(0.066f, 0.055f, 0.09f, startTransparency);
         clearScreen.color = new Color(1, 1, 1, clearTransparency);
@@ -88,22 +94,25 @@ public class FloorInformationManager : MonoBehaviour
         timerText.gameObject.SetActive(false);
         floorText.gameObject.SetActive(true);
         floorText.inputText = "FLOOR " + saveData.nowFloor;
+        readyText.GetComponent<Text>().color = new Color32(255, 86, 81, 192);
+        readyText.inputText = "loading...";
         //this.transform.position = new Vector2(0, 20);
 
         GameTimer.Instance.playTime = 0;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
 
-
-        readyText.gameObject.SetActive(true);
+        readyText.GetComponent<Text>().color = new Color32(26, 215, 115, 192);
         readyText.inputText = "READY";
+        readyText.delay = 0;
 
-        yield return new WaitForSeconds(1.5f);
-
+        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Mouse0));
 
         timerText.gameObject.SetActive(true);
         floorText.gameObject.SetActive(false);
         readyText.gameObject.SetActive(false);
+        effectTimerText.gameObject.SetActive(false);
 
         GameTimer.Instance.playTime = 1;
 
@@ -111,5 +120,6 @@ public class FloorInformationManager : MonoBehaviour
         Debug.Log("SE_FloorStart");
 
         bandScreen.gameObject.SetActive(false);
+
     }
 }
