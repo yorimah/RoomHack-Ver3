@@ -3,17 +3,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum SpecialAction
+public enum SpecialAction
 {
     none,
-    EdgeRun,
-    Blink
+    AllOver
 }
 
 public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     IGetPlayerDie, ISetPlayerDied, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
     IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList, ISetHitPoint, IGetHitPoint
-    , ISetMoveSpeed, IGetSaveData
+    , ISetMoveSpeed, IGetSaveData, ISetPlayerSpecialAction
 {
 
     public int MaxHitPoint { get; private set; }
@@ -132,8 +131,16 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     {
         if (0 > RamNow - useRam)
         {
-            RamNow = 0;
-            Debug.LogError("使える数より多いRAMを使おうとしてるよ！");
+            if (SpecialAction == SpecialAction.AllOver)
+            {
+                DamageHitPoint(RamNow - useRam * 10);
+                RamNow = 0;
+            }
+            else
+            {
+                RamNow = 0;
+                Debug.LogError("使える数より多いRAMを使おうとしてるよ！");
+            }
         }
         else
         {
@@ -285,7 +292,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
     public void MoveSpeedUp(float plusNum)
     {
-        plusMoveSpeed = plusNum;
+        plusMoveSpeed += plusNum;
     }
 
     public PlayerSaveData GetPlayerSaveData()
@@ -300,17 +307,24 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
             case RelicName.none:
                 return new NoneRelic();
             case RelicName.destoryHPHeal:
-                return new HitPointHeal(this, this,relicName);
+                return new HitPointHeal(this, this, relicName);
             case RelicName.destoryRamHeal:
-                return new RamHeal(this, this,relicName);
+                return new RamHeal(this, this, relicName);
             case RelicName.destroyDeckDraw:
-                return new DeckDraw(this,relicName);
+                return new DeckDraw(this, relicName);
             case RelicName.halfHitPointMoveSpeedUp:
-                return new HalfMoveSpeed(this, this,relicName);
+                return new HalfMoveSpeed(this, this, relicName);
+            case RelicName.allOverTheBurst:
+                return new AllOverTheBurst(this, relicName);
+            case RelicName.brawProtcol:
+                return new BrawProtocal(this, relicName, this);
         }
         return null;
     }
-
+    public void SetSpecialAction(SpecialAction setAction)
+    {
+        SpecialAction = setAction;
+    }
 }
 public interface IPosition
 {
@@ -441,4 +455,9 @@ public interface ISetMoveSpeed
 public interface IGetSaveData
 {
     public PlayerSaveData GetPlayerSaveData();
+}
+
+public interface ISetPlayerSpecialAction
+{
+    public void SetSpecialAction(SpecialAction specialAction);
 }

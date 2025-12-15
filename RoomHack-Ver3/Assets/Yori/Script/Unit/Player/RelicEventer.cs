@@ -20,10 +20,7 @@ public class RelicEventer : MonoBehaviour
             {
                 if (item != null)
                 {
-                    if (item.RelicEventTrigger())
-                    {
-                        item.RelicEventAction();
-                    }
+                    item.RelicEventAction();
                 }
             }
         }
@@ -36,6 +33,8 @@ public enum RelicName
     destoryRamHeal,
     destroyDeckDraw,
     halfHitPointMoveSpeedUp,
+    allOverTheBurst,
+    brawProtcol,
 }
 
 public interface IRelicEvent
@@ -46,6 +45,11 @@ public interface IRelicEvent
     public bool RelicEventTrigger();
 
     public bool IsEventTrigger { get; }
+}
+
+public interface IStackRelicEvent
+{
+    public int Stack { get; }
 }
 
 public class DestroyerEventBase : IRelicEvent
@@ -61,7 +65,7 @@ public class DestroyerEventBase : IRelicEvent
         nowScore = getScore.GetDestroyScore();
         relicName = _relicName;
     }
-    IRelicStatusEffect relicStatusEffect;
+
     public virtual void RelicEventAction()
     {
         Debug.Log(relicName + " : が起動したよ");
@@ -86,7 +90,6 @@ public class DestroyerEventBase : IRelicEvent
             timer += GameTimer.Instance.GetUnScaledDeltaTime();
             if (timer >= 0.5f)
             {
-                Debug.Log("a");
                 IsEventTrigger = false;
             }
             await UniTask.Yield();
@@ -123,8 +126,10 @@ public class HitPointHeal : DestroyerEventBase
 
     public override void RelicEventAction()
     {
-        Debug.Log("HP回復！");
-        setHitPoint.HealNowHitPoint(3);
+        if (RelicEventTrigger())
+        {
+            setHitPoint.HealNowHitPoint(5);
+        }
     }
 }
 
@@ -138,7 +143,10 @@ public class RamHeal : DestroyerEventBase
 
     public override void RelicEventAction()
     {
-        useableRam.RamChange(3);
+        if (RelicEventTrigger())
+        {
+            useableRam.RamChange(3);
+        }
     }
 }
 
@@ -152,8 +160,31 @@ public class DeckDraw : DestroyerEventBase
 
     public override void RelicEventAction()
     {
-        ToolManager.Instance.DeckDraw();
+        if (RelicEventTrigger())
+        {
+            ToolManager.Instance.DeckDraw();
+        }
     }
+}
+
+public class BrawProtocal : DestroyerEventBase, IStackRelicEvent
+{
+    public int Stack { get; private set; }
+    private ISetMoveSpeed setMoveSpeed;
+    public BrawProtocal(IGetPlayerScore _getScore, RelicName relicName, ISetMoveSpeed _setMoveSpeed) : base(_getScore, relicName)
+    {
+        Stack = 0;
+        setMoveSpeed = _setMoveSpeed;
+    }
+    public override void RelicEventAction()
+    {
+        if (RelicEventTrigger())
+        {
+            Stack++;
+            setMoveSpeed.MoveSpeedUp(0.2f);
+        }
+    }
+
 }
 
 public class HalfHitPointEffectBase : IRelicEvent
@@ -179,6 +210,7 @@ public class HalfHitPointEffectBase : IRelicEvent
     {
         if (getHitPoint.MaxHitPoint / 2 >= getHitPoint.NowHitPoint)
         {
+            IsEventTrigger = true;
             return true;
         }
         return false;
@@ -194,8 +226,56 @@ public class HalfMoveSpeed : HalfHitPointEffectBase
     }
     public override void RelicEventAction()
     {
-        setMoveSpeed.MoveSpeedUp(10);
+        if (RelicEventTrigger() && !IsEventTrigger)
+        {
+            setMoveSpeed.MoveSpeedUp(2.5f);
+        }
     }
 
 }
+public class AllOverTheBurst : IRelicEvent
+{
+    public RelicName relicName { get; private set; }
 
+
+    public bool IsEventTrigger { get; private set; }
+
+    private ISetPlayerSpecialAction setAction;
+
+    public AllOverTheBurst(ISetPlayerSpecialAction _setAction, RelicName _relicName)
+    {
+        setAction = _setAction;
+        relicName = _relicName;
+    }
+
+    public void RelicEventAction()
+    {
+        if (!IsEventTrigger)
+        {
+            setAction.SetSpecialAction(SpecialAction.AllOver);
+            IsEventTrigger = true;
+        }
+    }
+
+    public bool RelicEventTrigger()
+    {
+        return true;
+    }
+}
+
+public class LethalEnd : IRelicEvent
+{
+    public RelicName relicName { get; private set; }
+
+
+    public bool IsEventTrigger { get; private set; }
+    public void RelicEventAction()
+    {
+
+    }
+
+    public bool RelicEventTrigger()
+    {
+        return true;
+    }
+}

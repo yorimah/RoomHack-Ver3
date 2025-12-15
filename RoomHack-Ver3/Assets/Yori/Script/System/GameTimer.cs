@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class GameTimer
 {
     private static GameTimer _instance;

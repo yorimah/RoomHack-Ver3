@@ -23,7 +23,7 @@ public class BulletCore : MonoBehaviour, IDamageable
 
         initVel = rb.linearVelocity;
 
-        //SeManager.Instance.Play("9mm");
+        SeManager.Instance.Play("9mm");
     }
 
     public void Die()
