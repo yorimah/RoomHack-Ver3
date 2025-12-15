@@ -381,7 +381,8 @@ public class ToolUIController : MonoBehaviour
             {
                 //Debug.Log("トラッシュ通常モード");
 
-                trash.toScale = new Vector2(1f, 1f);
+                //trash.toScale = new Vector2(1f, 1f);
+                trash.toScale = new Vector2(0.5f, 0.5f);
                 trash.isTextDisp = false;
                 trash.isBlackOut = false;
 

@@ -831,6 +831,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
+      propertyPath: handSpace
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: actDeckPos.x
       value: 600
       objectReference: {fileID: 0}
