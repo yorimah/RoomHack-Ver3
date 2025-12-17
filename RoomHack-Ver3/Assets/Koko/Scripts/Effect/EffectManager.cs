@@ -32,6 +32,7 @@ public class EffectManager : MonoBehaviour
         Success,
         MissileFire,
         Time,
+        HitWall,
     }
 
     // エフェクトを登録

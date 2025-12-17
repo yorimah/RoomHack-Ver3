@@ -54,6 +54,10 @@ public class BulletCore : MonoBehaviour, IDamageable
                     EffectManager.Instance.ActEffect(EffectManager.EffectType.HitDamage, this.transform.position, (this.transform.localEulerAngles.z + 90), true);
                     EffectManager.Instance.ActEffect_Num(stoppingPower, this.transform.position, 1f);
                 }
+                else
+                {
+                    EffectManager.Instance.ActEffect(EffectManager.EffectType.HitWall, this.transform.position, (this.transform.localEulerAngles.z + 90), true);
+                }
 
                 damage.HitDmg(stoppingPower, hitStopTime);
                 Die();

@@ -50,7 +50,7 @@ public class FloorInformationManager : MonoBehaviour
     {
         if (effectTimerNum < 10)
         { 
-            effectTimerNum += Time.deltaTime * 10 / 3;
+            effectTimerNum += Time.deltaTime * 10 / 2;
         }
         else
         {
@@ -100,13 +100,13 @@ public class FloorInformationManager : MonoBehaviour
 
         GameTimer.Instance.playTime = 0;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
 
         readyText.GetComponent<Text>().color = new Color32(26, 215, 115, 192);
         readyText.inputText = "READY";
         readyText.delay = 0;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         //yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Mouse0));
 
         timerText.gameObject.SetActive(true);

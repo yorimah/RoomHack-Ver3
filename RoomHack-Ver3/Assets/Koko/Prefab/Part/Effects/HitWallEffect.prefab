@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 1162736459813330394}
   - component: {fileID: 7142348649551068199}
   m_Layer: 10
-  m_Name: HitDamageEffect
+  m_Name: HitWallEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3643681876750692381
 Transform:
   m_ObjectHideFlags: 0
@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.3372549, b: 0.31764707, a: 0.5019608}
+      maxColor: {r: 0.80784315, g: 0.91764706, b: 0.34509805, a: 0.5019608}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -671,7 +671,7 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 90, z: 0}
+    m_Rotation: {x: 0, y: -90, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -870,7 +870,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
