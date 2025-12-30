@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class RelicBuyButtom : MonoBehaviour
+public class RelicBuyButton : MonoBehaviour
 {
     private RelicName relicName = RelicName.none;
 
@@ -22,7 +22,7 @@ public class RelicBuyButtom : MonoBehaviour
     ISetMoneyNum setMoneyNum;
     ISetRelicList setRelicList;
     private bool wasRewrite;
-    public void SetRelicButtom(RelicName _relicName, ISetMoneyNum _setMoneyNum, ISetRelicList _setRelicList)
+    public void SetRelicButton(RelicName _relicName, ISetMoneyNum _setMoneyNum, ISetRelicList _setRelicList)
     {
         relicData = dataBank.relicDataList[(int)_relicName];
         relicName = _relicName;

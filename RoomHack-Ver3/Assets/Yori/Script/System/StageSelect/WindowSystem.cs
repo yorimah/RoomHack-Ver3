@@ -6,7 +6,7 @@ public class WindowSystem : MonoBehaviour
     protected RectTransform windowRect;
 
     [SerializeField]
-    protected GameObject buttomObj;
+    protected GameObject buttonObj;
 
     protected bool isClick = false;
 
@@ -27,6 +27,10 @@ public class WindowSystem : MonoBehaviour
         dragCollider.enabled = false;
         windowRect = windowsObject.GetComponent<RectTransform>();
         windowInitPos = windowRect.position;
+        if (buttonObj == null)
+        {
+            Debug.LogError("buttonObjがnullだよ objName:" + gameObject.name);
+        }
 
     }
     public void ClickStageSelect()
@@ -56,7 +60,7 @@ public class WindowSystem : MonoBehaviour
         }
         windowRect.sizeDelta = new Vector2(Screen.width / 2, Screen.height / 2);
         dragCollider.enabled = true;
-        buttomObj.SetActive(true);
+        buttonObj.SetActive(true);
     }
 
     public void Exit()
@@ -71,7 +75,7 @@ public class WindowSystem : MonoBehaviour
 
     public virtual async UniTask FadeOutWindow()
     {
-        buttomObj.SetActive(false);
+        buttonObj.SetActive(false);
         while (windowRect.rect.height > 10)
         {
             windowRect.sizeDelta -= new Vector2(0, Screen.height / 10);
@@ -82,7 +86,7 @@ public class WindowSystem : MonoBehaviour
             windowRect.sizeDelta -= new Vector2(Screen.width / 10, 0);
             await UniTask.WaitForSeconds(waitSeconds);
         }
-        buttomObj.SetActive(false);
+        buttonObj.SetActive(false);
         isClick = false;
     }
     Vector2 wasMaximize;
