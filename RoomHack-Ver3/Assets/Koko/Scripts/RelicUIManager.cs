@@ -52,8 +52,5 @@ public class RelicUIManager : MonoBehaviour
                 relicIconUIList[i].gameObject.SetActive(false);
             }
         }
-
-
     }
-
 }

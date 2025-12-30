@@ -14,4 +14,5 @@ public class RelicData
     public string nameText;
     public string explainText;
     public Sprite iconImage;
+    public int relicPrice;
 }

@@ -11,9 +11,14 @@ public enum SpecialAction
 
 public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     IGetPlayerDie, ISetPlayerDied, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
-    IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList, ISetHitPoint, IGetHitPoint
-    , ISetMoveSpeed, IGetSaveData, ISetPlayerSpecialAction
+    IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList, ISetHitPoint,
+    IGetHitPoint, ISetMoveSpeed, IGetSaveData, ISetPlayerSpecialAction, ISetMoneyNum,
+    IGetMoneyNum,IGetTrace,ISetTrace
 {
+
+    public float Trace { get; private set; }
+
+    public int HaveMoney { get; private set; }
 
     public int MaxHitPoint { get; private set; }
     public float NowHitPoint { get; private set; }
@@ -104,6 +109,9 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         {
             relicEvents.Add(RelicIns((RelicName)intRelicEvent));
         }
+
+        HaveMoney = saveData.maney;
+        Trace = saveData.trace;
     }
 
     public PlayerSaveData playerSave()
@@ -124,6 +132,8 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         saveData.score_DestoryEnemy = ScoreDestroy;
         saveData.relicEvents = intRelicEvents;
+        saveData.maney = HaveMoney;
+        saveData.trace = Trace;
         return saveData;
     }
 
@@ -325,6 +335,43 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     {
         SpecialAction = setAction;
     }
+
+    public int GetMoneyNum()
+    {
+        return HaveMoney;
+    }
+
+    public void GetMoney(int plusMoney)
+    {
+        HaveMoney += plusMoney;
+    }
+    public void UseMoney(int useMoney)
+    {
+        HaveMoney -= useMoney;
+    }
+
+    public bool CanUseMoney(int useMoney)
+    {
+        if (HaveMoney - useMoney > 0)
+        {
+            return true;
+        }
+        else
+        {
+            Debug.Log("お金なくて買えないよ！一昨日きやがれ");
+            return false;
+        }
+    }
+
+    public float GetTrace()
+    {
+        return Trace;
+    }
+
+    public void AddTrace(float addTracce)
+    {
+        Trace += addTracce;
+    }
 }
 public interface IPosition
 {
@@ -460,4 +507,32 @@ public interface IGetSaveData
 public interface ISetPlayerSpecialAction
 {
     public void SetSpecialAction(SpecialAction specialAction);
+}
+
+
+public interface IGetMoneyNum
+{
+    public int GetMoneyNum();
+}
+
+public interface ISetMoneyNum
+{
+    public int HaveMoney { get; }
+
+    public void GetMoney(int plusMoney);
+    public void UseMoney(int useMoney);
+
+    public bool CanUseMoney(int useMoney);
+}
+
+public interface ISetTrace
+{
+    public float Trace { get; }
+
+    public void AddTrace(float addTrace);
+}
+
+public interface IGetTrace
+{
+    public float GetTrace();
 }

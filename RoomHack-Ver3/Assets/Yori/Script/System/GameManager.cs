@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -60,10 +60,15 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         SaveManager.Instance.Save(statusSave.playerSave());
-        SceneManager.LoadScene("ToolGetScene");
+        if (statusSave.playerSave().stageRange <= statusSave.playerSave().nowFloor + 1)
+        {
+            SceneManager.LoadScene("ClearDemoScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("ToolGetScene");
+        }
     }
-
-
 }
 
 
@@ -74,10 +79,10 @@ public interface IGetCleaFlag
     public void SetClear();
 }
 
-public class ClearManager:IGetCleaFlag
+public class ClearManager : IGetCleaFlag
 {
     public bool isClear { get; private set; }
-    
+
     public void SetClear()
     {
         isClear = true;
