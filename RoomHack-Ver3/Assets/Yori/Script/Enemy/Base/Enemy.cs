@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     public string HackObjectName { get; protected set; }
 
-    public int armorInt { get; private set; }
+    public int armorInt { get; set; }
 
     [SerializeField, Header("装甲")]
     private int armorSerialze = 0;
