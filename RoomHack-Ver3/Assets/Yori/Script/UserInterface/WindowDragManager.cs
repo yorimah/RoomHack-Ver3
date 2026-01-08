@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 public class WindowDragManager : MonoBehaviour
 {
@@ -44,7 +43,7 @@ public class WindowDragManager : MonoBehaviour
     private List<IDragScaler> dragScalers = new();
     private void GetMousePositionObject()
     {
-        // レイ射出
+        // レイ射出、一旦すべて取る
         RaycastHit2D[] hits = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
         additionVec = Vector2.zero;
         dragMoves.Clear();
@@ -54,14 +53,9 @@ public class WindowDragManager : MonoBehaviour
 
         int dragMoveHierarchy = 0;
         int dragScaleHierarchy = 0;
-        Button button = null;
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider.TryGetComponent<Button>(out var _button))
-            {
-                Debug.Log("ボタン触った");
-                button = _button;
-            }
+            // ドラッグ、スケールの中でのヒエラルキーが一番高い奴を見る
             if (hit.collider.TryGetComponent<ICanDrag>(out var canDrag))
             {
                 dragMoves.Add(canDrag);
@@ -81,13 +75,7 @@ public class WindowDragManager : MonoBehaviour
             }
 
         }
-        if (button != null)
-        {
-            Debug.Log("button触ったよ");
-            dragMove = null;
-            dragScale = null;
-            return;
-        }
+        // ヒエラルキーの高い方の動かす準備をする
         if (dragMoveHierarchy > dragScaleHierarchy)
         {
             if (dragMoves?.Count > 0)

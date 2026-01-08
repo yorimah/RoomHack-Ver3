@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using System.Collections;
 
 public class FloorInformationManager : MonoBehaviour
 {
@@ -49,8 +49,8 @@ public class FloorInformationManager : MonoBehaviour
     private void Update()
     {
         if (effectTimerNum < 10)
-        { 
-            effectTimerNum += Time.deltaTime * 10 / 2;
+        {
+            effectTimerNum += Time.deltaTime * 10 / 3;
         }
         else
         {
@@ -93,20 +93,21 @@ public class FloorInformationManager : MonoBehaviour
 
         timerText.gameObject.SetActive(false);
         floorText.gameObject.SetActive(true);
-        floorText.inputText = "FLOOR " + saveData.nowFloor;
+        int nowFloor = saveData.nowFloor + 1;
+        floorText.inputText = "FLOOR " + nowFloor;
         readyText.GetComponent<Text>().color = new Color32(255, 86, 81, 192);
         readyText.inputText = "loading...";
         //this.transform.position = new Vector2(0, 20);
 
         GameTimer.Instance.playTime = 0;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
 
         readyText.GetComponent<Text>().color = new Color32(26, 215, 115, 192);
         readyText.inputText = "READY";
         readyText.delay = 0;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         //yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Mouse0));
 
         timerText.gameObject.SetActive(true);

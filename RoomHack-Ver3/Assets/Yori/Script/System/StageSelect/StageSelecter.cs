@@ -17,14 +17,14 @@ public class StageSelecter : MonoBehaviour
     [SerializeField] private List<SceneAsset> sceneAsset; // ここにシーンファイルをD&Dする
 #endif
     [SerializeField, Header("ステージセレクトボタン")]
-    private List<WindowStageSelect> selectButtomList = new List<WindowStageSelect>();
+    private List<WindowStageSelect> selectButtonList = new List<WindowStageSelect>();
 
     void Start()
     {
-        foreach (var selcetButtom in selectButtomList)
+        foreach (var selcetButton in selectButtonList)
         {
             int rand = Random.Range(0, sceneToLoad.Count - 1);
-            selcetButtom.SetScene(sceneToLoad[rand], 3);
+            selcetButton.SetScene(sceneToLoad[rand], 3);
             sceneToLoad.Remove(sceneToLoad[rand]);
         }
     }

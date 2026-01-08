@@ -80,8 +80,9 @@ public class SaveManager
             },
             relicEvents = new List<int> { 0 },
             nowFloor = 0,
-            stageRange = 0
-
+            stageRange = 0,
+            maney = 0,
+            trace = 0,
         };
     }
 }

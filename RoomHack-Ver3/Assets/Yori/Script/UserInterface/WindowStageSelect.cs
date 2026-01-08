@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class WindowStageSelect:WindowSystem
+public class WindowStageSelect : WindowSystem
 {
 
     private string sceneToLoad;
@@ -16,7 +16,7 @@ public class WindowStageSelect:WindowSystem
 
 
     [SerializeField]
-    private Text selectButtomText;
+    private Text selectButtonText;
 
 
     public void SetScene(string setScene, int _stageRange)
@@ -25,8 +25,8 @@ public class WindowStageSelect:WindowSystem
         titleText.delay = 3;
         sceneToLoad = setScene;
         stageRange = _stageRange;
-        selectButtomText = selectButtomText.GetComponent<Text>();
-        selectButtomText.text = sceneToLoad;
+        selectButtonText = selectButtonText.GetComponent<Text>();
+        selectButtonText.text = sceneToLoad;
     }
 
     public void Accept()
@@ -53,14 +53,14 @@ public class WindowStageSelect:WindowSystem
         }
         windowRect.sizeDelta = new Vector2(Screen.width / 2, Screen.height / 2);
         dragCollider.enabled = true;
-        buttomObj.SetActive(true);
+        buttonObj.SetActive(true);
         titleText.inputText = sceneToLoad;
         titleText.isRunning = true;
     }
 
     public override async UniTask FadeOutWindow()
     {
-        buttomObj.SetActive(false);
+        buttonObj.SetActive(false);
         while (windowRect.rect.height > 100)
         {
             windowRect.sizeDelta -= new Vector2(0, Screen.height / 10);
@@ -73,7 +73,7 @@ public class WindowStageSelect:WindowSystem
         }
         titleText.inputText = " ";
         titleText.isRunning = false;
-        buttomObj.SetActive(false);
+        buttonObj.SetActive(false);
         windowRect.sizeDelta = Vector2.zero;
         windowRect.localPosition = windowInitPos;
         isClick = false;
