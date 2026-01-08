@@ -84,7 +84,10 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     ISetScoreDestroy setScoreDestroy;
 
     public string HackObjectName { get; protected set; }
-    
+
+    [SerializeField, Header("装甲")]
+    public int armorInt;
+
     public void Awake()
     {
         GunDataInit();
@@ -142,7 +145,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     }
     public void HitDmg(int dmg, float hitStop)
     {
-        NowHitPoint -= dmg;
+        NowHitPoint -= dmg - armorInt;
         if (NowHitPoint <= 0)
         {
             Die();
