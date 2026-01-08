@@ -85,8 +85,10 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     public string HackObjectName { get; protected set; }
 
+    public int armorInt { get; private set; }
+
     [SerializeField, Header("装甲")]
-    public int armorInt;
+    private int armorSerialze = 0;
 
     public void Awake()
     {
@@ -97,6 +99,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
         setEnemeyList.EnemyListAdd(this);
 
         HackObjectName = GetType().Name;
+
+        armorInt = armorSerialze;
     }
 
     protected EnemyStateType statetype;
