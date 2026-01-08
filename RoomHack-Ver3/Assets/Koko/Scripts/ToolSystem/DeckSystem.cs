@@ -3,8 +3,7 @@ using UnityEngine;
 using Zenject;
 public class DeckSystem : MonoBehaviour
 {
-    [SerializeField, Header("ToolDataBankをアタッチしてね")]
-    ToolDataBank toolDataBank;
+    public ToolDataBank toolDataBank;
 
     [SerializeField, Header("saveから拾ったリスト")]
     List<ToolTag> setList = new List<ToolTag>();

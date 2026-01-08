@@ -61,7 +61,7 @@ MonoBehaviour:
     toolCost: 1
     toolText: "\u5BFE\u8C61\u306F10\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B\u3002"
     toolSprite: {fileID: 21300000, guid: a39e1db0d80e957438c01331e07b3ad4, type: 3}
-    toolEvent: {fileID: 0}
+    toolEvent: {fileID: 1851046128847619313, guid: 85c11788b3f7357429e7e0aeb45984fa, type: 3}
   - toolTag: 7
     toolType: 4
     toolName: ResourceClip

@@ -19,6 +19,9 @@ public class ToolManager : MonoBehaviour
     }
 
     [SerializeField, Header("アタッチされたし")]
+    public ToolDataBank toolDataBank;
+
+    [SerializeField, Header("アタッチされたし")]
     ToolUIController toolUIController;
 
     [SerializeField, Header("アタッチされたし")]
@@ -49,6 +52,7 @@ public class ToolManager : MonoBehaviour
 
     private void Start()
     {
+        deckSystem.toolDataBank = toolDataBank;
         deckSystem.DeckSystemStart();
 
         toolUIController.ToolUIControllerStart();

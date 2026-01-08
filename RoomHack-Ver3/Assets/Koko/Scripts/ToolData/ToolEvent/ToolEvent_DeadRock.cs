@@ -2,6 +2,9 @@
 
 public class ToolEvent_DeadRock : ToolEventBase, IToolEvent_Target, IToolEvent_Time
 {
+    public override ToolTag thisToolTag { get; set; } = ToolTag.DeadRock;
+
+
     // IToolEventBase_Target
     public GameObject hackTargetObject { get; set; }
     public void Tracking(GameObject _gameObject)
@@ -13,9 +16,6 @@ public class ToolEvent_DeadRock : ToolEventBase, IToolEvent_Target, IToolEvent_T
     // IToolEvent_Time
     public float setTime { get; set; } = 3;
     public float timer { get; set; } = 0;
-
-
-    public override ToolTag thisToolTag { get; set; } = ToolTag.DeadRock;
 
 
     Enemy targetData;
