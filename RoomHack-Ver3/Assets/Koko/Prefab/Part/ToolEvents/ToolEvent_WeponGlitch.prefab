@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6503018895631192946}
   - component: {fileID: -4494917014334496117}
   m_Layer: 0
-  m_Name: ToolEvent_Blind
+  m_Name: ToolEvent_WeponGlitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

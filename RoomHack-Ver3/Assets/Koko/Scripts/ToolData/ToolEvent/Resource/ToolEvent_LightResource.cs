@@ -1,19 +1,29 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_LightResource : ToolEventBase
+public class ToolEvent_LightResource : ToolEventBase, IToolEvent_ToolManager
 {
     public override ToolTag thisToolTag { get; set; } = ToolTag.LightResource;
+
+
+    // ToolManager
+    public ToolManager toolManager { get; set; }
+    public void GetToolManager()
+    {
+        toolManager = ToolManager.Instance;
+    }
+
 
     protected override void Enter()
     {
         //EventAdd();
+        GetToolManager();
     }
 
     protected override void Execute()
     {
         // ２どろー
-        ToolManager.Instance.DeckDraw();
-        ToolManager.Instance.DeckDraw();
+        toolManager.DeckDraw();
+        toolManager.DeckDraw();
         EventEnd();
     }
 

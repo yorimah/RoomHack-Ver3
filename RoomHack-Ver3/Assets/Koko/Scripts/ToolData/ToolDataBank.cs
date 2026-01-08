@@ -21,26 +21,23 @@ public class ToolData
 }
 
 
-
-
-
-
 public enum ToolTag
 {
     none,
-    CCTVHack,
-    Bind,
-    Blind,
+    VisionHack,
+    DeadRock,
+    WeponGlitch,
     OverHeat,
     Detonation,
-    EdgeRun,
-    Blink,
+    BitClack,
     ResourceClip,
     LightResource,
-    FastReload,
     InstantMemory,
-    Accelerate,
-    MemoryDeposit,
+    FastReload,
+    Armorust,
+    Disruption,
+    ClockReplication,
+    RiotBurst,
 }
 
 public enum toolType
@@ -51,4 +48,12 @@ public enum toolType
     Debuff,
     Resource,
     Special
+}
+
+public enum UnionTag
+{
+    none,
+    Vandalers,
+    Vigilante,
+    NetSec,
 }

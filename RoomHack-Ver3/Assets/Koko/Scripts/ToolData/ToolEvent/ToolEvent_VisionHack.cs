@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
+public class ToolEvent_VisionHack : ToolEventBase, IToolEvent_Target
 {
     // IToolEventBase_Target
     public GameObject hackTargetObject { get; set; }
@@ -12,7 +12,7 @@ public class ToolEvent_CCTVHack : ToolEventBase, IToolEventBase_Target
     }
 
 
-    public override ToolTag thisToolTag { get; set; } = ToolTag.CCTVHack;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.VisionHack;
 
     [SerializeField]
     private float diffusionRate = 60;

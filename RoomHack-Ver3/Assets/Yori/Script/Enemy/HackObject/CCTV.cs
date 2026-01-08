@@ -40,7 +40,7 @@ public class CCTV : MonoBehaviour, IHackObject
     private void Awake()
     {
         // HackData初期化
-        canHackToolTag = new List<ToolTag> { ToolTag.CCTVHack };
+        canHackToolTag = new List<ToolTag> { ToolTag.VisionHack };
     }
 
 

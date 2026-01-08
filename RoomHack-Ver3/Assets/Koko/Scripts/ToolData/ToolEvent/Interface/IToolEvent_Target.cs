@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IToolEventBase_Target
+public interface IToolEvent_Target
 {
     public GameObject hackTargetObject { get; set; }
 

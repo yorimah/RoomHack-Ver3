@@ -182,7 +182,7 @@ public class DeckSystem : MonoBehaviour
 
     public bool ReturnToolNeedTarget(ToolTag _tool)
     {
-        if (toolDataBank.toolDataList[(int)_tool].toolEvent.TryGetComponent<IToolEventBase_Target>(out var toolEventBase_Target))
+        if (toolDataBank.toolDataList[(int)_tool].toolEvent.TryGetComponent<IToolEvent_Target>(out var toolEventBase_Target))
         {
             return true;
         }

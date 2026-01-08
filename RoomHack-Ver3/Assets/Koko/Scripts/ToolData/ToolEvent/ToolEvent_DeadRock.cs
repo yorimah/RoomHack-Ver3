@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_Bind : ToolEventBase, IToolEventBase_Target
+public class ToolEvent_DeadRock : ToolEventBase, IToolEvent_Target, IToolEvent_Time
 {
     // IToolEventBase_Target
     public GameObject hackTargetObject { get; set; }
@@ -10,11 +10,13 @@ public class ToolEvent_Bind : ToolEventBase, IToolEventBase_Target
         this.transform.localEulerAngles = _gameObject.transform.localEulerAngles;
     }
 
+    // IToolEvent_Time
+    public float setTime { get; set; } = 3;
+    public float timer { get; set; } = 0;
 
-    public override ToolTag thisToolTag { get; set; } = ToolTag.Bind;
 
-    float timer = 0;
-    float lifeTime = 5;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.DeadRock;
+
 
     Enemy targetData;
     float startSpeed;
@@ -31,7 +33,7 @@ public class ToolEvent_Bind : ToolEventBase, IToolEventBase_Target
         targetData = hackTargetObject.GetComponent<Enemy>();
         startSpeed = targetData.moveSpeed;
 
-        timer = lifeTime;
+        timer = setTime;
     }
 
     protected override void Execute()

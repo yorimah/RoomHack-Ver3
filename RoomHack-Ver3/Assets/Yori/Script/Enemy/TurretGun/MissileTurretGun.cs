@@ -19,6 +19,6 @@ public class MissileTurretGun : Enemy
         statetype = EnemyStateType.Idle;
         currentState = states[statetype];
 
-        canHackToolTag = new List<ToolTag> { ToolTag.CCTVHack, ToolTag.Blind, ToolTag.OverHeat, ToolTag.Detonation };
+        canHackToolTag = new List<ToolTag> { ToolTag.VisionHack, ToolTag.WeponGlitch, ToolTag.OverHeat, ToolTag.Detonation, ToolTag.BitClack };
     }
 }
