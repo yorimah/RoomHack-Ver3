@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_BitClack : ToolEventBase, IToolEvent_Attack, IToolEvent_Target
+public class ToolEvent_RiotBurst : ToolEventBase, IToolEvent_Attack, IToolEvent_Target, IToolEvent_ToolManager
 {
-    public override ToolTag thisToolTag { get; set; } = ToolTag.BitClack;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.RiotBurst;
 
 
     // IToolEvent_Attack
@@ -13,6 +13,7 @@ public class ToolEvent_BitClack : ToolEventBase, IToolEvent_Attack, IToolEvent_T
         damageable = _hackTargetObject.GetComponent<IDamageable>();
     }
 
+
     // IToolEventBase_Target
     public GameObject hackTargetObject { get; set; }
     public void Tracking(GameObject _gameObject)
@@ -22,9 +23,18 @@ public class ToolEvent_BitClack : ToolEventBase, IToolEvent_Attack, IToolEvent_T
     }
 
 
+    // ToolManager
+    public ToolManager toolManager { get; set; }
+    public void GetToolManager()
+    {
+        toolManager = ToolManager.Instance;
+    }
+
+
     protected override void Enter()
     {
         GetDamageable(hackTargetObject);
+        GetToolManager();
 
         EffectManager.Instance.ActEffect(EffectManager.EffectType.HitDie, hackTargetObject.transform.position);
 
@@ -33,6 +43,7 @@ public class ToolEvent_BitClack : ToolEventBase, IToolEvent_Attack, IToolEvent_T
 
     protected override void Execute()
     {
+        damage = toolManager.GetTrashData().Count * 10;
         damageable.HitDmg(damage, 0);
         //EffectManager.Instance.ActEffect_Num(damage, hackTargetObject.transform.position, 1);
 
@@ -43,4 +54,5 @@ public class ToolEvent_BitClack : ToolEventBase, IToolEvent_Attack, IToolEvent_T
     {
         //EventRemove();
     }
+
 }
