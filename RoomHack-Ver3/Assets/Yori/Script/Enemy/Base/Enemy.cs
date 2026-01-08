@@ -146,6 +146,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public void HitDmg(int dmg, float hitStop)
     {
         NowHitPoint -= dmg - armorInt;
+        EffectManager.Instance.ActEffect_Num(dmg - armorInt, this.transform.position, 1);
+
         if (NowHitPoint <= 0)
         {
             Die();

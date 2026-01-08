@@ -135,6 +135,7 @@ public class ToolManager : MonoBehaviour
                     }
                 }
 
+                Debug.Log(hand);
                 // 対象不要ツールならタゲなしでもプレイ可能
                 if (!deckSystem.ReturnToolNeedTarget(hand))
                 {

@@ -31,7 +31,7 @@ public class BombBlast : MonoBehaviour
                     if (hit.collider.gameObject == collision.gameObject)
                     {
                         damage.HitDmg(explosionPower, 0);
-                        EffectManager.Instance.ActEffect_Num(explosionPower, this.transform.position, 1f);
+                        //EffectManager.Instance.ActEffect_Num(explosionPower, this.transform.position, 1f);
                     }
                 }
             }

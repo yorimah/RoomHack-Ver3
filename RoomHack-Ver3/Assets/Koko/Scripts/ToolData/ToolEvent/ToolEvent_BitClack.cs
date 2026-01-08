@@ -34,7 +34,7 @@ public class ToolEvent_BitClack : ToolEventBase, IToolEvent_Attack, IToolEvent_T
     protected override void Execute()
     {
         damageable.HitDmg(damage, 0);
-        EffectManager.Instance.ActEffect_Num(damage, hackTargetObject.transform.position, 1);
+        //EffectManager.Instance.ActEffect_Num(damage, hackTargetObject.transform.position, 1);
 
         EventEnd();
     }
