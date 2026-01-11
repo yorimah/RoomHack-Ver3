@@ -12,7 +12,7 @@ public class ToolDataBank : ScriptableObject
 public class ToolData
 {
     public ToolTag toolTag;
-    public toolType toolType;
+    public ToolType toolType;
     public string toolName;
     public int toolCost;
     public string toolText;
@@ -38,9 +38,10 @@ public enum ToolTag
     Disruption,
     ClockReplication,
     RiotBurst,
+    NullWord,
 }
 
-public enum toolType
+public enum ToolType
 {
     none,
     Attack,

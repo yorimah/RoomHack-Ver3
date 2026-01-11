@@ -18,7 +18,7 @@ public class FlySecurityDrone : Enemy
         statetype = EnemyStateType.Idle;
         currentState = states[statetype];
 
-        canHackToolTag = new List<ToolTag> { ToolTag.VisionHack, ToolTag.DeadRock, ToolTag.WeponGlitch, ToolTag.OverHeat, ToolTag.Detonation, ToolTag.BitClack, ToolTag.Disruption, ToolTag.Armorust, ToolTag.ClockReplication, ToolTag.RiotBurst};
+        cantHackToolType = new List<ToolType> { };
         nowHackEvent = new List<ToolEventBase>();
     }
 }

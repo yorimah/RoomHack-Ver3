@@ -17,7 +17,7 @@ public enum EnemyStateType
 public class Enemy : MonoBehaviour, IDamageable, IHackObject
 {
     // ハック関連
-    public List<ToolTag> canHackToolTag { get; set; } = new List<ToolTag>();
+    public List<ToolType> cantHackToolType { get; set; } = new List<ToolType>();
     public List<ToolEventBase> nowHackEvent { get; set; } = new List<ToolEventBase>();
 
     public bool CanHack { get; set; } = false;

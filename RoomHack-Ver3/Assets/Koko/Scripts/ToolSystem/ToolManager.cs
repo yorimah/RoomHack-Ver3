@@ -41,7 +41,7 @@ public class ToolManager : MonoBehaviour
     GameObject targetObject;
 
     [Inject]
-    IUseableRam useableRam;
+    public IUseableRam useableRam;
 
     public delegate void ToolPlayAction();
     public ToolPlayAction toolPlayAction = () => { };
@@ -120,22 +120,21 @@ public class ToolManager : MonoBehaviour
                     handCostList[i] = true;
                 }
 
-
                 // 対象取れてるかチェック
                 handPlayList[i] = false;
                 if (cameraPositionController.targetObject != null)
                 {
                     if (cameraPositionController.targetObject.TryGetComponent<IHackObject>(out var hackObj))
                     {
-                        if (hackObj.canHackToolTag.Contains(hand))
+
+                        if (!hackObj.cantHackToolType.Contains(toolDataBank.toolDataList[(int)hand].toolType))
                         {
-                            handPlayList[i] = true;
                             targetObject = cameraPositionController.targetObject;
+                            handPlayList[i] = true;
                         }
                     }
                 }
 
-                Debug.Log(hand);
                 // 対象不要ツールならタゲなしでもプレイ可能
                 if (!deckSystem.ReturnToolNeedTarget(hand))
                 {
