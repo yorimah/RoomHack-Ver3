@@ -96,14 +96,14 @@ MonoBehaviour:
     toolCost: 4
     toolText: "\u5BFE\u8C61\u306F3\u79D2\u9593\u3001\u9632\u5FA1\u529B\u304C\u534A\u6E1B\u3059\u308B\u3002"
     toolSprite: {fileID: 21300000, guid: 1fdaf1569c0791d4abb72c96d7c2a5f4, type: 3}
-    toolEvent: {fileID: 0}
+    toolEvent: {fileID: 113583745954713617, guid: 5020710c1a559014d9ec7cdb3a3b7f1b, type: 3}
   - toolTag: 12
     toolType: 1
     toolName: Disruption
     toolCost: 5
     toolText: "\u30CF\u30F3\u30C9\u304B\u3089\u30E9\u30F3\u30C0\u30E0\u306A\u30C4\u30FC\u30EB\u3092\u30C8\u30E9\u30C3\u30B7\u30E5\u3002\u5BFE\u8C61\u306B[\u30C8\u30E9\u30C3\u30B7\u30E5\u3057\u305F\u30C4\u30FC\u30EB\u30B3\u30B9\u30C8*10]\u30C0\u30E1\u30FC\u30B8\u3002"
     toolSprite: {fileID: 21300000, guid: a39e1db0d80e957438c01331e07b3ad4, type: 3}
-    toolEvent: {fileID: 0}
+    toolEvent: {fileID: -6319886859162972808, guid: a5ed50115fe9b0d49ac0b86bb69d0234, type: 3}
   - toolTag: 13
     toolType: 3
     toolName: ClockReplication

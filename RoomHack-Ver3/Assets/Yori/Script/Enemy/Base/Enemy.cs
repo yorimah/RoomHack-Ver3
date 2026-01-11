@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     public string HackObjectName { get; protected set; }
 
-    public int armorInt { get; private set; }
+    public int armorInt { get; set; }
 
     [SerializeField, Header("装甲")]
     private int armorSerialze = 0;
@@ -150,6 +150,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public void HitDmg(int dmg, float hitStop)
     {
         NowHitPoint -= dmg - armorInt;
+        EffectManager.Instance.ActEffect_Num(dmg - armorInt, this.transform.position, 1);
+
         if (NowHitPoint <= 0)
         {
             Die();

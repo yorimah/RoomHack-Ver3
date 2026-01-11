@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_Disruption : ToolEventBase, IToolEvent_Attack, IToolEvent_Target, IToolEvent_ToolManager
+public class ToolEvent_RiotBurst : ToolEventBase, IToolEvent_Attack, IToolEvent_Target, IToolEvent_ToolManager
 {
+    public override ToolTag thisToolTag { get; set; } = ToolTag.RiotBurst;
 
-    public override ToolTag thisToolTag { get; set; } = ToolTag.Disruption;
 
     // IToolEvent_Attack
     public IDamageable damageable { get; set; }
-    public int damage { get; set; } = 0;
+    public int damage { get; set; } = 10;
     public void GetDamageable(GameObject _hackTargetObject)
     {
         damageable = _hackTargetObject.GetComponent<IDamageable>();
@@ -33,21 +33,17 @@ public class ToolEvent_Disruption : ToolEventBase, IToolEvent_Attack, IToolEvent
 
     protected override void Enter()
     {
-
         GetDamageable(hackTargetObject);
         GetToolManager();
 
         EffectManager.Instance.ActEffect(EffectManager.EffectType.HitDie, hackTargetObject.transform.position);
 
+        //EventAdd();
     }
 
     protected override void Execute()
     {
-        int rand = Random.Range(0, toolManager.GetHandData().Count - 1);
-        int cost = toolManager.toolDataBank.toolDataList[(int)toolManager.GetHandData()[rand]].toolCost;
-        toolManager.HandTrash(rand);
-
-        damage = cost * 10;
+        damage = toolManager.GetTrashData().Count * 10;
         damageable.HitDmg(damage, 0);
         //EffectManager.Instance.ActEffect_Num(damage, hackTargetObject.transform.position, 1);
 
@@ -56,5 +52,7 @@ public class ToolEvent_Disruption : ToolEventBase, IToolEvent_Attack, IToolEvent
 
     protected override void Exit()
     {
+        //EventRemove();
     }
+
 }

@@ -52,7 +52,7 @@ public class BulletCore : MonoBehaviour, IDamageable
                 if (damage.hitDamegeLayer != 3)
                 {
                     EffectManager.Instance.ActEffect(EffectManager.EffectType.HitDamage, this.transform.position, (this.transform.localEulerAngles.z + 90), true);
-                    EffectManager.Instance.ActEffect_Num(stoppingPower, this.transform.position, 1f);
+                    //EffectManager.Instance.ActEffect_Num(stoppingPower, this.transform.position, 1f);
                 }
                 else
                 {

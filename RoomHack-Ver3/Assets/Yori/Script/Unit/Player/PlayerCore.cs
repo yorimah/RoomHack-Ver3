@@ -68,6 +68,8 @@ public class PlayerCore : MonoBehaviour, IDamageable
     public void HitDmg(int dmg, float hitStop)
     {
         setHitPoint.DamageHitPoint(dmg);
+        EffectManager.Instance.ActEffect_Num(dmg, this.transform.position, 1);
+
         if (getHitPoint.NowHitPoint <= 0)
         {
             Die();
