@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 public class DroneMoveState : IEnemyState
 {
-    private PlayerCheack playerCheack;
+    private PlayerCheck playerCheck;
     private Enemy enemy;
 
     private float flipTimer = 0;
@@ -17,7 +17,7 @@ public class DroneMoveState : IEnemyState
     public DroneMoveState(Enemy _enemy)
     {
         enemy = _enemy;
-        playerCheack = enemy.playerCheack;
+        playerCheck = enemy.playerCheck;
         enemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
     }
     public void Enter()
@@ -29,9 +29,9 @@ public class DroneMoveState : IEnemyState
 
     public void Execute()
     {
-        playerCheack.RotationFoward(enemy.transform,enemy.PlayerPosition);
+        playerCheck.RotationFoward(enemy.transform,enemy.PlayerPosition);
         // レイを飛ばして射線が通たらショットに遷移
-        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
+        if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
         {
             enemy.ChangeState(EnemyStateType.Shot);
         }

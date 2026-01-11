@@ -5,7 +5,7 @@ public class FlySecurityDrone : Enemy
 {
     void Start()
     {
-        playerCheack = new PlayerCheack();
+        playerCheck = new PlayerCheck();
 
         states = new Dictionary<EnemyStateType, IEnemyState>()
     {

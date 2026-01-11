@@ -12,12 +12,12 @@ public class MoveState : IEnemyState
 
     private int direction = 1;
 
-    private PlayerCheack playerCheack;
+    private PlayerCheck playerCheck;
     public MoveState(Enemy _enemy)
     {
         enemy = _enemy;
         enemyRididBody = enemy.GetComponent<Rigidbody2D>();
-        playerCheack = enemy.playerCheack;
+        playerCheck = enemy.playerCheck;
     }
 
     public void Enter()
@@ -31,7 +31,7 @@ public class MoveState : IEnemyState
 
     public void Execute()
     {
-        if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
+        if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
         {
             enemy.ChangeState(EnemyStateType.Shot);
         }

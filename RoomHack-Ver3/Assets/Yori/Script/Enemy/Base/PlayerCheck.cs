@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerCheack
+public class PlayerCheck
 {
     /// <Summary>
     /// レイを飛ばして壁にあったたらfalseあたらなかったらtrue

@@ -7,7 +7,7 @@ public class SpecialForce : Enemy
     public bool escapeMode;
     void Start()
     {
-        playerCheack = new PlayerCheack();
+        playerCheack = new PlayerCheck();
 
         states = new Dictionary<EnemyStateType, IEnemyState>()
     {

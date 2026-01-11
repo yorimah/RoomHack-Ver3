@@ -23,7 +23,7 @@ public class SpecialForceShotState : IEnemyState
 
     private float timer;
     // Player情報
-    private PlayerCheack playerCheack;
+    private PlayerCheck playerCheck;
     public SpecialForceShotState(Enemy _enemy)
     {
         enemy = _enemy;
@@ -34,7 +34,7 @@ public class SpecialForceShotState : IEnemyState
         bulletGeneratar = enemy.gameObject.GetComponent<BulletGeneratar>();
 
         // プレイヤー情報初期化
-        playerCheack = enemy.playerCheack;
+        playerCheck = enemy.playerCheck;
     }
     float nowHP;
     public void Enter()
@@ -51,7 +51,7 @@ public class SpecialForceShotState : IEnemyState
         {
             enemy.ChangeState(EnemyStateType.Move);
         }
-        playerCheack.RotationFoward(enemy.transform, enemy.PlayerPosition);
+        playerCheck.RotationFoward(enemy.transform, enemy.PlayerPosition);
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {

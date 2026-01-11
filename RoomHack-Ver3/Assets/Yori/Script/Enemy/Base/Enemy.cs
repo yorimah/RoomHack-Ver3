@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     private LayerMask obstacleMask;
 
     // プレイヤーとの間に障害物があるか判別するスクリプト
-    public PlayerCheack playerCheack;
+    public PlayerCheck playerCheack;
 
     [SerializeField, Header("予備動作")]
     public float aimTime = 0.5f;

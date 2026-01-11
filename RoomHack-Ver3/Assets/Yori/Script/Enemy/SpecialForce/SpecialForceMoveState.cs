@@ -13,13 +13,13 @@ public class SpecialForceMoveState : IEnemyState
     private int forwardDir = 1;
     private int direction = 1;
 
-    private PlayerCheack playerCheack;
+    private PlayerCheck playerCheck;
 
     public SpecialForceMoveState(Enemy _enemy)
     {
         enemy = _enemy;
         enemyRididBody = enemy.GetComponent<Rigidbody2D>();
-        playerCheack = enemy.playerCheack;
+        playerCheck = enemy.playerCheck;
     }
     public void Enter()
     {
@@ -37,7 +37,7 @@ public class SpecialForceMoveState : IEnemyState
                 forwardDir = Random.value < 0.5f ? -1 : 1;
                 flipTimer = 0f;
                 // プレイヤーとの間に障害物があるかチェック ないならショット移動
-                if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
+                if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
                 {
                     enemy.ChangeState(EnemyStateType.Shot);
                 }
@@ -46,7 +46,7 @@ public class SpecialForceMoveState : IEnemyState
         else
         {
             forwardDir = 1;
-            if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
+            if (!playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
             {
                 enemy.ChangeState(EnemyStateType.Reload);
             }
