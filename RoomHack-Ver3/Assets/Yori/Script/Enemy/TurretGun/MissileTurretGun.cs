@@ -7,7 +7,7 @@ public class MissileTurretGun : Enemy
     public void Start()
     {
         moveSpeed = 0;
-        playerCheack = new PlayerCheack();
+        playerCheck = new PlayerCheck();
 
         states = new Dictionary<EnemyStateType, IEnemyState>()
     {

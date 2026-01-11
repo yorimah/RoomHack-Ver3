@@ -20,7 +20,7 @@ public class TurretGunShotState : IEnemyState
     // 汎用タイマー
     private float timer;
     // Player情報
-    private PlayerCheack playerCheack;
+    private PlayerCheck playerCheck;
 
     // 射撃拡散率
     private float diffusionRate;
@@ -32,7 +32,7 @@ public class TurretGunShotState : IEnemyState
         bulletGeneratar = enemy.gameObject.GetComponent<BulletGeneratar>();
 
         // プレイヤー情報初期化
-        playerCheack = enemy.playerCheack;
+        playerCheck = enemy.playerCheck;
     }
     public void Enter()
     {
@@ -43,7 +43,7 @@ public class TurretGunShotState : IEnemyState
     public void Execute()
     {
         //プレイヤー方向に向く
-        playerCheack.RotationFoward(enemy.transform, enemy.PlayerPosition);
+        playerCheck.RotationFoward(enemy.transform, enemy.PlayerPosition);
         //発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
@@ -83,7 +83,7 @@ public class TurretGunShotState : IEnemyState
                 {
                     // プレイヤーが射線上にいたら射撃へ
                     // いなかったら移動へ
-                    if (playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
+                    if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
                     {
                         timer = 0;
                         shotSection = ShotSection.shot;

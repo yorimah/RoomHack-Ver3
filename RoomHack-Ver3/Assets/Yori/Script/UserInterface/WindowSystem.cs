@@ -38,7 +38,7 @@ public class WindowSystem : MonoBehaviour
         if (!isClick)
         {
             //windowRect.transform.SetSiblingIndex(10);
-            windowRect.GetComponent<WindowMove>().ClickInit(getWindowList.WindowMoveList.Count);
+            windowRect.GetComponent<WindowMove>()?.ClickInit(getWindowList.WindowMoveList.Count);
             _ = PopUpWindow();
             windowRect.sizeDelta = Vector2.zero;
             isClick = true;

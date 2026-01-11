@@ -12,7 +12,7 @@ public class DroneShotState : IEnemyState
     private int direction = 1;
     private float moveDire;
     private Rigidbody2D enemyRigidBody2D;
-    private PlayerCheack playerCheack;
+    private PlayerCheck playerCheck;
     enum ShotSection
     {
         aim,
@@ -28,7 +28,7 @@ public class DroneShotState : IEnemyState
     public DroneShotState(Enemy _enemy)
     {
         enemy = _enemy;
-        playerCheack = enemy.playerCheack;
+        playerCheck = enemy.playerCheck;
         enemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
 
         bulletGeneratar = enemy.gameObject.GetComponent<BulletGeneratar>();
@@ -41,7 +41,7 @@ public class DroneShotState : IEnemyState
 
     public void Execute()
     {
-        if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
+        if (!playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(),enemy.PlayerPosition))
         {
             enemy.ChangeState(EnemyStateType.Move);
         }
@@ -76,7 +76,7 @@ public class DroneShotState : IEnemyState
         // Rigidbody2Dで移動
         enemyRigidBody2D.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale() / 2;
 
-        playerCheack.RotationFoward(enemy.transform,enemy.PlayerPosition);
+        playerCheck.RotationFoward(enemy.transform,enemy.PlayerPosition);
         // 発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
