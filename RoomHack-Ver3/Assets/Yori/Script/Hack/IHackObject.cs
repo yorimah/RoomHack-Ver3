@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public interface IHackObject
 {
-    public List<ToolTag> canHackToolTag { get; set; }
+    public List<ToolType> cantHackToolType { get; set; }
 
     public List<ToolEventBase> nowHackEvent { get; set; }
 

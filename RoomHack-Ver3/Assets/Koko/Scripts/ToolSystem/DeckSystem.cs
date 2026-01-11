@@ -164,7 +164,7 @@ public class DeckSystem : MonoBehaviour
         return playTool;
     }
 
-    public toolType ReturnToolType(ToolTag _tool)
+    public ToolType ReturnToolType(ToolTag _tool)
     {
         return toolDataBank.toolDataList[(int)_tool].toolType;
     }

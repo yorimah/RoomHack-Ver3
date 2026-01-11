@@ -18,7 +18,7 @@ public class SecurityGuard : Enemy
         statetype = EnemyStateType.Idle;
         currentState = states[statetype];
 
-        canHackToolTag = new List<ToolTag> { ToolTag.VisionHack, ToolTag.DeadRock, ToolTag.WeponGlitch, ToolTag.OverHeat, ToolTag.Detonation, ToolTag.BitClack };
+        cantHackToolType = new List<ToolType> { };
         nowHackEvent = new List<ToolEventBase>();
     }
 }
