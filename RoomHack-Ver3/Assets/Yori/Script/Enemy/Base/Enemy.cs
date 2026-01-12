@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     public bool IsView { get; set; }
 
     // ダメージ関連
-    public float MaxHitPoint { get; private set; } = 5;
+    public float MaxHitPoint { get; set; } = 5;
     public float NowHitPoint { get; set; }
     public int hitDamegeLayer { get; set; } = 2;
 
