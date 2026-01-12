@@ -90,10 +90,18 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     [SerializeField, Header("装甲")]
     private int armorSerialze = 0;
 
+    [SerializeField, Header("MaxHP")]
+    private int SerializeMaxHp;
     public void Awake()
     {
         GunDataInit();
 
+        MaxHitPoint = SerializeMaxHp;
+        if (MaxHitPoint <= 0)
+        {
+            MaxHitPoint = 5;
+            Debug.Log("HP設定が0！ :" + gameObject.name);
+        }
         NowHitPoint = MaxHitPoint;
 
         setEnemeyList.EnemyListAdd(this);
