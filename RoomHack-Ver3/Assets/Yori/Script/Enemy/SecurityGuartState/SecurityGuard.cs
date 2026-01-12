@@ -20,8 +20,5 @@ public class SecurityGuard : Enemy
 
         cantHackToolType = new List<ToolType> { };
         nowHackEvent = new List<ToolEventBase>();
-
-        MaxHitPoint = 100;
-        NowHitPoint = MaxHitPoint;
     }
 }

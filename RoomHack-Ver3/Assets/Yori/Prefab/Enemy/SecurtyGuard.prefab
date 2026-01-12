@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3bdf990644668f4c8fc6f838ca757ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _event: []
   moveSpeed: 3
   obstacleMask:
     serializedVersion: 2
@@ -149,8 +148,10 @@ MonoBehaviour:
   maxDiffusionRate: 0
   minDiffusionRate: 0
   bulletObject: {fileID: 0}
-  died: 0
+  isDead: 0
   shotIntervalTime: 0
+  armorSerialze: 0
+  SerializeMaxHp: 100
   diffusionRate: 0
 --- !u!50 &1945703265783755002
 Rigidbody2D:

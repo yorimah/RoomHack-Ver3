@@ -21,7 +21,5 @@ public class FlySecurityDrone : Enemy
         cantHackToolType = new List<ToolType> { };
         nowHackEvent = new List<ToolEventBase>();
 
-        MaxHitPoint = 40;
-        NowHitPoint = MaxHitPoint;
     }
 }
