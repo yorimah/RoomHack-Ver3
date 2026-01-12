@@ -51,7 +51,7 @@ public class ToolEvent_OverHeat : ToolEventBase, IToolEvent_Target, IToolEvent_T
         damageTimer -= GameTimer.Instance.GetScaledDeltaTime();
         if (damageTimer <= 0)
         {
-            damageable.HitDmg(damage, 0);
+            damageable.HackDmg(damage, 0);
             damageTimer = damageTime;
         }
         Tracking(hackTargetObject);

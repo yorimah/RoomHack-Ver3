@@ -44,7 +44,7 @@ public class ToolEvent_RiotBurst : ToolEventBase, IToolEvent_Attack, IToolEvent_
     protected override void Execute()
     {
         damage = toolManager.GetTrashData().Count * 10;
-        damageable.HitDmg(damage, 0);
+        damageable.HackDmg(damage, 0);
         //EffectManager.Instance.ActEffect_Num(damage, hackTargetObject.transform.position, 1);
 
         EventEnd();

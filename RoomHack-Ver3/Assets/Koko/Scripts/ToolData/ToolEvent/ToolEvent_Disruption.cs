@@ -48,7 +48,7 @@ public class ToolEvent_Disruption : ToolEventBase, IToolEvent_Attack, IToolEvent
         toolManager.HandTrash(rand);
 
         damage = cost * 10;
-        damageable.HitDmg(damage, 0);
+        damageable.HackDmg(damage, 0);
         //EffectManager.Instance.ActEffect_Num(damage, hackTargetObject.transform.position, 1);
 
         EventEnd();

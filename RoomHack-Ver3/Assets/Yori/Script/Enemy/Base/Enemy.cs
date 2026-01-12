@@ -157,8 +157,11 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     }
     public void HitDmg(int dmg, float hitStop)
     {
-        NowHitPoint -= dmg - armorInt;
-        EffectManager.Instance.ActEffect_Num(dmg - armorInt, this.transform.position, 1);
+        // 防護点上回ってHP回復したわバカタレ
+        int damage = dmg - armorInt;
+        if (damage < 0) damage = 0;
+        NowHitPoint -= damage;
+        EffectManager.Instance.ActEffect_Num(damage, this.transform.position, 1);
 
         if (NowHitPoint <= 0)
         {
@@ -176,8 +179,9 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     public void HackDmg(int dmg, float hitStop)
     {
-        NowHitPoint -= dmg - armorInt;
-        EffectManager.Instance.ActEffect_Num(dmg - armorInt, this.transform.position, 1);
+        // ハックダメージに防護点計算してたら意味ないやんけ！おい！
+        NowHitPoint -= dmg;
+        EffectManager.Instance.ActEffect_Num(dmg, this.transform.position, 1);
 
         if (NowHitPoint <= 0)
         {
