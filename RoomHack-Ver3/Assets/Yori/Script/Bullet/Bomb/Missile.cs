@@ -171,6 +171,23 @@ public class Missile : BombCore, IDamageable
             HitStopper.Instance.StopTime(hitStop);
         }
     }
+
+    public void HackDmg(int dmg, float hitStop)
+    {
+        NowHitPoint -= dmg;
+        if (NowHitPoint <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            if (hitDamegeLayer == 2)
+            {
+                SeManager.Instance.Play("Hit");
+            }
+            HitStopper.Instance.StopTime(hitStop);
+        }
+    }
     public class Factory : PlaceholderFactory<float, Vector2, IPosition, Vector2, Missile>
     {
 

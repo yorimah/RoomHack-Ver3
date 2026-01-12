@@ -17,6 +17,8 @@ public class WallDeffence : MonoBehaviour, IDamageable
     {
 
     }
+
+    public void HackDmg(int dmg ,float hit) { }
     public void Die()
     {
         // 壁は死なない
