@@ -171,17 +171,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: kokoSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 6293527755761738247, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293527755761738247, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8131471068358221887, guid: 6675cfb10837c964380e38ea40d3d20c, type: 3}
       propertyPath: orthographic size
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -271,19 +263,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2619804791895909029, guid: c484f4898020c224da175bd0615aa471, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.68353784
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2619804791895909029, guid: c484f4898020c224da175bd0615aa471, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2619804791895909029, guid: c484f4898020c224da175bd0615aa471, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2619804791895909029, guid: c484f4898020c224da175bd0615aa471, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.7299151
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2619804791895909029, guid: c484f4898020c224da175bd0615aa471, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -371,14 +363,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: YoriSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 1481632860796302795, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3183921140636507460, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4227297991499851073, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -418,14 +402,6 @@ PrefabInstance:
     - target: {fileID: 4227297991499851073, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229440358167261080, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8863427136088548311, guid: ab7f257970a513a48969a7d3e7d8c1d0, type: 3}
-      propertyPath: m_Lens.OrthographicSize
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
