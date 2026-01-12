@@ -165,6 +165,27 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
             HitStopper.Instance.StopTime(hitStop);
         }
     }
+
+    public void HackDmg(int dmg, float hitStop)
+    {
+        NowHitPoint -= dmg - armorInt;
+        EffectManager.Instance.ActEffect_Num(dmg - armorInt, this.transform.position, 1);
+
+        if (NowHitPoint <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            if (hitDamegeLayer == 2)
+            {
+                SeManager.Instance.Play("Hit");
+            }
+            HitStopper.Instance.StopTime(hitStop);
+        }
+    }
+
+
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {

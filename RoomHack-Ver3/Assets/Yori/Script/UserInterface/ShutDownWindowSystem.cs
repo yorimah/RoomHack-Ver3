@@ -2,9 +2,14 @@
 using UnityEngine;
 public class ShutDownWindowSystem : WindowSystem
 {
-    Vector2 shutDownWindowSize = new Vector2(500, 500);
+    [SerializeField, Header("ウィンドウの大きさ")]
+    Vector2 shutDownWindowSize;
+
+    [SerializeField, Header(" 生成位置")]
+    Vector2 popPostion;
     public override async UniTask PopUpWindow()
     {
+        windowRect.localPosition = popPostion;
         windowRect.sizeDelta += new Vector2(0, 10);
         while (windowRect.rect.width < shutDownWindowSize.x)
         {
