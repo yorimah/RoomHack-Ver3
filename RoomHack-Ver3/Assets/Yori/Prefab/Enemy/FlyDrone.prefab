@@ -151,7 +151,7 @@ MonoBehaviour:
   isDead: 0
   shotIntervalTime: 0
   armorSerialze: 10
-  SerializeMaxHp: 40
+  SerializeMaxHp: 30
   diffusionRate: 0
 --- !u!50 &289955958155105034
 Rigidbody2D:
