@@ -82,6 +82,7 @@ public class SaveManager
             relicEvents = new List<int> { 2,3 },
             nowFloor = 0,
             stageRange = 10,
+            noeStageNum = 0,
             maney = 0,
             trace = 0,
         };
