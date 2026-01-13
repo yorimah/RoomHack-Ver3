@@ -190,7 +190,6 @@ public class ToolGetSceneManager : MonoBehaviour
 
         // データ追加
         data.deckList.Add((int)_toolUI.thisTool);
-        data.nowFloor++;
         if (data.nowFloor < data.stageRange)
         {
             int stageNum = Random.Range(0, sceneToLoad.Count);

@@ -13,7 +13,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     IGetPlayerDie, ISetPlayerDied, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
     IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList, ISetHitPoint,
     IGetHitPoint, ISetMoveSpeed, IGetSaveData, ISetPlayerSpecialAction, ISetMoneyNum,
-    IGetMoneyNum, IGetTrace, ISetTrace
+    IGetMoneyNum, IGetTrace, ISetTrace,IFloorData
 {
 
     public float Trace { get; private set; }
@@ -75,6 +75,8 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     public float ShotTimer { get; private set; }
     public float ReloadTimer { get; private set; }
 
+    public int NowFloor { get; private set; }
+
 
     public void PlayerPositionSet(Transform transform)
     {
@@ -116,6 +118,8 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         HaveMoney = saveData.maney;
         Trace = saveData.trace;
 
+        NowFloor = saveData.nowFloor;
+
         ResetShotTimer();
     }
 
@@ -140,6 +144,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         saveData.relicEvents = intRelicEvents;
         saveData.maney = HaveMoney;
         saveData.trace = Trace;
+        saveData.nowFloor = NowFloor;
         return saveData;
     }
 
@@ -401,6 +406,23 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     {
         ReloadTimer = 0;
     }
+
+    public void AddNowFloor()
+    {
+        NowFloor++;
+    }
+
+    public bool IsClearStage()
+    {
+        if (NowFloor == saveData.stageRange)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 public interface IPosition
 {
@@ -576,4 +598,13 @@ public interface ISetTrace
 public interface IGetTrace
 {
     public float GetTrace();
+}
+
+public interface IFloorData
+{
+    public int NowFloor { get; }
+
+    public void AddNowFloor();
+
+    public bool IsClearStage();
 }
