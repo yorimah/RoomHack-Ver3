@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [Inject]
     IStatusSave statusSave;
 
+    [Inject]
+    IFloorData floorData;
+
     void Start()
     {
         eList = getEnemyList.GetEnemies();
@@ -59,7 +62,9 @@ public class GameManager : MonoBehaviour
         //}
 
         yield return new WaitForSeconds(1.5f);
-        if (statusSave.playerSave().stageRange <= statusSave.playerSave().nowFloor + 1)
+
+        floorData.AddNowFloor();
+        if (statusSave.playerSave().stageRange <= statusSave.playerSave().nowFloor)
         {
             statusSave.HitPointInit();
             SaveManager.Instance.Save(statusSave.playerSave());
