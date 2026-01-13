@@ -654,17 +654,21 @@ MonoBehaviour:
   deckIcon: {fileID: 527608347}
   sideSpace: 500
   sceneToLoad:
-  - DemoStage1-1
-  - DemoStage1-2
-  - DemoStage1-3
-  - DemoStage1-4
-  - DemoStage1-5
+  - Floor0-1
+  - Floor0-2
+  - Floor0-3
+  - Floor0-4
+  - Floor0-5
+  - Floor0-6
+  - Floor0-7
   sceneAsset:
   - {fileID: 102900000, guid: 3d7a449e124df7641842b7c3b41c97f6, type: 3}
   - {fileID: 102900000, guid: f0290873c73448c479d87128f2ec2575, type: 3}
   - {fileID: 102900000, guid: 7724485bee0d00f4a8bf94d1b2c3e24a, type: 3}
   - {fileID: 102900000, guid: 1bfc828117e58c647b9f4a478d694cfa, type: 3}
   - {fileID: 102900000, guid: 15de137a4d3e433488abfe7fccb387e4, type: 3}
+  - {fileID: 102900000, guid: 9c9ee581b534df24aad850237e20b408, type: 3}
+  - {fileID: 102900000, guid: 4b669a5c6a8b91a4f86729d683ec2c3e, type: 3}
 --- !u!1001 &948660418
 PrefabInstance:
   m_ObjectHideFlags: 0
