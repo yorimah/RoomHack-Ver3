@@ -386,11 +386,11 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
     public void ShotIntervalTimer()
     {
-        ShotTimer += GameTimer.Instance.GetCustomTimeScale();
+        ShotTimer += GameTimer.Instance.GetScaledDeltaTime();
     }
     public void ReloadIntervalTimer()
     {
-        ReloadTimer += GameTimer.Instance.GetCustomTimeScale();
+        ReloadTimer += GameTimer.Instance.GetScaledDeltaTime();
     }
     public void ResetShotTimer()
     {

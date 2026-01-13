@@ -74,6 +74,7 @@ public class PlayerShot
         for (int i = 0; i < gunData.ShotBulletNum; i++)
         {
             float rand = Random.Range(-diffusionRate, diffusionRate);
+            Vector2 shotDirection = Quaternion.Euler(0, 0, player.transform.eulerAngles.z + rand) * Vector3.up;
             GameObject bulletGameObject = Object.Instantiate(bulletPre, player.transform.position,
                 Quaternion.identity);
 
@@ -84,7 +85,6 @@ public class PlayerShot
             bulletCore.stoppingPower = gunData.Power;
             bulletCore.hitStopTime = 0.1f;
             bulletCore.hitDamegeLayer = hitDamageLayer;
-            Vector2 shotDirection = Quaternion.Euler(0, 0, player.transform.eulerAngles.z + rand) * Vector3.up;
             bulletRigit.linearVelocity = shotDirection * gunData.BulletSpeed;
             bulletGameObject.transform.up = shotDirection;
         }
