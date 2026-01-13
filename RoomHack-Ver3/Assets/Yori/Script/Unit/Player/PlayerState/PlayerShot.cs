@@ -75,7 +75,7 @@ public class PlayerShot
         {
             float rand = Random.Range(-diffusionRate, diffusionRate);
             Vector2 shotDirection = Quaternion.Euler(0, 0, player.transform.eulerAngles.z + rand) * Vector3.up;
-            GameObject bulletGameObject = Object.Instantiate(bulletPre, player.transform.position,
+            GameObject bulletGameObject = Object.Instantiate(bulletPre, (Vector2)player.transform.position + shotDirection.normalized * 0.5f,
                 Quaternion.identity);
 
             Rigidbody2D bulletRigit = bulletGameObject.GetComponent<Rigidbody2D>();

@@ -43,6 +43,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     [SerializeField, Header("予備動作")]
     public float aimTime = 0.5f;
 
+
+    public float moveCoefficient = 1;
     // GUNDATA
     [SerializeField, Header("GunData")]
     public GunData gunData;
@@ -92,9 +94,13 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
 
     [SerializeField, Header("MaxHP")]
     private int SerializeMaxHp;
+
+    private Rigidbody2D rigidbody;
     public void Awake()
     {
         GunDataInit();
+
+        rigidbody = GetComponent<Rigidbody2D>();
 
         MaxHitPoint = SerializeMaxHp;
         if (MaxHitPoint <= 0)
@@ -119,7 +125,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHackObject
     void Update()
     {
         currentState?.Execute();
-
+        rigidbody.linearVelocity *= moveCoefficient;
         diffusionRate = Mathf.Clamp(diffusionRate, minDiffusionRate, maxDiffusionRate);
         diffusionRate -= diffusionRate * GameTimer.Instance.GetScaledDeltaTime();
     }

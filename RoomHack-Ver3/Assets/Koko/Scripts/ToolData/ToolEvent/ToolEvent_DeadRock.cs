@@ -31,7 +31,7 @@ public class ToolEvent_DeadRock : ToolEventBase, IToolEvent_Target, IToolEvent_T
         effect = EffectManager.Instance.ActEffect_PositionTrace(EffectManager.EffectType.Bad, this.gameObject, Vector2.zero);
 
         targetData = hackTargetObject.GetComponent<Enemy>();
-        startSpeed = targetData.moveSpeed;
+        startSpeed = targetData.moveCoefficient;
 
         timer = setTime;
     }
@@ -39,7 +39,7 @@ public class ToolEvent_DeadRock : ToolEventBase, IToolEvent_Target, IToolEvent_T
     protected override void Execute()
     {
         // 稼働処理
-        targetData.moveSpeed = 0;
+        targetData.moveCoefficient = 0;
         Tracking(hackTargetObject);
 
 
@@ -54,7 +54,7 @@ public class ToolEvent_DeadRock : ToolEventBase, IToolEvent_Target, IToolEvent_T
     protected override void Exit()
     {
         // 終了処理
-        targetData.moveSpeed = startSpeed;
+        targetData.moveCoefficient = startSpeed;
         EventRemove(hackTargetObject);
         effect.GetComponent<ParticleSystem>().Stop();
     }
