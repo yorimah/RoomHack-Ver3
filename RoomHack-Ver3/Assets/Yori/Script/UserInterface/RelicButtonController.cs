@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-public class RelicButtomController : MonoBehaviour
+public class RelicButtonController : MonoBehaviour
 {
     [SerializeField, Header("要アタッチ")]
     RelicDataBank relicDataBank;
 
     [SerializeField, Header("生成するボタン")]
-    private RelicBuyButtom insButtomObj;
+    private RelicBuyButton insButtonObj;
 
-    private RelicBuyButtom insObj;
+    private RelicBuyButton insObj;
 
-    private int buttomSpace = -200;
+    private int buttonSpace = -200;
 
-    private Vector3 initButtomPos = new Vector3(0, 500, 0);
+    private Vector3 initButtonPos = new Vector3(0, 500, 0);
 
     private List<RectTransform> insObjList = new List<RectTransform>();
 
@@ -29,12 +29,12 @@ public class RelicButtomController : MonoBehaviour
         backGroundRect = this.gameObject.GetComponent<RectTransform>();
         for (int i = 1; i < relicDataBank.relicDataList.Count; i++)
         {
-            insObj = Instantiate(insButtomObj, initButtomPos, Quaternion.identity).GetComponent<RelicBuyButtom>();
+            insObj = Instantiate(insButtonObj, initButtonPos, Quaternion.identity).GetComponent<RelicBuyButton>();
             insObjList.Add(insObj.gameObject.GetComponent<RectTransform>());
             insObj.transform.parent = this.transform;
-            insObj.transform.localPosition = new Vector3(0, 500 + buttomSpace * i, 0);
+            insObj.transform.localPosition = new Vector3(0, 500 + buttonSpace * i, 0);
             insObj.transform.localScale = new Vector3(1, 1, 1);
-            insObj.SetRelicButtom(relicDataBank.relicDataList[i].relicName, setMoneyNum,setRelicList);
+            insObj.SetRelicButton(relicDataBank.relicDataList[i].relicName, setMoneyNum,setRelicList);
             insObj.gameObject.name = relicDataBank.relicDataList[i].nameText + "Button";
         }
     }

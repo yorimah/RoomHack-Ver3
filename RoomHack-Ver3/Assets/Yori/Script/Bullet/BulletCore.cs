@@ -52,7 +52,11 @@ public class BulletCore : MonoBehaviour, IDamageable
                 if (damage.hitDamegeLayer != 3)
                 {
                     EffectManager.Instance.ActEffect(EffectManager.EffectType.HitDamage, this.transform.position, (this.transform.localEulerAngles.z + 90), true);
-                    EffectManager.Instance.ActEffect_Num(stoppingPower, this.transform.position, 1f);
+                    //EffectManager.Instance.ActEffect_Num(stoppingPower, this.transform.position, 1f);
+                }
+                else
+                {
+                    EffectManager.Instance.ActEffect(EffectManager.EffectType.HitWall, this.transform.position, (this.transform.localEulerAngles.z + 90), true);
                 }
 
                 damage.HitDmg(stoppingPower, hitStopTime);
@@ -61,6 +65,22 @@ public class BulletCore : MonoBehaviour, IDamageable
         }
     }
 
+    public void HackDmg(int dmg, float hitStop)
+    {
+        NowHitPoint -= dmg;
+        if (NowHitPoint <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            if (hitDamegeLayer == 2)
+            {
+                SeManager.Instance.Play("Hit");
+            }
+            HitStopper.Instance.StopTime(hitStop);
+        }
+    }
     public void HitDmg(int dmg, float hitStop)
     {
         NowHitPoint -= dmg;

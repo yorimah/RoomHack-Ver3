@@ -4,7 +4,7 @@ public class TurretGun : Enemy
     public void Start()
     {
         moveSpeed = 0;
-        playerCheack = new PlayerCheack();
+        playerCheck = new PlayerCheck();
 
         states = new Dictionary<EnemyStateType, IEnemyState>()
     {
@@ -16,6 +16,6 @@ public class TurretGun : Enemy
         statetype = EnemyStateType.Idle;
         currentState = states[statetype];
 
-        canHackToolTag = new List<ToolTag> { ToolTag.CCTVHack, ToolTag.Blind, ToolTag.OverHeat, ToolTag.Detonation };
+        cantHackToolType = new List<ToolType> { };
     }
 }

@@ -31,7 +31,7 @@ public class ToolEventManager : MonoBehaviour
 
         // イベント初期設定
 
-        if(playEvent.TryGetComponent<IToolEventBase_Target>(out var toolEventBase_Target))
+        if(playEvent.TryGetComponent<IToolEvent_Target>(out var toolEventBase_Target))
         {
             toolEventBase_Target.hackTargetObject = _target;
             playEvent.transform.position = _target.transform.position;

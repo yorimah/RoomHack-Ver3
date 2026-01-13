@@ -582,6 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1862c890bb3f6b4781759d585910163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToolManager
+  toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
   toolUIController: {fileID: 3497092408333659285}
   deckSystem: {fileID: 264601888909838785}
   ramUIDisp: {fileID: 5373995921203254104}

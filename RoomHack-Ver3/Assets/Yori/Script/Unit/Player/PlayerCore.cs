@@ -68,7 +68,26 @@ public class PlayerCore : MonoBehaviour, IDamageable
     public void HitDmg(int dmg, float hitStop)
     {
         setHitPoint.DamageHitPoint(dmg);
+        EffectManager.Instance.ActEffect_Num(dmg, this.transform.position, 1);
+
         if (getHitPoint.NowHitPoint <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            if (hitDamegeLayer == 2)
+            {
+                SeManager.Instance.Play("Hit");
+            }
+            HitStopper.Instance.StopTime(hitStop);
+        }
+    }
+
+    public void HackDmg(int dmg, float hitStop)
+    {
+        NowHitPoint -= dmg;
+        if (NowHitPoint <= 0)
         {
             Die();
         }

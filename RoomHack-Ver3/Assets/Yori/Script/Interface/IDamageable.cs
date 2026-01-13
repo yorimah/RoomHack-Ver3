@@ -14,6 +14,8 @@
     public int hitDamegeLayer { get; }
 
     public void HitDmg(int dmg, float hitStop);
+
+    public  void HackDmg(int dmg, float hitStop);
     /// <summary>
     /// 死んだときの処理
     /// </summary>

@@ -7,7 +7,7 @@ public class SpecialForce : Enemy
     public bool escapeMode;
     void Start()
     {
-        playerCheack = new PlayerCheack();
+        playerCheck = new PlayerCheck();
 
         states = new Dictionary<EnemyStateType, IEnemyState>()
     {
@@ -20,7 +20,7 @@ public class SpecialForce : Enemy
         statetype = EnemyStateType.Idle;
         currentState = states[statetype];
 
-        canHackToolTag = new List<ToolTag> { ToolTag.CCTVHack, ToolTag.Bind, ToolTag.Blind, ToolTag.OverHeat, ToolTag.Detonation };
+        cantHackToolType = new List<ToolType> { };
     }
 
 }

@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolEvent_OverHeat : ToolEventBase, IToolEventBase_Target
+public class ToolEvent_OverHeat : ToolEventBase, IToolEvent_Target, IToolEvent_Time, IToolEvent_Attack
 {
     // IToolEventBase_Target
     public GameObject hackTargetObject { get; set; }
@@ -12,17 +11,25 @@ public class ToolEvent_OverHeat : ToolEventBase, IToolEventBase_Target
         this.transform.localEulerAngles = _gameObject.transform.localEulerAngles;
     }
 
+    // IToolEvent_Time
+    public float setTime { get; set; } = 5;
+    public float timer { get; set; } = 0;
+
+    // IToolEvent_Attack
+    public IDamageable damageable { get; set; }
+    public int damage { get; set; } = 10;
+    public void GetDamageable(GameObject _hackTargetObject)
+    {
+        damageable = _hackTargetObject.GetComponent<IDamageable>();
+    }
+
+
 
     public override ToolTag thisToolTag { get; set; } = ToolTag.OverHeat;
 
-    float timer = 0;
-    float lifeTime = 5;
-
     float damageTimer = 0;
     float damageTime = 1;
-    int damage = 10;
 
-    IDamageable damageable;
 
     GameObject effect;
 
@@ -32,9 +39,9 @@ public class ToolEvent_OverHeat : ToolEventBase, IToolEventBase_Target
 
         effect = EffectManager.Instance.ActEffect_PositionTrace(EffectManager.EffectType.Fire, this.gameObject, Vector2.zero);
 
-        damageable = hackTargetObject.GetComponent<IDamageable>();
+        GetDamageable(hackTargetObject);
 
-        timer = lifeTime;
+        timer = setTime;
         damageTimer = damageTime;
     }
 

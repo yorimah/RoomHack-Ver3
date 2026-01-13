@@ -6,14 +6,14 @@ public class SpecialForceReloadState : IEnemyState
     private Enemy enemy;
 
     // Player情報
-    private PlayerCheack playerCheack;
+    private PlayerCheck playerCheck;
 
     private Rigidbody2D enemyRididBody;
     public SpecialForceReloadState(Enemy _enemy)
     {
         enemy = _enemy;
         // プレイヤー情報初期化
-        playerCheack = enemy.playerCheack;
+        playerCheck = enemy.playerCheck;
 
         enemyRididBody = enemy.GetComponent<Rigidbody2D>();
     }

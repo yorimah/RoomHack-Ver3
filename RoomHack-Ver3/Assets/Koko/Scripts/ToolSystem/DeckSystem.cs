@@ -3,8 +3,7 @@ using UnityEngine;
 using Zenject;
 public class DeckSystem : MonoBehaviour
 {
-    [SerializeField, Header("ToolDataBankをアタッチしてね")]
-    ToolDataBank toolDataBank;
+    public ToolDataBank toolDataBank;
 
     [SerializeField, Header("saveから拾ったリスト")]
     List<ToolTag> setList = new List<ToolTag>();
@@ -165,7 +164,7 @@ public class DeckSystem : MonoBehaviour
         return playTool;
     }
 
-    public toolType ReturnToolType(ToolTag _tool)
+    public ToolType ReturnToolType(ToolTag _tool)
     {
         return toolDataBank.toolDataList[(int)_tool].toolType;
     }
@@ -182,7 +181,7 @@ public class DeckSystem : MonoBehaviour
 
     public bool ReturnToolNeedTarget(ToolTag _tool)
     {
-        if (toolDataBank.toolDataList[(int)_tool].toolEvent.TryGetComponent<IToolEventBase_Target>(out var toolEventBase_Target))
+        if (toolDataBank.toolDataList[(int)_tool].toolEvent.TryGetComponent<IToolEvent_Target>(out var toolEventBase_Target))
         {
             return true;
         }

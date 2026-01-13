@@ -2,7 +2,9 @@
 
 public class ToolEvent_Accelerate : ToolEventBase
 {
-    public override ToolTag thisToolTag { get; set; } = ToolTag.Accelerate;
+    // 一時的廃止
+
+    public override ToolTag thisToolTag { get; set; } = ToolTag.none;
 
     protected override void Enter()
     {

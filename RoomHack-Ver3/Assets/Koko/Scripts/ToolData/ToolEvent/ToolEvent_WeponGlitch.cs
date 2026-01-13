@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ToolEvent_Blind : ToolEventBase, IToolEventBase_Target
+public class ToolEvent_WeponGlitch : ToolEventBase, IToolEvent_Target, IToolEvent_Time
 {
     // IToolEventBase_Target
     public GameObject hackTargetObject { get; set; }
@@ -10,11 +10,12 @@ public class ToolEvent_Blind : ToolEventBase, IToolEventBase_Target
         this.transform.localEulerAngles = _gameObject.transform.localEulerAngles;
     }
 
+    // IToolEvent_Time
+    public float setTime { get; set; } = 5;
+    public float timer { get; set; } = 0;
 
-    public override ToolTag thisToolTag { get; set; } = ToolTag.Blind;
 
-    float timer = 0;
-    float lifeTime = 5;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.WeponGlitch;
 
     Enemy targetData;
     float startInterval;
@@ -30,7 +31,7 @@ public class ToolEvent_Blind : ToolEventBase, IToolEventBase_Target
         targetData = hackTargetObject.GetComponent<Enemy>();
         startInterval = targetData.shotIntervalTime;
 
-        timer = lifeTime;
+        timer = setTime;
     }
 
     protected override void Execute()

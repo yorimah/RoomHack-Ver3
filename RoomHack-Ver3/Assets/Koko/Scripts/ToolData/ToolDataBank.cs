@@ -12,7 +12,7 @@ public class ToolDataBank : ScriptableObject
 public class ToolData
 {
     public ToolTag toolTag;
-    public toolType toolType;
+    public ToolType toolType;
     public string toolName;
     public int toolCost;
     public string toolText;
@@ -21,29 +21,27 @@ public class ToolData
 }
 
 
-
-
-
-
 public enum ToolTag
 {
     none,
-    CCTVHack,
-    Bind,
-    Blind,
+    VisionHack,
+    DeadRock,
+    WeponGlitch,
     OverHeat,
     Detonation,
-    EdgeRun,
-    Blink,
+    BitClack,
     ResourceClip,
     LightResource,
-    FastReload,
     InstantMemory,
-    Accelerate,
-    MemoryDeposit,
+    FastReload,
+    Armorust,
+    Disruption,
+    ClockReplication,
+    RiotBurst,
+    NullWord,
 }
 
-public enum toolType
+public enum ToolType
 {
     none,
     Attack,
@@ -51,4 +49,12 @@ public enum toolType
     Debuff,
     Resource,
     Special
+}
+
+public enum UnionTag
+{
+    none,
+    Vandalers,
+    Vigilante,
+    NetSec,
 }

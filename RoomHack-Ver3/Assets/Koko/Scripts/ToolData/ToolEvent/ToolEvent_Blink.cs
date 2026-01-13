@@ -4,7 +4,7 @@ public class ToolEvent_Blink : ToolEventBase
 {
 
 
-    public override ToolTag thisToolTag { get; set; } = ToolTag.Blink;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.none;
 
     protected override void Enter()
     {

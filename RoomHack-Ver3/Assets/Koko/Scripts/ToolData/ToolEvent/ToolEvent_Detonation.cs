@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolEvent_Detonation : ToolEventBase, IToolEventBase_Target
+public class ToolEvent_Detonation : ToolEventBase, IToolEvent_Target/*, IToolEvent_Time*/
 {
     // IToolEventBase_Target
     public GameObject hackTargetObject { get; set; }
@@ -11,6 +11,10 @@ public class ToolEvent_Detonation : ToolEventBase, IToolEventBase_Target
         this.transform.position = _gameObject.transform.position;
         this.transform.localEulerAngles = _gameObject.transform.localEulerAngles;
     }
+
+    //// IToolEvent_Time
+    //public float setTime { get; set; } = 1;
+    //public float timer { get; set; } = 0;
 
 
     public override ToolTag thisToolTag { get; set; } = ToolTag.Detonation;
@@ -41,8 +45,4 @@ public class ToolEvent_Detonation : ToolEventBase, IToolEventBase_Target
     {
         EventRemove(hackTargetObject);
     }
-
-    //public override void ToolAction()
-    //{
-    //}
 }

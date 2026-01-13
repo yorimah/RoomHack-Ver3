@@ -17,7 +17,7 @@ public class MissileShotState : IEnemyState
     // 汎用タイマー
     private float timer;
     // Player情報
-    private PlayerCheack playerCheack;
+    private PlayerCheck playerCheck;
 
     [SerializeField, Header("ミサイルクールタイム")]
     float missileCoolTime = 5;
@@ -32,7 +32,7 @@ public class MissileShotState : IEnemyState
         missileFactory = _MissileFactory;
 
         // プレイヤー情報初期化
-        playerCheack = enemy.playerCheack;
+        playerCheck = enemy.playerCheck;
     }
     public void Enter()
     {
@@ -43,7 +43,7 @@ public class MissileShotState : IEnemyState
     public void Execute()
     {
         //プレイヤー方向に向く
-        playerCheack.RotationFoward(enemy.transform, enemy.PlayerPosition);
+        playerCheck.RotationFoward(enemy.transform, enemy.PlayerPosition);
         //発射レートを設定しその後、発射秒数を決定する。
         switch (shotSection)
         {
@@ -76,7 +76,7 @@ public class MissileShotState : IEnemyState
                 timer += GameTimer.Instance.GetScaledDeltaTime();
                 // プレイヤーが射線上にいたら射撃へ
                 // いなかったら移動へ
-                if (!playerCheack.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
+                if (!playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
                 {
                     enemy.ChangeState(EnemyStateType.Move);
                 }
