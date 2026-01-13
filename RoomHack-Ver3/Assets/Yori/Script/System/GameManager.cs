@@ -59,13 +59,15 @@ public class GameManager : MonoBehaviour
         //}
 
         yield return new WaitForSeconds(1.5f);
-        SaveManager.Instance.Save(statusSave.playerSave());
         if (statusSave.playerSave().stageRange <= statusSave.playerSave().nowFloor + 1)
         {
+            statusSave.HitPointInit();
+            SaveManager.Instance.Save(statusSave.playerSave());
             SceneManager.LoadScene("ClearDemoScene");
         }
         else
         {
+            SaveManager.Instance.Save(statusSave.playerSave());
             SceneManager.LoadScene("ToolGetScene");
         }
     }

@@ -13,7 +13,6 @@ public class PlayerShot
     Mesh mesh;
     ShotSection shotSection;
 
-    private float timer = 0;
     private float diffusionRate;
 
     private GameObject shotRange;
@@ -120,7 +119,7 @@ public class PlayerShot
                 if (playerInput.GetOnClick() && haveGun.BulletNow > 0)
                 {
                     GunFire();
-                    timer = 0;
+                    haveGun.ResetShotTimer();
                     shotSection++;
                 }
                 else if (haveGun.BulletNow == 0)
@@ -129,14 +128,14 @@ public class PlayerShot
                 }
                 break;
             case ShotSection.shotInterval:
-                if (gunData.ShotIntervalTime <= timer)
+                if (gunData.ShotIntervalTime <= haveGun.ShotTimer)
                 {
                     shotSection = ShotSection.shot;
-                    timer = 0;
+                    haveGun.ResetShotTimer();
                 }
                 else
                 {
-                    timer += GameTimer.Instance.GetScaledDeltaTime();
+                    haveGun.ShotIntervalTimer();
                 }
                 break;
             case ShotSection.Reload:
@@ -159,29 +158,29 @@ public class PlayerShot
         if (playerInput.GetOnClick())
         {
             Debug.Log("ボルト式キャンセル終了 BulletNow :" + haveGun.BulletNow);
-            timer = 0;
+            haveGun.ResetReloadTimer();
             shotSection = ShotSection.shot;
         }
-        if (gunData.ReloadTime / haveGun.BulletMax <= timer)
+        if (gunData.ReloadTime / haveGun.BulletMax <= haveGun.ReloadTimer)
         {
             haveGun.BulletAdd(1);
             if (haveGun.BulletNow == haveGun.BulletMax)
             {
-                timer = 0;
+                haveGun.ResetReloadTimer();
                 shotSection = ShotSection.shot;
                 Debug.Log("ボルト式リロード終了 BulletNows :" + haveGun.BulletNow);
             }
         }
         else
         {
-            timer += GameTimer.Instance.GetScaledDeltaTime();
+            haveGun.ReloadIntervalTimer();
         }
     }
 
 
     private void MagazineReload()
     {
-        if (gunData.ReloadTime <= timer)
+        if (gunData.ReloadTime <= haveGun.ReloadTimer)
         {
             haveGun.BulletAdd(gunData.MaxBullet);
             shotSection = ShotSection.shot;
@@ -190,7 +189,7 @@ public class PlayerShot
         else
         {
             haveGun.BulletResume();
-            timer += GameTimer.Instance.GetScaledDeltaTime();
+            haveGun.ReloadIntervalTimer();
         }
     }
 

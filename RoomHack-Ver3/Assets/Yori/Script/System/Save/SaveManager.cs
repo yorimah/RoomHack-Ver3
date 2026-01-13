@@ -70,6 +70,7 @@ public class SaveManager
             score_DestoryEnemy = 0,
             gunName = GunName.HandGun,
             maxHitPoint = 100,
+            nowHitPoint = 100,
             moveSpeed = 5,
             maxRamCapacity = 10,
             ramRecovery = 0.01f, //実質廃止

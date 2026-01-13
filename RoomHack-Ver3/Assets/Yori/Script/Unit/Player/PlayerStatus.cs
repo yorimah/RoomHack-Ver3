@@ -13,7 +13,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     IGetPlayerDie, ISetPlayerDied, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
     IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList, ISetHitPoint,
     IGetHitPoint, ISetMoveSpeed, IGetSaveData, ISetPlayerSpecialAction, ISetMoneyNum,
-    IGetMoneyNum,IGetTrace,ISetTrace
+    IGetMoneyNum, IGetTrace, ISetTrace
 {
 
     public float Trace { get; private set; }
@@ -72,6 +72,9 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
     public float specialActionCount = 0;
 
+    public float ShotTimer { get; private set; }
+    public float ReloadTimer { get; private set; }
+
 
     public void PlayerPositionSet(Transform transform)
     {
@@ -84,7 +87,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         // HP初期化
         MaxHitPoint = saveData.maxHitPoint;
-        NowHitPoint = saveData.maxHitPoint;
+        NowHitPoint = saveData.nowHitPoint;
 
         // Hack関連初期化
         RamCapacity = saveData.maxRamCapacity;
@@ -112,12 +115,15 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         HaveMoney = saveData.maney;
         Trace = saveData.trace;
+
+        ResetShotTimer();
     }
 
     public PlayerSaveData playerSave()
     {
         // HP初期化
         saveData.maxHitPoint = MaxHitPoint;
+        saveData.nowHitPoint = NowHitPoint;
 
         // Hack関連初期化
         saveData.maxRamCapacity = RamCapacity;
@@ -372,6 +378,29 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     {
         Trace += addTracce;
     }
+
+    public void HitPointInit()
+    {
+        NowHitPoint = MaxHitPoint;
+    }
+
+    public void ShotIntervalTimer()
+    {
+        ShotTimer += GameTimer.Instance.GetCustomTimeScale();
+    }
+    public void ReloadIntervalTimer()
+    {
+        ReloadTimer += GameTimer.Instance.GetCustomTimeScale();
+    }
+    public void ResetShotTimer()
+    {
+        ShotTimer = 0;
+    }
+
+    public void ResetReloadTimer()
+    {
+        ReloadTimer = 0;
+    }
 }
 public interface IPosition
 {
@@ -428,6 +457,9 @@ public interface IHaveGun
 
     public int BulletNow { get; }
 
+    public float ShotTimer { get; }
+    public float ReloadTimer { get; }
+
     public void BulletUse();
 
     public void BulletSet(int maxBullet);
@@ -435,6 +467,12 @@ public interface IHaveGun
     public void BulletAdd(int BulletAdd);
 
     public void BulletResume();
+
+    public void ShotIntervalTimer();
+    public void ReloadIntervalTimer();
+
+    public void ResetShotTimer();
+    public void ResetReloadTimer();
 }
 
 public interface IGetPlayerDie
@@ -462,6 +500,9 @@ public interface ISetScoreDestroy
 public interface IStatusSave
 {
     public PlayerSaveData playerSave();
+
+
+    public void HitPointInit();
 }
 
 public interface IRelicStatusEffect
