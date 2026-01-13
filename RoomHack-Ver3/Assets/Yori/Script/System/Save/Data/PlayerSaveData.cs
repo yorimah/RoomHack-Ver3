@@ -5,6 +5,7 @@ public class PlayerSaveData
     public int score_DestoryEnemy;
     public GunName gunName;
     public int maxHitPoint;
+    public float nowHitPoint;
     public float moveSpeed;
     public float maxRamCapacity;
     public float ramRecovery;
