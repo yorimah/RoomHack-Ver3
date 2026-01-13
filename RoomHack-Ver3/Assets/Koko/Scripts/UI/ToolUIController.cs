@@ -44,6 +44,9 @@ public class ToolUIController : MonoBehaviour
     float handSpace = 200;
 
     [SerializeField]
+    Vector2 handUIScale = new Vector2(0.8f, 0.8f);
+
+    [SerializeField]
     List<ToolUI> handToolUIList = new List<ToolUI>();
 
     [SerializeField]
@@ -64,6 +67,7 @@ public class ToolUIController : MonoBehaviour
 
     [Inject]
     IUseableRam useableRam;
+
 
     public void ToolUIControllerStart()
     {
@@ -235,7 +239,7 @@ public class ToolUIController : MonoBehaviour
             //firstHandPos.y = 0;
             firstHandPos.x = 0;
             firstHandPos.y = ((handToolUIList.Count - 1) * -(handSpace / 2)) + handSpace * i;
-            hand.toScale = new Vector2(1f, 1f);
+            hand.toScale = handUIScale;
             hand.isTextDisp = false;
             hand.isBlackOut = true;
 
@@ -280,41 +284,11 @@ public class ToolUIController : MonoBehaviour
 
                     //firstHandPos.y = 100;
                     firstHandPos.x -= 100;
-                    hand.toScale = new Vector2(1.2f, 1.2f);
+                    hand.toScale = handUIScale * 1.2f;
                     hand.isTextDisp = true;
                     hand.isBlackOut = true;
 
-                    //ramUIDisp.willUseRam = deckSystem.ReturnToolCost(hand.thisTool);
-
-                    // クリックするとカードプレイ
-                    //if (Input.GetKeyDown(KeyCode.Mouse1) && hackObj != null)
-                    {
-                        //Player.Instance.nowRam -= deckSystem.ReturnToolCost(hand.thisTool);
-
-                        //SeManager.Instance.Play("toolPlay");
-                        //toolTag playTool = deckSystem.HandPlay(i, hackObj);
-
-                        //trashToolUIList.Add(hand);
-                        //handToolUIList.RemoveAt(i);
-
-
-                        //if (playTool != toolTag.none && deckSystem.RamUse(deckSystem.ReturnToolCost(hand.thisTool), (int)Player.Instance.nowRam))
-                        //{
-                        //    trashToolUIList.Add(hand);
-                        //    handToolUIList.RemoveAt(i);
-                        //}
-                        //else
-                        //{
-                        //    Debug.LogError("おい！プレイできんかったぞ！");
-                        //}
-                    }
                 }
-                //else
-                //{
-                //    hand.toScale = new Vector2(1f, 1f);
-                //    hand.isTextDisp = false;
-                //    hand.isBlackOut = false;
-                //}
             }
 
             hand.toMovePosition = nowHandPos + firstHandPos;

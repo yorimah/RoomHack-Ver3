@@ -603,13 +603,14 @@ MonoBehaviour:
   nowDeckPos: {x: 0, y: 0}
   nowTrashPos: {x: 0, y: 0}
   nowHandPos: {x: 0, y: 0}
-  actDeckPos: {x: -1000, y: 0}
-  actTrashPos: {x: -1000, y: -320}
-  actHandPos: {x: 1000, y: 0}
+  actDeckPos: {x: -800, y: 0}
+  actTrashPos: {x: -800, y: -320}
+  actHandPos: {x: 800, y: 0}
   hackDeckPos: {x: -800, y: 0}
   hackTrashPos: {x: -800, y: -320}
   hackHandPos: {x: 800, y: 0}
-  handSpace: 200
+  handSpace: 150
+  handUIScale: {x: 0.8, y: 0.8}
   handToolUIList: []
   trashToolUIList: []
   handCostList: 
