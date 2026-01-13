@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 934364115}
   - component: {fileID: 934364119}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: ToolGetManagerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -657,10 +657,14 @@ MonoBehaviour:
   - DemoStage1-1
   - DemoStage1-2
   - DemoStage1-3
+  - DemoStage1-4
+  - DemoStage1-5
   sceneAsset:
   - {fileID: 102900000, guid: 3d7a449e124df7641842b7c3b41c97f6, type: 3}
   - {fileID: 102900000, guid: f0290873c73448c479d87128f2ec2575, type: 3}
   - {fileID: 102900000, guid: 7724485bee0d00f4a8bf94d1b2c3e24a, type: 3}
+  - {fileID: 102900000, guid: 1bfc828117e58c647b9f4a478d694cfa, type: 3}
+  - {fileID: 102900000, guid: 15de137a4d3e433488abfe7fccb387e4, type: 3}
 --- !u!1001 &948660418
 PrefabInstance:
   m_ObjectHideFlags: 0

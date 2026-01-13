@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: TestGetList 1
   m_EditorClassIdentifier: Assembly-CSharp::ToolGetDataList
   dataList:
+  - toolTag: 0
+    toolWeight: 0
   - toolTag: 1
     toolWeight: 1
   - toolTag: 2
@@ -22,6 +24,10 @@ MonoBehaviour:
   - toolTag: 4
     toolWeight: 1
   - toolTag: 5
+    toolWeight: 0
+  - toolTag: 6
+    toolWeight: 1
+  - toolTag: 7
     toolWeight: 1
   - toolTag: 8
     toolWeight: 1
@@ -30,4 +36,12 @@ MonoBehaviour:
   - toolTag: 10
     toolWeight: 1
   - toolTag: 11
+    toolWeight: 1
+  - toolTag: 12
+    toolWeight: 1
+  - toolTag: 13
+    toolWeight: 1
+  - toolTag: 14
+    toolWeight: 1
+  - toolTag: 15
     toolWeight: 1

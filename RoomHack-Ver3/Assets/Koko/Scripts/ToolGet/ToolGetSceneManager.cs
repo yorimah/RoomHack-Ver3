@@ -75,7 +75,7 @@ public class ToolGetSceneManager : MonoBehaviour
             //Debug.Log(totalWeight);
 
             // ランダムの値を生成
-            int rand = Random.Range(1, totalWeight);
+            int rand = Random.Range(1, totalWeight+1);
             //Debug.Log(rand);
 
             // ランダムな値に該当するtoolを決定
@@ -193,7 +193,7 @@ public class ToolGetSceneManager : MonoBehaviour
         data.nowFloor++;
         if (data.nowFloor < data.stageRange)
         {
-            int stageNum = Random.Range(0, sceneToLoad.Count - 1);
+            int stageNum = Random.Range(0, sceneToLoad.Count);
             // シーン移動
             if (sceneToLoad[stageNum] != null)
             {
