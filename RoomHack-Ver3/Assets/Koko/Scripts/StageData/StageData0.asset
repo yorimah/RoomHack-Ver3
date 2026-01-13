@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf01685e3406e747b82907615f2a770, type: 3}
   m_Name: StageData0
   m_EditorClassIdentifier: Assembly-CSharp::StageData
-  stageNum: 6
+  floorNum: 6
   dataList:
   - randomFloorData: {fileID: 11400000, guid: f142b9f8b90871443a5c1742f691b6f2, type: 2}
-    stageNo: 0
+    floorNo: 0
   - randomFloorData: {fileID: 11400000, guid: 73b584d84f2538e47b8e4e4c71707776, type: 2}
-    stageNo: 3
+    floorNo: 3
   - randomFloorData: {fileID: 11400000, guid: 00a7ff8c663e0384da37c743f983702e, type: 2}
-    stageNo: 5
+    floorNo: 5

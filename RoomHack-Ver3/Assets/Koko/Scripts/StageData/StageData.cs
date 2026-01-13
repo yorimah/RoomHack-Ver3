@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class StageData : ScriptableObject
 {
     [SerializeField]
-    public int stageNum;
+    public int floorNum;
 
     [SerializeField]
     public List<StagePartData> dataList = new List<StagePartData>();
@@ -15,6 +15,6 @@ public class StageData : ScriptableObject
 public class StagePartData
 {
     public RandomFloorData randomFloorData;
-    public int stageNo;
+    public int floorNo;
 }
 

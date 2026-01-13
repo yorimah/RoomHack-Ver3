@@ -14,7 +14,7 @@ public class PlayerSaveData
     public List<int> relicEvents;
     public int nowFloor;
     public int stageRange;
-    public int noeStageNum;
+    public int nowStageNum;
     public int maney;
     public float trace;
 }
