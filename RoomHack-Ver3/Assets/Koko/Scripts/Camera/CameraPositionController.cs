@@ -129,9 +129,9 @@ public class CameraPositionController : MonoBehaviour
         }
         else
         {
-            // お試しでカメラ固定
-            this.transform.position = Vector2.zero;
-            targetObject = null;
+            //// お試しでカメラ固定
+            //this.transform.position = Vector2.zero;
+            //targetObject = null;
 
 
             // カメラをプレイヤー追従

@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf01685e3406e747b82907615f2a770, type: 3}
   m_Name: StageData_Null
   m_EditorClassIdentifier: Assembly-CSharp::StageData
-  stageNum: 1
+  stageName: "\u306C\u308B"
+  stageExplain: "0\u756A\u3001\u3053\u308C\u304C\u3067\u305F\u3089\u30D0\u30B0\u306E\u53EF\u80FD\u6027\u304C\u3042\u308A\u307E\u3059"
+  reward: 0
+  stageLevel: 0
+  floorNum: 1
   dataList:
   - randomFloorData: {fileID: 11400000, guid: ec7eeea3a5752a3478ce0c68c09013ff, type: 2}
-    stageNo: 1
+    floorNo: 0
