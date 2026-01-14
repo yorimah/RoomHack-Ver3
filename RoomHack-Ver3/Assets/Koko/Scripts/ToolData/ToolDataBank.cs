@@ -29,7 +29,7 @@ public enum ToolTag
     WeponGlitch,
     OverHeat,
     Detonation,
-    BitClack,
+    BitCrack,
     ResourceClip,
     LightResource,
     InstantMemory,

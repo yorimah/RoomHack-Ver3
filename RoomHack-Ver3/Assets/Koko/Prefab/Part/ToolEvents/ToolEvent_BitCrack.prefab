@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6503018895631192946}
   - component: {fileID: 1851046128847619313}
   m_Layer: 0
-  m_Name: ToolEvent_BitClack
+  m_Name: ToolEvent_BitCrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

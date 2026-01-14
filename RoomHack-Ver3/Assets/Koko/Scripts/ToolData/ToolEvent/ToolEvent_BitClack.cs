@@ -2,7 +2,7 @@
 
 public class ToolEvent_BitClack : ToolEventBase, IToolEvent_Attack, IToolEvent_Target
 {
-    public override ToolTag thisToolTag { get; set; } = ToolTag.BitClack;
+    public override ToolTag thisToolTag { get; set; } = ToolTag.BitCrack;
 
 
     // IToolEvent_Attack

@@ -832,7 +832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: handSpace
-      value: 250
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3497092408333659285, guid: b4f6b5bacb16baa43924e0442792b0da, type: 3}
       propertyPath: actDeckPos.x
@@ -1230,11 +1230,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6118946148348321005, guid: 854cfbbd7021803408dd06eabdee53ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1673.8893
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118946148348321005, guid: 854cfbbd7021803408dd06eabdee53ad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 315.40128
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118946148348321005, guid: 854cfbbd7021803408dd06eabdee53ad, type: 3}
       propertyPath: m_LocalPosition.z

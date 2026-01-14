@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 // UnityEditor 名前空間はエディタ専用機能を使う場合に必要
@@ -29,6 +29,9 @@ public class ToolGetSceneManager : MonoBehaviour
 
     [SerializeField, Header("deckIconアタッチ")]
     ToolUI deckIcon;
+
+    [SerializeField, Header("SceneLoaderをアタッチ")]
+    StageSceneLoader stageSceneLoader;
 
     List<ToolTag> addToolList = new List<ToolTag>();
 
@@ -75,7 +78,7 @@ public class ToolGetSceneManager : MonoBehaviour
             //Debug.Log(totalWeight);
 
             // ランダムの値を生成
-            int rand = Random.Range(1, totalWeight);
+            int rand = Random.Range(1, totalWeight+1);
             //Debug.Log(rand);
 
             // ランダムな値に該当するtoolを決定
@@ -190,25 +193,30 @@ public class ToolGetSceneManager : MonoBehaviour
 
         // データ追加
         data.deckList.Add((int)_toolUI.thisTool);
-        if (data.nowFloor < data.stageRange)
-        {
-            int stageNum = Random.Range(0, sceneToLoad.Count - 1);
-            // シーン移動
-            if (sceneToLoad[stageNum] != null)
-            {
-                SaveManager.Instance.Save(data);
-                SceneManager.LoadScene(sceneToLoad[stageNum]);
-            }
-            else
-            {
-                Debug.LogError("遷移先のシーン名が設定されていません！");
-            }
-        }
-        else
-        {
-            SaveManager.Instance.Save(data);
-            SceneManager.LoadScene("DemoStage1-1");
-        }
+
+        // 次のステージを決定してシーンロード
+        stageSceneLoader.NextFloorSceneLoad();
+
+        // 旧ステージロードスクリプト、コメントアウトしときます
+        //if (data.nowFloor < data.stageRange)
+        //{
+        //    int stageNum = Random.Range(0, sceneToLoad.Count);
+        //    // シーン移動
+        //    if (sceneToLoad[stageNum] != null)
+        //    {
+        //        SaveManager.Instance.Save(data);
+        //        SceneManager.LoadScene(sceneToLoad[stageNum]);
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError("遷移先のシーン名が設定されていません！");
+        //    }
+        //}
+        //else
+        //{
+        //    SaveManager.Instance.Save(data);
+        //    SceneManager.LoadScene("DemoStage1-1");
+        //}
     }
 
     public List<ToolTag> IntToDeck(List<int> _list)

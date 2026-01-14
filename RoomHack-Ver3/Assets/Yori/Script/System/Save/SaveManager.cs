@@ -77,11 +77,12 @@ public class SaveManager
             maxHandSize = 5,
             deckList = new List<int>
             {
-                1, 1, 1, 1, 2, 2, 3, 3, 4
+                1, 1, 1, 1, 2, 2, 3, 3, 4, 4
             },
-            relicEvents = new List<int> { 0 },
+            relicEvents = new List<int> { 2,3 },
             nowFloor = 0,
-            stageRange = 0,
+            stageRange = 10,
+            nowStageNum = 0,
             maney = 0,
             trace = 0,
         };
