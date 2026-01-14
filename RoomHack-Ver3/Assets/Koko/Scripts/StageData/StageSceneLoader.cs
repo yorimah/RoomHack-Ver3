@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 
 public class StageSceneLoader : MonoBehaviour
 {
@@ -19,24 +18,24 @@ public class StageSceneLoader : MonoBehaviour
     [SerializeField]
     int nowFloor = 0;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            NextFloorSceneLoad();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        NextFloorSceneLoad();
+    //    }
+    //}
 
-    void NextFloorSceneLoad()
+    public string NextFloorSceneLoad()
     {
-        //// セーブデータをロード
-        //saveData = SaveManager.Instance.Load();
-        //nowStageNum = saveData.nowStageNum;
-        //nowFloor = saveData.nowFloor;
+        // セーブデータをロード
+        saveData = SaveManager.Instance.Load();
+        nowStageNum = saveData.nowStageNum;
+        nowFloor = saveData.nowFloor;
 
         // 現在のステージを取得
         nowStageData = stageDataBank.dataList[nowStageNum];
-        Debug.Log("今のステージは" + nowStageData);
+        //Debug.Log("今のステージは" + nowStageData);
 
         // 現在のフロアナンバーから次のランダムフロアデータを取得
         for (int i = 0; i < nowStageData.dataList.Count; i++)
@@ -51,9 +50,29 @@ public class StageSceneLoader : MonoBehaviour
             }
         }
 
-        Debug.Log("次のランダムフロアデータは" + nowRandomFloorData);
+        //Debug.Log("次のランダムフロアデータは" + nowRandomFloorData);
 
         // 次のフロアをランダムで取得
+        int totalWaight = 0;
+        for (int i = 0; i < nowRandomFloorData.dataList.Count; i++)
+        {
+            totalWaight += nowRandomFloorData.dataList[i].weight;
+        }
+
+        int rand = Random.Range(0, totalWaight);
+
+        int nowWaight = 0;
+        for (int i = 0; i < nowRandomFloorData.dataList.Count; i++)
+        {
+            nowWaight += nowRandomFloorData.dataList[i].weight;
+            if (nowWaight > rand)
+            {
+                loadScene = nowRandomFloorData.dataList[i].floorScene;
+                break;
+            }
+        }
+
+        //Debug.Log("トータルは" + totalWaight + " ランダムは" + rand + " 出た値は" + nowWaight);
 
         // フロア外ならクリアシーンへ
         if (nowStageData.floorNum <= nowFloor)
@@ -62,6 +81,8 @@ public class StageSceneLoader : MonoBehaviour
         }
 
         //Debug.Log("次のシーンは" + loadScene);
-        //SceneManager.LoadScene(loadScene);
+        SceneManager.LoadScene(loadScene);
+
+        return loadScene;
     }
 }
