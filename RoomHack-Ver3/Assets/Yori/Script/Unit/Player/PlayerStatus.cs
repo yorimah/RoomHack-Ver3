@@ -13,7 +13,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     IGetPlayerDie, ISetPlayerDied, IHaveGun, IGetPlayerScore, ISetScoreDestroy,
     IStatusSave, IRelicStatusEffect, ISetRelicList, IGetRelicList, ISetHitPoint,
     IGetHitPoint, ISetMoveSpeed, IGetSaveData, ISetPlayerSpecialAction, ISetMoneyNum,
-    IGetMoneyNum, IGetTrace, ISetTrace,IFloorData
+    IGetMoneyNum, IGetTrace, ISetTrace, IFloorData
 {
 
     public float Trace { get; private set; }
@@ -77,6 +77,8 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
     public int NowFloor { get; private set; }
 
+    public int SelectStageNo { get; private set; }
+
 
     public void PlayerPositionSet(Transform transform)
     {
@@ -119,6 +121,8 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         Trace = saveData.trace;
 
         NowFloor = saveData.nowFloor;
+
+        SelectStageNo = saveData.selectStageNo;
 
         ResetShotTimer();
     }
@@ -412,6 +416,11 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         NowFloor++;
     }
 
+    public void SelectStage(int num)
+    {
+        SelectStageNo = num;
+    }
+
     public bool IsClearStage()
     {
         if (NowFloor == saveData.stageRange)
@@ -604,7 +613,11 @@ public interface IFloorData
 {
     public int NowFloor { get; }
 
+    public int SelectStageNo { get; }
+
     public void AddNowFloor();
+
+    public void SelectStage(int num);
 
     public bool IsClearStage();
 }

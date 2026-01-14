@@ -7,8 +7,6 @@ public class StageSceneLoader : MonoBehaviour
     [SerializeField, Header("要アタッチ")]
     StageDataBank stageDataBank;
 
-    PlayerSaveData saveData;
-
     StageData nowStageData;
     RandomFloorData nowRandomFloorData;
 
@@ -31,9 +29,9 @@ public class StageSceneLoader : MonoBehaviour
     public string NextFloorSceneLoad()
     {
         // セーブデータをロード detoreruyounisuru
-        saveData = SaveManager.Instance.Load();
-        nowStageNum = saveData.nowStageNum;
-        nowFloor = saveData.nowFloor;
+        //saveData = SaveManager.Instance.Load();
+        nowStageNum = floorData.SelectStageNo;
+        nowFloor = floorData.NowFloor;
 
         // 現在のステージを取得
         nowStageData = stageDataBank.dataList[nowStageNum];
@@ -77,13 +75,13 @@ public class StageSceneLoader : MonoBehaviour
         //Debug.Log("トータルは" + totalWaight + " ランダムは" + rand + " 出た値は" + nowWaight);
 
         // フロア外ならクリアシーンへ
-        if (nowStageData.floorNum <= nowFloor)
-        {
-            loadScene = "ClearDemoScene";
-        }
+        //if (nowStageData.floorNum <= nowFloor)
+        //{
+        //    loadScene = "ClearDemoScene";
+        //}
 
         //Debug.Log("次のシーンは" + loadScene);
-        SceneManager.LoadScene(loadScene);
+        //SceneManager.LoadScene(loadScene);
 
         return loadScene;
     }

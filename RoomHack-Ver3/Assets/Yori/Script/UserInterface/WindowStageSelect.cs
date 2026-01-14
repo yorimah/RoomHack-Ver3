@@ -18,15 +18,17 @@ public class WindowStageSelect : WindowSystem
     [SerializeField]
     private Text selectButtonText;
 
+    private RandomFloorData randomFloor;
 
-    public void SetScene(string setScene, int _stageRange)
+    public void SetScene(StageData setScene, int _stageRange)
     {
         titleText = stageTitle.GetComponent<GeneralUpdateText>();
         titleText.delay = 3;
-        sceneToLoad = setScene;
-        stageRange = _stageRange;
+        randomFloor = setScene.dataList[0].randomFloorData;
+        sceneToLoad = randomFloor.dataList[0].floorScene;
+        stageRange = setScene.floorNum;
         selectButtonText = selectButtonText.GetComponent<Text>();
-        selectButtonText.text = sceneToLoad;
+        selectButtonText.text = sceneToLoad + " FloorNum : " + stageRange;
     }
 
     public void Accept()
