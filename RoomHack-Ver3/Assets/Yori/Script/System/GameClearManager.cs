@@ -18,7 +18,6 @@ public class GameClearManager : MonoBehaviour
 
     float moveValue;
 
-    SaveManager saveManager;
     PlayerSaveData data;
 
     bool sequenceEnd;
@@ -28,8 +27,7 @@ public class GameClearManager : MonoBehaviour
     private void Start()
     {
         // セーブデータ読み込み
-        saveManager = new SaveManager();
-        data = saveManager.Load();
+        data = SaveManager.Instance.Load();
 
         GameOverText[2].GetComponent<Text>().text = "stage : " + data.score_Stage;
         GameOverText[3].GetComponent<Text>().text = "destroy : " + data.score_DestoryEnemy;
@@ -91,6 +89,8 @@ public class GameClearManager : MonoBehaviour
 
     }
 
+    [SerializeField]
+    StageDataBank stageDataBank;
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -98,6 +98,8 @@ public class GameClearManager : MonoBehaviour
             if (sequenceEnd == true)
             {
                 cancellationTokenSource.Cancel();
+                data.maney += stageDataBank.dataList[data.selectStageNo].reward;
+                SaveManager.Instance.Save(data);
                 BgmManager.Instance.StopImmediately();
                 SceneManager.LoadScene("YoriTestScene");
             }

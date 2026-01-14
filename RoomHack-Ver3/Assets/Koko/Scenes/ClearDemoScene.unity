@@ -1139,6 +1139,7 @@ MonoBehaviour:
   - {fileID: 1430711816}
   - {fileID: 1822793412}
   - {fileID: 574793016}
+  stageDataBank: {fileID: 11400000, guid: ec39c8748c2a4a747b3ac9a454d8d294, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
