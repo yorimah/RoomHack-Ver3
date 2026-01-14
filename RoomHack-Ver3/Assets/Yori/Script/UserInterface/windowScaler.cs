@@ -84,7 +84,7 @@ public class WindowScaler : MonoBehaviour, IDragScaler
 
     }
 
-
+    [SerializeField,Header("最小サイズ")]
     private Vector2 minSize = new Vector2(150, 100);
     public void DragScale(Vector2 dragPoint, Vector3 mouseStartPos)
     {

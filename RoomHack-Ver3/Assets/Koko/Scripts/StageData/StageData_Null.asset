@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StageData_Null
   m_EditorClassIdentifier: Assembly-CSharp::StageData
   stageName: "\u306C\u308B"
-  stageExplain: "0\u756A\u3001\u3053\u308C\u304C\u3067\u305F\u3089\u30D0\u30B0\u306E\u53EF\u80FD\u6027\u304C\u3042\u308A\u307E\u3059"
+  stageExplain: "0\u756A\u3001\u3053\u308C\u304C\u3067\u305F\u3089\u30D0\u30B0\u306E\\n\u53EF\u80FD\u6027\u304C\u3042\u308A\u307E\u3059"
   reward: 0
   stageLevel: 0
   floorNum: 1
