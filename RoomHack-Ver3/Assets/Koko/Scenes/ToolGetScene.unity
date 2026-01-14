@@ -542,6 +542,7 @@ GameObject:
   - component: {fileID: 934364116}
   - component: {fileID: 934364115}
   - component: {fileID: 934364119}
+  - component: {fileID: 934364120}
   m_Layer: 5
   m_Name: ToolGetManagerCanvas
   m_TagString: Untagged
@@ -652,6 +653,7 @@ MonoBehaviour:
   explainText: {fileID: 876527538}
   toolUIListDispCanvas: {fileID: 1602946395}
   deckIcon: {fileID: 527608347}
+  stageSceneLoader: {fileID: 934364120}
   sideSpace: 500
   sceneToLoad:
   - Floor0-1
@@ -669,6 +671,21 @@ MonoBehaviour:
   - {fileID: 102900000, guid: 15de137a4d3e433488abfe7fccb387e4, type: 3}
   - {fileID: 102900000, guid: 9c9ee581b534df24aad850237e20b408, type: 3}
   - {fileID: 102900000, guid: 4b669a5c6a8b91a4f86729d683ec2c3e, type: 3}
+--- !u!114 &934364120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934364114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145fdf11411263349955ae38056b18b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSceneLoader
+  stageDataBank: {fileID: 11400000, guid: ec39c8748c2a4a747b3ac9a454d8d294, type: 2}
+  nowStageNum: 0
+  nowFloor: 0
 --- !u!1001 &948660418
 PrefabInstance:
   m_ObjectHideFlags: 0

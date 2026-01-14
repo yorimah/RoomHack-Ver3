@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class StageSceneLoader : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class StageSceneLoader : MonoBehaviour
     int nowStageNum = 0;
     [SerializeField]
     int nowFloor = 0;
-
+    [Inject]
+    IFloorData floorData;
     //private void Update()
     //{
     //    if (Input.GetKeyDown(KeyCode.Space))
@@ -28,7 +30,7 @@ public class StageSceneLoader : MonoBehaviour
 
     public string NextFloorSceneLoad()
     {
-        // セーブデータをロード
+        // セーブデータをロード detoreruyounisuru
         saveData = SaveManager.Instance.Load();
         nowStageNum = saveData.nowStageNum;
         nowFloor = saveData.nowFloor;
