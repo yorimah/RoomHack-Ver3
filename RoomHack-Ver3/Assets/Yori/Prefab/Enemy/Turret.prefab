@@ -229,6 +229,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   aimTime: 0.5
+  moveCoefficient: 1
   gunData: {fileID: 11400000, guid: 30fb23cf3674634439e26cc374b1e3e4, type: 2}
   MAXBULLET: 0
   NOWBULLET: 0
@@ -270,7 +271,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!58 &995870201947540561
 CircleCollider2D:
   m_ObjectHideFlags: 0

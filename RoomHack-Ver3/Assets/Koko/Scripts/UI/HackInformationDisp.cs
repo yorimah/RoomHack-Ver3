@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
-using System.Collections.Generic;
 
 public class HackInformationDisp : MonoBehaviour
 {
@@ -38,47 +38,49 @@ public class HackInformationDisp : MonoBehaviour
         }
         enemyNumText.inputText = "Enemy:" + enemyNum.ToString();
 
-        if (GameTimer.Instance.IsHackTime)
+        if (cameraPositionController.targetObject != null)
         {
-            if (cameraPositionController.targetObject != null)
+            nameText.gameObject.SetActive(true);
+            hpText.gameObject.SetActive(true);
+            nowHackText.gameObject.SetActive(true);
+
+            if (target == null)
             {
-                nameText.gameObject.SetActive(true);
-                hpText.gameObject.SetActive(true);
-                nowHackText.gameObject.SetActive(true);
-
                 target = cameraPositionController.targetObject;
+            }
 
-                // HP表記
-                if (target.TryGetComponent<IDamageable>(out var damageable))
-                {
-                    hpText.inputText = damageable.NowHitPoint.ToString() + " / " + damageable.MaxHitPoint.ToString();
-                }
-                else
-                {
-                    hpText.inputText = "UnBroken";
-                }
-                
-                // ハッキング対象の名前表記
-                // ハッキング内容表記
-                if (target.TryGetComponent<IHackObject>(out var hackObject))
-                {
-                    nameText.inputText = hackObject.HackObjectName;
+            if (cameraPositionController.targetObject != target)
+            {
+                target = cameraPositionController.targetObject;
+                nameText.DispTextReset();
+                hpText.DispTextReset();
+                nowHackText.DispTextReset();
+            }
 
-                    nowHackText.inputText = null;
-                    foreach (var item in hackObject.nowHackEvent)
-                    {
-                        nowHackText.inputText += item.thisToolTag.ToString();
-                        nowHackText.inputText += "\n";
-                    }
-                }
-
+            // HP表記
+            if (target.TryGetComponent<IDamageable>(out var damageable))
+            {
+                hpText.inputText = damageable.NowHitPoint.ToString() + " / " + damageable.MaxHitPoint.ToString();
             }
             else
             {
-                nameText.gameObject.SetActive(false);
-                hpText.gameObject.SetActive(false);
-                nowHackText.gameObject.SetActive(false);
+                hpText.inputText = "UnBroken";
             }
+
+            // ハッキング対象の名前表記
+            // ハッキング内容表記
+            if (target.TryGetComponent<IHackObject>(out var hackObject))
+            {
+                nameText.inputText = hackObject.HackObjectName;
+
+                nowHackText.inputText = null;
+                foreach (var item in hackObject.nowHackEvent)
+                {
+                    nowHackText.inputText += item.thisToolTag.ToString();
+                    nowHackText.inputText += "\n";
+                }
+            }
+
         }
         else
         {

@@ -5,6 +5,18 @@ using System.Collections.Generic;
 public class StageData : ScriptableObject
 {
     [SerializeField]
+    public string stageName;
+
+    [SerializeField]
+    public string stageExplain;
+
+    [SerializeField]
+    public int reward;
+
+    [SerializeField]
+    public int stageLevel;
+
+    [SerializeField]
     public int floorNum;
 
     [SerializeField]
