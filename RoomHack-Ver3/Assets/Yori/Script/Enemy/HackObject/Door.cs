@@ -28,17 +28,79 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private BoxCollider2D boxCollider;
+
+    // 長さ
+    private float viewDistance = 1;
+    // 分割数
+    private int segment = 360;
+
+    private float viewerAngle = 360;
+
+    [SerializeField]
+    LayerMask targetLayerMask;
+
+
+    bool isHit;
+
+    float coloseTimer;
+
     void Start()
     {
         MaxHitPoint = serializeHitPoint;
         NowHitPoint = MaxHitPoint;
         boxCollider = GetComponent<BoxCollider2D>();
+        isHit = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (NowHitPoint >= 0)
+        {
+            float halhAngle = viewerAngle * 0.5f;
 
+            for (int i = 0; i <= segment; i++)
+            {
+                float diffusionAngle = -halhAngle + (viewerAngle / segment) * i;
+
+                Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
+                Vector3 dir = rot * Vector2.one;
+
+                RaycastHit2D wallHit = Physics2D.Raycast(gameObject.transform.position, dir,
+                    viewDistance, targetLayerMask);
+                Debug.DrawRay(transform.position, dir * viewDistance, Color.aliceBlue);
+
+                if (wallHit.collider != null)
+                {
+                    isHit = true;
+                    break;
+                }
+                if (i == segment)
+                {
+                    isHit = false;
+                }
+            }
+            // 何かしらあたってたら
+            if (isHit)
+            {
+                OpenDoor();
+            }
+            else
+            {
+                CloseDoor();
+            }
+        }
+    }
+
+
+    public void OpenDoor()
+    {
+        boxCollider.enabled = false;
+    }
+
+    public void CloseDoor()
+    {
+        boxCollider.enabled = true;
     }
     public void HitDmg(int dmg, float hitStop)
     {
@@ -83,6 +145,7 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
     }
     public void Die()
     {
-        boxCollider.size = Vector2.zero;
+        boxCollider.enabled = false;
+        this.enabled = false;
     }
 }
