@@ -64,9 +64,11 @@ public class GeneralUpdateText : MonoBehaviour
 
     private void OnEnable()
     {
+        // 起動時や、Activeになった時にリセット
         DispTextReset();
     }
 
+    // テキスト再生
     public void DispTextReset()
     {
         dispText.text = null;

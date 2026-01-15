@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-//using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 // UnityEditor 名前空間はエディタ専用機能を使う場合に必要
@@ -187,7 +187,7 @@ public class ToolGetSceneManager : MonoBehaviour
 
         // 取得ツールUI移動
         _toolUI.toMovePosition = new Vector2(-1500, 0);
-        explainText.inputText = null;
+        explainText.inputText = " ";
 
         yield return new WaitForSeconds(1f);
 
@@ -195,7 +195,7 @@ public class ToolGetSceneManager : MonoBehaviour
         data.deckList.Add((int)_toolUI.thisTool);
 
         // 次のステージを決定してシーンロード
-        stageSceneLoader.NextFloorSceneLoad();
+        SceneManager.LoadScene(stageSceneLoader.NextFloorSceneLoad());
 
         // 旧ステージロードスクリプト、コメントアウトしときます
         //if (data.nowFloor < data.stageRange)
