@@ -73,12 +73,14 @@ public class HackInformationDisp : MonoBehaviour
             {
                 nameText.inputText = hackObject.HackObjectName;
 
-                nowHackText.inputText = null;
+                string inputText = null;
                 foreach (var item in hackObject.nowHackEvent)
                 {
-                    nowHackText.inputText += item.thisToolTag.ToString();
-                    nowHackText.inputText += "\n";
+                    inputText += item.thisToolTag.ToString();
+                    inputText += "\n";
                 }
+                inputText += " ";
+                nowHackText.inputText = inputText;
             }
 
         }
