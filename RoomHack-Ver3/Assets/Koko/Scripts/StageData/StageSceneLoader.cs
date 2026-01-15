@@ -20,6 +20,7 @@ public class StageSceneLoader : MonoBehaviour
 
     public string NextFloorSceneLoad()
     {
+        Debug.Log(floorData.SelectStageNo);
         // セーブデータをロード detoreruyounisuru
         nowStageNum = floorData.SelectStageNo;
         nowFloor = floorData.NowFloor;
