@@ -25,9 +25,9 @@ public class GeneralUpdateText : MonoBehaviour
     void Update()
     {
         // テキストが変更されたらリセット
-        if (nowText != inputText || !isRunning)
+        if (nowText != inputText.Replace("\\n", "\n") || !isRunning)
         {
-            nowText = inputText;
+            nowText = inputText.Replace("\\n", "\n"); ;
             DispTextReset();
         }
 

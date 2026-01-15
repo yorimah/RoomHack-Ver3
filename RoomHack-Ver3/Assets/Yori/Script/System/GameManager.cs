@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         floorData.AddNowFloor();
-        if (statusSave.playerSave().stageRange <= statusSave.playerSave().nowFloor)
+        if (floorData.IsClearStage())
         {
             statusSave.HitPointInit();
             SaveManager.Instance.Save(statusSave.playerSave());
