@@ -178,6 +178,7 @@ public class ToolManager : MonoBehaviour
         toolUIController.ToolUIControllerUpdate();
     }
 
+
     public void DeckDraw()
     {
         ToolTag drawTool = deckSystem.DeckDraw();
@@ -222,6 +223,16 @@ public class ToolManager : MonoBehaviour
 
         handCostList.RemoveAt(_index);
         handPlayList.RemoveAt(_index);
+    }
+
+    // トラッシュをハンドへ
+    public void TrashToHand(int _index)
+    {
+        deckSystem.ToolMove(deckSystem.toolTrash, _index, deckSystem.toolHand);
+        toolUIController.TrashToHand(_index);
+
+        handCostList.Add(false);
+        handPlayList.Add(false);
     }
 
     // トラッシュをデッキに戻す

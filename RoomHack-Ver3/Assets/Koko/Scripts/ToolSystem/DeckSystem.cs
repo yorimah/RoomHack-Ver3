@@ -33,7 +33,7 @@ public class DeckSystem : MonoBehaviour
         DeckGenerate();
     }
 
-    ToolTag ToolMove(List<ToolTag> _fromToolList, int _index, List<ToolTag> _toToolList)
+    public ToolTag ToolMove(List<ToolTag> _fromToolList, int _index, List<ToolTag> _toToolList)
     {
         ToolTag moveTool = ToolTag.none;
 

@@ -125,3 +125,17 @@ MonoBehaviour:
     toolText: "Ram\u3068\u30CF\u30F3\u30C9\u3092\u5168\u3066\u5931\u3046\u3002  3\u79D2\u5F8C\u3001Ram\u3092\u5168\u56DE\u5FA9\u3057\u30013\u30C9\u30ED\u30FC\u3002"
     toolSprite: {fileID: 21300000, guid: d8b79af661623d14eaa2391db1be945a, type: 3}
     toolEvent: {fileID: 7060803385522428054, guid: fa9ec35ea83db0247ac3686a05bbce27, type: 3}
+  - toolTag: 16
+    toolType: 4
+    toolName: Salvage
+    toolCost: 2
+    toolText: "\u30C8\u30E9\u30C3\u30B7\u30E5\u306E\u30E9\u30F3\u30C0\u30E0\u306A\u30C4\u30FC\u30EB\u30921\u3064\u30CF\u30F3\u30C9\u306B\u623B\u3059\u3002"
+    toolSprite: {fileID: 21300000, guid: d8b79af661623d14eaa2391db1be945a, type: 3}
+    toolEvent: {fileID: 8567299328321833906, guid: 700126840c341d349b8f566c6742f470, type: 3}
+  - toolTag: 17
+    toolType: 4
+    toolName: HotReload
+    toolCost: 2
+    toolText: "\u30CF\u30F3\u30C9\u306E\u6700\u3082\u30B3\u30B9\u30C8\u306E\u4F4E\u3044\u30C4\u30FC\u30EB\u3092\u30C8\u30E9\u30C3\u30B7\u30E5\u3057\u30012\u30C9\u30ED\u30FC\u3002"
+    toolSprite: {fileID: 21300000, guid: d8b79af661623d14eaa2391db1be945a, type: 3}
+    toolEvent: {fileID: 5792779253045760925, guid: ab8f852856f6744468dc2861da161fee, type: 3}

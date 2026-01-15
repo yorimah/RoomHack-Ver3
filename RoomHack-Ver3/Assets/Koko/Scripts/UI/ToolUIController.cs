@@ -180,9 +180,9 @@ public class ToolUIController : MonoBehaviour
         trashToolUIList.Clear();
     }
 
-    public void DeckDraw(ToolTag drawTool)
+    public void DeckDraw(ToolTag _drawTool)
     {
-        handToolUIList.Add(ToolUIGenerate(nowDeckPos, drawTool, false));
+        handToolUIList.Add(ToolUIGenerate(nowDeckPos, _drawTool, false));
 
         //if (drawTool != toolTag.none)
         //{
@@ -204,11 +204,17 @@ public class ToolUIController : MonoBehaviour
         //}
     }
 
-    public void HandTrash(int index)
+    public void HandTrash(int _index)
     {
-        trashToolUIList.Add(handToolUIList[index]);
-        handToolUIList.RemoveAt(index);
+        trashToolUIList.Add(handToolUIList[_index]);
+        handToolUIList.RemoveAt(_index);
 
+    }
+
+    public void TrashToHand(int _index)
+    {
+        handToolUIList.Add(trashToolUIList[_index]);
+        trashToolUIList.RemoveAt(_index);
     }
 
     void HandOnIndexCheck()
