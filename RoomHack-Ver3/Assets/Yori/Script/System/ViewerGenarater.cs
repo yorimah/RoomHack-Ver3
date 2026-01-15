@@ -103,6 +103,14 @@ public class ViewerGenarater
                     {
                         if (hackHit.collider.gameObject.layer == 7)
                         {
+                            if (hackHit.collider.TryGetComponent<IHackObject>(out var wallInhackObject))
+                            {
+                                if (!nowViewHackObjects.Contains(wallInhackObject))
+                                {
+                                    nowViewHackObjects.Add(wallInhackObject);
+                                    wallInhackObject.CanHack = true;
+                                }
+                            }
                             break;
                         }
                         // 見つけたリストに入ってなかったら見つけたリストぶち込む

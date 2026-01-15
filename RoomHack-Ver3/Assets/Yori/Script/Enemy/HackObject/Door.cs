@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 public class Door : MonoBehaviour, IDamageable, IHackObject
 {
     public int armorInt { get; set; }
@@ -12,8 +13,6 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
     public List<ToolEventBase> nowHackEvent { get; set; } = new List<ToolEventBase>();
 
     public bool CanHack { get; set; } = false;
-
-    public bool IsView { get; set; }
 
     // ダメージ関連
     public float MaxHitPoint { get; private set; } = 5;
@@ -39,11 +38,18 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
     [SerializeField]
     LayerMask targetLayerMask;
 
-
     bool isHit;
 
-    float coloseTimer;
+    [SerializeField, Header("ドアのスプライト")]
+    List<SpriteRenderer> spriteRendererList;
 
+    [SerializeField]
+    GameObject LeftDoor;
+
+    [SerializeField]
+    GameObject RightDoor;
+
+    private Vector2 moveVec = new Vector2(1, 0);
     void Start()
     {
         MaxHitPoint = serializeHitPoint;
@@ -90,17 +96,46 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
                 CloseDoor();
             }
         }
+
+        if (CanHack)
+        {
+            foreach (var spriteRenderer in spriteRendererList)
+            {
+                spriteRenderer.sortingLayerName = "playerView";
+            }
+        }
+        else
+        {
+            foreach (var spriteRenderer in spriteRendererList)
+            {
+                spriteRenderer.sortingLayerName = "Default";
+            }
+        }
     }
 
 
+    Vector2 rightClamp = new Vector2(0.25f, 0.75f);
+    Vector2 leftClamp = new Vector2(-0.75f, -0.25f);
     public void OpenDoor()
     {
         boxCollider.enabled = false;
+        MoveDoor(LeftDoor, -1, leftClamp);
+        MoveDoor(RightDoor, 1, rightClamp);
+    }
+
+    public void MoveDoor(GameObject moveDoor, int moveDire, Vector2 clamp)
+    {
+        Vector2 moveTransform = moveDoor.transform.localPosition;
+        moveTransform += moveDire * GameTimer.Instance.GetScaledDeltaTime() * this.moveVec;
+        moveTransform.x = Mathf.Clamp(moveTransform.x, clamp.x, clamp.y);
+        moveDoor.transform.localPosition = moveTransform;
     }
 
     public void CloseDoor()
     {
         boxCollider.enabled = true;
+        MoveDoor(LeftDoor, 1, leftClamp);
+        MoveDoor(RightDoor, -1, rightClamp);
     }
     public void HitDmg(int dmg, float hitStop)
     {
@@ -145,7 +180,17 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
     }
     public void Die()
     {
+        _ = DieOpenDoor();
+    }
+    public async UniTask DieOpenDoor()
+    {
+
         boxCollider.enabled = false;
+        while (LeftDoor.transform.localPosition.x > leftClamp.x)
+        {
+            OpenDoor();
+            await UniTask.Yield();
+        }
         this.enabled = false;
     }
 }
