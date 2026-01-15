@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 public class Door : MonoBehaviour, IDamageable, IHackObject
 {
     public int armorInt { get; set; }
@@ -56,6 +56,8 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
         NowHitPoint = MaxHitPoint;
         boxCollider = GetComponent<BoxCollider2D>();
         isHit = false;
+        HackObjectName = GetType().Name;
+        armorInt = armorSerialze;
     }
 
     // Update is called once per frame
@@ -75,11 +77,14 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
                 RaycastHit2D wallHit = Physics2D.Raycast(gameObject.transform.position, dir,
                     viewDistance, targetLayerMask);
                 Debug.DrawRay(transform.position, dir * viewDistance, Color.aliceBlue);
-
-                if (wallHit.collider != null)
+                if (wallHit.collider!=null)
                 {
-                    isHit = true;
-                    break;
+                    if (wallHit.collider.TryGetComponent<Enemy>(out var _))
+                    {
+                        isHit = true;
+                        break;
+                    }
+
                 }
                 if (i == segment)
                 {
