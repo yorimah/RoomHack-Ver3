@@ -14,7 +14,7 @@ public class ToolEvent_Disruption : ToolEventBase, IToolEvent_Attack, IToolEvent
     }
 
 
-    // IToolEventBase_Target
+    // IToolEvent_Target
     public GameObject hackTargetObject { get; set; }
     public void Tracking(GameObject _gameObject)
     {
@@ -23,7 +23,7 @@ public class ToolEvent_Disruption : ToolEventBase, IToolEvent_Attack, IToolEvent
     }
 
 
-    // ToolManager
+    // IToolEvent_ToolManager
     public ToolManager toolManager { get; set; }
     public void GetToolManager()
     {
@@ -37,19 +37,28 @@ public class ToolEvent_Disruption : ToolEventBase, IToolEvent_Attack, IToolEvent
         GetDamageable(hackTargetObject);
         GetToolManager();
 
-        EffectManager.Instance.ActEffect(EffectManager.EffectType.HitDie, hackTargetObject.transform.position);
-
     }
 
     protected override void Execute()
     {
-        int rand = Random.Range(0, toolManager.GetHandData().Count - 1);
-        int cost = toolManager.toolDataBank.toolDataList[(int)toolManager.GetHandData()[rand]].toolCost;
-        toolManager.HandTrash(rand);
+        // ハンドが0じゃなけりゃ起動
+        if (toolManager.GetHandData().Count > 0)
+        {
 
-        damage = cost * 10;
-        damageable.HackDmg(damage, 0);
-        //EffectManager.Instance.ActEffect_Num(damage, hackTargetObject.transform.position, 1);
+            EffectManager.Instance.ActEffect(EffectManager.EffectType.HitDie, hackTargetObject.transform.position);
+
+            int rand = Random.Range(0, toolManager.GetHandData().Count);
+            int cost = toolManager.toolDataBank.toolDataList[(int)toolManager.GetHandData()[rand]].toolCost;
+            toolManager.HandTrash(rand);
+
+            damage = cost * 10;
+            damageable.HackDmg(damage, 0);
+            //EffectManager.Instance.ActEffect_Num(damage, hackTargetObject.transform.position, 1);
+        }
+        else
+        {
+            Debug.Log("てふだないんごねー");
+        }
 
         EventEnd();
     }

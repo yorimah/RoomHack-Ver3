@@ -39,6 +39,8 @@ public enum ToolTag
     ClockReplication,
     RiotBurst,
     NullWord,
+    Salvage,
+    HotReload,
 }
 
 public enum ToolType
