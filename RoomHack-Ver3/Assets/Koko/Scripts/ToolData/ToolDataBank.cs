@@ -16,7 +16,7 @@ public class ToolData
     public string toolName;
     public int toolCost;
     public string toolText;
-    public Sprite toolSprite;
+    public Sprite toolIconSprite;
     public ToolEventBase toolEvent;
 }
 
