@@ -50,6 +50,13 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
     GameObject RightDoor;
 
     private Vector2 moveVec = new Vector2(1, 0);
+
+    [SerializeField]
+    Sprite deadSprite;
+
+    [SerializeField]
+    Sprite liveSprite;
+
     void Start()
     {
         MaxHitPoint = serializeHitPoint;
@@ -76,8 +83,7 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
 
                 RaycastHit2D wallHit = Physics2D.Raycast(gameObject.transform.position, dir,
                     viewDistance, targetLayerMask);
-                Debug.DrawRay(transform.position, dir * viewDistance, Color.aliceBlue);
-                if (wallHit.collider!=null)
+                if (wallHit.collider != null)
                 {
                     if (wallHit.collider.TryGetComponent<Enemy>(out var _))
                     {
@@ -94,7 +100,7 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
             // 何かしらあたってたら
             if (isHit)
             {
-                OpenDoor();
+                OpenDoor(1);
             }
             else
             {
@@ -121,11 +127,11 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
 
     Vector2 rightClamp = new Vector2(0.25f, 0.75f);
     Vector2 leftClamp = new Vector2(-0.75f, -0.25f);
-    public void OpenDoor()
+    public void OpenDoor(int moveSpeed)
     {
         boxCollider.enabled = false;
-        MoveDoor(LeftDoor, -1, leftClamp);
-        MoveDoor(RightDoor, 1, rightClamp);
+        MoveDoor(LeftDoor, -moveSpeed, leftClamp);
+        MoveDoor(RightDoor, moveSpeed, rightClamp);
     }
 
     public void MoveDoor(GameObject moveDoor, int moveDire, Vector2 clamp)
@@ -189,13 +195,20 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
     }
     public async UniTask DieOpenDoor()
     {
-
-        boxCollider.enabled = false;
+        foreach (var spriteRender in spriteRendererList)
+        {
+            if (spriteRender.sprite == liveSprite)
+            {
+                Debug.Log("sprite変更！");
+                spriteRender.sprite = deadSprite;
+            }
+        }
         while (LeftDoor.transform.localPosition.x > leftClamp.x)
         {
-            OpenDoor();
+            OpenDoor(2);
             await UniTask.Yield();
         }
-        this.enabled = false;
+
+        boxCollider.enabled = false;
     }
 }

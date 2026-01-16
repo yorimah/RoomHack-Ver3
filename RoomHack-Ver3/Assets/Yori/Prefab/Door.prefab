@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4076204050814028318}
   - component: {fileID: 3420089837058549292}
   - component: {fileID: 3010144102021531264}
-  - component: {fileID: 6384570762767465841}
   m_Layer: 7
   m_Name: Door
   m_TagString: Untagged
@@ -122,9 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ac4f4f92b84064687c8f67be194a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  armorSerialze: 30
+  armorSerialze: 10
   hackMag: 10
-  serializeHitPoint: 100
+  serializeHitPoint: 50
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -135,28 +134,8 @@ MonoBehaviour:
   - {fileID: 8167710701011100170}
   LeftDoor: {fileID: 8567113024775881086}
   RightDoor: {fileID: 4519082263541157680}
---- !u!95 &6384570762767465841
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588302034963973638}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0e862966fbd57d64ea992b02ef897796, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  deadSprite: {fileID: 21300000, guid: 2ef0ee0142f922543961b9c0b566169a, type: 3}
+  liveSprite: {fileID: 21300000, guid: 7d13bde738d756f4aa730744844e90fc, type: 3}
 --- !u!1 &3432466858270701173
 GameObject:
   m_ObjectHideFlags: 0
