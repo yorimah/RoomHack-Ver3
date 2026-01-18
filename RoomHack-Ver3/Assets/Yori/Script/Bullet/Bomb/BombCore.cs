@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Zenject;
+using Cysharp.Threading.Tasks;
 public class BombCore : MonoBehaviour
 {
     [SerializeField, Header("爆発半径")]
@@ -28,6 +28,21 @@ public class BombCore : MonoBehaviour
         bombBlast.isExplosion = true;
     }
 
+
+
+    //public async UniTask Explasion()
+    //{
+    //    while (circleCollider2D.radius > explosionRadial)
+    //    {
+    //        circleCollider2D.radius += 1 * GameTimer.Instance.GetScaledDeltaTime();
+    //        await UniTask.Yield();
+    //    }
+    //    while (circleCollider2D.radius < 0)
+    //    {
+    //        circleCollider2D.radius -= 1 * GameTimer.Instance.GetScaledDeltaTime();
+    //        await UniTask.Yield();
+    //    }
+    //}
     protected void MeshInit()
     {
         meshObject = new GameObject(gameObject.name + " ExplosionRadiusMesh");

@@ -194,6 +194,9 @@ public class ToolGetSceneManager : MonoBehaviour
         // データ追加
         data.deckList.Add((int)_toolUI.thisTool);
 
+        SaveManager.Instance.Save(data);
+
+
         // 次のステージを決定してシーンロード
         SceneManager.LoadScene(stageSceneLoader.NextFloorSceneLoad());
 

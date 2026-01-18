@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-
 public class BombBlast : MonoBehaviour
 {
-    [SerializeField, Header("爆発半径")]
     public float explosionRadial;
-    [SerializeField, Header("爆発威力")]
     public int explosionPower;
     public int hitDamegeLayer { get; set; } = 4;
     private CircleCollider2D circleCollider2D;
@@ -12,7 +9,6 @@ public class BombBlast : MonoBehaviour
     public bool isExplosion = false;
     public void Start()
     {
-        Destroy(gameObject, 0.5f);
         circleCollider2D = gameObject.GetComponent<CircleCollider2D>();
         circleCollider2D.radius = explosionRadial;
     }
