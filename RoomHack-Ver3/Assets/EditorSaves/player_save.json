@@ -1,9 +1,9 @@
 {
   "score_Stage": 0,
-  "score_DestoryEnemy": 0,
+  "score_DestoryEnemy": 43,
   "gunName": 0,
   "maxHitPoint": 100,
-  "nowHitPoint": 100.0,
+  "nowHitPoint": 10.0,
   "moveSpeed": 5.0,
   "maxRamCapacity": 10.0,
   "ramRecovery": 0.01,
@@ -24,7 +24,7 @@
     2,
     3
   ],
-  "nowFloor": 0,
+  "nowFloor": 5,
   "stageRange": 6,
   "selectStageNo": 1,
   "maney": 0,

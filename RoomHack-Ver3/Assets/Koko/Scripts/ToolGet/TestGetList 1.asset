@@ -45,3 +45,7 @@ MonoBehaviour:
     toolWeight: 1
   - toolTag: 15
     toolWeight: 1
+  - toolTag: 15
+    toolWeight: 1
+  - toolTag: 17
+    toolWeight: 1

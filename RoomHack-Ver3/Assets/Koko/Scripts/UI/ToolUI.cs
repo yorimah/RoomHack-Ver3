@@ -1,20 +1,30 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField, Header("仮でアタッチするンゴ、どっかにまとめときてえな")]
     ToolDataBank toolDataBank;
 
+    [SerializeField, Header("ツール枠アタッチ")]
+    List<Sprite> toolFlameList = new List<Sprite>();
+
     public ToolTag thisTool;
 
-    RectTransform rect;
+    RectTransform flameRect;
 
     // 表裏系変数
     public bool isOpen = false;
     float reverseNum = -1;
-    Image thisImage;
+    Image flameImage;
+
+    // アイコン変数
+    [SerializeField, Header("アイコンオブジェクトをアタッチ")]
+    GameObject toolIcon;
+    Image iconImage;
+
 
     // 移動変数
     public Vector2 toMovePosition;
@@ -59,8 +69,10 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Start()
     {
-        thisImage = GetComponent<Image>();
-        rect = GetComponent<RectTransform>();
+        flameImage = GetComponent<Image>();
+        flameRect = GetComponent<RectTransform>();
+
+        iconImage = toolIcon.GetComponent<Image>();
     }
 
     private void Update()
@@ -76,6 +88,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         nameText.gameObject.SetActive(isNameCostDisp);
         costText.gameObject.SetActive(isNameCostDisp);
+        toolIcon.gameObject.SetActive(isNameCostDisp);
     }
 
     void ReverseProcess()
@@ -99,10 +112,11 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         //    }
         }
 
-        if (rect.localScale.x >= 0)
+        if (flameRect.localScale.x >= 0)
         {
             //Debug.Log("表");
-            thisImage.sprite = toolDataBank.toolDataList[(int)thisTool].toolSprite;
+            flameImage.sprite = toolFlameList[(int)toolDataBank.toolDataList[(int)thisTool].toolType];
+            iconImage.sprite = toolDataBank.toolDataList[(int)thisTool].toolIconSprite;
 
             isNameCostDisp = true;
 
@@ -112,7 +126,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         else
         {
             //Debug.Log("裏");
-            thisImage.sprite = toolDataBank.toolDataList[(int)ToolTag.none].toolSprite;
+            flameImage.sprite = toolFlameList[(int)toolDataBank.toolDataList[(int)ToolTag.none].toolType];
 
             isNameCostDisp = false;
         }
@@ -145,9 +159,9 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     void MoveProcess()
     {
-        Vector2 moveVec = (toMovePosition - (Vector2)rect.localPosition) / 10;
+        Vector2 moveVec = (toMovePosition - (Vector2)flameRect.localPosition) / 10;
 
-        rect.localPosition += (Vector3)moveVec;
+        flameRect.localPosition += (Vector3)moveVec;
 
         // 移動してるか否か
         if (Mathf.Abs(moveVec.x) > 0.1f || Mathf.Abs(moveVec.y) > 0.1f)
@@ -162,9 +176,10 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     void ScaleProcess()
     {
-        Vector2 scaleVec = (new Vector2(toScale.x * reverseNum, toScale.y) - (Vector2)rect.localScale) / 10;
+        Vector2 scaleVec = (new Vector2(toScale.x * reverseNum, toScale.y) - (Vector2)flameRect.localScale) / 10;
 
-        rect.localScale += (Vector3)scaleVec;
+        flameRect.localScale += (Vector3)scaleVec;
+        //iconRect.localScale += (Vector3)scaleVec;
     }
 
 }

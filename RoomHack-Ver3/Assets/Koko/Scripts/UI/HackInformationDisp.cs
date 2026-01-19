@@ -77,6 +77,10 @@ public class HackInformationDisp : MonoBehaviour
                 foreach (var item in hackObject.nowHackEvent)
                 {
                     inputText += item.thisToolTag.ToString();
+                    //if (item.TryGetComponent<IToolEvent_Time>(out var event_Time))
+                    //{
+                    //    inputText += " " + event_Time.timer.ToString("00.00");
+                    //}
                     inputText += "\n";
                 }
                 inputText += " ";
