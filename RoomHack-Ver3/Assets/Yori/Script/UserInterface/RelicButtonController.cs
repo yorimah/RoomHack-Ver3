@@ -44,12 +44,12 @@ public class RelicButtonController : MonoBehaviour
         var scroll = Input.mouseScrollDelta.y * Time.deltaTime * 100;
         if (Mathf.Abs(scroll) > 1)
         {
-            if (insObjList[insObjList.Count - 1].anchoredPosition.y + scroll * 10 <= backGroundRect.rect.height / 2 &&
-                insObjList[0].anchoredPosition.y + scroll * 10 >= -backGroundRect.rect.height / 2)
+            if (insObjList[insObjList.Count - 1].anchoredPosition.y - scroll * 10 <= backGroundRect.rect.height / 2 &&
+                insObjList[0].anchoredPosition.y - scroll * 10 >= -backGroundRect.rect.height / 2)
             {
                 foreach (var insObj in insObjList)
                 {
-                    insObj.localPosition += new Vector3(0, scroll * 10, 0);
+                    insObj.localPosition += new Vector3(0, -scroll * 10, 0);
                 }
             }
         }
