@@ -5,9 +5,6 @@ public class WindowSystem : MonoBehaviour
 {
     protected RectTransform windowRect;
 
-    [SerializeField]
-    protected GameObject buttonObj;
-
     protected bool isClick = false;
 
     protected BoxCollider2D dragCollider;
@@ -18,20 +15,28 @@ public class WindowSystem : MonoBehaviour
     private GameObject windowsObject;
 
     protected float waitSeconds = 0.01f;
+
     [Inject]
-    IGetWindowList getWindowList;
+    protected IGetWindowList getWindowList;
+
+    protected WindowMove windowMove;
 
     public void Start()
     {
+        if (windowsObject != null)
+        {
+            InitWindow(windowsObject);
+        }
+    }
+
+    protected void InitWindow(GameObject _windowsObject)
+    {
+        windowsObject = _windowsObject;
+        windowMove = windowsObject.GetComponent<WindowMove>();
         dragCollider = windowsObject.GetComponent<BoxCollider2D>();
         dragCollider.enabled = false;
         windowRect = windowsObject.GetComponent<RectTransform>();
         windowInitPos = windowRect.position;
-        if (buttonObj == null)
-        {
-            Debug.LogError("buttonObjがnullだよ objName:" + gameObject.name);
-        }
-
     }
     public void ClickStageSelect()
     {
@@ -40,7 +45,7 @@ public class WindowSystem : MonoBehaviour
             //windowRect.transform.SetSiblingIndex(10);
             windowRect.GetComponent<WindowMove>()?.ClickInit(getWindowList.WindowMoveList.Count);
             _ = PopUpWindow();
-            windowRect.sizeDelta = Vector2.zero;
+            //windowRect.sizeDelta = Vector2.zero;
             isClick = true;
         }
     }
@@ -60,10 +65,10 @@ public class WindowSystem : MonoBehaviour
         }
         windowRect.sizeDelta = new Vector2(Screen.width / 2, Screen.height / 2);
         dragCollider.enabled = true;
-        buttonObj.SetActive(true);
+        windowMove.ButtonSetActive(true);
     }
 
-    public void Exit()
+    public void Minimize()
     {
         if (isClick)
         {
@@ -73,9 +78,20 @@ public class WindowSystem : MonoBehaviour
         }
     }
 
+    public async void Exit()
+    {
+        if (isClick)
+        {
+            await FadeOutWindow();
+            windowRect.localPosition = Vector2.zero;
+            dragCollider.enabled = false;
+            isMaximize = false;
+        }
+    }
+
     public virtual async UniTask FadeOutWindow()
     {
-        buttonObj.SetActive(false);
+        windowMove.ButtonSetActive(false);
         while (windowRect.rect.height > 10)
         {
             windowRect.sizeDelta -= new Vector2(0, Screen.height / 10);
@@ -86,7 +102,7 @@ public class WindowSystem : MonoBehaviour
             windowRect.sizeDelta -= new Vector2(Screen.width / 10, 0);
             await UniTask.WaitForSeconds(waitSeconds);
         }
-        buttonObj.SetActive(false);
+        windowMove.ButtonSetActive(false);
         isClick = false;
     }
     Vector2 wasMaximize;
