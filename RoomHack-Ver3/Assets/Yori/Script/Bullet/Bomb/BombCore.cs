@@ -1,5 +1,7 @@
-﻿using UnityEngine;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
+using System;
+using System.Threading;
 public class BombCore : MonoBehaviour
 {
     [SerializeField, Header("爆発半径")]
@@ -19,30 +21,68 @@ public class BombCore : MonoBehaviour
     private GameObject blastGameObject;
 
     private BombBlast bombBlast;
+
+    private CircleCollider2D bomBlastCircleCollider;
+
+
+    private CancellationTokenSource cancellationTokenSource;
     public void Bomb()
     {
         SeManager.Instance.Play("Explosion");
         bombBlast = Instantiate(blastGameObject, this.transform.position, Quaternion.identity).GetComponent<BombBlast>();
-        bombBlast.explosionRadial = explosionRadial;
-        bombBlast.explosionPower = explosionPower;
+        bomBlastCircleCollider = bombBlast.GetComponent<CircleCollider2D>();
+        cancellationTokenSource = new CancellationTokenSource();
+        // コルーチン起動
+
+        var  linked = CancellationTokenSource.CreateLinkedTokenSource(
+        cancellationTokenSource.Token,
+        this.GetCancellationTokenOnDestroy()
+         );
+        _ = Explasion(linked.Token);
         bombBlast.isExplosion = true;
     }
+    float bombColliderRadial;
 
+    public async UniTask Explasion(CancellationToken token)
+    {
+        try
+        {
+            while (bombColliderRadial < explosionRadial)
+            {
+                bombColliderRadial += 4 * GameTimer.Instance.GetScaledDeltaTime();
+                token.ThrowIfCancellationRequested();
+                if (bomBlastCircleCollider != null)
+                {
+                    bomBlastCircleCollider.radius = bombColliderRadial;
+                }
+                else
+                {
+                    break;
+                }
+                await UniTask.Yield();
+            }
+            while (bomBlastCircleCollider.radius > 0)
+            {
+                bombColliderRadial -= 4 * GameTimer.Instance.GetScaledDeltaTime();
+                token.ThrowIfCancellationRequested();
+                if (bomBlastCircleCollider != null)
+                {
+                    bomBlastCircleCollider.radius = bombColliderRadial;
+                }
+                else
+                {
+                    break;
+                }
+                await UniTask.Yield();
+            }
+        }
+        catch (OperationCanceledException)
+        {
 
-
-    //public async UniTask Explasion()
-    //{
-    //    while (circleCollider2D.radius > explosionRadial)
-    //    {
-    //        circleCollider2D.radius += 1 * GameTimer.Instance.GetScaledDeltaTime();
-    //        await UniTask.Yield();
-    //    }
-    //    while (circleCollider2D.radius < 0)
-    //    {
-    //        circleCollider2D.radius -= 1 * GameTimer.Instance.GetScaledDeltaTime();
-    //        await UniTask.Yield();
-    //    }
-    //}
+            throw;
+        }
+       
+    }
     protected void MeshInit()
     {
         meshObject = new GameObject(gameObject.name + " ExplosionRadiusMesh");
@@ -72,7 +112,7 @@ public class BombCore : MonoBehaviour
             float rad = angle * Mathf.Deg2Rad;
             Vector3 dir = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0);
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, explosionRadial, targetLm);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, bomBlastCircleCollider.radius, targetLm);
             if (hit.collider != null)
             {
                 // 障害物に当たったらその地点を頂点にする
@@ -81,7 +121,7 @@ public class BombCore : MonoBehaviour
             else
             {
                 // 何もなければ円周上の点
-                vertices[i + 1] = transform.position + dir * explosionRadial;
+                vertices[i + 1] = transform.position + dir * bomBlastCircleCollider.radius;
             }
 
             // 三角形の設定

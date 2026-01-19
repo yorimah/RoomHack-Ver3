@@ -10,7 +10,7 @@ public class BombBlast : MonoBehaviour
     public void Start()
     {
         circleCollider2D = gameObject.GetComponent<CircleCollider2D>();
-        circleCollider2D.radius = explosionRadial;
+       // circleCollider2D.radius = explosionRadial;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
