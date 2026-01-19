@@ -4,12 +4,10 @@ public class BombBlast : MonoBehaviour
     public float explosionRadial;
     public int explosionPower;
     public int hitDamegeLayer { get; set; } = 4;
-    private CircleCollider2D circleCollider2D;
 
     public bool isExplosion = false;
     public void Start()
     {
-        circleCollider2D = gameObject.GetComponent<CircleCollider2D>();
        // circleCollider2D.radius = explosionRadial;
     }
 

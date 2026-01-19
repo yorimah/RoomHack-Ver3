@@ -33,7 +33,6 @@ public class BombCore : MonoBehaviour
         bomBlastCircleCollider = bombBlast.GetComponent<CircleCollider2D>();
         cancellationTokenSource = new CancellationTokenSource();
         // コルーチン起動
-
         var  linked = CancellationTokenSource.CreateLinkedTokenSource(
         cancellationTokenSource.Token,
         this.GetCancellationTokenOnDestroy()
@@ -53,6 +52,7 @@ public class BombCore : MonoBehaviour
                 token.ThrowIfCancellationRequested();
                 if (bomBlastCircleCollider != null)
                 {
+                    ExplosionRadius(bombColliderRadial);
                     bomBlastCircleCollider.radius = bombColliderRadial;
                 }
                 else
@@ -67,6 +67,7 @@ public class BombCore : MonoBehaviour
                 token.ThrowIfCancellationRequested();
                 if (bomBlastCircleCollider != null)
                 {
+                    ExplosionRadius(bombColliderRadial);
                     bomBlastCircleCollider.radius = bombColliderRadial;
                 }
                 else
@@ -96,7 +97,7 @@ public class BombCore : MonoBehaviour
         mesh = new Mesh();
         meshObject.GetComponent<MeshFilter>().mesh = mesh;
     }
-    protected void ExplosionRadius()
+    protected void ExplosionRadius(float radius)
     {
         mesh.Clear();
 
@@ -112,7 +113,7 @@ public class BombCore : MonoBehaviour
             float rad = angle * Mathf.Deg2Rad;
             Vector3 dir = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0);
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, bomBlastCircleCollider.radius, targetLm);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, radius, targetLm);
             if (hit.collider != null)
             {
                 // 障害物に当たったらその地点を頂点にする
@@ -121,7 +122,7 @@ public class BombCore : MonoBehaviour
             else
             {
                 // 何もなければ円周上の点
-                vertices[i + 1] = transform.position + dir * bomBlastCircleCollider.radius;
+                vertices[i + 1] = transform.position + dir * radius;
             }
 
             // 三角形の設定

@@ -32,7 +32,7 @@ public class EnemyDetonation : BombCore
     private void Update()
     {
         // 爆発範囲表示
-        ExplosionRadius();
+        
 
         if (timer >= explosionTimer)
         {
@@ -48,6 +48,7 @@ public class EnemyDetonation : BombCore
         }
         else
         {
+            ExplosionRadius(explosionRadial);
             isExplosion = true;
             timer += GameTimer.Instance.GetScaledDeltaTime();
             colorAlpha = Mathf.Sin(Mathf.Pow(4, timer));

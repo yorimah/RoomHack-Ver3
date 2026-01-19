@@ -81,7 +81,7 @@ MonoBehaviour:
     toolName: InstantMemory
     toolCost: 2
     toolText: "RAM\u30923\u56DE\u5FA9\u3002"
-    toolIconSprite: {fileID: 0}
+    toolIconSprite: {fileID: -3761078773074654107, guid: 49825f7652f3c6e438eb2dd522ea54bd, type: 3}
     toolEvent: {fileID: 44434513314159414, guid: 3a9a14febd5c71548a0a5edf02ad3617, type: 3}
   - toolTag: 10
     toolType: 4

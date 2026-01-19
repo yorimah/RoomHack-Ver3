@@ -65,8 +65,7 @@ public class Missile : BombCore, IDamageable
     private void Update()
     {
         // 爆発範囲表示
-        ExplosionRadius();
-
+       
         if (isFire)
         {
             // 爆発
@@ -77,6 +76,9 @@ public class Missile : BombCore, IDamageable
         {
             // 追尾移動
             MissileMove();
+
+            ExplosionRadius(explosionRadial);
+
 
             if (timer >= explosionTimer)
             {

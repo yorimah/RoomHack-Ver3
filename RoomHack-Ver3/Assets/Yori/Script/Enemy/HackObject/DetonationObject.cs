@@ -80,14 +80,6 @@ public class DetonationObject : BombCore, IHackObject, IDamageable
         _ = DieBomb();
     }
 
-    private void Update()
-    {
-        if (NowHitPoint <= 0)
-        {
-            ExplosionRadius();
-        }
-    }
-
     public async UniTask DieBomb()
     {
         //ExplosionRadius();
@@ -96,6 +88,6 @@ public class DetonationObject : BombCore, IHackObject, IDamageable
 
         Bomb();
 
-        //gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

@@ -32,7 +32,6 @@ public class Grenade : BombCore
     private void Update()
     {
         // 爆発範囲表示
-        ExplosionRadius();
 
         if (timer >= explosionTimer)
         {
@@ -48,6 +47,7 @@ public class Grenade : BombCore
         }
         else
         {
+            ExplosionRadius(explosionRadial);
             isExplosion = true;
             timer += GameTimer.Instance.GetScaledDeltaTime();
             colorAlpha = Mathf.Sin(Mathf.Pow(4, timer));
