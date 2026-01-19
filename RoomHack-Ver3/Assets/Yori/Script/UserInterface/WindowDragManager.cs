@@ -115,7 +115,7 @@ public class WindowDragManager : MonoBehaviour
     }
 }
 
-public class WindowListHolder : IAddWindoList, IGetWindowList
+public class WindowListHolder : ISetWindowList, IGetWindowList
 {
     public List<WindowMove> WindowMoveList { get; private set; } = new();
 
@@ -123,13 +123,18 @@ public class WindowListHolder : IAddWindoList, IGetWindowList
     {
         WindowMoveList.Add(window);
     }
+    public void RemoveWindowList(WindowMove window)
+    {
+        WindowMoveList.Remove(window);
+    }
 }
 public interface IGetWindowList
 {
     public List<WindowMove> WindowMoveList { get; }
 }
 
-public interface IAddWindoList
+public interface ISetWindowList
 {
     public void AddWindowList(WindowMove window);
+    public void RemoveWindowList(WindowMove window);
 }

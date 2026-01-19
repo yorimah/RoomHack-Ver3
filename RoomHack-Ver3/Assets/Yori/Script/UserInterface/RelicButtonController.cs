@@ -24,6 +24,9 @@ public class RelicButtonController : MonoBehaviour
 
     [Inject]
     ISetRelicList setRelicList;
+
+    [Inject]
+    ISetWindowList addWindoList;
     public void Start()
     {
         backGroundRect = this.gameObject.GetComponent<RectTransform>();
@@ -34,7 +37,7 @@ public class RelicButtonController : MonoBehaviour
             insObj.transform.parent = this.transform;
             insObj.transform.localPosition = new Vector3(0, 500 + buttonSpace * i, 0);
             insObj.transform.localScale = new Vector3(1, 1, 1);
-            insObj.SetRelicButton(relicDataBank.relicDataList[i].relicName, setMoneyNum,setRelicList);
+            insObj.SetRelicButton(relicDataBank.relicDataList[i], setMoneyNum, setRelicList, addWindoList);
             insObj.gameObject.name = relicDataBank.relicDataList[i].nameText + "Button";
         }
     }

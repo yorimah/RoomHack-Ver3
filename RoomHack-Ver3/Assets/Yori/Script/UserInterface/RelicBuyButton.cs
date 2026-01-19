@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 public class RelicBuyButton : MonoBehaviour
 {
-    private RelicName relicName = RelicName.none;
-
     [SerializeField]
     private Text relicNameTextBox;
 
@@ -12,43 +10,35 @@ public class RelicBuyButton : MonoBehaviour
     private Text relicExpTextBox;
 
     [SerializeField]
-    private RelicDataBank dataBank;
-
-    [SerializeField]
     private Image iconImage;
 
     private RelicData relicData;
 
+    [SerializeField]
+    private GameObject relicExplainObj;
+
     ISetMoneyNum setMoneyNum;
     ISetRelicList setRelicList;
-    private bool wasRewrite;
-    public void SetRelicButton(RelicName _relicName, ISetMoneyNum _setMoneyNum, ISetRelicList _setRelicList)
+
+    [SerializeField]
+    private Vector2 initButtonPos = Vector2.zero;
+
+    GameObject relicWindowObj;
+
+    ISetWindowList addWindowList;
+    public void SetRelicButton(RelicData _relicData, ISetMoneyNum _setMoneyNum, ISetRelicList _setRelicList, ISetWindowList _addWindoList)
     {
-        relicData = dataBank.relicDataList[(int)_relicName];
-        relicName = _relicName;
+        addWindowList = _addWindoList;
+        relicData = _relicData;
         setMoneyNum = _setMoneyNum;
         setRelicList = _setRelicList;
-    }
-
-    void Start()
-    {
-        wasRewrite = false;
         relicNameTextBox = relicNameTextBox.GetComponent<Text>();
         relicExpTextBox = relicExpTextBox.GetComponent<Text>();
         iconImage = iconImage.GetComponent<Image>();
+        relicNameTextBox.text = relicData.nameText;
+        relicExpTextBox.text = relicData.explainText;
+        iconImage.sprite = relicData.iconImage;
     }
-
-    void Update()
-    {
-        if (relicName != RelicName.none && !wasRewrite)
-        {
-            wasRewrite = true;
-            relicNameTextBox.text = relicData.nameText;
-            relicExpTextBox.text = relicData.explainText;
-            iconImage.sprite = relicData.iconImage;
-        }
-    }
-
     public void PushBuy()
     {
         if (setMoneyNum != null)
@@ -58,6 +48,20 @@ public class RelicBuyButton : MonoBehaviour
                 setMoneyNum.UseMoney(relicData.relicPrice);
                 setRelicList.AddRelic(relicData.relicName);
             }
+        }
+    }
+
+    public void InsRelicExplainWindow()
+    {
+        if (relicWindowObj == null)
+        {
+            relicWindowObj = Instantiate(relicExplainObj, initButtonPos, Quaternion.identity);
+            relicWindowObj.transform.parent = transform.root;
+            relicWindowObj.transform.localPosition = Vector3.zero;
+            relicWindowObj.transform.localScale = Vector3.one;
+            relicWindowObj.name = relicData.nameText + " : RelicExplainWindow";
+            RelicExplainWindow relicExplainWindow = relicWindowObj.GetComponent<RelicExplainWindow>();
+            relicExplainWindow.SetRelicButton(relicData, setMoneyNum, setRelicList, addWindowList);
         }
     }
 }

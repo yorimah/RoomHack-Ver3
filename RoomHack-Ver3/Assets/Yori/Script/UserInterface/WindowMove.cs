@@ -12,10 +12,13 @@ public class WindowMove : MonoBehaviour, ICanDrag
     public int Hierarchy { get; private set; }
 
     [Inject]
-    IAddWindoList addWindoList;
+    ISetWindowList addWindoList;
     public void Awake()
     {
-        addWindoList.AddWindowList(this);
+        if (addWindoList!=null)
+        {
+            addWindoList.AddWindowList(this);
+        }
     }
     private void Start()
     {
