@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5643386514798213110}
   - component: {fileID: 7327679914194896872}
   - component: {fileID: 3314293802210989993}
+  - component: {fileID: 6057807193637930079}
   m_Layer: 0
   m_Name: RelicNameText
   m_TagString: Untagged
@@ -79,6 +80,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: RelicName
+--- !u!114 &6057807193637930079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678240773779458698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bad4241ac3b7947bd9c4c7da35718b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GeneralUpdateText
+  inputText: hello world
+  delay: 0
+  isRunning: 0
 --- !u!1 &1867579247363330804
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,6 +238,7 @@ GameObject:
   - component: {fileID: 6916715956223602359}
   - component: {fileID: 6109567996972468708}
   - component: {fileID: 1805285428439441992}
+  - component: {fileID: 3111691257925132592}
   m_Layer: 0
   m_Name: RelicPriceText
   m_TagString: Untagged
@@ -290,6 +307,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: RelicPrice
+--- !u!114 &3111691257925132592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264798421182511324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bad4241ac3b7947bd9c4c7da35718b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GeneralUpdateText
+  inputText: hello world
+  delay: 0
+  isRunning: 0
 --- !u!1 &5827302467968234478
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +487,7 @@ GameObject:
   - component: {fileID: 4027059281478125982}
   - component: {fileID: 3858889767331965385}
   - component: {fileID: 8150517683904101986}
+  - component: {fileID: 2764061323059398326}
   m_Layer: 0
   m_Name: 'RelicExplainText '
   m_TagString: Untagged
@@ -523,6 +556,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: RelicExplain
+--- !u!114 &2764061323059398326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268245092367167427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bad4241ac3b7947bd9c4c7da35718b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GeneralUpdateText
+  inputText: hello world
+  delay: 0
+  isRunning: 0
 --- !u!1 &6723164216487394395
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,11 +978,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b62704c1a5aa8245befa1c4c96853de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RelicExplainWindow
-  relicNameTextBox: {fileID: 3314293802210989993}
-  relicExpTextBox: {fileID: 8150517683904101986}
-  relicPriceTextBox: {fileID: 1805285428439441992}
   iconImage: {fileID: 3566108874338787779}
   windowMove: {fileID: 5293050278328633591}
+  relicNameUpdate: {fileID: 6057807193637930079}
+  relicExpUpdate: {fileID: 2764061323059398326}
+  relicPriceUpdate: {fileID: 3111691257925132592}
 --- !u!114 &998847291690167310
 MonoBehaviour:
   m_ObjectHideFlags: 0

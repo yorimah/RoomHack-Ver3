@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
@@ -6,15 +7,6 @@ using UnityEngine.UI;
 /// </summary>
 public class RelicExplainWindow : MonoBehaviour
 {
-    [SerializeField]
-    private Text relicNameTextBox;
-
-    [SerializeField]
-    private Text relicExpTextBox;
-
-    [SerializeField]
-    private Text relicPriceTextBox;
-
     [SerializeField]
     private Image iconImage;
 
@@ -30,14 +22,20 @@ public class RelicExplainWindow : MonoBehaviour
     private RectTransform windowRect;
 
     private float waitSeconds;
+
+    [SerializeField]
+    GeneralUpdateText relicNameUpdate;
+    [SerializeField]    
+    GeneralUpdateText relicExpUpdate;
+    [SerializeField]
+    GeneralUpdateText relicPriceUpdate;
+
+    List<GeneralUpdateText> generalUpdateTexts = new();
     public void SetRelicButton(RelicData _relicData, ISetMoneyNum _setMoneyNum, ISetRelicList _setRelicList, ISetWindowList _setWindowList)
     {
         relicData = _relicData;
         setMoneyNum = _setMoneyNum;
         setRelicList = _setRelicList;
-        relicNameTextBox.text = relicData.nameText;
-        relicExpTextBox.text = relicData.explainText;
-        relicPriceTextBox.text = "$ : " + relicData.relicPrice.ToString();
         iconImage.sprite = relicData.iconImage;
         setWindowList = _setWindowList;
         setWindowList.AddWindowList(windowMove);
@@ -45,9 +43,15 @@ public class RelicExplainWindow : MonoBehaviour
 
     void Start()
     {
-        relicNameTextBox = relicNameTextBox.GetComponent<Text>();
-        relicExpTextBox = relicExpTextBox.GetComponent<Text>();
-        relicPriceTextBox = relicPriceTextBox.GetComponent<Text>();
+        generalUpdateTexts.Add(relicNameUpdate);
+        generalUpdateTexts.Add(relicExpUpdate);
+        generalUpdateTexts.Add(relicPriceUpdate);
+        foreach (var generalUpdateText in generalUpdateTexts)
+        {
+            generalUpdateText.delay = 3;
+        }
+        TextUpdateInit();
+        RunningText();
         iconImage = iconImage.GetComponent<Image>();
         windowRect = this.GetComponent<RectTransform>();
     }
@@ -74,6 +78,7 @@ public class RelicExplainWindow : MonoBehaviour
     public async UniTask FadeOutWindow()
     {
         windowMove.ButtonSetActive(false);
+        TextUpdateInit();
         while (windowRect.rect.height > 10)
         {
             windowRect.sizeDelta -= new Vector2(0, Screen.height / 10);
@@ -85,5 +90,25 @@ public class RelicExplainWindow : MonoBehaviour
             await UniTask.WaitForSeconds(waitSeconds);
         }
         windowMove.ButtonSetActive(false);
+    }
+
+    public void TextUpdateInit()
+    {
+        foreach (var generalUpdateText in generalUpdateTexts)
+        {
+            generalUpdateText.inputText = " ";
+            generalUpdateText.isRunning = false;
+        }
+    }
+
+    public void RunningText()
+    {
+        relicNameUpdate.inputText = relicData.nameText;
+        relicExpUpdate.inputText = relicData.explainText;
+        relicPriceUpdate.inputText = "$ : " + relicData.relicPrice.ToString();
+        foreach (var generalUpdateText in generalUpdateTexts)
+        {
+            generalUpdateText.isRunning = true;
+        }
     }
 }
