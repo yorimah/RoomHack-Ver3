@@ -21,13 +21,13 @@ public class FloorInformationManager : MonoBehaviour
     [SerializeField] Text effectTimerText;
     float effectTimerNum = 0;
 
-    [SerializeField] Image startScreen;
-    [SerializeField] Image clearScreen;
+    //[SerializeField] Image startScreen;
+    //[SerializeField] Image clearScreen;
     //[SerializeField] Image redScreen;
     [SerializeField] Image bandScreen;
 
-    float startTransparency = 0;
-    float clearTransparency = 0;
+    //float startTransparency = 0;
+    //float clearTransparency = 0;
     //float redScreenPosY = 0;
 
 
@@ -35,13 +35,15 @@ public class FloorInformationManager : MonoBehaviour
 
     private void Start()
     {
-        EffectManager.Instance.ActEffect(EffectManager.EffectType.Time, new Vector2(0, 6));
+        Debug.Log("ステージ開始");
+        //EffectManager.Instance.ActEffect(EffectManager.EffectType.Time, new Vector2(0, 6));
 
         saveData = getSaveData.GetPlayerSaveData();
 
         StartCoroutine(StartSequence());
 
-        startTransparency = 1;
+        EffectScreenManager.Instance.SetScreenOpacity(0, 1);
+        EffectScreenManager.Instance.ScreenFade(0, 0.98f);
 
         Debug.Log("SE_FloorReady");
     }
@@ -58,10 +60,10 @@ public class FloorInformationManager : MonoBehaviour
         }
         effectTimerText.text = effectTimerNum.ToString("00.00");
 
-        startScreen.color = new Color(0.066f, 0.055f, 0.09f, startTransparency);
-        clearScreen.color = new Color(1, 1, 1, clearTransparency);
-        startTransparency *= 0.98f;
-        clearTransparency *= 0.95f;
+        //startScreen.color = new Color(0.066f, 0.055f, 0.09f, startTransparency);
+        //clearScreen.color = new Color(1, 1, 1, clearTransparency);
+        //startTransparency *= 0.98f;
+        //clearTransparency *= 0.95f;
 
         //redScreen.rectTransform.anchoredPosition = new Vector2(0, redScreenPosY);
         //redScreenPosY = timerText.GetComponent<StageTimerDemo>().
@@ -81,7 +83,8 @@ public class FloorInformationManager : MonoBehaviour
 
             if (!isClearTrigger)
             {
-                clearTransparency = 0.25f;
+                EffectScreenManager.Instance.SetScreenOpacity(1, 0.25f);
+                EffectScreenManager.Instance.ScreenFade(1, 0.95f);
                 isClearTrigger = true;
             }
         }
@@ -117,7 +120,8 @@ public class FloorInformationManager : MonoBehaviour
 
         GameTimer.Instance.playTime = 1;
 
-        clearTransparency = 0.25f;
+        EffectScreenManager.Instance.SetScreenOpacity(1, 0.25f);
+        EffectScreenManager.Instance.ScreenFade(1, 0.95f);
         Debug.Log("SE_FloorStart");
 
         bandScreen.gameObject.SetActive(false);

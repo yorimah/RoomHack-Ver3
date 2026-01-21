@@ -57,6 +57,12 @@ public class ToolUIController : MonoBehaviour
     ToolUI deckSign;
     ToolUI trashSign;
 
+    [SerializeField, Header("デッキ枚数表示テキスト")]
+    GeneralUpdateText deckNumText;
+
+    [SerializeField, Header("トラッシュ枚数表示テキスト")]
+    GeneralUpdateText trashNumText;
+
     bool isTrashCheck;
 
     public List<bool> handCostList = new List<bool>();
