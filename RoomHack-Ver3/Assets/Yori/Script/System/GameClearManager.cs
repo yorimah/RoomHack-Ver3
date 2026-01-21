@@ -108,32 +108,5 @@ public class GameClearManager : MonoBehaviour
                 skipValue = 0;
             }
         }
-
-
-
-        //timer += Time.deltaTime;
-
-        //if (timer > 1 && timer <= 2)
-        //{
-        //    float moveValue = (timer - 1) * 400;
-
-        //    redScreen_Up.anchoredPosition = new Vector2(0, 270 + moveValue);
-        //    redScreen_Down.anchoredPosition = new Vector2(0, -270 - moveValue);
-        //}
-
-        //if (timer > 2.5)
-        //{
-        //    GameOverText[0].SetActive(true);
-        //}
-
-        //if (timer > 3)
-        //{
-        //    GameOverText[1].SetActive(true);
-        //}
-
-        //if (timer > 3.5)
-        //{
-        //    GameOverText[2].SetActive(true);
-        //}
     }
 }

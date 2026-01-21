@@ -18,15 +18,16 @@
     3,
     3,
     4,
-    4
+    4,
+    14
   ],
   "relicEvents": [
     2,
     3
   ],
-  "nowFloor": 5,
-  "stageRange": 6,
-  "selectStageNo": 1,
+  "nowFloor": 0,
+  "stageRange": 1,
+  "selectStageNo": 0,
   "maney": 0,
   "trace": 0.0
 }

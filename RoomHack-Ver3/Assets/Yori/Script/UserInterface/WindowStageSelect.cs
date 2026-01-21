@@ -44,7 +44,6 @@ public class WindowStageSelect : WindowSystem
     public void Accept()
     {
         PlayerSaveData saveData = SaveManager.Instance.Load();
-        saveData.stageRange = stageRange;
         saveData.selectStageNo = setStageNo;
         saveData.nowFloor = 0;
         SaveManager.Instance.Save(saveData);

@@ -420,18 +420,6 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     {
         SelectStageNo = num;
     }
-
-    public bool IsClearStage()
-    {
-        if (NowFloor == saveData.stageRange)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 }
 public interface IPosition
 {
@@ -618,6 +606,4 @@ public interface IFloorData
     public void AddNowFloor();
 
     public void SelectStage(int num);
-
-    public bool IsClearStage();
 }
