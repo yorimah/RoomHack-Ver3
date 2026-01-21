@@ -294,6 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 957d825db6d9a3d4eb7bd7f4dd702eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageDataBank: {fileID: 11400000, guid: ec39c8748c2a4a747b3ac9a454d8d294, type: 2}
 --- !u!1 &1224827719233397762
 GameObject:
   m_ObjectHideFlags: 0
