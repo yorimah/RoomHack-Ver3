@@ -44,7 +44,6 @@ public class WindowStageSelect : WindowSystem
     public void Accept()
     {
         PlayerSaveData saveData = SaveManager.Instance.Load();
-        saveData.stageRange = stageRange;
         saveData.selectStageNo = setStageNo;
         saveData.nowFloor = 0;
         SaveManager.Instance.Save(saveData);
@@ -66,7 +65,7 @@ public class WindowStageSelect : WindowSystem
         }
         windowRect.sizeDelta = setWindowSize;
         dragCollider.enabled = true;
-        buttonObj.SetActive(true);
+        windowMove.ButtonSetActive(true);
         titleUpdate.inputText = titleString;
         explainUpdate.inputText = explainString;
         titleUpdate.isRunning = true;
@@ -75,7 +74,7 @@ public class WindowStageSelect : WindowSystem
 
     public override async UniTask FadeOutWindow()
     {
-        buttonObj.SetActive(false);
+        windowMove.ButtonSetActive(false);
         while (windowRect.rect.height > 100)
         {
             windowRect.sizeDelta -= new Vector2(0, setWindowSize.y / 10);
@@ -90,7 +89,7 @@ public class WindowStageSelect : WindowSystem
         explainUpdate.inputText = " ";
         titleUpdate.isRunning = false;
         explainUpdate.isRunning = false;
-        buttonObj.SetActive(false);
+        windowMove.ButtonSetActive(false);
         windowRect.sizeDelta = Vector2.zero;
         windowRect.localPosition = windowInitPos;
         isClick = false;

@@ -13,7 +13,6 @@ public class PlayerSaveData
     public List<int> deckList;
     public List<int> relicEvents;
     public int nowFloor;
-    public int stageRange;
     public int selectStageNo;
     public int maney;
     public float trace;

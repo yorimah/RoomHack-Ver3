@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Zenject;
+using Cysharp.Threading.Tasks;
 public class WindowMove : MonoBehaviour, ICanDrag
 {
     Vector3 dragStartPos;
@@ -12,13 +13,23 @@ public class WindowMove : MonoBehaviour, ICanDrag
     public int Hierarchy { get; private set; }
 
     [Inject]
-    ISetWindowList addWindoList;
+    ISetWindowList setWindoList;
+
+    [SerializeField]
+    GameObject button;
+
+    protected float waitSeconds = 0.01f;
     public void Awake()
     {
-        if (addWindoList!=null)
+        if (setWindoList!=null)
         {
-            addWindoList.AddWindowList(this);
+            setWindoList.AddWindowList(this);
         }
+    }
+
+    public void ButtonSetActive(bool setActive)
+    {
+        button.SetActive(setActive);
     }
     private void Start()
     {
@@ -58,5 +69,10 @@ public class WindowMove : MonoBehaviour, ICanDrag
             Mathf.Clamp(nextPos.x, -aspect.x, aspect.x),
             Mathf.Clamp(nextPos.y, -aspect.y, aspect.y),
             rectTransform.position.z);
+    }
+    public void Exit()
+    {
+        setWindoList.RemoveWindowList(this);
+        Destroy(gameObject);
     }
 }

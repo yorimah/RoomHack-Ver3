@@ -567,7 +567,7 @@ MonoBehaviour:
   - {fileID: 1198261208}
   - {fileID: 887697593}
   nextScene:
-  - ToolGetScene
+  - YoriTestScene
 --- !u!114 &1919553357
 MonoBehaviour:
   m_ObjectHideFlags: 0

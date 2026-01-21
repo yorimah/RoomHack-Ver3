@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Zenject;
+using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
 
 public class StageTimerDemo : MonoBehaviour
 {
@@ -12,20 +12,16 @@ public class StageTimerDemo : MonoBehaviour
 
     public float GetTimer
     {
-        get { return timer; }
+        get => timer;
         private set { }
     }
 
     Text dispText;
 
-    [Inject]
-    IGetPlayerDie playerDie;
-
     private void Start()
     {
         dispText = GetComponent<Text>();
         timer = stageTime;
-        //playerDie.PlayerDie += () => { SceneManager.LoadScene("GameOverDemoScene"); };
     }
 
     private void Update()
@@ -39,6 +35,26 @@ public class StageTimerDemo : MonoBehaviour
         dispText.text = timer.ToString("00.00");
         timer -= GameTimer.Instance.GetScaledDeltaTime();
     }
+}
 
+public class GameTimeHolder
+{
+    private GameTimeHolder _instance;
 
+    public  GameTimeHolder Instance => _instance ??= new GameTimeHolder();
+
+    private  float gameTime = 10;
+    public  float GameTime()
+    {
+        return gameTime ;
+    }
+
+    private async UniTask  GameTimeStart()
+    {
+        while (true)
+        {
+            gameTime -= GameTimer.Instance.GetCustomTimeScale();
+            await UniTask.Yield();
+        }
+    }
 }

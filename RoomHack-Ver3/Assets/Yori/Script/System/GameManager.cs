@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     [Inject]
     IFloorData floorData;
 
+    [SerializeField]
+    StageDataBank stageDataBank;
+
     void Start()
     {
         eList = getEnemyList.GetEnemies();
@@ -64,7 +67,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         floorData.AddNowFloor();
-        if (floorData.IsClearStage())
+        if (floorData.NowFloor == stageDataBank.dataList[floorData.SelectStageNo].floorNum)
         {
             statusSave.HitPointInit();
             SaveManager.Instance.Save(statusSave.playerSave());

@@ -564,7 +564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622e90fdff2603f4ea1a8ca09440ad49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowStageSelect
-  buttonObj: {fileID: 1854680853}
   windowsObject: {fileID: 1296090904}
   titleUpdate: {fileID: 0}
   explainUpdate: {fileID: 0}
@@ -1803,7 +1802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3a5fb0fca7e2344b529fcc7a3b9ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShutDownWindowSystem
-  buttonObj: {fileID: 305309864}
   windowsObject: {fileID: 1501725839}
   shutDownWindowSize: {x: 400, y: 400}
   popPostion: {x: 500, y: -150}
@@ -3562,7 +3560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d787cd30bbd3d4fa7e949a9929eae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowSystem
-  buttonObj: {fileID: 2042247126}
   windowsObject: {fileID: 1028480513}
 --- !u!114 &743950375
 MonoBehaviour:
@@ -4374,6 +4371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 869762700}
   - component: {fileID: 869762705}
+  - component: {fileID: 869762706}
   - component: {fileID: 869762704}
   - component: {fileID: 869762702}
   - component: {fileID: 869762701}
@@ -4516,6 +4514,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869762699}
   m_CullTransparentMesh: 1
+--- !u!114 &869762706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869762699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069fec86b2468b54ca5c98742561fe24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WindowMove
+  canDrag: 0
+  button: {fileID: 921609283}
 --- !u!1 &914270606
 GameObject:
   m_ObjectHideFlags: 0
@@ -5017,6 +5029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowMove
   canDrag: 0
+  button: {fileID: 2042247126}
 --- !u!61 &1028480518
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5747,6 +5760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowMove
   canDrag: 0
+  button: {fileID: 630868142}
 --- !u!1 &1213312784
 GameObject:
   m_ObjectHideFlags: 0
@@ -5990,7 +6004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d787cd30bbd3d4fa7e949a9929eae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowSystem
-  buttonObj: {fileID: 0}
   windowsObject: {fileID: 1837707370}
 --- !u!114 &1242602197
 MonoBehaviour:
@@ -6232,7 +6245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622e90fdff2603f4ea1a8ca09440ad49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowStageSelect
-  buttonObj: {fileID: 5423584026536481994}
   windowsObject: {fileID: 417969653551266976}
   titleUpdate: {fileID: 8168645295192544086}
   explainUpdate: {fileID: 1950375892}
@@ -6443,6 +6455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WiIndowMove
   canDrag: 0
+  button: {fileID: 1854680853}
 --- !u!114 &1296090909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6643,7 +6656,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 26180963}
         m_TargetAssemblyTypeName: WindowStageSelect, Assembly-CSharp
-        m_MethodName: Exit
+        m_MethodName: Minimize
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7018,6 +7031,7 @@ GameObject:
   - component: {fileID: 1501725840}
   - component: {fileID: 1501725844}
   - component: {fileID: 1501725843}
+  - component: {fileID: 1501725845}
   - component: {fileID: 1501725842}
   - component: {fileID: 1501725841}
   m_Layer: 5
@@ -7159,6 +7173,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1501725839}
   m_CullTransparentMesh: 1
+--- !u!114 &1501725845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501725839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069fec86b2468b54ca5c98742561fe24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WindowMove
+  canDrag: 0
+  button: {fileID: 305309864}
 --- !u!1 &1576180338
 GameObject:
   m_ObjectHideFlags: 0
@@ -7532,7 +7560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d787cd30bbd3d4fa7e949a9929eae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowSystem
-  buttonObj: {fileID: 630868142}
   windowsObject: {fileID: 1160760566}
 --- !u!114 &1615301525
 MonoBehaviour:
@@ -7944,7 +7971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3a5fb0fca7e2344b529fcc7a3b9ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShutDownWindowSystem
-  buttonObj: {fileID: 921609283}
   windowsObject: {fileID: 869762699}
   shutDownWindowSize: {x: 500, y: 500}
   popPostion: {x: 0, y: 0}
@@ -8033,7 +8059,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 743950374}
         m_TargetAssemblyTypeName: WindowSystem, Assembly-CSharp
-        m_MethodName: Exit
+        m_MethodName: Minimize
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11138,6 +11164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WiIndowMove
   canDrag: 0
+  button: {fileID: 5423584026536481994}
 --- !u!114 &7425908157591201220
 MonoBehaviour:
   m_ObjectHideFlags: 0

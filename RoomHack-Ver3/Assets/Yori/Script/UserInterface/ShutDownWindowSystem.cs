@@ -23,7 +23,7 @@ public class ShutDownWindowSystem : WindowSystem
         }
         windowRect.sizeDelta = shutDownWindowSize;
         dragCollider.enabled = true;
-        buttonObj.SetActive(true);
+        windowMove.ButtonSetActive(true);
     }
     public void ShutDownButton()
     {
