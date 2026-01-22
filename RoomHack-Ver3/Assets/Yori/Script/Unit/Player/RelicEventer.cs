@@ -20,6 +20,8 @@ public class RelicEventer : MonoBehaviour
     IUseableRam useableRam;
     [Inject]
     ISetPlayerSpecialAction setPlayerSpecialAction;
+    [Inject]
+    IGetTime getTime;
 
     public void Start()
     {
@@ -63,8 +65,10 @@ public class RelicEventer : MonoBehaviour
                 return new AllOverTheBurst(setPlayerSpecialAction, relicName);
             case RelicName.brawProtcol:
                 return new BrawProtocal(playerScore, relicName, setMoveSpeed);
+            case RelicName.lethalEnd:
+                return new LethalEnd(getTime,useableRam,relicName);
         }
-        return null;
+        return  new NoneRelic(); ;
     }
 }
 
@@ -77,6 +81,7 @@ public enum RelicName
     halfHitPointMoveSpeedUp,
     allOverTheBurst,
     brawProtcol,
+    lethalEnd,
 }
 
 public interface IRelicEvent
@@ -311,13 +316,41 @@ public class LethalEnd : IRelicEvent
 
 
     public bool IsEventTrigger { get; private set; }
+
+    private IGetTime getTime;
+
+    private int drawNum = 3;
+
+    private IUseableRam useableRam;
+
+    public LethalEnd(IGetTime _getTime, IUseableRam _useableRam, RelicName _relicName)
+    {
+        getTime = _getTime;
+        useableRam = _useableRam;
+        relicName = _relicName;
+    }
     public void RelicEventAction()
     {
-
+        if (RelicEventTrigger())
+        {
+            useableRam.RamChange(useableRam.RamCapacity);
+            for (int i = 0; i < drawNum; i++)
+            {
+                ToolManager.Instance.DeckDraw();
+            }
+        }
     }
 
     public bool RelicEventTrigger()
     {
-        return true;
+        if (!IsEventTrigger)
+        {
+            if (getTime.gameTime <= 1)
+            {
+                IsEventTrigger = true;
+                return true;
+            }
+        }
+        return false;
     }
 }
