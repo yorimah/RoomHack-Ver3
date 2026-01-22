@@ -71,6 +71,8 @@ public class RelicEventer : MonoBehaviour
                 return new LethalEnd(getTime, useableRam, relicName);
             case RelicName.flameDesires:
                 return new FlameDesires(getCleaFlag, setHitPoint, relicName);
+            case RelicName.redemption:
+                return new Redemption(setPlayerSpecialAction,relicName);
         }
         return new NoneRelic(); ;
     }
@@ -87,6 +89,7 @@ public enum RelicName
     brawProtcol,
     lethalEnd,
     flameDesires,
+    redemption
 }
 
 public interface IRelicEvent

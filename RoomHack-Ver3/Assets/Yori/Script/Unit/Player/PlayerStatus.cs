@@ -334,6 +334,26 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         }
     }
 
+    private float deadLineTimer = 1;
+    public void DeadLineDamage()
+    {
+        if (specialActionList.Contains(SpecialAction.Redemption))
+        {
+            if (deadLineTimer <= 0)
+            {
+                DamageHitPoint(10);
+                deadLineTimer = 0;
+            }
+            else
+            {
+                deadLineTimer -= GameTimer.Instance.GetScaledDeltaTime();
+            }
+        }
+        else
+        {
+            DamageHitPoint(MaxHitPoint);
+        }
+    }
     public void MoveSpeedUp(float plusNum)
     {
         plusMoveSpeed += plusNum;
@@ -550,6 +570,7 @@ public interface ISetHitPoint
 {
     public void DamageHitPoint(float dmg);
     public void HealNowHitPoint(int healPoint);
+    public void DeadLineDamage();
 }
 
 public interface ISetMoveSpeed

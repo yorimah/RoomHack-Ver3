@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
 using Zenject;
 public class StageTimerDemo : MonoBehaviour
 {
@@ -16,6 +14,8 @@ public class StageTimerDemo : MonoBehaviour
     [Inject]
     IGetTime getTime;
 
+    [Inject]
+    ISetHitPoint setHitPoint;
     public float GetTimer
     {
         get => timer;
@@ -29,15 +29,22 @@ public class StageTimerDemo : MonoBehaviour
         dispText = GetComponent<Text>();
     }
 
+
     private void Update()
     {
         setTime.GameTime();
 
         dispText.text = getTime.gameTime.ToString("00.00");
-    }
-}
 
-public class GameTimeHolder:ISetTimer,IGetTime
+        if (getTime.gameTime <= 0)
+        {
+            setHitPoint.DeadLineDamage();
+        }
+    }
+
+
+}
+public class GameTimeHolder : ISetTimer, IGetTime
 {
 
     public float gameTime { get; private set; }
@@ -47,7 +54,7 @@ public class GameTimeHolder:ISetTimer,IGetTime
         gameTime = 10;
     }
 
-    public void GameTime() 
+    public void GameTime()
     {
         gameTime -= GameTimer.Instance.GetScaledDeltaTime();
     }
@@ -55,7 +62,7 @@ public class GameTimeHolder:ISetTimer,IGetTime
 
 public interface ISetTimer
 {
-    public  void GameTime();
+    public void GameTime();
 }
 
 public interface IGetTime
