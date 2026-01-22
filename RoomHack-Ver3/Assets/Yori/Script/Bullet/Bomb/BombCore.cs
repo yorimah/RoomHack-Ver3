@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
 using System;
 using System.Threading;
+using UnityEngine;
 public class BombCore : MonoBehaviour
 {
     [SerializeField, Header("爆発半径")]
@@ -33,7 +33,7 @@ public class BombCore : MonoBehaviour
         bomBlastCircleCollider = bombBlast.GetComponent<CircleCollider2D>();
         cancellationTokenSource = new CancellationTokenSource();
         // コルーチン起動
-        var  linked = CancellationTokenSource.CreateLinkedTokenSource(
+        var linked = CancellationTokenSource.CreateLinkedTokenSource(
         cancellationTokenSource.Token,
         this.GetCancellationTokenOnDestroy()
          );
@@ -59,9 +59,9 @@ public class BombCore : MonoBehaviour
                 {
                     break;
                 }
-                await UniTask.Yield();
+                await UniTask.Yield(cancellationToken: token);
             }
-            while (bomBlastCircleCollider.radius > 0)
+            while (bombColliderRadial > 0)
             {
                 bombColliderRadial -= 4 * GameTimer.Instance.GetScaledDeltaTime();
                 token.ThrowIfCancellationRequested();
@@ -74,15 +74,17 @@ public class BombCore : MonoBehaviour
                 {
                     break;
                 }
-                await UniTask.Yield();
+                await UniTask.Yield(cancellationToken: token);
             }
+            bombBlast.gameObject.SetActive(false);
+            meshObject.SetActive(false);
         }
         catch (OperationCanceledException)
         {
 
             throw;
         }
-       
+
     }
     protected void MeshInit()
     {
