@@ -3,12 +3,31 @@ using UnityEngine;
 using Zenject;
 public class RelicEventer : MonoBehaviour
 {
+    [Inject]
+    IGetPlayerScore playerScore;
+
+    [Inject]
+    ISetMoveSpeed setMoveSpeed;
 
     [Inject]
     IGetRelicList relicList;
 
+    [Inject]
+    IGetHitPoint getHitPoint;
+    [Inject]
+    ISetHitPoint setHitPoint;
+    [Inject]
+    IUseableRam useableRam;
+    [Inject]
+    ISetPlayerSpecialAction setPlayerSpecialAction;
+
     public void Start()
     {
+        foreach (var intRelicEvent in relicList.intRelicEvents)
+        {
+            relicList.relicEvents.Add(RelicIns((RelicName)intRelicEvent));
+        }
+
     }
 
 
@@ -25,7 +44,30 @@ public class RelicEventer : MonoBehaviour
             }
         }
     }
+
+    public IRelicEvent RelicIns(RelicName relicName)
+    {
+        switch (relicName)
+        {
+            case RelicName.none:
+                return new NoneRelic();
+            case RelicName.destoryHPHeal:
+                return new HitPointHeal(playerScore, setHitPoint, relicName);
+            case RelicName.destoryRamHeal:
+                return new RamHeal(playerScore, useableRam, relicName);
+            case RelicName.destroyDeckDraw:
+                return new DeckDraw(playerScore, relicName);
+            case RelicName.halfHitPointMoveSpeedUp:
+                return new HalfMoveSpeed(getHitPoint, setMoveSpeed, relicName);
+            case RelicName.allOverTheBurst:
+                return new AllOverTheBurst(setPlayerSpecialAction, relicName);
+            case RelicName.brawProtcol:
+                return new BrawProtocal(playerScore, relicName, setMoveSpeed);
+        }
+        return null;
+    }
 }
+
 public enum RelicName
 {
     none,

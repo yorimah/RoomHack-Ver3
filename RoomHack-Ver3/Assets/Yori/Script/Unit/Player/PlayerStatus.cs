@@ -112,10 +112,10 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         relicEvents = new();
 
-        foreach (var intRelicEvent in intRelicEvents)
-        {
-            relicEvents.Add(RelicIns((RelicName)intRelicEvent));
-        }
+        //foreach (var intRelicEvent in intRelicEvents)
+        //{
+        //    relicEvents.Add(RelicIns((RelicName)intRelicEvent));
+        //}
 
         HaveMoney = saveData.maney;
         Trace = saveData.trace;
@@ -325,27 +325,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         return saveData;
     }
 
-    public IRelicEvent RelicIns(RelicName relicName)
-    {
-        switch (relicName)
-        {
-            case RelicName.none:
-                return new NoneRelic();
-            case RelicName.destoryHPHeal:
-                return new HitPointHeal(this, this, relicName);
-            case RelicName.destoryRamHeal:
-                return new RamHeal(this, this, relicName);
-            case RelicName.destroyDeckDraw:
-                return new DeckDraw(this, relicName);
-            case RelicName.halfHitPointMoveSpeedUp:
-                return new HalfMoveSpeed(this, this, relicName);
-            case RelicName.allOverTheBurst:
-                return new AllOverTheBurst(this, relicName);
-            case RelicName.brawProtcol:
-                return new BrawProtocal(this, relicName, this);
-        }
-        return null;
-    }
+    
     public void SetSpecialAction(SpecialAction setAction)
     {
         SpecialAction = setAction;
@@ -540,8 +520,8 @@ public interface ISetRelicList
 public interface IGetRelicList
 {
     public List<IRelicEvent> relicEvents { get; }
+    public List<int> intRelicEvents { get; }
 }
-
 public interface IGetHitPoint
 {
     public float NowHitPoint { get; }
