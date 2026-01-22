@@ -251,13 +251,22 @@ public class EffectManager : MonoBehaviour
         return useableEffect;
     }
 
+    public GameObject ActEffect_Num(int _num, Vector2 _pos, float _lifeTime, Color _color, float _size)
+    {
+        GameObject obj = ActEffect_Num(_num, _pos,_lifeTime);
+        obj.GetComponent<TextMesh>().color = _color;
+        obj.transform.localScale *= new Vector2(_size, _size);
+        return obj;
+    }
+
     IEnumerator NumEffectLifeTime(GameObject _numEffect, float _lifeTime)
     {
         float timer = 0;
+        TextMesh textMesh = _numEffect.GetComponent<TextMesh>();
         while (timer <= _lifeTime)
         {
             float alpha = 1 - (timer / _lifeTime);
-            _numEffect.GetComponent<TextMesh>().color = new Color(1, 0, 0, alpha);
+            textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, alpha);
             yield return null;
             timer += Time.deltaTime;
         }

@@ -41,6 +41,7 @@ public class DetonationObject : BombCore, IHackObject, IDamageable
         if (damage < 0) damage = 0;
         NowHitPoint -= damage;
         EffectManager.Instance.ActEffect_Num(damage, this.transform.position, 1);
+        EffectManager.Instance.ActEffect_Num(-armorInt, this.transform.position + Vector3.up * 0.2f, 1, new Color(0.8f, 0.8f, 0.8f, 1), 0.5f);
 
         if (NowHitPoint <= 0)
         {
@@ -60,7 +61,7 @@ public class DetonationObject : BombCore, IHackObject, IDamageable
     {
         // ハックダメージに防護点計算してたら意味ないやんけ！おい！
         NowHitPoint -= dmg * hackMag;
-        EffectManager.Instance.ActEffect_Num(dmg, this.transform.position, 1);
+        EffectManager.Instance.ActEffect_Num(dmg, this.transform.position, 1, new Color32(195, 4, 197, 255), 1);
 
         if (NowHitPoint <= 0)
         {
