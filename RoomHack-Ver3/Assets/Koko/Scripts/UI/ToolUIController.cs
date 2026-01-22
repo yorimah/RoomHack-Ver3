@@ -114,21 +114,22 @@ public class ToolUIController : MonoBehaviour
         deckSign.toMovePosition = nowDeckPos;
         trashSign.toMovePosition = nowTrashPos;
 
-        if (GameTimer.Instance.IsHackTime)
-        {
-            nowDeckPos = hackDeckPos;
-            nowTrashPos = hackTrashPos;
+        //if (GameTimer.Instance.IsHackTime)
+        //{
+        //    nowDeckPos = hackDeckPos;
+        //    nowTrashPos = hackTrashPos;
 
-            nowHandPos = hackHandPos;
-        }
-        else
-        {
-            nowDeckPos = actDeckPos;
-            nowTrashPos = actTrashPos;
+        //    nowHandPos = hackHandPos;
+        //}
+        //else
+        //{
+        //    nowDeckPos = actDeckPos;
+        //    nowTrashPos = actTrashPos;
 
-            nowHandPos = actHandPos;
-        }
+        //    nowHandPos = actHandPos;
+        //}
 
+        nowHandPos -= Input.mouseScrollDelta * 50;
 
         // デッキクリックでリブート開始
         // 廃止

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: SniperRifle
   m_EditorClassIdentifier: 
   gunName: 2
-  power: 80
+  power: 120
   rate: 1
   maxBullet: 5
   reloadTime: 2
   reloadTypeBolt: 1
-  bulletSpeed: 40
+  bulletSpeed: 80
   maneuverability: 0
   recoil: 0
   minDiffusionRate: 1
