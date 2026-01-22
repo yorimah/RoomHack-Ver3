@@ -315,6 +315,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
     public void DamageHitPoint(float dmg)
     {
+        Debug.Log(dmg);
         NowHitPoint -= dmg;
         if (NowHitPoint <= 0)
         {
@@ -334,19 +335,20 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         }
     }
 
-    private float deadLineTimer = 1;
+    private float deadLineTimer = 0;
+    private float deadLine = 1;
     public void DeadLineDamage()
     {
         if (specialActionList.Contains(SpecialAction.Redemption))
         {
-            if (deadLineTimer <= 0)
+            if (deadLineTimer >= deadLine)
             {
-                DamageHitPoint(10);
                 deadLineTimer = 0;
+                DamageHitPoint(10);
             }
             else
             {
-                deadLineTimer -= GameTimer.Instance.GetScaledDeltaTime();
+                deadLineTimer += GameTimer.Instance.GetScaledDeltaTime();
             }
         }
         else

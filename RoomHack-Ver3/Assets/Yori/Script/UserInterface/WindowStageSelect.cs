@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 public class WindowStageSelect : WindowSystem
 {
     private string sceneToLoad;
@@ -24,6 +25,9 @@ public class WindowStageSelect : WindowSystem
     private int setStageNo;
     [SerializeField, Header("windowSize")]
     private Vector2 setWindowSize;
+
+    [Inject]
+    IStatusSave statusSave;
     public void SetScene(StageData setScene, int _setStageNo, StageSceneLoader _loader)
     {
         setStageNo = _setStageNo;
@@ -46,7 +50,8 @@ public class WindowStageSelect : WindowSystem
         PlayerSaveData saveData = SaveManager.Instance.Load();
         saveData.selectStageNo = setStageNo;
         saveData.nowFloor = 0;
-        SaveManager.Instance.Save(saveData);
+        statusSave.HitPointInit();
+        SaveManager.Instance.Save(statusSave.playerSave());
         SceneManager.LoadScene(loader.NextFloorSceneLoad());
     }
 

@@ -64,7 +64,7 @@ public class RelicEventer : MonoBehaviour
             case RelicName.halfHitPointMoveSpeedUp:
                 return new HalfMoveSpeed(getHitPoint, setMoveSpeed, relicName);
             case RelicName.allOverTheBurst:
-                return new AllOverTheBurst(setPlayerSpecialAction, relicName);
+                return new AllOverTheBurst(setPlayerSpecialAction, getTime, relicName);
             case RelicName.brawProtcol:
                 return new BrawProtocal(playerScore, relicName, setMoveSpeed);
             case RelicName.lethalEnd:
@@ -72,7 +72,7 @@ public class RelicEventer : MonoBehaviour
             case RelicName.flameDesires:
                 return new FlameDesires(getCleaFlag, setHitPoint, relicName);
             case RelicName.redemption:
-                return new Redemption(setPlayerSpecialAction,relicName);
+                return new Redemption(setPlayerSpecialAction, getTime, relicName);
         }
         return new NoneRelic(); ;
     }
@@ -297,18 +297,23 @@ public class AllOverTheBurst : IRelicEvent
 
     private ISetPlayerSpecialAction setAction;
 
-    public AllOverTheBurst(ISetPlayerSpecialAction _setAction, RelicName _relicName)
+    private IGetTime getTime;
+    public AllOverTheBurst(ISetPlayerSpecialAction _setAction, IGetTime _getTime, RelicName _relicName)
     {
         setAction = _setAction;
         relicName = _relicName;
+        getTime = _getTime;
+        setAction.AddSpecialAction(SpecialAction.AllOver);
     }
 
     public void RelicEventAction()
     {
         if (!IsEventTrigger)
         {
-            setAction.AddSpecialAction(SpecialAction.AllOver);
-            IsEventTrigger = true;
+            if (getTime.gameTime <= 1)
+            {
+                IsEventTrigger = true;
+            }
         }
     }
 
@@ -326,18 +331,23 @@ public class Redemption : IRelicEvent
 
     private ISetPlayerSpecialAction setAction;
 
-    public Redemption(ISetPlayerSpecialAction _setAction, RelicName _relicName)
+    IGetTime getTime;
+    public Redemption(ISetPlayerSpecialAction _setAction, IGetTime _getTime, RelicName _relicName)
     {
         setAction = _setAction;
         relicName = _relicName;
+        getTime = _getTime;
+        setAction.AddSpecialAction(SpecialAction.Redemption);
     }
 
     public void RelicEventAction()
     {
         if (!IsEventTrigger)
         {
-            setAction.AddSpecialAction(SpecialAction.Redemption);
-            IsEventTrigger = true;
+            if (getTime.gameTime <= 0)
+            {
+                IsEventTrigger = true;
+            }
         }
     }
 
