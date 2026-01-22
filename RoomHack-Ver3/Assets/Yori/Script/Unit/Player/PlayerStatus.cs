@@ -6,7 +6,8 @@ using UnityEngine;
 public enum SpecialAction
 {
     none,
-    AllOver
+    AllOver,
+    Redemption
 }
 
 public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
@@ -68,7 +69,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
     public List<int> DeckList { get; private set; }
 
-    private SpecialAction SpecialAction = SpecialAction.none;
+    private List<SpecialAction> specialActionList = new();
 
     public float specialActionCount = 0;
 
@@ -112,11 +113,6 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
 
         relicEvents = new();
 
-        //foreach (var intRelicEvent in intRelicEvents)
-        //{
-        //    relicEvents.Add(RelicIns((RelicName)intRelicEvent));
-        //}
-
         HaveMoney = saveData.maney;
         Trace = saveData.trace;
 
@@ -156,7 +152,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     {
         if (0 > RamNow - useRam)
         {
-            if (SpecialAction == SpecialAction.AllOver)
+            if (specialActionList.Contains(SpecialAction.AllOver))
             {
                 DamageHitPoint(RamNow - useRam * 10);
                 RamNow = 0;
@@ -188,6 +184,25 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         else
         {
             RamNow = ram;
+        }
+    }
+
+    public bool RamCanChange(int useRam)
+    {
+        if (0 > RamNow - useRam)
+        {
+            if (specialActionList.Contains(SpecialAction.AllOver))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return true;
         }
     }
 
@@ -301,6 +316,10 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     public void DamageHitPoint(float dmg)
     {
         NowHitPoint -= dmg;
+        if (NowHitPoint <= 0)
+        {
+            DieSet();
+        }
     }
 
     public void HealNowHitPoint(int healPoint)
@@ -325,10 +344,9 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         return saveData;
     }
 
-    
-    public void SetSpecialAction(SpecialAction setAction)
+    public void AddSpecialAction(SpecialAction addAction)
     {
-        SpecialAction = setAction;
+        specialActionList.Add(addAction);
     }
 
     public int GetMoneyNum()
@@ -546,9 +564,8 @@ public interface IGetSaveData
 
 public interface ISetPlayerSpecialAction
 {
-    public void SetSpecialAction(SpecialAction specialAction);
+    public void AddSpecialAction(SpecialAction specialAction);
 }
-
 
 public interface IGetMoneyNum
 {

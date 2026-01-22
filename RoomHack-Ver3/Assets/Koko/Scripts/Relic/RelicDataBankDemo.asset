@@ -53,3 +53,8 @@ MonoBehaviour:
     explainText: "1\u79D2\u4EE5\u4E0B\u3067RAM\u5168\u56DE\u5FA9\u30013\u30C9\u30ED\u30FC"
     iconImage: {fileID: 21300000, guid: 9217832a8b6d1f245b920b97725647dd, type: 3}
     relicPrice: 100
+  - relicName: 7
+    nameText: LethalEnd
+    explainText: "1\u79D2\u4EE5\u4E0B\u3067RAM\u5168\u56DE\u5FA9\u30013\u30C9\u30ED\u30FC"
+    iconImage: {fileID: 21300000, guid: 9217832a8b6d1f245b920b97725647dd, type: 3}
+    relicPrice: 100

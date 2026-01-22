@@ -22,6 +22,8 @@ public class RelicEventer : MonoBehaviour
     ISetPlayerSpecialAction setPlayerSpecialAction;
     [Inject]
     IGetTime getTime;
+    [Inject]
+    IGetCleaFlag getCleaFlag;
 
     public void Start()
     {
@@ -66,9 +68,11 @@ public class RelicEventer : MonoBehaviour
             case RelicName.brawProtcol:
                 return new BrawProtocal(playerScore, relicName, setMoveSpeed);
             case RelicName.lethalEnd:
-                return new LethalEnd(getTime,useableRam,relicName);
+                return new LethalEnd(getTime, useableRam, relicName);
+            case RelicName.flameDesires:
+                return new FlameDesires(getCleaFlag, setHitPoint, relicName);
         }
-        return  new NoneRelic(); ;
+        return new NoneRelic(); ;
     }
 }
 
@@ -82,6 +86,7 @@ public enum RelicName
     allOverTheBurst,
     brawProtcol,
     lethalEnd,
+    flameDesires,
 }
 
 public interface IRelicEvent
@@ -299,7 +304,7 @@ public class AllOverTheBurst : IRelicEvent
     {
         if (!IsEventTrigger)
         {
-            setAction.SetSpecialAction(SpecialAction.AllOver);
+            setAction.AddSpecialAction(SpecialAction.AllOver);
             IsEventTrigger = true;
         }
     }
@@ -309,6 +314,36 @@ public class AllOverTheBurst : IRelicEvent
         return true;
     }
 }
+public class Redemption : IRelicEvent
+{
+    public RelicName relicName { get; private set; }
+
+
+    public bool IsEventTrigger { get; private set; }
+
+    private ISetPlayerSpecialAction setAction;
+
+    public Redemption(ISetPlayerSpecialAction _setAction, RelicName _relicName)
+    {
+        setAction = _setAction;
+        relicName = _relicName;
+    }
+
+    public void RelicEventAction()
+    {
+        if (!IsEventTrigger)
+        {
+            setAction.AddSpecialAction(SpecialAction.Redemption);
+            IsEventTrigger = true;
+        }
+    }
+
+    public bool RelicEventTrigger()
+    {
+        return true;
+    }
+}
+
 
 public class LethalEnd : IRelicEvent
 {
@@ -350,6 +385,40 @@ public class LethalEnd : IRelicEvent
                 IsEventTrigger = true;
                 return true;
             }
+        }
+        return false;
+    }
+}
+
+public class FlameDesires : IRelicEvent
+{
+    public RelicName relicName { get; private set; }
+
+    public bool IsEventTrigger { get; private set; }
+
+    private IGetCleaFlag clearFlag;
+
+    private ISetHitPoint setHitPoint;
+
+    public FlameDesires(IGetCleaFlag _clearFlag, ISetHitPoint _setHitPoint, RelicName _relicName)
+    {
+        clearFlag = _clearFlag;
+        relicName = _relicName;
+        setHitPoint = _setHitPoint;
+    }
+    public void RelicEventAction()
+    {
+        if (RelicEventTrigger())
+        {
+            setHitPoint.HealNowHitPoint(30);
+        }
+    }
+    public bool RelicEventTrigger()
+    {
+        if (clearFlag.isClear && !IsEventTrigger)
+        {
+            IsEventTrigger = true;
+            return true;
         }
         return false;
     }
