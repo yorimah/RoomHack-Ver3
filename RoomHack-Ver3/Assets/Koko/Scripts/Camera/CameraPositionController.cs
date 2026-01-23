@@ -74,72 +74,90 @@ public class CameraPositionController : MonoBehaviour
             insTargetAnimObj.SetActive(false);
         }
 
-        if (GameTimer.Instance.IsHackTime)
+        // タゲ取得
+        GameObject mouseObject = GetMousePositionObject();
+        if (mouseObject != null)
         {
-            //ハックスタート時
-            //if (!isStart)
-            //{
-            //    // タゲ取得
-            //    if (GetMousePositionObject() != null)
-            //    {
-            //        targetObject = GetMousePositionObject();
-            //    }
-
-            //    isStart = true;
-
-            //}
-
-
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (mouseObject.GetComponent<IHackObject>().CanHack)
             {
-                // タゲ取得
-                GameObject hackObject = GetMousePositionObject();
-                if (hackObject != null)
-                {
-                    if (hackObject.GetComponent<IHackObject>().CanHack)
-                    {
-                        targetObject = hackObject;
-                    }
-                }
-
-                // マウスドラッグ初期設定
-                mouseStartPos = Input.mousePosition;
-                cameraStartPos = this.transform.position;
-
+                targetObject = mouseObject;
             }
-
-            //// カメラドラッグ
-            //if (Input.GetKey(KeyCode.Mouse1))
-            //{
-            //    Vector3 mouseVec = Input.mousePosition - mouseStartPos;
-
-            //    // ドラッグするとオブジェクト解除
-            //    if (Mathf.Abs(mouseVec.x) > targetOutNum || Mathf.Abs(mouseVec.y) > targetOutNum)
-            //    {
-            //        targetObject = null;
-            //    }
-
-            //    if (targetObject == null)
-            //    {
-            //        // ハックオブジェがなかった場合のポジション処理
-            //        this.transform.position = cameraStartPos - mouseVec / 100;
-            //    }
-            //}
-
         }
         else
         {
-            //// お試しでカメラ固定
-            //this.transform.position = Vector2.zero;
-            //targetObject = null;
-
-
-            // カメラをプレイヤー追従
-            //this.transform.position = playerObject.transform.position;
-            //targetObject = playerObject;
-
-            //isStart = false;
+            targetObject = null;
         }
+
+        // マウスドラッグ初期設定
+        mouseStartPos = Input.mousePosition;
+        cameraStartPos = this.transform.position;
+
+        //if (GameTimer.Instance.IsHackTime)
+        //{
+        //    //ハックスタート時
+        //    //if (!isStart)
+        //    //{
+        //    //    // タゲ取得
+        //    //    if (GetMousePositionObject() != null)
+        //    //    {
+        //    //        targetObject = GetMousePositionObject();
+        //    //    }
+
+        //    //    isStart = true;
+
+        //    //}
+
+
+        //    //if (Input.GetKeyDown(KeyCode.Mouse1))
+        //    //{
+        //    //    // タゲ取得
+        //    //    GameObject hackObject = GetMousePositionObject();
+        //    //    if (hackObject != null)
+        //    //    {
+        //    //        if (hackObject.GetComponent<IHackObject>().CanHack)
+        //    //        {
+        //    //            targetObject = hackObject;
+        //    //        }
+        //    //    }
+
+        //    //    // マウスドラッグ初期設定
+        //    //    mouseStartPos = Input.mousePosition;
+        //    //    cameraStartPos = this.transform.position;
+
+        //    //}
+
+        //    //// カメラドラッグ
+        //    //if (Input.GetKey(KeyCode.Mouse1))
+        //    //{
+        //    //    Vector3 mouseVec = Input.mousePosition - mouseStartPos;
+
+        //    //    // ドラッグするとオブジェクト解除
+        //    //    if (Mathf.Abs(mouseVec.x) > targetOutNum || Mathf.Abs(mouseVec.y) > targetOutNum)
+        //    //    {
+        //    //        targetObject = null;
+        //    //    }
+
+        //    //    if (targetObject == null)
+        //    //    {
+        //    //        // ハックオブジェがなかった場合のポジション処理
+        //    //        this.transform.position = cameraStartPos - mouseVec / 100;
+        //    //    }
+        //    //}
+
+        //}
+        //else
+        //{
+        //    //// お試しでカメラ固定
+        //    //this.transform.position = Vector2.zero;
+        //    //targetObject = null;
+
+
+        //    // カメラをプレイヤー追従
+        //    //this.transform.position = playerObject.transform.position;
+        //    //targetObject = playerObject;
+
+        //    //isStart = false;
+        //}
     }
 
     GameObject GetMousePositionObject()

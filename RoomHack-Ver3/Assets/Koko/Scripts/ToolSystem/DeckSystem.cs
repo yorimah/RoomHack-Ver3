@@ -53,6 +53,7 @@ public class DeckSystem : MonoBehaviour
 
     public void Shuffle(List<ToolTag> _tools)
     {
+
         List<ToolTag> processingList = new List<ToolTag>();
 
         for (int i = 0; i < _tools.Count; i++)

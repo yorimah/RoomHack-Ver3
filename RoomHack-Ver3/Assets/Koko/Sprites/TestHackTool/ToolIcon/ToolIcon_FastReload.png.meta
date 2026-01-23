@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 49825f7652f3c6e438eb2dd522ea54bd
+guid: 79acc013dc6be41428f3e89cb6603c3d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3761078773074654107
-    second: ToolIcon_InstantMemory_0
+      213: 3782133655770757488
+    second: ToolIcon_FastReload_0
   - first:
-      213: -6469066359709720067
-    second: ToolIcon_InstantMemory_1
+      213: -1224694802185206585
+    second: ToolIcon_FastReload_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -99,30 +99,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ToolIcon_InstantMemory_0
+      name: ToolIcon_FastReload_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2
-        width: 31
-        height: 30
+        x: 1
+        y: 14
+        width: 30
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 56c8f9e68c6fdcbc0800000000000000
-      internalID: -3761078773074654107
+      spriteID: 079f3457586dc7430800000000000000
+      internalID: 3782133655770757488
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ToolIcon_InstantMemory_1
+      name: ToolIcon_FastReload_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 1
         y: 0
-        width: 10
-        height: 9
+        width: 30
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: df1a211ab624936a0800000000000000
-      internalID: -6469066359709720067
+      spriteID: 7c4cb7de092010fe0800000000000000
+      internalID: -1224694802185206585
       vertices: []
       indices: 
       edges: []
@@ -173,8 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ToolIcon_InstantMemory_0: -3761078773074654107
-      ToolIcon_InstantMemory_1: -6469066359709720067
+      ToolIcon_FastReload_0: 3782133655770757488
+      ToolIcon_FastReload_1: -1224694802185206585
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
