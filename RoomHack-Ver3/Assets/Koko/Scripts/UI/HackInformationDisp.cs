@@ -26,7 +26,7 @@ public class HackInformationDisp : MonoBehaviour
 
     private void Update()
     {
-        List<Enemy> enemies = new List<Enemy>();
+        List<EnemyBase> enemies = new List<EnemyBase>();
         enemies.AddRange(getEnemyList.GetEnemies());
         int enemyNum = enemies.Count;
         for (int i = 0; i < enemies.Count; i++)

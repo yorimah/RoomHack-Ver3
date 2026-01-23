@@ -2,9 +2,9 @@
 using Cysharp.Threading.Tasks;
 public class MoveState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
 
-    private Rigidbody2D enemyRididBody;
+    private Rigidbody2D enemyRigidBody;
 
     private float flipTimer = 0;
 
@@ -13,10 +13,10 @@ public class MoveState : IEnemyState
     private int direction = 1;
 
     private PlayerCheck playerCheck;
-    public MoveState(Enemy _enemy)
+    public MoveState(EnemyBase _enemy)
     {
         enemy = _enemy;
-        enemyRididBody = enemy.GetComponent<Rigidbody2D>();
+        enemyRigidBody = enemy.GetComponent<Rigidbody2D>();
         playerCheck = enemy.playerCheck;
     }
 
@@ -59,11 +59,11 @@ public class MoveState : IEnemyState
         {
             direction *= -1;
             flipTimer = 0f;
-            enemyRididBody.linearVelocity = Vector2.zero;
+            enemyRigidBody.linearVelocity = Vector2.zero;
             return;
         }
         // Rigidbody2Dで移動
-        enemyRididBody.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
+        enemyRigidBody.linearVelocity = directionToNext.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
 
         enemy.transform.rotation = MoveForwadRotation(nextPos);
     }

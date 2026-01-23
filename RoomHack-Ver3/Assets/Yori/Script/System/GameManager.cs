@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using Zenject;
 public class GameManager : MonoBehaviour
 {
-    private List<Enemy> eList;
+    private List<EnemyBase> eList;
 
     [Inject]
     IGetCleaFlag getFloorData;

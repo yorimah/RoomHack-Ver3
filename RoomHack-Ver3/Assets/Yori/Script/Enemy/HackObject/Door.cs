@@ -85,7 +85,7 @@ public class Door : MonoBehaviour, IDamageable, IHackObject
                     viewDistance, targetLayerMask);
                 if (wallHit.collider != null)
                 {
-                    if (wallHit.collider.TryGetComponent<Enemy>(out var _))
+                    if (wallHit.collider.TryGetComponent<EnemyBase>(out var _))
                     {
                         isHit = true;
                         break;

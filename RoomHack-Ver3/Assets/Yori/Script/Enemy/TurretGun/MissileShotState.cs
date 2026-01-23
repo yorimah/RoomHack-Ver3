@@ -2,7 +2,7 @@
 
 public class MissileShotState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
     enum ShotSection
     {
         aim,
@@ -24,7 +24,7 @@ public class MissileShotState : IEnemyState
 
     Missile.Factory missileFactory;
 
-    public MissileShotState(Enemy _enemy, Missile.Factory _MissileFactory)
+    public MissileShotState(EnemyBase _enemy, Missile.Factory _MissileFactory)
     {
         enemy = _enemy;
         EnemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();

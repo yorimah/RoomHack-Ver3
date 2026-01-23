@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 public class ShotState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
     // ShotSection
     private int shotNum = 0;
     enum ShotSection
@@ -15,7 +15,7 @@ public class ShotState : IEnemyState
     }
     private ShotSection shotSection;
 
-    private Rigidbody2D EnemyRigidBody2D;
+    private Rigidbody2D enemyRigidBody2D;
 
     // 射撃用スクリプト
     private BulletGeneratar bulletGeneratar;
@@ -25,10 +25,10 @@ public class ShotState : IEnemyState
     // Player情報
     private PlayerCheck playerCheck;
 
-    public ShotState(Enemy _enemy)
+    public ShotState(EnemyBase _enemy)
     {
         enemy = _enemy;
-        EnemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
+        enemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
 
         bulletGeneratar = enemy.gameObject.GetComponent<BulletGeneratar>();
 
@@ -57,7 +57,7 @@ public class ShotState : IEnemyState
                 }
                 else
                 {
-                    EnemyRigidBody2D.linearVelocity = Vector2.zero;
+                    enemyRigidBody2D.linearVelocity = Vector2.zero;
                     timer += GameTimer.Instance.GetScaledDeltaTime();
                 }
                 break;

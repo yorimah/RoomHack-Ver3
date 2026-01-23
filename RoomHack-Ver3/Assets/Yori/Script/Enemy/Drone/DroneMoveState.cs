@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 public class DroneMoveState : IEnemyState
 {
     private PlayerCheck playerCheck;
-    private Enemy enemy;
+    private EnemyBase enemy;
 
     private float flipTimer = 0;
 
@@ -14,7 +14,7 @@ public class DroneMoveState : IEnemyState
     private float moveDire;
     private Rigidbody2D enemyRigidBody2D;
 
-    public DroneMoveState(Enemy _enemy)
+    public DroneMoveState(EnemyBase _enemy)
     {
         enemy = _enemy;
         playerCheck = enemy.playerCheck;

@@ -3,9 +3,9 @@ using Cysharp.Threading.Tasks;
 
 public class IdleState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
 
-    public IdleState(Enemy _enemy)
+    public IdleState(EnemyBase _enemy)
     {
         enemy = _enemy;
     }

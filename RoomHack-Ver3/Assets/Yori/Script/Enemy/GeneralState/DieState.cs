@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 public class DieState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
     PlayerSaveData data;
-    public DieState(Enemy _enemy)
+    public DieState(EnemyBase _enemy)
     {
         enemy = _enemy;
     }

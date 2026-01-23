@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 public class SpecialForceShotState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
 
     // GunData
 
@@ -17,17 +17,17 @@ public class SpecialForceShotState : IEnemyState
     }
     private ShotSection shotSection;
 
-    private Rigidbody2D EnemyRigidBody2D;
+    private Rigidbody2D enemyRigidBody2D;
 
     private BulletGeneratar bulletGeneratar;
 
     private float timer;
     // Player情報
     private PlayerCheck playerCheck;
-    public SpecialForceShotState(Enemy _enemy)
+    public SpecialForceShotState(EnemyBase _enemy)
     {
         enemy = _enemy;
-        EnemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
+        enemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();
 
         // GunData初期化
 
@@ -57,7 +57,7 @@ public class SpecialForceShotState : IEnemyState
         {
             case ShotSection.aim:
 
-                EnemyRigidBody2D.linearVelocity = Vector2.zero;
+                enemyRigidBody2D.linearVelocity = Vector2.zero;
                 timer += GameTimer.Instance.GetScaledDeltaTime();
                 if (enemy.aimTime <= timer)
                 {

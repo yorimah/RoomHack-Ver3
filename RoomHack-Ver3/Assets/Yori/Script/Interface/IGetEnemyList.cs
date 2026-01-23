@@ -2,5 +2,5 @@
 
 public interface IGetEnemyList
 {
-    public List<Enemy> GetEnemies();
+    public List<EnemyBase> GetEnemies();
 }

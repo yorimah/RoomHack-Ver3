@@ -1,6 +1,6 @@
 ﻿public interface ISetEnemeyList
 {
-    public void EnemyListAdd(Enemy enemey);
+    public void EnemyListAdd(EnemyBase enemey);
 
-    public void EnemyListRemove(Enemy enemey);
+    public void EnemyListRemove(EnemyBase enemey);
 }

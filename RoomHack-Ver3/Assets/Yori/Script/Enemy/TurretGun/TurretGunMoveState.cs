@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 public class TurretGunMoveState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
 
     private float flipTimer = 0;
 
@@ -12,7 +12,7 @@ public class TurretGunMoveState : IEnemyState
 
     float rotation;
     private PlayerCheck playerCheck;
-    public TurretGunMoveState(Enemy _enemy)
+    public TurretGunMoveState(EnemyBase _enemy)
     {
         enemy = _enemy;
         playerCheck = enemy.playerCheck;
