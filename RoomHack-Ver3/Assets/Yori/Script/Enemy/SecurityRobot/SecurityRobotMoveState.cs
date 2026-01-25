@@ -54,10 +54,10 @@ public class SecurityRobotMoveState : IEnemyState
     public void MoveChange()
     {
         // 射線が通ったら射撃に遷移
-        if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
-        {
-            enemy.ChangeState(EnemyStateType.Shot);
-        }
+        //if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
+        //{
+        //    enemy.ChangeState(EnemyStateType.Shot);
+        //}
         if (securityRobotMoveType == SecurityRobotMoveType.Straight)
         {
             if (Physics2D.Raycast(enemy.transform.position, enemyRigidBody.linearVelocity, checkDistance, enemy.GetObstacleMask()))
