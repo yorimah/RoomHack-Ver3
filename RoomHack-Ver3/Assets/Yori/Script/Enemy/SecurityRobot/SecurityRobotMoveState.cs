@@ -54,17 +54,14 @@ public class SecurityRobotMoveState : IEnemyState
     public void MoveChange()
     {
         // 射線が通ったら射撃に遷移
-        //if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
-        //{
-        //    enemy.ChangeState(EnemyStateType.Shot);
-        //}
-        if (securityRobotMoveType == SecurityRobotMoveType.Straight)
+        if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
         {
-            if (Physics2D.Raycast(enemy.transform.position, enemyRigidBody.linearVelocity, checkDistance, enemy.GetObstacleMask()))
-            {
-                Debug.Log("壁にぶつかりそうなので反転");
-                MoveTypeChange(InversionEnum());
-            }
+            enemy.ChangeState(EnemyStateType.Shot);
+        }
+        if (Physics2D.Raycast(enemy.transform.position, enemyRigidBody.linearVelocity, checkDistance, enemy.GetObstacleMask()))
+        {
+            Debug.Log("壁にぶつかりそうなので反転");
+            MoveTypeChange(InversionEnum());
         }
     }
 
@@ -101,14 +98,14 @@ public enum SecurityRobotMoveType
 }
 public class SecurityRobotMoveStraightState : IEnemyState
 {
-    float timer;
-    public SecurityRobotMoveStraightState(EnemyBase enemy)
+    private EnemyBase enemy;
+    public SecurityRobotMoveStraightState(EnemyBase _enemy)
     {
-
+        enemy = _enemy;
     }
     public void Enter()
     {
-        timer = 0;
+
     }
 
     public void Execute()
@@ -124,9 +121,10 @@ public class SecurityRobotMoveStraightState : IEnemyState
 
 public class SecurityRobotMoveCircleState : IEnemyState
 {
-    public SecurityRobotMoveCircleState(EnemyBase enemy)
+    private EnemyBase enemy;
+    public SecurityRobotMoveCircleState(EnemyBase _enemy)
     {
-
+        enemy = _enemy;
     }
     public void Enter()
     {

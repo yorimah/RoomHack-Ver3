@@ -1390,7 +1390,7 @@ GameObject:
   - component: {fileID: 7464991170623378121}
   - component: {fileID: 6350078167499407465}
   m_Layer: 0
-  m_Name: SpecialForce
+  m_Name: SecurityRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
