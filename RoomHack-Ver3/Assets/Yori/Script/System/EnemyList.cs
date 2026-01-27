@@ -3,22 +3,22 @@ using UnityEngine;
 
 public class EnemyList : ISetEnemeyList, IGetEnemyList
 {
-    private List<Enemy> Enemies;
+    private List<EnemyBase> Enemies;
 
     public EnemyList()
     {
         Enemies = new();
     }
-    public void EnemyListAdd(Enemy enemies)
+    public void EnemyListAdd(EnemyBase enemies)
     {
         Enemies.Add(enemies);
     }
-    public List<Enemy> GetEnemies()
+    public List<EnemyBase> GetEnemies()
     {
         return Enemies;
     }
 
-    public void EnemyListRemove(Enemy enemy)
+    public void EnemyListRemove(EnemyBase enemy)
     {
         if (Enemies.Contains(enemy))
         {

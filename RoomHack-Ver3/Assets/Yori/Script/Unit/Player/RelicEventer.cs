@@ -3,12 +3,35 @@ using UnityEngine;
 using Zenject;
 public class RelicEventer : MonoBehaviour
 {
+    [Inject]
+    IGetPlayerScore playerScore;
+
+    [Inject]
+    ISetMoveSpeed setMoveSpeed;
 
     [Inject]
     IGetRelicList relicList;
 
+    [Inject]
+    IGetHitPoint getHitPoint;
+    [Inject]
+    ISetHitPoint setHitPoint;
+    [Inject]
+    IUseableRam useableRam;
+    [Inject]
+    ISetPlayerSpecialAction setPlayerSpecialAction;
+    [Inject]
+    IGetTime getTime;
+    [Inject]
+    IGetCleaFlag getCleaFlag;
+
     public void Start()
     {
+        foreach (var intRelicEvent in relicList.intRelicEvents)
+        {
+            relicList.relicEvents.Add(RelicIns((RelicName)intRelicEvent));
+        }
+
     }
 
 
@@ -25,7 +48,36 @@ public class RelicEventer : MonoBehaviour
             }
         }
     }
+
+    public IRelicEvent RelicIns(RelicName relicName)
+    {
+        switch (relicName)
+        {
+            case RelicName.none:
+                return new NoneRelic();
+            case RelicName.destoryHPHeal:
+                return new HitPointHeal(playerScore, setHitPoint, relicName);
+            case RelicName.destoryRamHeal:
+                return new RamHeal(playerScore, useableRam, relicName);
+            case RelicName.destroyDeckDraw:
+                return new DeckDraw(playerScore, relicName);
+            case RelicName.halfHitPointMoveSpeedUp:
+                return new HalfMoveSpeed(getHitPoint, setMoveSpeed, relicName);
+            case RelicName.allOverTheBurst:
+                return new AllOverTheBurst(setPlayerSpecialAction, getTime, relicName);
+            case RelicName.brawProtcol:
+                return new BrawProtocal(playerScore, relicName, setMoveSpeed);
+            case RelicName.lethalEnd:
+                return new LethalEnd(getTime, useableRam, relicName);
+            case RelicName.flameDesires:
+                return new FlameDesires(getCleaFlag, setHitPoint, relicName);
+            case RelicName.redemption:
+                return new Redemption(setPlayerSpecialAction, getTime, relicName);
+        }
+        return new NoneRelic(); ;
+    }
 }
+
 public enum RelicName
 {
     none,
@@ -35,6 +87,9 @@ public enum RelicName
     halfHitPointMoveSpeedUp,
     allOverTheBurst,
     brawProtcol,
+    lethalEnd,
+    flameDesires,
+    redemption
 }
 
 public interface IRelicEvent
@@ -242,18 +297,57 @@ public class AllOverTheBurst : IRelicEvent
 
     private ISetPlayerSpecialAction setAction;
 
-    public AllOverTheBurst(ISetPlayerSpecialAction _setAction, RelicName _relicName)
+    private IGetTime getTime;
+    public AllOverTheBurst(ISetPlayerSpecialAction _setAction, IGetTime _getTime, RelicName _relicName)
     {
         setAction = _setAction;
         relicName = _relicName;
+        getTime = _getTime;
+        setAction.AddSpecialAction(SpecialAction.AllOver);
     }
 
     public void RelicEventAction()
     {
         if (!IsEventTrigger)
         {
-            setAction.SetSpecialAction(SpecialAction.AllOver);
-            IsEventTrigger = true;
+            if (getTime.gameTime <= 1)
+            {
+                IsEventTrigger = true;
+            }
+        }
+    }
+
+    public bool RelicEventTrigger()
+    {
+        return true;
+    }
+}
+public class Redemption : IRelicEvent
+{
+    public RelicName relicName { get; private set; }
+
+
+    public bool IsEventTrigger { get; private set; }
+
+    private ISetPlayerSpecialAction setAction;
+
+    IGetTime getTime;
+    public Redemption(ISetPlayerSpecialAction _setAction, IGetTime _getTime, RelicName _relicName)
+    {
+        setAction = _setAction;
+        relicName = _relicName;
+        getTime = _getTime;
+        setAction.AddSpecialAction(SpecialAction.Redemption);
+    }
+
+    public void RelicEventAction()
+    {
+        if (!IsEventTrigger)
+        {
+            if (getTime.gameTime <= 0)
+            {
+                IsEventTrigger = true;
+            }
         }
     }
 
@@ -263,19 +357,82 @@ public class AllOverTheBurst : IRelicEvent
     }
 }
 
+
 public class LethalEnd : IRelicEvent
 {
     public RelicName relicName { get; private set; }
 
 
     public bool IsEventTrigger { get; private set; }
+
+    private IGetTime getTime;
+
+    private int drawNum = 3;
+
+    private IUseableRam useableRam;
+
+    public LethalEnd(IGetTime _getTime, IUseableRam _useableRam, RelicName _relicName)
+    {
+        getTime = _getTime;
+        useableRam = _useableRam;
+        relicName = _relicName;
+    }
     public void RelicEventAction()
     {
-
+        if (RelicEventTrigger())
+        {
+            useableRam.RamChange(useableRam.RamCapacity);
+            for (int i = 0; i < drawNum; i++)
+            {
+                ToolManager.Instance.DeckDraw();
+            }
+        }
     }
 
     public bool RelicEventTrigger()
     {
-        return true;
+        if (!IsEventTrigger)
+        {
+            if (getTime.gameTime <= 1)
+            {
+                IsEventTrigger = true;
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+public class FlameDesires : IRelicEvent
+{
+    public RelicName relicName { get; private set; }
+
+    public bool IsEventTrigger { get; private set; }
+
+    private IGetCleaFlag clearFlag;
+
+    private ISetHitPoint setHitPoint;
+
+    public FlameDesires(IGetCleaFlag _clearFlag, ISetHitPoint _setHitPoint, RelicName _relicName)
+    {
+        clearFlag = _clearFlag;
+        relicName = _relicName;
+        setHitPoint = _setHitPoint;
+    }
+    public void RelicEventAction()
+    {
+        if (RelicEventTrigger())
+        {
+            setHitPoint.HealNowHitPoint(30);
+        }
+    }
+    public bool RelicEventTrigger()
+    {
+        if (clearFlag.isClear && !IsEventTrigger)
+        {
+            IsEventTrigger = true;
+            return true;
+        }
+        return false;
     }
 }

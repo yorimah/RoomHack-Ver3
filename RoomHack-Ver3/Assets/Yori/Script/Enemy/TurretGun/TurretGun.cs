@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-public class TurretGun : Enemy
+public class TurretGun : EnemyBase
 {
     public void Start()
     {

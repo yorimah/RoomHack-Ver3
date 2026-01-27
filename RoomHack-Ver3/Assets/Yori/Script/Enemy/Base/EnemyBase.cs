@@ -14,7 +14,7 @@ public enum EnemyStateType
     Clack,
     num
 }
-public class Enemy : MonoBehaviour, IDamageable, IHackObject
+public class EnemyBase : MonoBehaviour, IDamageable, IHackObject
 {
     // ハック関連
     public List<ToolType> cantHackToolType { get; set; } = new List<ToolType>();

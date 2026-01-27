@@ -33,7 +33,7 @@ public class ToolEvent_VisionHack : ToolEventBase, IToolEvent_Target
     ViewerGenarater halfViewerGenarater;
     ViewerGenarater circleViewerGenarater;
 
-    Enemy enemy;
+    EnemyBase enemy;
     bool notEnemy;
     private void Start()
     {
@@ -46,7 +46,7 @@ public class ToolEvent_VisionHack : ToolEventBase, IToolEvent_Target
         halfViewerGenarater = new(meshPrefab, this.gameObject, targetLm, segment, viewDistance);
         circleViewerGenarater = new(meshPrefab, this.gameObject, targetLm, segment, 0.5f);
 
-        if (hackTargetObject.TryGetComponent<Enemy>(out var _enemy))
+        if (hackTargetObject.TryGetComponent<EnemyBase>(out var _enemy))
         {
             enemy = _enemy;
             notEnemy = false;

@@ -3,19 +3,19 @@ using Cysharp.Threading.Tasks;
 
 public class SpecialForceReloadState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
 
     // Player情報
     private PlayerCheck playerCheck;
 
-    private Rigidbody2D enemyRididBody;
-    public SpecialForceReloadState(Enemy _enemy)
+    private Rigidbody2D enemyRigidBody;
+    public SpecialForceReloadState(EnemyBase _enemy)
     {
         enemy = _enemy;
         // プレイヤー情報初期化
         playerCheck = enemy.playerCheck;
 
-        enemyRididBody = enemy.GetComponent<Rigidbody2D>();
+        enemyRigidBody = enemy.GetComponent<Rigidbody2D>();
     }
     private float timer = 0;
 
@@ -24,12 +24,12 @@ public class SpecialForceReloadState : IEnemyState
     {
         nowHP = enemy.NowHitPoint;
         timer = 0;
-        enemyRididBody = enemy.GetComponent<Rigidbody2D>();        
+        enemyRigidBody = enemy.GetComponent<Rigidbody2D>();        
     }
 
     public void Execute()
     {
-        enemyRididBody.linearVelocity = Vector2.zero;
+        enemyRigidBody.linearVelocity = Vector2.zero;
         // ひだんしたら
         if (nowHP != enemy.NowHitPoint)
         {

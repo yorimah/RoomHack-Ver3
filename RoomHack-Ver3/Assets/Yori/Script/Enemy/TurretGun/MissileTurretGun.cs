@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Zenject;
-public class MissileTurretGun : Enemy
+public class MissileTurretGun : EnemyBase
 {
     [Inject]
     Missile.Factory missileFactory;

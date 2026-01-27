@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 public class DroneShotState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
 
     private float flipTimer = 0;
 
@@ -25,7 +25,7 @@ public class DroneShotState : IEnemyState
     private BulletGeneratar bulletGeneratar;
 
     private float timer;
-    public DroneShotState(Enemy _enemy)
+    public DroneShotState(EnemyBase _enemy)
     {
         enemy = _enemy;
         playerCheck = enemy.playerCheck;

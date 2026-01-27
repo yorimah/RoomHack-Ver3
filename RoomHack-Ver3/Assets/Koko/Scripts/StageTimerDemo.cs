@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
-
+using Zenject;
 public class StageTimerDemo : MonoBehaviour
 {
     [SerializeField]
@@ -10,6 +8,14 @@ public class StageTimerDemo : MonoBehaviour
 
     float timer = 0;
 
+    [Inject]
+    ISetTimer setTime;
+
+    [Inject]
+    IGetTime getTime;
+
+    [Inject]
+    ISetHitPoint setHitPoint;
     public float GetTimer
     {
         get => timer;
@@ -21,40 +27,45 @@ public class StageTimerDemo : MonoBehaviour
     private void Start()
     {
         dispText = GetComponent<Text>();
-        timer = stageTime;
     }
+
 
     private void Update()
     {
-        if (timer <= 0)
-        {
-            timer = 0;
-            SceneManager.LoadScene("GameOverDemoScene");
-        }
+        setTime.GameTime();
 
-        dispText.text = timer.ToString("00.00");
-        timer -= GameTimer.Instance.GetScaledDeltaTime();
+        dispText.text = getTime.gameTime.ToString("00.00");
+
+        if (getTime.gameTime <= 0)
+        {
+            setHitPoint.DeadLineDamage();
+        }
+    }
+
+
+}
+public class GameTimeHolder : ISetTimer, IGetTime
+{
+
+    public float gameTime { get; private set; }
+
+    public GameTimeHolder()
+    {
+        gameTime = 10;
+    }
+
+    public void GameTime()
+    {
+        gameTime -= GameTimer.Instance.GetScaledDeltaTime();
     }
 }
 
-public class GameTimeHolder
+public interface ISetTimer
 {
-    private GameTimeHolder _instance;
+    public void GameTime();
+}
 
-    public  GameTimeHolder Instance => _instance ??= new GameTimeHolder();
-
-    private  float gameTime = 10;
-    public  float GameTime()
-    {
-        return gameTime ;
-    }
-
-    private async UniTask  GameTimeStart()
-    {
-        while (true)
-        {
-            gameTime -= GameTimer.Instance.GetCustomTimeScale();
-            await UniTask.Yield();
-        }
-    }
+public interface IGetTime
+{
+    public float gameTime { get; }
 }

@@ -1,5 +1,5 @@
-﻿using Zenject;
-using UnityEngine;
+﻿using UnityEngine;
+using Zenject;
 
 public class InputInstaller : MonoInstaller<InputInstaller>
 {
@@ -8,10 +8,11 @@ public class InputInstaller : MonoInstaller<InputInstaller>
     {
         Container.BindInterfacesTo<PlayerInput>().AsSingle();      // PlayerInputをシングルトンとして運用
         Container.BindInterfacesTo<PlayerStatus>().AsSingle();
-        Container.BindFactory<float, Vector2, IPosition,Vector2, Missile, Missile.Factory>()
+        Container.BindFactory<float, Vector2, IPosition, Vector2, Missile, Missile.Factory>()
                        .FromComponentInNewPrefab(missilePre);
         Container.BindInterfacesTo<GunDataList>().AsSingle();
         Container.BindInterfacesTo<EnemyList>().AsSingle();
         Container.BindInterfacesTo<ClearManager>().AsSingle();
+        Container.BindInterfacesTo<GameTimeHolder>().AsSingle();
     }
 }

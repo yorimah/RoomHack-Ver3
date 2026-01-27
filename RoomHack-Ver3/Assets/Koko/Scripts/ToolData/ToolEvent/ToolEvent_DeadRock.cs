@@ -18,7 +18,7 @@ public class ToolEvent_DeadRock : ToolEventBase, IToolEvent_Target, IToolEvent_T
     public float timer { get; set; } = 0;
 
 
-    Enemy targetData;
+    EnemyBase targetData;
     float startSpeed;
 
     GameObject effect;
@@ -30,7 +30,7 @@ public class ToolEvent_DeadRock : ToolEventBase, IToolEvent_Target, IToolEvent_T
 
         effect = EffectManager.Instance.ActEffect_PositionTrace(EffectManager.EffectType.Bad, this.gameObject, Vector2.zero);
 
-        targetData = hackTargetObject.GetComponent<Enemy>();
+        targetData = hackTargetObject.GetComponent<EnemyBase>();
         startSpeed = targetData.moveCoefficient;
 
         timer = setTime;
@@ -45,7 +45,7 @@ public class ToolEvent_DeadRock : ToolEventBase, IToolEvent_Target, IToolEvent_T
 
         // 終了条件
         timer -= GameTimer.Instance.GetScaledDeltaTime();
-        if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.isDead))
+        if (timer <= 0 || (hackTargetObject.TryGetComponent<EnemyBase>(out var enemy) && enemy.isDead))
         {
             EventEnd();
         }

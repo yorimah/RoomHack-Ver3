@@ -3,9 +3,9 @@ using Cysharp.Threading.Tasks;
 
 public class SpecialForceMoveState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
 
-    private Rigidbody2D enemyRididBody;
+    private Rigidbody2D enemyRigidBody;
 
     private float flipTimer = 0;
     private float flipInterval = 0.5f;
@@ -15,10 +15,10 @@ public class SpecialForceMoveState : IEnemyState
 
     private PlayerCheck playerCheck;
 
-    public SpecialForceMoveState(Enemy _enemy)
+    public SpecialForceMoveState(EnemyBase _enemy)
     {
         enemy = _enemy;
-        enemyRididBody = enemy.GetComponent<Rigidbody2D>();
+        enemyRigidBody = enemy.GetComponent<Rigidbody2D>();
         playerCheck = enemy.playerCheck;
     }
     public void Enter()
@@ -75,11 +75,11 @@ public class SpecialForceMoveState : IEnemyState
             direction *= -1;
             forwardDir *= -1;
             flipTimer = 0f;
-            enemyRididBody.linearVelocity = Vector2.zero;
+            enemyRigidBody.linearVelocity = Vector2.zero;
             return;
         }
         // Rigidbody2Dで移動
-        enemyRididBody.linearVelocity = moveDir.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
+        enemyRigidBody.linearVelocity = moveDir.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
 
         enemy.transform.rotation = MoveForwadRotation(nowPosition + moveDir);
     }

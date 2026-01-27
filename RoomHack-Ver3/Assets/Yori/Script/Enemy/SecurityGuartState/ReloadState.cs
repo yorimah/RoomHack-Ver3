@@ -2,8 +2,8 @@
 using Cysharp.Threading.Tasks;
 public class ReloadState : IEnemyState
 {
-    private Enemy enemy;
-    public ReloadState(Enemy _enemy)
+    private EnemyBase enemy;
+    public ReloadState(EnemyBase _enemy)
     {
         enemy = _enemy;        
     }

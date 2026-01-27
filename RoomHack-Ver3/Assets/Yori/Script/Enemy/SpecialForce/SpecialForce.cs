@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialForce : Enemy
+public class SpecialForce : EnemyBase
 {
     public bool escapeMode;
     void Start()

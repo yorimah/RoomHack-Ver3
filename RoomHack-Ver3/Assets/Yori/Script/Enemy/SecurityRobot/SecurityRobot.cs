@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-
-public class FlySecurityDrone : EnemyBase
+using UnityEngine;
+public class SecurityRobot : EnemyBase
 {
+    [SerializeField]
+    Material viewRange;
     void Start()
     {
         playerCheck = new PlayerCheck();
 
         states = new Dictionary<EnemyStateType, IEnemyState>()
     {
-        { EnemyStateType.Idle, new IdleState(this) },
-        { EnemyStateType.Move, new DroneMoveState(this) },
-        { EnemyStateType.Shot, new DroneShotState(this) },
+        { EnemyStateType.Idle, new SecurityRobotIdleState(this,viewRange) },
+        { EnemyStateType.Move, new SecurityRobotMoveState(this) },
+        { EnemyStateType.Shot, new ShotState(this) },
         { EnemyStateType.Reload, new ReloadState(this) },
         { EnemyStateType.Die, new DieState(this) },
     };
@@ -20,6 +21,5 @@ public class FlySecurityDrone : EnemyBase
 
         cantHackToolType = new List<ToolType> { };
         nowHackEvent = new List<ToolEventBase>();
-
     }
 }

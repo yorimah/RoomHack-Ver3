@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 public class TurretGunShotState : IEnemyState
 {
-    private Enemy enemy;
+    private EnemyBase enemy;
     enum ShotSection
     {
         aim,
@@ -24,7 +24,7 @@ public class TurretGunShotState : IEnemyState
 
     // 射撃拡散率
     private float diffusionRate;
-    public TurretGunShotState(Enemy _enemy)
+    public TurretGunShotState(EnemyBase _enemy)
     {
         enemy = _enemy;
         EnemyRigidBody2D = enemy.GetComponent<Rigidbody2D>();

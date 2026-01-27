@@ -56,7 +56,7 @@ public class PlayerCore : MonoBehaviour, IDamageable
 
     public void Update()
     {
-        position.PlayerPositionSet(this.transform);
+        position.PlayerPositionSet(transform);
     }
 
     public void Die()
@@ -70,11 +70,7 @@ public class PlayerCore : MonoBehaviour, IDamageable
         setHitPoint.DamageHitPoint(dmg);
         EffectManager.Instance.ActEffect_Num(dmg, this.transform.position, 1);
 
-        if (getHitPoint.NowHitPoint <= 0)
-        {
-            Die();
-        }
-        else
+        if (getHitPoint.NowHitPoint >= 0)
         {
             if (hitDamegeLayer == 2)
             {
@@ -86,12 +82,8 @@ public class PlayerCore : MonoBehaviour, IDamageable
 
     public void HackDmg(int dmg, float hitStop)
     {
-        NowHitPoint -= dmg;
-        if (NowHitPoint <= 0)
-        {
-            Die();
-        }
-        else
+        setHitPoint.DamageHitPoint(dmg);
+        if (getHitPoint.NowHitPoint >= 0)
         {
             if (hitDamegeLayer == 2)
             {

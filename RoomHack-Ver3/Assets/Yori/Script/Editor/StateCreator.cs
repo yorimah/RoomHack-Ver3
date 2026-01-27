@@ -49,10 +49,10 @@ public class StateCreator : EditorWindow
 
         string script = $@"using UnityEngine;
 
-public class {name} : IState
+public class {name} : IEnemyState
 {{
-    private Enemy enemy;
-    public {name}(Enemy _enemy)
+    private EnemyBase enemy;
+    public {name}(EnemyBase _enemy)
     {{
         enemy = _enemy;
     }}

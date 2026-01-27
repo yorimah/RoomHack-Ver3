@@ -17,7 +17,7 @@ public class ToolEvent_WeponGlitch : ToolEventBase, IToolEvent_Target, IToolEven
 
     public override ToolTag thisToolTag { get; set; } = ToolTag.WeponGlitch;
 
-    Enemy targetData;
+    EnemyBase targetData;
     float startInterval;
 
     GameObject effect;
@@ -28,7 +28,7 @@ public class ToolEvent_WeponGlitch : ToolEventBase, IToolEvent_Target, IToolEven
 
         effect = EffectManager.Instance.ActEffect_PositionTrace(EffectManager.EffectType.Bad, this.gameObject, Vector2.zero);
 
-        targetData = hackTargetObject.GetComponent<Enemy>();
+        targetData = hackTargetObject.GetComponent<EnemyBase>();
         startInterval = targetData.shotIntervalTime;
 
         timer = setTime;
@@ -43,7 +43,7 @@ public class ToolEvent_WeponGlitch : ToolEventBase, IToolEvent_Target, IToolEven
 
         // 終了設定
         timer -= GameTimer.Instance.GetScaledDeltaTime();
-        if (timer <= 0 || (hackTargetObject.TryGetComponent<Enemy>(out var enemy) && enemy.isDead))
+        if (timer <= 0 || (hackTargetObject.TryGetComponent<EnemyBase>(out var enemy) && enemy.isDead))
         {
             EventEnd();
         }
