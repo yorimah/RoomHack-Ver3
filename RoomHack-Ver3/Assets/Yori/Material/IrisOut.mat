@@ -49,7 +49,7 @@ Material:
     - _ColorMask: 255
     - _Cutoff: 0
     - _EnableExternalAlpha: 0
-    - _MaskAlpha: 0.6
+    - _MaskAlpha: 0.5
     - _Stencil: 2
     - _StencilComp: 8
     - _StencilOp: 0
@@ -59,7 +59,7 @@ Material:
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _MaskColor: {r: 0, g: 0, b: 0, a: 0.7}
+    - _MaskColor: {r: 0.06666667, g: 0.05490196, b: 0.09019608, a: 0.5019608}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
