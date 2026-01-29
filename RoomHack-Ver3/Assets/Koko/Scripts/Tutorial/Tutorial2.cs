@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
-using System.Collections.Generic;
 
-public class Tutorial1 : MonoBehaviour
+public class Tutorial2 : MonoBehaviour
 {
     [SerializeField, Header("あたっち")]
     TutorialManager tutorialManager;
@@ -18,16 +18,8 @@ public class Tutorial1 : MonoBehaviour
 
     bool isFloorStart = false;
 
-
-    [Inject]
-    IPosition playerPos;
-
-    [Inject]
-    IGetEnemyList enemyList;
-    List<EnemyBase> enemies = new List<EnemyBase>();
-
-    [Inject]
-    IUseableRam ram;
+    [SerializeField]
+    CameraPositionController camPosCon;
 
 
     private void Update()
@@ -60,28 +52,27 @@ public class Tutorial1 : MonoBehaviour
                 index++;
                 break;
 
+                // "ハッキングについて説明します"
             case 1:
                 // スタート処理
                 if (!isIndexStart)
                 {
                     // なにかかく
                     timer = 0;
-                    ram.RamUse(ram.RamNow);
-                    Debug.Log("しゃおれーい！");
 
                     isIndexStart = true;
                 }
 
                 // アップデート
                 {
-                    if (isExplain) timer += Time.deltaTime;
+                    timer += Time.deltaTime;
                 }
 
                 // 説明開始条件
-                if (true) isExplain = true;
+                if (timer > 3.5) isExplain = true;
 
                 // 説明終了条件
-                if (timer > 1 && Input.anyKeyDown)
+                if (timer > 4.5 && Input.anyKeyDown)
                 {
                     isExplain = false;
                     isIndexStart = false;
@@ -90,6 +81,7 @@ public class Tutorial1 : MonoBehaviour
 
                 break;
 
+                // "ツールです、マウスホイールで選択を切り替えできます"
             case 2:
                 // スタート処理
                 if (!isIndexStart)
@@ -109,7 +101,7 @@ public class Tutorial1 : MonoBehaviour
                 if (true) isExplain = true;
 
                 // 説明終了条件
-                if (timer > 1 && Input.GetKeyDown(KeyCode.W))
+                if (timer > 1 && Mathf.Abs(Input.mouseScrollDelta.y) > 1)
                 {
                     isExplain = false;
                     isIndexStart = false;
@@ -118,6 +110,7 @@ public class Tutorial1 : MonoBehaviour
 
                 break;
 
+                // "RAMです、ツール使用にはRAM要領の制限がかかります"
             case 3:
                 // スタート処理
                 if (!isIndexStart)
@@ -134,7 +127,7 @@ public class Tutorial1 : MonoBehaviour
                 }
 
                 // 説明開始条件
-                if (playerPos.PlayerPosition.x > 0 && playerPos.PlayerPosition.y < 2.5) isExplain = true;
+                if (true) isExplain = true;
 
                 // 説明終了条件
                 if (timer > 1 && Input.anyKeyDown)
@@ -146,6 +139,8 @@ public class Tutorial1 : MonoBehaviour
 
                 break;
 
+                // こちらの監視カメラにVisionHackを使用してください
+                // 選択中のツールを右クリックで使用できます
             case 4:
                 // スタート処理
                 if (!isIndexStart)
@@ -158,7 +153,37 @@ public class Tutorial1 : MonoBehaviour
 
                 // アップデート
                 {
-                    timer += Time.deltaTime;
+                    if (isExplain) timer += Time.deltaTime;
+                }
+
+                // 説明開始条件
+                if (true) isExplain = true;
+
+                // 説明終了条件
+                if (timer > 1 && Input.GetKeyDown(KeyCode.Mouse1))
+                {
+                    isExplain = false;
+                    isIndexStart = false;
+                    index++;
+                }
+
+                break;
+
+                // お見事です
+                // 監視カメラの視界を通じて壁越しの敵にハッキングができます
+            case 5:
+                // スタート処理
+                if (!isIndexStart)
+                {
+                    // なにかかく
+                    timer = 0;
+
+                    isIndexStart = true;
+                }
+
+                // アップデート
+                {
+                    if (isExplain) timer += Time.deltaTime;
                 }
 
                 // 説明開始条件
@@ -174,44 +199,14 @@ public class Tutorial1 : MonoBehaviour
 
                 break;
 
-
-            case 5:
-                // スタート処理
-                if (!isIndexStart)
-                {
-                    // なにかかく
-                    timer = 0;
-
-                    isIndexStart = true;
-                }
-
-                // アップデート
-                {
-                    timer += Time.deltaTime;
-                }
-
-                // 説明開始条件
-                if (timer > 5) isExplain = true;
-
-                // 説明終了条件
-                if (timer > 6 && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    isExplain = false;
-                    isIndexStart = false;
-                    index++;
-                }
-
-                break;
-
-
+                // ツールの効果は様々です
+                // 効率的に活用してください
             case 6:
                 // スタート処理
                 if (!isIndexStart)
                 {
                     // なにかかく
                     timer = 0;
-
-                    enemies.AddRange(enemyList.GetEnemies());
 
                     isIndexStart = true;
                 }
@@ -222,10 +217,7 @@ public class Tutorial1 : MonoBehaviour
                 }
 
                 // 説明開始条件
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    if (enemies[i].isDead) isExplain = true;
-                }
+                if (camPosCon.targetObject != true) isExplain = true;
 
                 // 説明終了条件
                 if (timer > 1 && Input.anyKeyDown)
@@ -239,5 +231,3 @@ public class Tutorial1 : MonoBehaviour
         }
     }
 }
-
-

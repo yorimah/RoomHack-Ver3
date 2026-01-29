@@ -84,14 +84,14 @@ public class RamUIDisp : MonoBehaviour
         {
             // hackモード時に半透明化
             //if (isSkelton)
-            if (GameTimer.Instance.IsHackTime)
+            //if (GameTimer.Instance.IsHackTime)
             {
                 ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
-            else
-            {
-                ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-            }
+            //else
+            //{
+            //    ramUIList[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            //}
 
             // 位置設定
             Vector2 ramPos = defaultPos + new Vector2((maxRamCap - 1) * -space.x / 2 + i * space.x, (maxRamCap - 1) * -space.y / 2 + i * space.y);

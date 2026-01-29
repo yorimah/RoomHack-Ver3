@@ -67,8 +67,6 @@ public class ToolManager : MonoBehaviour
 
     private void Update()
     {
-        // ゲームが動いてるか否か
-        if (GameTimer.Instance.playTime == 0) return;
 
         // ハッキング
         //if (GameTimer.Instance.playTime == 1)
@@ -117,8 +115,8 @@ public class ToolManager : MonoBehaviour
 
                     //Debug.Log(ramUIDisp.willUseRam);
 
-                    // 右クリック入力
-                    if (Input.GetKeyDown(KeyCode.Mouse1))
+                    // 右クリック入力 ゲーム停止中は使用不可
+                    if (Input.GetKeyDown(KeyCode.Mouse1) && GameTimer.Instance.playTime == 1)
                     {
                         // プレイ可能ならGO
                         if (handCostList[i] && handPlayList[i])

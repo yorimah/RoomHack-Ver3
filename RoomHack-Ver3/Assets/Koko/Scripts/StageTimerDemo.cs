@@ -6,6 +6,9 @@ public class StageTimerDemo : MonoBehaviour
     [SerializeField]
     float stageTime = 10;
 
+    [SerializeField]
+    bool isDebug = false;
+
     float timer = 0;
 
     [Inject]
@@ -32,7 +35,8 @@ public class StageTimerDemo : MonoBehaviour
 
     private void Update()
     {
-        setTime.GameTime();
+
+        if (!isDebug) setTime.GameTime();
 
         dispText.text = getTime.gameTime.ToString("00.00");
 
