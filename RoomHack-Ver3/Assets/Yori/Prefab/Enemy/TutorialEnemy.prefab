@@ -215,7 +215,7 @@ MonoBehaviour:
   isDead: 0
   shotIntervalTime: 0
   armorSerialze: 0
-  SerializeMaxHp: 0
+  SerializeMaxHp: 1
   rigidbody: {fileID: 0}
   diffusionRate: 0
 --- !u!1 &6179813645838407568

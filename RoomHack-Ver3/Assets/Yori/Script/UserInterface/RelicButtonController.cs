@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-public class RelicButtonController : MonoBehaviour
+using UnityEngine.EventSystems;
+public class RelicButtonController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField, Header("要アタッチ")]
     RelicDataBank relicDataBank;
@@ -13,7 +14,7 @@ public class RelicButtonController : MonoBehaviour
 
     private int buttonSpace = -200;
 
-    private Vector3 initButtonPos = new Vector3(0, 500, 0);
+    private Vector3 initButtonPos = new Vector3(0, 150, 0);
 
     private List<RectTransform> insObjList = new List<RectTransform>();
 
@@ -29,6 +30,7 @@ public class RelicButtonController : MonoBehaviour
     ISetWindowList addWindoList;
     public void Start()
     {
+        OnMouse = false;
         backGroundRect = this.gameObject.GetComponent<RectTransform>();
         for (int i = 1; i < relicDataBank.relicDataList.Count; i++)
         {
@@ -41,14 +43,14 @@ public class RelicButtonController : MonoBehaviour
             insObj.gameObject.name = relicDataBank.relicDataList[i].nameText + "Button";
         }
     }
-
+    bool OnMouse;
     public void Update()
     {
-        var scroll = Input.mouseScrollDelta.normalized.y;
-        if (Mathf.Abs(scroll) >= 1)
+        if (OnMouse)
         {
-            if (insObjList[insObjList.Count - 1].anchoredPosition.y - scroll * 10 <= backGroundRect.rect.height / 2 &&
-                insObjList[0].anchoredPosition.y - scroll * 10 >= -backGroundRect.rect.height / 2)
+            var scroll = Input.mouseScrollDelta.normalized.y * 2;
+            if (insObjList[insObjList.Count - 1].anchoredPosition.y - scroll * 10 <= backGroundRect.rect.height / 2
+            && insObjList[0].anchoredPosition.y - scroll * 10 >= -backGroundRect.rect.height / 2)
             {
                 foreach (var insObj in insObjList)
                 {
@@ -57,5 +59,12 @@ public class RelicButtonController : MonoBehaviour
             }
         }
     }
-
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnMouse = true;
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnMouse = false;
+    }
 }

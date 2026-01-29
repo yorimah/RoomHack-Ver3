@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 public class TutorialEnemy : EnemyBase
 {
     void Start()
@@ -63,13 +63,7 @@ public class TutorialEnemyIdel : IEnemyState
                 }
                 else
                 {
-                    Vector2 rightDir = enemy.transform.right;
-                    Vector2 leftDir = -enemy.transform.right;
-                    RaycastHit2D rightRangeRay = Physics2D.Raycast(enemy.transform.position, rightDir, 10, enemy.GetObstacleMask());
-                    float rightRange = Vector2.Distance(enemy.transform.position, rightRangeRay.point);
-                    RaycastHit2D leftRangeRay = Physics2D.Raycast(enemy.transform.position, leftDir, 10, enemy.GetObstacleMask());
-                    float leftRange = Vector2.Distance(enemy.transform.position, leftRangeRay.point);
-                    targetDir = rightRange >= leftRange ? rightDir : leftDir;
+                    targetDir = -enemy.transform.up;
                     patrolMoveEnum = PatrolMoveEnum.turn;
                 }
                 break;
@@ -81,7 +75,7 @@ public class TutorialEnemyIdel : IEnemyState
                 enemy.transform.rotation = Quaternion.Euler(0, 0, newAngle);
                 float diff = Mathf.DeltaAngle(current, targetAngle);
 
-                if (Mathf.Abs(diff) < 1f)
+                if (Mathf.Abs(diff) < 0.5f)
                 {
                     patrolMoveEnum = PatrolMoveEnum.moveStraight;
                 }
