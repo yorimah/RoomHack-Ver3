@@ -118,15 +118,16 @@ public class SecurityRobotMoveStraightState : IEnemyState
 public class SecurityRobotMoveCircleState : IEnemyState
 {
     private EnemyBase enemy;
-
+    private int direction = 1;
 
     public SecurityRobotMoveCircleState(EnemyBase _enemy)
     {
         enemy = _enemy;
+
     }
     public void Enter()
     {
-
+        direction = Random.value < 0.5f ? -1 : 1;
     }
 
     public void Execute()
@@ -138,7 +139,7 @@ public class SecurityRobotMoveCircleState : IEnemyState
 
         Vector2 emDir = new Vector2(-dir.y, dir.x);
         // Rigidbody2Dで移動
-        enemy.rigidbody.linearVelocity = emDir.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
+        enemy.rigidbody.linearVelocity = emDir.normalized * direction * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
     }
 
     public void Exit()

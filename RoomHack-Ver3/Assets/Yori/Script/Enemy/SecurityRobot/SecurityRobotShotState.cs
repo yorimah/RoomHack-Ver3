@@ -134,7 +134,6 @@ public class SecurityRobotShotState : IEnemyState
         }
         if (Physics2D.Raycast(enemy.transform.position, enemy.rigidbody.linearVelocity, 1, enemy.GetObstacleMask()))
         {
-            Debug.Log("壁にぶつかりそうなので反転");
             MoveTypeChange(InversionEnum());
         }
     }
