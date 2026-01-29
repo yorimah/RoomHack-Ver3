@@ -64,7 +64,6 @@ public class TutorialEnemyIdel : IEnemyState
                 else
                 {
                     targetDir = -enemy.transform.up;
-                    Debug.Log("usiro");
                     patrolMoveEnum = PatrolMoveEnum.turn;
                 }
                 break;

@@ -24,11 +24,13 @@ public class GameClearManager : MonoBehaviour
     int skipValue = 1;
 
     private CancellationTokenSource cancellationTokenSource;
+    float plusTrace = 5;
+    float trace;
     private void Start()
     {
         // セーブデータ読み込み
         data = SaveManager.Instance.Load();
-
+        data.trace += plusTrace;
         GameOverText[2].GetComponent<Text>().text = "stage : " + data.score_Stage;
         GameOverText[3].GetComponent<Text>().text = "destroy : " + data.score_DestoryEnemy;
 
@@ -43,7 +45,6 @@ public class GameClearManager : MonoBehaviour
 
         _ = GameOverSequence(linked.Token);
     }
-
     async UniTask GameOverSequence(CancellationToken token)
     {
         try
@@ -75,9 +76,42 @@ public class GameClearManager : MonoBehaviour
 
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
             GameOverText[3].SetActive(true);
-
-            await UniTask.Delay(TimeSpan.FromSeconds(1f * skipValue));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
             GameOverText[4].SetActive(true);
+            GameOverText[4].GetComponent<Text>().text = "Trace : " + trace.ToString("F1") + " + PlusTrace " + plusTrace.ToString("F1");
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
+
+            while (trace < data.trace)
+            {
+                trace += 0.1f;
+                plusTrace -= 0.1f;
+                if (plusTrace <= 0)
+                {
+                    plusTrace = 0;
+                }
+                if (trace >= data.trace)
+                {
+                    trace = data.trace;
+                }
+                GameOverText[4].GetComponent<Text>().text = "Trace : " + trace.ToString("F1") + " + PlusTrace " + plusTrace.ToString("F1");
+                await UniTask.Delay(TimeSpan.FromSeconds(0.01f * skipValue));
+            }
+            trace = data.trace;
+            plusTrace = 0;
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f * skipValue));
+            GameOverText[4].GetComponent<Text>().text = "Trace : " + trace.ToString("F1") + " + PlusTrace " + plusTrace.ToString("F1");
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f * skipValue));
+            GameOverText[4].GetComponent<Text>().text = "Trace : " + trace.ToString("F1") + " + PlusTrace " + plusTrace.ToString("F0");
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f * skipValue));
+            GameOverText[4].GetComponent<Text>().text = "Trace : " + trace.ToString("F1") + " + PlusTrac";
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f * skipValue));
+            GameOverText[4].GetComponent<Text>().text = "Trace : " + trace.ToString("F1") + " + PlusT";
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f * skipValue));
+            GameOverText[4].GetComponent<Text>().text = "Trace : " + trace.ToString("F1") + " + Pl";
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f * skipValue));
+            GameOverText[4].GetComponent<Text>().text = "Trace : " + trace.ToString("F1");
+            await UniTask.Delay(TimeSpan.FromSeconds(1f * skipValue));
+            GameOverText[5].SetActive(true);
 
             sequenceEnd = true;
         }
