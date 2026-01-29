@@ -29,7 +29,7 @@ public class SecurityRobotIdleState : IEnemyState
         playerCheck = enemy.playerCheck;
         enemyRigidBody = enemy.GetComponent<Rigidbody2D>();
         Material shotRanageMaterial = _shotRanageMaterial;
-        GameObject viewRange = new GameObject(enemy.gameObject.name + "ViewRangge");
+        GameObject viewRange = new GameObject(enemy.gameObject.name + "ViewRange");
         viewRange.AddComponent<MeshRenderer>();
         viewRange.AddComponent<MeshFilter>();
         viewRange.transform.localPosition = Vector2.zero;
