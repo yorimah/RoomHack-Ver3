@@ -4072,7 +4072,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1999626132}
   m_HandleRect: {fileID: 1999626131}
   m_Direction: 2
-  m_Value: 0.53050077
+  m_Value: 0.5124964
   m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9141,7 +9141,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 279.9915}
+  m_AnchoredPosition: {x: 0, y: 291.80234}
   m_SizeDelta: {x: 0, y: 600}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1975490573
@@ -9723,7 +9723,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -21.5}
-  m_SizeDelta: {x: 0, y: -57}
+  m_SizeDelta: {x: -10, y: -57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2059454248
 MonoBehaviour:
@@ -9753,7 +9753,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
