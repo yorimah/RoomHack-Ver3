@@ -16,7 +16,7 @@ public class SecurityRobotIdleState : IEnemyState
     Mesh mesh;
 
     // 長さ
-    private float viewDistance = 3f;
+    private float viewDistance = 10f;
     // 分割数
     private int segment = 20;
 

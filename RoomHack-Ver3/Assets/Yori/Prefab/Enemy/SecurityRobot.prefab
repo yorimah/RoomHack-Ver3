@@ -268,8 +268,8 @@ MonoBehaviour:
   bulletObject: {fileID: 3977915479246264570, guid: 2c86ef07a3be33543b3cb179d84c03b1, type: 3}
   isDead: 0
   shotIntervalTime: 0
-  armorSerialze: 1
-  SerializeMaxHp: 10
+  armorSerialze: 20
+  SerializeMaxHp: 100
   rigidbody: {fileID: 0}
   diffusionRate: 1
   viewRange: {fileID: 2100000, guid: 9d26c622fb1e6ba46b912d71ab4b77ba, type: 2}
