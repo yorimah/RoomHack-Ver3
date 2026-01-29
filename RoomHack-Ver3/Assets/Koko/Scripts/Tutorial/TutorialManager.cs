@@ -21,6 +21,7 @@ public class TutorialManager : MonoBehaviour
         muskRect.sizeDelta += scaleVec;
 
         explainText.GetComponent<RectTransform>().localPosition = textPos;
+        explainText.inputText = explains;
     }
 
     public void SetStatus(TutorialData _data)

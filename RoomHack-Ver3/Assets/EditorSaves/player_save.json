@@ -1,6 +1,6 @@
 {
   "score_Stage": 0,
-  "score_DestoryEnemy": 31,
+  "score_DestoryEnemy": 32,
   "gunName": 0,
   "maxHitPoint": 100,
   "nowHitPoint": 20.0,
@@ -27,7 +27,7 @@
     2,
     3
   ],
-  "nowFloor": 11,
+  "nowFloor": 12,
   "selectStageNo": 0,
   "maney": 0,
   "trace": 0.0

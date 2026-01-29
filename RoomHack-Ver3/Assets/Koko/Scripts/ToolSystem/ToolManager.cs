@@ -67,44 +67,11 @@ public class ToolManager : MonoBehaviour
 
     private void Update()
     {
-        // reboot関連
-        // 廃止につきStartに移行
-        {
-            //if (useableRam.IsReboot)
-            //{
-            //    Debug.Log("リブート中");
+        // ゲームが動いてるか否か
+        if (GameTimer.Instance.playTime == 0) return;
 
-            //    for (int i = 0; i < deckSystem.toolHand.Count; i++)
-            //    {
-            //        HandTrash(0);
-            //    }
-            //    isRebootHandStay = true;
-            //}
-            //else
-            //{
-            //    Debug.Log("リブート中じゃないよ");
-
-            //    // 手札再配置
-            //    if (isRebootHandStay)
-            //    {
-            //        Debug.Log("手札くばるよ");
-
-            //        //SeManager.Instance.Play("RebootEnd");
-            //        if (deckSystem.toolHand.Count < useableRam.HandMaxSize)
-            //        {
-            //            DeckDraw();
-            //        }
-            //        else
-            //        {
-            //            isRebootHandStay = false;
-            //            //Debug.Log("rebootEnd!");
-            //        }
-            //    }
-            //}
-        }
-
-        // ハッキングモード
-        //if (GameTimer.Instance.IsHackTime)
+        // ハッキング
+        //if (GameTimer.Instance.playTime == 1)
         {
             ramUIDisp.willUseRam = 0;
 

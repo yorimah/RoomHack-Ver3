@@ -7,51 +7,98 @@ public class Tutorial1 : MonoBehaviour
     TutorialManager tutorialManager;
 
     [SerializeField]
-    List<TutorialData> tutorialList = new List<TutorialData>();
+    TutorialDataList tutorialDataList;
 
-    int index = 0;
+    int index = 1;
     bool isExplain = false;
+    bool isIndexStart = false;
 
     float timer = 0;
 
-    TutorialData nullData;
-
-    private void Awake()
-    {
-        nullData.muskPos = Vector2.zero;
-        nullData.muskSize = new Vector2(1920, 1080);
-        nullData.textPos = Vector2.zero;
-        nullData.explains = " ";
-    }
+    bool isFloorStart = false;
 
     private void Update()
     {
+        // ゲーム起動チェック
+        if (GameTimer.Instance.playTime == 1)
+        {
+            isFloorStart = true;
+        }
+
+        // ゲーム起動してから
+        if (!isFloorStart) return;
+
         // 説明オンオフ
         if (isExplain)
         {
-            tutorialManager.SetStatus(tutorialList[index]);
+            tutorialManager.SetStatus(tutorialDataList.dataList[index]);
+            GameTimer.Instance.playTime = 0;
         }
         else
         {
-            tutorialManager.SetStatus(nullData);
+            tutorialManager.SetStatus(tutorialDataList.dataList[0]);
+            GameTimer.Instance.playTime = 1;
         }
 
         switch (index)
         {
             case 0:
+                // なにもなし
+                index++;
+                break;
+
+            case 1:
+                // スタート処理
+                if (!isIndexStart)
+                {
+                    // なにかかく
+                    timer = 0;
+
+                    isIndexStart = true;
+                }
+
+                // アップデート
+                {
+                    timer += Time.deltaTime;
+                    Debug.Log(timer);
+                }
+
                 // 説明開始条件
                 if (true) isExplain = true;
 
-                // 説明中
-                if (isExplain)
-                {
-
-                }
-
                 // 説明終了条件
-                if (true)
+                if (timer > 6.5 && Input.anyKeyDown)
                 {
                     isExplain = false;
+                    isIndexStart = false;
+                    index++;
+                }
+
+                break;
+
+            case 2:
+                // スタート処理
+                if (!isIndexStart)
+                {
+                    // なにかかく
+                    timer = 0;
+
+                    isIndexStart = true;
+                }
+
+                // アップデート
+                {
+                    timer += Time.deltaTime;
+                }
+
+                // 説明開始条件
+                if (true) isExplain = true;
+
+                // 説明終了条件
+                if (timer > 3 && Input.GetKeyDown(KeyCode.W))
+                {
+                    isExplain = false;
+                    isIndexStart = false;
                     index++;
                 }
 
@@ -60,13 +107,4 @@ public class Tutorial1 : MonoBehaviour
     }
 }
 
-public class TutorialData
-{
-    public Vector2 muskPos;
-    public Vector2 muskSize;
 
-    public Vector2 textPos;
-    public string explains;
-
-    public float time;
-}
