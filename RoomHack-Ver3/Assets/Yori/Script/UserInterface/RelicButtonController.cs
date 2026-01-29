@@ -44,8 +44,8 @@ public class RelicButtonController : MonoBehaviour
 
     public void Update()
     {
-        var scroll = Input.mouseScrollDelta.y * Time.deltaTime * 100;
-        if (Mathf.Abs(scroll) > 1)
+        var scroll = Input.mouseScrollDelta.normalized.y;
+        if (Mathf.Abs(scroll) >= 1)
         {
             if (insObjList[insObjList.Count - 1].anchoredPosition.y - scroll * 10 <= backGroundRect.rect.height / 2 &&
                 insObjList[0].anchoredPosition.y - scroll * 10 >= -backGroundRect.rect.height / 2)

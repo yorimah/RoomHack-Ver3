@@ -7,7 +7,10 @@ public class RelicBuyButton : WindowSystem
     private Text relicNameTextBox;
 
     [SerializeField]
-    private Text relicExpTextBox;
+    private Text relicPriceTextBox;
+
+    [SerializeField]
+    private Text relicExplainTextBox;
 
     [SerializeField]
     private Image iconImage;
@@ -39,10 +42,12 @@ public class RelicBuyButton : WindowSystem
         setMoneyNum = _setMoneyNum;
         setRelicList = _setRelicList;
         relicNameTextBox = relicNameTextBox.GetComponent<Text>();
-        relicExpTextBox = relicExpTextBox.GetComponent<Text>();
+        relicPriceTextBox = relicPriceTextBox.GetComponent<Text>();
+        relicExplainTextBox = relicExplainTextBox.GetComponent<Text>();
         iconImage = iconImage.GetComponent<Image>();
         relicNameTextBox.text = relicData.nameText;
-        relicExpTextBox.text = relicData.explainText;
+        relicExplainTextBox.text = relicData.explainText;
+        relicPriceTextBox.text = relicData.relicPrice.ToString();
         iconImage.sprite = relicData.iconImage;
     }
     public void PushBuy()
