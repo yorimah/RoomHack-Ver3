@@ -1367,10 +1367,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 681543804628617084, guid: 3078c906b95c5f249805b825640fa0bf, type: 3}
-      propertyPath: SerializeMaxHp
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4162678277509300695, guid: 3078c906b95c5f249805b825640fa0bf, type: 3}
       propertyPath: m_Name
       value: TutorialEnemy
