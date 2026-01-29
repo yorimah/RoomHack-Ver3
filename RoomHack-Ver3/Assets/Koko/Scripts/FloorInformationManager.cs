@@ -35,7 +35,6 @@ public class FloorInformationManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("ステージ開始");
         //EffectManager.Instance.ActEffect(EffectManager.EffectType.Time, new Vector2(0, 6));
 
         saveData = getSaveData.GetPlayerSaveData();

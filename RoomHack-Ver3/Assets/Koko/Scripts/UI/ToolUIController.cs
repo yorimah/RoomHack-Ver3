@@ -63,6 +63,8 @@ public class ToolUIController : MonoBehaviour
 
     public void ToolUIControllerStart()
     {
+        Debug.Log("start");
+
         nowDeckPos = actDeckPos;
         nowTrashPos = actTrashPos;
         nowHandPos = actHandPos;

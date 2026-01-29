@@ -78,9 +78,9 @@ public class CameraPositionController : MonoBehaviour
         GameObject mouseObject = GetMousePositionObject();
         if (mouseObject != null)
         {
-            if (mouseObject.GetComponent<IHackObject>().CanHack)
+            if (mouseObject.TryGetComponent<IHackObject>(out IHackObject hackObj))
             {
-                targetObject = mouseObject;
+                if (hackObj.CanHack) targetObject = mouseObject;
             }
         }
         else
