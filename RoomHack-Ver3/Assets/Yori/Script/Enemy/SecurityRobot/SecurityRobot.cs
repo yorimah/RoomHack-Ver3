@@ -12,7 +12,7 @@ public class SecurityRobot : EnemyBase
     {
         { EnemyStateType.Idle, new SecurityRobotIdleState(this,viewRange) },
         { EnemyStateType.Move, new SecurityRobotMoveState(this) },
-        { EnemyStateType.Shot, new ShotState(this) },
+        { EnemyStateType.Shot, new SecurityRobotShotState(this) },
         { EnemyStateType.Reload, new ReloadState(this) },
         { EnemyStateType.Die, new DieState(this) },
     };

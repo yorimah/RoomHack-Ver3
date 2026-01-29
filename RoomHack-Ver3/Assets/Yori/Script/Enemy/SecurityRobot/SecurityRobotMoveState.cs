@@ -11,9 +11,6 @@ public class SecurityRobotMoveState : IEnemyState
     private SecurityRobotMoveType securityRobotMoveType;
     private Dictionary<SecurityRobotMoveType, IEnemyState> moveTypeState;
 
-    float moveTypeChangeTime = 1;
-    float timer;
-
     private float checkDistance = 1;
     public SecurityRobotMoveState(EnemyBase _enemy)
     {
@@ -82,7 +79,6 @@ public class SecurityRobotMoveState : IEnemyState
     }
     public void MoveTypeChange(SecurityRobotMoveType movetype)
     {
-        timer = 0;
         currentState.Exit();
         securityRobotMoveType = movetype;
         currentState = moveTypeState[securityRobotMoveType];
@@ -110,7 +106,7 @@ public class SecurityRobotMoveStraightState : IEnemyState
 
     public void Execute()
     {
-
+        enemy.rigidbody.linearVelocity = enemy.transform.up * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
     }
 
     public void Exit()
@@ -122,6 +118,8 @@ public class SecurityRobotMoveStraightState : IEnemyState
 public class SecurityRobotMoveCircleState : IEnemyState
 {
     private EnemyBase enemy;
+
+
     public SecurityRobotMoveCircleState(EnemyBase _enemy)
     {
         enemy = _enemy;
@@ -133,7 +131,14 @@ public class SecurityRobotMoveCircleState : IEnemyState
 
     public void Execute()
     {
+        Vector2 nowPosition = enemy.transform.position;
 
+        Vector2 center = enemy.PlayerPosition;
+        Vector2 dir = nowPosition - center;
+
+        Vector2 emDir = new Vector2(-dir.y, dir.x);
+        // Rigidbody2Dで移動
+        enemy.rigidbody.linearVelocity = emDir.normalized * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
     }
 
     public void Exit()

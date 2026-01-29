@@ -4,19 +4,21 @@ public class SecurityRobotIdleState : IEnemyState
     private EnemyBase enemy;
 
     private PlayerCheck playerCheck;
-
+    public enum PatrolMoveEnum
+    {
+        moveStraight,
+        turn,
+    }
+    PatrolMoveEnum patrolMoveEnum;
     // mesh関係
     Vector3[] vertices;
     int[] triangles;
     Mesh mesh;
 
-    private GameObject shotRange;
-
     // 長さ
     private float viewDistance = 3f;
     // 分割数
     private int segment = 20;
-    private Material shotRanageMaterial;
 
     private Rigidbody2D enemyRigidBody;
 
@@ -26,16 +28,16 @@ public class SecurityRobotIdleState : IEnemyState
         enemy = _enemy;
         playerCheck = enemy.playerCheck;
         enemyRigidBody = enemy.GetComponent<Rigidbody2D>();
-        shotRanageMaterial = _shotRanageMaterial;
-        shotRange = new GameObject(enemy.gameObject.name + "shotRangge");
-        shotRange.AddComponent<MeshRenderer>();
-        shotRange.AddComponent<MeshFilter>();
-        shotRange.transform.localPosition = Vector2.zero;
+        Material shotRanageMaterial = _shotRanageMaterial;
+        GameObject viewRange = new GameObject(enemy.gameObject.name + "ViewRangge");
+        viewRange.AddComponent<MeshRenderer>();
+        viewRange.AddComponent<MeshFilter>();
+        viewRange.transform.localPosition = Vector2.zero;
 
         mesh = new Mesh();
-        shotRange.GetComponent<MeshFilter>().mesh = mesh;
+        viewRange.GetComponent<MeshFilter>().mesh = mesh;
 
-        var mr = shotRange.GetComponent<MeshRenderer>();
+        var mr = viewRange.GetComponent<MeshRenderer>();
 
         mr.material = new Material(shotRanageMaterial);
         mr.material.color = new Color(1, 1, 0, 0.3f); // 半透明黄色(仮)
@@ -45,25 +47,56 @@ public class SecurityRobotIdleState : IEnemyState
     }
     public void Enter()
     {
-
+        patrolMoveEnum = PatrolMoveEnum.moveStraight;
     }
 
     public void Execute()
     {
         EnemyView();
-        PatrolMove();
+        MoveTypeChange();
     }
 
     public void Exit()
     {
         mesh.Clear();
     }
-
-    public void PatrolMove()
+    Vector2 targetDir;
+    public void MoveTypeChange()
     {
-        if (Physics2D.Raycast(enemy.transform.position, enemy.transform.up, checkDistance, enemy.GetObstacleMask()))
+        switch (patrolMoveEnum)
         {
-            Debug.Log("壁に激突");
+            case PatrolMoveEnum.moveStraight:
+                // 壁とぶつかったら左右どちらかに方向転換
+                if (!Physics2D.Raycast(enemy.transform.position, enemy.transform.up, checkDistance, enemy.GetObstacleMask()))
+                {
+                    enemyRigidBody.linearVelocity = enemy.transform.up * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
+                }
+                else
+                {
+                    Vector2 rightDir = enemy.transform.right;
+                    Vector2 leftDir = -enemy.transform.right;
+                    RaycastHit2D rightRangeRay = Physics2D.Raycast(enemy.transform.position, rightDir, 10, enemy.GetObstacleMask());
+                    float rightRange = Vector2.Distance(enemy.transform.position, rightRangeRay.point);
+                    RaycastHit2D leftRangeRay = Physics2D.Raycast(enemy.transform.position, leftDir, 10, enemy.GetObstacleMask());
+                    float leftRange = Vector2.Distance(enemy.transform.position, leftRangeRay.point);
+                    targetDir = rightRange >= leftRange ? rightDir : leftDir;
+                    patrolMoveEnum = PatrolMoveEnum.turn;
+                }
+                break;
+            case PatrolMoveEnum.turn:
+                float targetAngle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
+                float current = enemy.transform.eulerAngles.z;
+                float rotateSpeed = 180f;
+                float newAngle = Mathf.MoveTowardsAngle(current, targetAngle, rotateSpeed * GameTimer.Instance.GetScaledDeltaTime());
+                enemy.transform.rotation = Quaternion.Euler(0, 0, newAngle);
+                float diff = Mathf.DeltaAngle(current, targetAngle);
+
+                if (Mathf.Abs(diff) < 1f)
+                {
+                    patrolMoveEnum = PatrolMoveEnum.moveStraight;
+                    Debug.Log("回転終わり");
+                }
+                break;
         }
     }
 
@@ -89,11 +122,11 @@ public class SecurityRobotIdleState : IEnemyState
 
             vertices[0] = enemy.transform.position;
 
-            float angle = 30 * 2f;
+            float angle = 60 * 2f;
 
             for (int i = 0; i <= segment; i++)
             {
-                float diffusionAngle = -30 + (angle / segment) * i;
+                float diffusionAngle = -60 + (angle / segment) * i;
 
                 Quaternion rot = Quaternion.AngleAxis(diffusionAngle, Vector3.forward);
                 Vector3 dir = rot * enemy.transform.up;
