@@ -18,10 +18,14 @@ public class SecurityRobotIdleState : IEnemyState
     private int segment = 20;
     private Material shotRanageMaterial;
 
+    private Rigidbody2D enemyRigidBody;
+
+    private float checkDistance = 1;
     public SecurityRobotIdleState(EnemyBase _enemy, Material _shotRanageMaterial)
     {
         enemy = _enemy;
         playerCheck = enemy.playerCheck;
+        enemyRigidBody = enemy.GetComponent<Rigidbody2D>();
         shotRanageMaterial = _shotRanageMaterial;
         shotRange = new GameObject(enemy.gameObject.name + "shotRangge");
         shotRange.AddComponent<MeshRenderer>();
@@ -46,7 +50,26 @@ public class SecurityRobotIdleState : IEnemyState
 
     public void Execute()
     {
-        ShotRangeView();
+        EnemyView();
+        PatrolMove();
+    }
+
+    public void Exit()
+    {
+        mesh.Clear();
+    }
+
+    public void PatrolMove()
+    {
+        if (Physics2D.Raycast(enemy.transform.position, enemy.transform.up, checkDistance, enemy.GetObstacleMask()))
+        {
+            Debug.Log("壁に激突");
+        }
+    }
+
+    public void EnemyView()
+    {
+        ViewMesh();
         if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
         {
             Vector2 forward = enemy.transform.up;
@@ -58,13 +81,7 @@ public class SecurityRobotIdleState : IEnemyState
             }
         }
     }
-
-    public void Exit()
-    {
-        mesh.Clear();
-    }
-
-    public void ShotRangeView()
+    public void ViewMesh()
     {
         if (mesh != null)
         {
