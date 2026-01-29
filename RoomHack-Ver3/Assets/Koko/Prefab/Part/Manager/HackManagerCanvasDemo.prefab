@@ -552,6 +552,101 @@ MonoBehaviour:
   inputText: 
   delay: 1
   isRunning: 1
+--- !u!1 &6768268016593450665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6506329961721375658}
+  - component: {fileID: 9187597466528711568}
+  - component: {fileID: 4680494998499994024}
+  - component: {fileID: 7409630931108656859}
+  m_Layer: 5
+  m_Name: ToolTextDemo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6506329961721375658
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768268016593450665}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 798387189228875511}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 640, y: -400.00003}
+  m_SizeDelta: {x: 180, y: 260}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &9187597466528711568
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768268016593450665}
+  m_CullTransparentMesh: 1
+--- !u!114 &4680494998499994024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768268016593450665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 2100000, guid: 9d03f087720cbe8419d7e778c8f790c3, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 297d4d98b1441334cb40b0f8a303ce05, type: 3}
+    m_FontSize: 25
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 100
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\u30C4\u30FC\u30EB\u3066\u304D\u3059\u3068"
+--- !u!114 &7409630931108656859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768268016593450665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bad4241ac3b7947bd9c4c7da35718b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GeneralUpdateText
+  inputText: 
+  delay: 1
+  isRunning: 1
 --- !u!1 &7064683494375744897
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +786,7 @@ RectTransform:
   - {fileID: 7881349851861046043}
   - {fileID: 7649113250200104661}
   - {fileID: 4106503265785034068}
+  - {fileID: 6506329961721375658}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -817,6 +913,7 @@ MonoBehaviour:
   ramFill: {fileID: 21300000, guid: 310519454e685094989c3983da240596, type: 3}
   ramUsed: {fileID: 21300000, guid: 865e22ba30b889941840122ab4785a18, type: 3}
   ramWillUse: {fileID: 21300000, guid: b52e8877034701d40a6b989eedede501, type: 3}
+  ramText: {fileID: 0}
 --- !u!114 &1994309279567980273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -848,7 +945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ToolUIController_MouseWheel
   toolUIPrefab: {fileID: 6773521087607688420, guid: 66a57fb8bf0040b46bbe9ae311756511, type: 3}
   actDeckPos: {x: 600, y: 400}
-  actTrashPos: {x: 600, y: -400}
+  actTrashPos: {x: 700, y: 400}
   actHandPos: {x: 850, y: 0}
   handSpace: 200
   handUIScale: {x: 0.8, y: 0.8}
@@ -860,6 +957,8 @@ MonoBehaviour:
   handPlayList: 
   selectIndex: 0
   isHandOn: 0
+  toolTextDemo: {fileID: 7409630931108656859}
+  toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
 --- !u!1 &8820473284804797408
 GameObject:
   m_ObjectHideFlags: 0

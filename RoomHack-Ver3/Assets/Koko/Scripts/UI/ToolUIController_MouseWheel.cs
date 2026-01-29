@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 public class ToolUIController_MouseWheel : ToolUIController
 {
+    [SerializeField, Header("ToolTextDemoをあたっち")]
+    GeneralUpdateText toolTextDemo;
+    [SerializeField, Header("かりであたっち、きもすぎわろた")]
+    ToolDataBank toolDataBank;
+
     protected override void SelectIndexCheck()
     {
         isHandOn = true;
@@ -49,8 +54,12 @@ public class ToolUIController_MouseWheel : ToolUIController
                 {
                     firstHandPos.x -= 100;
                     hand.toScale = handUIScale * 1.2f;
-                    hand.isTextDisp = true;
+                    //hand.isTextDisp = true;
 
+                    if (toolTextDemo != null)
+                    {
+                        toolTextDemo.inputText = toolDataBank.toolDataList[(int)hand.thisTool].toolText;
+                    }
                 }
             }
 

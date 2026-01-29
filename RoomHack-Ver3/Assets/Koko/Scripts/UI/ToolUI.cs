@@ -44,6 +44,8 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField]Text costText;
     [SerializeField]GeneralUpdateText effectText;
 
+    [SerializeField] GameObject blackScreen;
+
     // 効果表示変数
     bool isNameCostDisp = false;
     public bool isTextDisp = false;
@@ -148,10 +150,14 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (isBlackOut)
         {
             GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            toolIcon.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            blackScreen.SetActive(true);
         }
         else
         {
             GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+            toolIcon.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+            blackScreen.SetActive(false);
         }
 
 
