@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: backGound
+  m_Name: IrisOut
   m_Shader: {fileID: 4800000, guid: 931694569a4c6bb4993da710d0a13468, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -49,7 +49,7 @@ Material:
     - _ColorMask: 255
     - _Cutoff: 0
     - _EnableExternalAlpha: 0
-    - _MaskAlpha: 1
+    - _MaskAlpha: 0.6
     - _Stencil: 2
     - _StencilComp: 8
     - _StencilOp: 0

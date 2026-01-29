@@ -1,8 +1,19 @@
 ﻿Shader "Custom/StencilMaskCover"
 {
-    SubShader
+    Properties
     {
-        Tags { "Queue" = "Overlay" "RenderType" = "Opaque" }
+        _MaskColor("Mask Color (RGB)", Color) = (0,0,0,1)
+        _MaskAlpha("Mask Alpha", Range(0,1)) = 0.6
+    }
+
+        SubShader
+    {
+        Tags
+        {
+            "Queue" = "Overlay"
+            "RenderType" = "Transparent"
+            "RenderPipeline" = "UniversalPipeline"
+        }
 
         Stencil
         {
@@ -16,20 +27,18 @@
             ZTest Always
             ZWrite Off
             Cull Off
-            ColorMask RGBA
+            Blend SrcAlpha OneMinusSrcAlpha
 
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
 
-            struct appdata {
-                float4 vertex : POSITION;
-            };
+            fixed4 _MaskColor;
+            float _MaskAlpha;
 
-            struct v2f {
-                float4 pos : SV_POSITION;
-            };
+            struct appdata { float4 vertex : POSITION; };
+            struct v2f { float4 pos : SV_POSITION; };
 
             v2f vert(appdata v)
             {
@@ -40,7 +49,9 @@
 
             fixed4 frag(v2f i) : SV_Target
             {
-                return fixed4(0, 0, 0, 1); // 黒で塗りつぶす
+                fixed4 col = _MaskColor;
+                col.a = _MaskAlpha;
+                return col;
             }
             ENDHLSL
         }
