@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
 
 public class ChatManager : MonoBehaviour
 {
@@ -38,8 +39,15 @@ public class ChatManager : MonoBehaviour
     [SerializeField] float textSpeed = 0.1f;
     bool textSkip = false;
 
+    [SerializeField] RectTransform windowRect;
+    [SerializeField, Header("生成位置")] Vector2 popPostion;
+    [SerializeField, Header("ウィンドウの大きさ")] Vector2 windowSize;
+    [SerializeField] float waitSeconds;
+
     private void Start()
     {
+        _ = PopUpWindow();
+
         text_L = chatBox_Left.GetComponent<Text>();
         text_R = chatBox_Right.GetComponent<Text>();
 
@@ -75,7 +83,7 @@ public class ChatManager : MonoBehaviour
 
                         textBoxSize = Vector2.zero;
 
-                        nowTextBox = Instantiate(boxPrefab, gameObject.transform.position, Quaternion.identity, this.transform);
+                        nowTextBox = Instantiate(boxPrefab, new Vector2(0, 100), Quaternion.identity, this.transform);
                         nowTextBox.transform.SetAsFirstSibling();
 
 
@@ -143,6 +151,7 @@ public class ChatManager : MonoBehaviour
             {
                 chatEndObject.SetActive(true);
 
+
                 if (Input.GetMouseButtonDown(0))
                 {
                     this.gameObject.SetActive(false);
@@ -184,6 +193,23 @@ public class ChatManager : MonoBehaviour
         rectScale.x = (textSize.x * _boxSize.x) + flameSize;
         rectScale.y = (textSize.y * _boxSize.y) + flameSize;
         nowBoxRect.sizeDelta = rectScale;
+    }
+
+    public async UniTask PopUpWindow()
+    {
+        windowRect.localPosition = popPostion;
+        windowRect.sizeDelta += new Vector2(0, 10);
+        while (windowRect.rect.width < windowSize.x)
+        {
+            windowRect.sizeDelta += new Vector2(windowSize.x / 10, 0);
+            await UniTask.WaitForSeconds(waitSeconds);
+        }
+        while (windowRect.rect.height < windowSize.y)
+        {
+            windowRect.sizeDelta += new Vector2(0, windowSize.y / 10);
+            await UniTask.WaitForSeconds(waitSeconds);
+        }
+        windowRect.sizeDelta = windowSize;
     }
 
 }

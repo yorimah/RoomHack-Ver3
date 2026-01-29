@@ -28,11 +28,15 @@ public class EffectScreenManager : MonoBehaviour
     [SerializeField, Header("アタッチしてね")]
     List<Image> screenList = new List<Image>();
 
+    // 透過度セット
+    // フェードとセットで使用すること
     public void SetScreenOpacity(int _index, float _opacity)
     {
         screenList[_index].color = new Color(screenList[_index].color.r, screenList[_index].color.g, screenList[_index].color.b, _opacity);
     }
 
+    // フェード、ratioが1以上でフェードイン、1未満でフェードアウト
+    // フェード前にSetScreenOpacityを起動すること
     public void ScreenFade(int _index, float _ratio)
     {
         StartCoroutine(FadeSequence(_index, _ratio));
