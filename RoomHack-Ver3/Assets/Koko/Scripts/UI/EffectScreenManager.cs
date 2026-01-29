@@ -51,7 +51,7 @@ public class EffectScreenManager : MonoBehaviour
 
             while (isFadeNow)
             {
-                Debug.Log("wawawa");
+                //Debug.Log("wawawa");
                 // 数値変更
                 float transparency = screenList[_index].color.a;
                 transparency *= _ratio;

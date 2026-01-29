@@ -4,7 +4,11 @@ using UnityEngine.UI;
 using Zenject;
 public class RamUIDisp : MonoBehaviour
 {
-    public Vector2 defaultPos = new Vector2(0, -200);
+    [SerializeField]
+    Vector2 defaultPos = new Vector2(0, -200);
+
+    [SerializeField]
+    Vector2 space = new Vector2(50, 0);
 
     public int willUseRam = 0;
 
@@ -25,6 +29,9 @@ public class RamUIDisp : MonoBehaviour
     [SerializeField]
     Sprite ramWillUse;
 
+    [SerializeField]
+    GeneralUpdateText ramText;
+
     List<GameObject> ramUIList = new List<GameObject>();
 
     [Inject]
@@ -37,7 +44,13 @@ public class RamUIDisp : MonoBehaviour
         for (int i = 0; i < maxRamCap; i++)
         {
             GameObject ramObj = Instantiate(ramUIPrefab, this.transform.position, Quaternion.identity, this.gameObject.transform);
+            
             ramUIList.Add(ramObj);
+
+            Vector3 rot = ramObj.GetComponent<RectTransform>().localEulerAngles;
+            rot.z = 90;
+            ramObj.GetComponent<RectTransform>().localEulerAngles = rot;
+
 
         }
 
@@ -81,7 +94,7 @@ public class RamUIDisp : MonoBehaviour
             }
 
             // 位置設定
-            Vector2 ramPos = defaultPos + new Vector2((maxRamCap - 1) * -25 + i * 50, 0);
+            Vector2 ramPos = defaultPos + new Vector2((maxRamCap - 1) * -space.x / 2 + i * space.x, (maxRamCap - 1) * -space.y / 2 + i * space.y);
             ramUIList[i].GetComponent<RectTransform>().anchoredPosition = ramPos;
         }
 
@@ -103,5 +116,7 @@ public class RamUIDisp : MonoBehaviour
                 }
             }
         }
+
+        //ramText.inputText = nowRamCap.ToString("00");
     }
 }

@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 49825f7652f3c6e438eb2dd522ea54bd
+guid: bee90201bc414fb49b89bae678f3950e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3761078773074654107
-    second: ToolIcon_InstantMemory_0
+      213: 4953443644919285551
+    second: ToolIcon_Disruption_0
   - first:
-      213: -6469066359709720067
-    second: ToolIcon_InstantMemory_1
+      213: 1758263824165560844
+    second: ToolIcon_Disruption_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -99,30 +99,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ToolIcon_InstantMemory_0
+      name: ToolIcon_Disruption_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
-        width: 31
-        height: 30
+        y: 0
+        width: 32
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 56c8f9e68c6fdcbc0800000000000000
-      internalID: -3761078773074654107
+      spriteID: f27845620ca2eb440800000000000000
+      internalID: 4953443644919285551
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ToolIcon_InstantMemory_1
+      name: ToolIcon_Disruption_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
-        width: 10
-        height: 9
+        x: 10
+        y: 11
+        width: 19
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: df1a211ab624936a0800000000000000
-      internalID: -6469066359709720067
+      spriteID: c02eec4e1ab966810800000000000000
+      internalID: 1758263824165560844
       vertices: []
       indices: 
       edges: []
@@ -173,8 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ToolIcon_InstantMemory_0: -3761078773074654107
-      ToolIcon_InstantMemory_1: -6469066359709720067
+      ToolIcon_Disruption_0: 4953443644919285551
+      ToolIcon_Disruption_1: 1758263824165560844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

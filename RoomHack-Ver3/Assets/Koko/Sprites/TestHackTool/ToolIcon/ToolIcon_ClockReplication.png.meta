@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 49825f7652f3c6e438eb2dd522ea54bd
+guid: e09ba43cc665a5446918a7f98d2b7dec
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3761078773074654107
-    second: ToolIcon_InstantMemory_0
+      213: 1081775329127654369
+    second: ToolIcon_ClockReplication_0
   - first:
-      213: -6469066359709720067
-    second: ToolIcon_InstantMemory_1
+      213: -6105903804158204115
+    second: ToolIcon_ClockReplication_1
+  - first:
+      213: -9023160468291927042
+    second: ToolIcon_ClockReplication_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -99,30 +102,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ToolIcon_InstantMemory_0
+      name: ToolIcon_ClockReplication_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2
-        width: 31
-        height: 30
+        x: 1
+        y: 9
+        width: 30
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 56c8f9e68c6fdcbc0800000000000000
-      internalID: -3761078773074654107
+      spriteID: 1e36f6b2eec330f00800000000000000
+      internalID: 1081775329127654369
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ToolIcon_InstantMemory_1
+      name: ToolIcon_ClockReplication_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
-        width: 10
-        height: 9
+        x: 1
+        y: 1
+        width: 21
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +143,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: df1a211ab624936a0800000000000000
-      internalID: -6469066359709720067
+      spriteID: d27a17037d8734ba0800000000000000
+      internalID: -6105903804158204115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToolIcon_ClockReplication_2
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 0
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef3cc106c5b47c280800000000000000
+      internalID: -9023160468291927042
       vertices: []
       indices: 
       edges: []
@@ -173,8 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ToolIcon_InstantMemory_0: -3761078773074654107
-      ToolIcon_InstantMemory_1: -6469066359709720067
+      ToolIcon_ClockReplication_0: 1081775329127654369
+      ToolIcon_ClockReplication_1: -6105903804158204115
+      ToolIcon_ClockReplication_2: -9023160468291927042
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

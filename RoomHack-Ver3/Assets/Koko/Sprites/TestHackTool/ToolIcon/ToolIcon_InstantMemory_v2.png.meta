@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 49825f7652f3c6e438eb2dd522ea54bd
+guid: b97ab9d0f6d698d488a252d57c5cb929
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3761078773074654107
-    second: ToolIcon_InstantMemory_0
+      213: 8967130061103097532
+    second: ToolIcon_InstantMemory_v2_0
   - first:
-      213: -6469066359709720067
-    second: ToolIcon_InstantMemory_1
+      213: 3112245886639331108
+    second: ToolIcon_InstantMemory_v2_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -99,24 +99,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ToolIcon_InstantMemory_0
+      name: ToolIcon_InstantMemory_v2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 56c8f9e68c6fdcbc0800000000000000
-      internalID: -3761078773074654107
+      spriteID: cb6e6cad745a17c70800000000000000
+      internalID: 8967130061103097532
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ToolIcon_InstantMemory_1
+      name: ToolIcon_InstantMemory_v2_1
       rect:
         serializedVersion: 2
         x: 16
@@ -153,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: df1a211ab624936a0800000000000000
-      internalID: -6469066359709720067
+      spriteID: 427decef42be03b20800000000000000
+      internalID: 3112245886639331108
       vertices: []
       indices: 
       edges: []
@@ -173,8 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ToolIcon_InstantMemory_0: -3761078773074654107
-      ToolIcon_InstantMemory_1: -6469066359709720067
+      ToolIcon_InstantMemory_v2_0: 8967130061103097532
+      ToolIcon_InstantMemory_v2_1: 3112245886639331108
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

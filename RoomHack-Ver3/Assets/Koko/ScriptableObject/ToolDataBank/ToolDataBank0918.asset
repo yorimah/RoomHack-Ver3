@@ -81,35 +81,35 @@ MonoBehaviour:
     toolName: InstantMemory
     toolCost: 2
     toolText: "RAM\u30923\u56DE\u5FA9\u3002"
-    toolIconSprite: {fileID: -3761078773074654107, guid: 49825f7652f3c6e438eb2dd522ea54bd, type: 3}
+    toolIconSprite: {fileID: 21300000, guid: b97ab9d0f6d698d488a252d57c5cb929, type: 3}
     toolEvent: {fileID: 44434513314159414, guid: 3a9a14febd5c71548a0a5edf02ad3617, type: 3}
   - toolTag: 10
     toolType: 4
     toolName: FastReload
     toolCost: 2
     toolText: "\u624B\u672D\u3092\u5168\u3066\u6368\u3066\u3001\u6368\u3066\u305F\u679A\u6570\u30C9\u30ED\u30FC\u3002"
-    toolIconSprite: {fileID: 0}
+    toolIconSprite: {fileID: 21300000, guid: 79acc013dc6be41428f3e89cb6603c3d, type: 3}
     toolEvent: {fileID: -1753757645995225603, guid: 401f02ab3f0fa6b4db9761fe2aeb5fda, type: 3}
   - toolTag: 11
     toolType: 3
     toolName: Armorust
     toolCost: 1
     toolText: "\u5BFE\u8C61\u306F3\u79D2\u9593\u3001\u9632\u5FA1\u529B\u304C20\u6E1B\u5C11\u3059\u308B\u3002"
-    toolIconSprite: {fileID: 0}
+    toolIconSprite: {fileID: 21300000, guid: e61784cda97dccf47b512faab3015dce, type: 3}
     toolEvent: {fileID: 113583745954713617, guid: 5020710c1a559014d9ec7cdb3a3b7f1b, type: 3}
   - toolTag: 12
     toolType: 1
     toolName: Disruption
     toolCost: 3
     toolText: "\u30CF\u30F3\u30C9\u304B\u3089\u30E9\u30F3\u30C0\u30E0\u306A\u30C4\u30FC\u30EB\u3092\u30C8\u30E9\u30C3\u30B7\u30E5\u3002\u5BFE\u8C61\u306B[\u30C8\u30E9\u30C3\u30B7\u30E5\u3057\u305F\u30C4\u30FC\u30EB\u30B3\u30B9\u30C8*10]\u30C0\u30E1\u30FC\u30B8\u3002"
-    toolIconSprite: {fileID: 0}
+    toolIconSprite: {fileID: 21300000, guid: bee90201bc414fb49b89bae678f3950e, type: 3}
     toolEvent: {fileID: -6319886859162972808, guid: a5ed50115fe9b0d49ac0b86bb69d0234, type: 3}
   - toolTag: 13
     toolType: 3
     toolName: ClockReplication
     toolCost: 2
     toolText: "\u5BFE\u8C61\u306E\u30A8\u30D5\u30A7\u30AF\u30C8\u6642\u9593\u3092\u500D\u5897\u3059\u308B\u3002"
-    toolIconSprite: {fileID: 0}
+    toolIconSprite: {fileID: 21300000, guid: e09ba43cc665a5446918a7f98d2b7dec, type: 3}
     toolEvent: {fileID: -4578094110825811497, guid: d5fe143f057e95d4282137f21d67afed, type: 3}
   - toolTag: 14
     toolType: 1

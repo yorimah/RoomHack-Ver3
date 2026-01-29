@@ -660,11 +660,10 @@ GameObject:
   - component: {fileID: 2309789627462342029}
   - component: {fileID: 8553714406202629247}
   - component: {fileID: 8220217736563107377}
-  - component: {fileID: 3497092408333659285}
   - component: {fileID: 264601888909838785}
   - component: {fileID: 5373995921203254104}
   - component: {fileID: 1994309279567980273}
-  - component: {fileID: 104994227719486585}
+  - component: {fileID: 3936779749002963016}
   m_Layer: 5
   m_Name: HackManagerCanvasDemo
   m_TagString: Untagged
@@ -775,40 +774,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToolManager
   toolDataBank: {fileID: 11400000, guid: 6e21535eeefa9574387492a7a307ecb8, type: 2}
-  toolUIController: {fileID: 3497092408333659285}
+  toolUIController: {fileID: 3936779749002963016}
   deckSystem: {fileID: 264601888909838785}
   ramUIDisp: {fileID: 5373995921203254104}
   cameraPositionController: {fileID: 0}
---- !u!114 &3497092408333659285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7115736500871607840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6f86c20a11c9a4c913813b46f4c680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toolUIPrefab: {fileID: 6773521087607688420, guid: 66a57fb8bf0040b46bbe9ae311756511, type: 3}
-  nowDeckPos: {x: 0, y: 0}
-  nowTrashPos: {x: 0, y: 0}
-  nowHandPos: {x: 0, y: 0}
-  actDeckPos: {x: 600, y: 400}
-  actTrashPos: {x: 600, y: -400}
-  actHandPos: {x: 800, y: 0}
-  hackDeckPos: {x: 600, y: 400}
-  hackTrashPos: {x: 600, y: -400}
-  hackHandPos: {x: 800, y: 0}
-  handSpace: 200
-  handUIScale: {x: 0.8, y: 0.8}
-  handToolUIList: []
-  trashToolUIList: []
-  handCostList: 
-  handPlayList: 
-  handOnIndex: 0
-  isHandOn: 0
 --- !u!114 &264601888909838785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,7 +808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50f45b40762de44db9da4bc6457bebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultPos: {x: 0, y: -200}
+  defaultPos: {x: 600, y: 0}
+  space: {x: 0, y: 50}
   willUseRam: 0
   maxRamCap: 0
   nowRamCap: 0
@@ -864,20 +834,32 @@ MonoBehaviour:
   hpText: {fileID: 2684283532714993906}
   nowHackText: {fileID: 7281356980800746359}
   enemyNumText: {fileID: 4691190596539602547}
---- !u!114 &104994227719486585
+--- !u!114 &3936779749002963016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7115736500871607840}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e5168fe42b9004f9f6de788898fdd0, type: 3}
+  m_Script: {fileID: 11500000, guid: fe04a98848524ea43bbbb4df32c10ffb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CanvasCameraChanger
-  actionCamera: {fileID: 0}
-  hackCamera: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::ToolUIController_MouseWheel
+  toolUIPrefab: {fileID: 6773521087607688420, guid: 66a57fb8bf0040b46bbe9ae311756511, type: 3}
+  actDeckPos: {x: 600, y: 400}
+  actTrashPos: {x: 600, y: -400}
+  actHandPos: {x: 850, y: 0}
+  handSpace: 200
+  handUIScale: {x: 0.8, y: 0.8}
+  handToolUIList: []
+  trashToolUIList: []
+  deckNumText: {fileID: 0}
+  trashNumText: {fileID: 0}
+  handCostList: 
+  handPlayList: 
+  selectIndex: 0
+  isHandOn: 0
 --- !u!1 &8820473284804797408
 GameObject:
   m_ObjectHideFlags: 0

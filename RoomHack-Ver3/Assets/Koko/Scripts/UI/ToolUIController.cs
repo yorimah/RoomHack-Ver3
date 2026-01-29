@@ -11,43 +11,29 @@ public class ToolUIController : MonoBehaviour
     // nowってついてるやつが今のポジション、それぞれを指定してる
     // HandとDeckのポジションをそれぞれアンカー変更してほしい
 
-    [SerializeField]
     Vector2 nowDeckPos;
 
-    [SerializeField]
     Vector2 nowTrashPos;
 
-    [SerializeField]
-    Vector2 nowHandPos;
+    protected Vector2 nowHandPos;
 
     [SerializeField]
-    Vector2 actDeckPos = new Vector2(-1000, 0);
+    Vector2 actDeckPos = new Vector2(600, 400);
 
     [SerializeField]
-    Vector2 actTrashPos = new Vector2(-1000, -320);
+    Vector2 actTrashPos = new Vector2(600, -400);
 
     [SerializeField]
-    Vector2 actHandPos = new Vector2(1000, 0);
-    //new Vector2(0, -680)
+    Vector2 actHandPos = new Vector2(800, 0);
 
     [SerializeField]
-    Vector2 hackDeckPos = new Vector2(-800, 0);
+    protected float handSpace = 200;
 
     [SerializeField]
-    Vector2 hackTrashPos = new Vector2(-800, -320);
+    protected Vector2 handUIScale = new Vector2(0.8f, 0.8f);
 
     [SerializeField]
-    Vector2 hackHandPos = new Vector2(800, 0);
-    //new Vector2(0, -480)
-
-    [SerializeField]
-    float handSpace = 200;
-
-    [SerializeField]
-    Vector2 handUIScale = new Vector2(0.8f, 0.8f);
-
-    [SerializeField]
-    List<ToolUI> handToolUIList = new List<ToolUI>();
+    protected List<ToolUI> handToolUIList = new List<ToolUI>();
 
     [SerializeField]
     List<ToolUI> trashToolUIList = new List<ToolUI>();
@@ -68,7 +54,7 @@ public class ToolUIController : MonoBehaviour
     public List<bool> handCostList = new List<bool>();
     public List<bool> handPlayList = new List<bool>();
 
-    public int handOnIndex = 0;
+    public int selectIndex = 0;
     public bool isHandOn = false;
 
     [Inject]
@@ -77,6 +63,8 @@ public class ToolUIController : MonoBehaviour
 
     public void ToolUIControllerStart()
     {
+        Debug.Log("start");
+
         nowDeckPos = actDeckPos;
         nowTrashPos = actTrashPos;
         nowHandPos = actHandPos;
@@ -129,7 +117,7 @@ public class ToolUIController : MonoBehaviour
         //    nowHandPos = actHandPos;
         //}
 
-        nowHandPos -= Input.mouseScrollDelta * 50;
+        //nowHandPos -= Input.mouseScrollDelta * 50;
 
         // デッキクリックでリブート開始
         // 廃止
@@ -151,7 +139,7 @@ public class ToolUIController : MonoBehaviour
         // リフレッシュリスト処理
         RefreshDestroy();
 
-        HandOnIndexCheck();
+        SelectIndexCheck();
 
 
         // trashがhandより上じゃないとチェックがバグる
@@ -224,7 +212,7 @@ public class ToolUIController : MonoBehaviour
         trashToolUIList.RemoveAt(_index);
     }
 
-    void HandOnIndexCheck()
+    protected virtual void SelectIndexCheck()
     {
         isHandOn = false;
         for (int i = 0; i < handToolUIList.Count; i++)
@@ -232,12 +220,12 @@ public class ToolUIController : MonoBehaviour
             if (handToolUIList[i].isPointerOn)
             {
                 isHandOn = true;
-                handOnIndex = i;
+                selectIndex = i;
             }
         }
     }
 
-    void HandControl()
+    protected virtual void HandControl()
     {
 
         // ハンドのToolの位置と見た目
@@ -292,7 +280,7 @@ public class ToolUIController : MonoBehaviour
                 }
 
                 // 手を重ねると情報出る、位置とサイズ移動
-                if (isHandOn && i == handOnIndex)
+                if (isHandOn && i == selectIndex)
                 {
 
                     //firstHandPos.y = 100;

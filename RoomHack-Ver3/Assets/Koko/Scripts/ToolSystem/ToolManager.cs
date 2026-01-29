@@ -143,7 +143,7 @@ public class ToolManager : MonoBehaviour
                 }
 
                 // マウスがハンドのツールを選択しているなら
-                if (toolUIController.isHandOn && toolUIController.handOnIndex == i)
+                if (toolUIController.isHandOn && toolUIController.selectIndex == i)
                 {
                     // 消費RAM表示
                     ramUIDisp.willUseRam = deckSystem.ReturnToolCost(hand);
