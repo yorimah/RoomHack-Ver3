@@ -11,9 +11,6 @@ public class SecurityRobotMoveState : IEnemyState
     private SecurityRobotMoveType securityRobotMoveType;
     private Dictionary<SecurityRobotMoveType, IEnemyState> moveTypeState;
 
-    float moveTypeChangeTime = 1;
-    float timer;
-
     private float checkDistance = 1;
     public SecurityRobotMoveState(EnemyBase _enemy)
     {
@@ -54,17 +51,14 @@ public class SecurityRobotMoveState : IEnemyState
     public void MoveChange()
     {
         // 射線が通ったら射撃に遷移
-        //if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
-        //{
-        //    enemy.ChangeState(EnemyStateType.Shot);
-        //}
-        if (securityRobotMoveType == SecurityRobotMoveType.Straight)
+        if (playerCheck.PlayerRayHitCheack(enemy.transform, enemy.GetObstacleMask(), enemy.PlayerPosition))
         {
-            if (Physics2D.Raycast(enemy.transform.position, enemyRigidBody.linearVelocity, checkDistance, enemy.GetObstacleMask()))
-            {
-                Debug.Log("壁にぶつかりそうなので反転");
-                MoveTypeChange(InversionEnum());
-            }
+            enemy.ChangeState(EnemyStateType.Shot);
+        }
+        if (Physics2D.Raycast(enemy.transform.position, enemyRigidBody.linearVelocity, checkDistance, enemy.GetObstacleMask()))
+        {
+            Debug.Log("壁にぶつかりそうなので反転");
+            MoveTypeChange(InversionEnum());
         }
     }
 
@@ -85,7 +79,6 @@ public class SecurityRobotMoveState : IEnemyState
     }
     public void MoveTypeChange(SecurityRobotMoveType movetype)
     {
-        timer = 0;
         currentState.Exit();
         securityRobotMoveType = movetype;
         currentState = moveTypeState[securityRobotMoveType];
@@ -101,19 +94,19 @@ public enum SecurityRobotMoveType
 }
 public class SecurityRobotMoveStraightState : IEnemyState
 {
-    float timer;
-    public SecurityRobotMoveStraightState(EnemyBase enemy)
+    private EnemyBase enemy;
+    public SecurityRobotMoveStraightState(EnemyBase _enemy)
     {
-
+        enemy = _enemy;
     }
     public void Enter()
     {
-        timer = 0;
+
     }
 
     public void Execute()
     {
-
+        enemy.rigidbody.linearVelocity = enemy.transform.up * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
     }
 
     public void Exit()
@@ -124,18 +117,29 @@ public class SecurityRobotMoveStraightState : IEnemyState
 
 public class SecurityRobotMoveCircleState : IEnemyState
 {
-    public SecurityRobotMoveCircleState(EnemyBase enemy)
+    private EnemyBase enemy;
+    private int direction = 1;
+
+    public SecurityRobotMoveCircleState(EnemyBase _enemy)
     {
+        enemy = _enemy;
 
     }
     public void Enter()
     {
-
+        direction = Random.value < 0.5f ? -1 : 1;
     }
 
     public void Execute()
     {
+        Vector2 nowPosition = enemy.transform.position;
 
+        Vector2 center = enemy.PlayerPosition;
+        Vector2 dir = nowPosition - center;
+
+        Vector2 emDir = new Vector2(-dir.y, dir.x);
+        // Rigidbody2Dで移動
+        enemy.rigidbody.linearVelocity = emDir.normalized * direction * enemy.moveSpeed * GameTimer.Instance.GetCustomTimeScale();
     }
 
     public void Exit()

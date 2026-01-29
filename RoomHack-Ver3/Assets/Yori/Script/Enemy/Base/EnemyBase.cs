@@ -95,7 +95,7 @@ public class EnemyBase : MonoBehaviour, IDamageable, IHackObject
     [SerializeField, Header("MaxHP")]
     private int SerializeMaxHp;
 
-    private Rigidbody2D rigidbody;
+    public Rigidbody2D rigidbody;
     public void Awake()
     {
         GunDataInit();
