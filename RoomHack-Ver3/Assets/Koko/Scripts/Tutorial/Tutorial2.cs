@@ -101,7 +101,7 @@ public class Tutorial2 : MonoBehaviour
                 if (true) isExplain = true;
 
                 // 説明終了条件
-                if (timer > 1 && Mathf.Abs(Input.mouseScrollDelta.y) > 1)
+                if (timer > 1 && Mathf.Abs(Input.mouseScrollDelta.y) > 0.5f)
                 {
                     isExplain = false;
                     isIndexStart = false;
