@@ -1,17 +1,15 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
-
-public class ToolUIListDisp : MonoBehaviour
+﻿using System.Collections.Generic;
+using UnityEngine;
+using Zenject;
+public class DeckDisp : MonoBehaviour
 {
     [SerializeField, Header("要アタッチ")]
     ToolUI toolUIPrefab;
 
-    [SerializeField, Header("要アタッチ")]
-    GameObject blind;
-
     public bool isDisp = false;
 
+    [SerializeField, Header("toolDataBankアタッチ")]
+    ToolDataBank toolDataBank;
     public List<ToolTag> inputToolList = new List<ToolTag>();
 
     List<ToolUI> toolUIList = new List<ToolUI>();
@@ -20,20 +18,36 @@ public class ToolUIListDisp : MonoBehaviour
     public Vector2 basePos = Vector2.zero;
     public Vector2 spaceOffset = new Vector2(200, 300);
     public int horizonNum = 5;
+    [Inject]
+    IDeckList deckList;
+    public void Start()
+    {
+        inputToolList = IntToDeck(deckList.DeckList);
+    }
 
 
+    public List<ToolTag> IntToDeck(List<int> _list)
+    {
+        List<ToolTag> toolDeckList = new List<ToolTag>();
+
+        for (int i = 0; i < _list.Count; i++)
+        {
+            toolDeckList.Add(toolDataBank.toolDataList[_list[i]].toolTag);
+        }
+
+        return toolDeckList;
+    }
     private void Update()
     {
 
         if (isDisp)
         {
-            blind.SetActive(true);
+            //blind.SetActive(true);
 
             // プレハブ生成必要枚数以下なら
             while (inputToolList.Count > toolUIList.Count)
             {
                 toolUIList.Add(ToolUIGenerate(startPos));
-                Debug.Log(toolUIList.Count);
             }
 
             // ツールの表示設定
@@ -86,7 +100,7 @@ public class ToolUIListDisp : MonoBehaviour
         }
         else
         {
-            blind.SetActive(false);
+            //blind.SetActive(false);
 
             for (int i = 0; i < toolUIList.Count; i++)
             {
@@ -106,7 +120,17 @@ public class ToolUIListDisp : MonoBehaviour
             }
         }
     }
-
+    public void DeckDispButton()
+    {
+        if (isDisp)
+        {
+            isDisp = false;
+        }
+        else
+        {
+            isDisp = true;
+        }
+    }
     ToolUI ToolUIGenerate(Vector2 _pos)
     {
         ToolUI instance = Instantiate(toolUIPrefab, _pos, Quaternion.identity, this.transform);

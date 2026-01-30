@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Zenject;
-using Cysharp.Threading.Tasks;
 public class WindowMove : MonoBehaviour, ICanDrag
 {
     Vector3 dragStartPos;
@@ -21,7 +20,7 @@ public class WindowMove : MonoBehaviour, ICanDrag
     protected float waitSeconds = 0.01f;
     public void Awake()
     {
-        if (setWindoList!=null)
+        if (setWindoList != null)
         {
             setWindoList.AddWindowList(this);
         }
@@ -54,6 +53,10 @@ public class WindowMove : MonoBehaviour, ICanDrag
         if (Hierarchy != transform.GetSiblingIndex())
         {
             Hierarchy = transform.GetSiblingIndex();
+        }
+        if (rectTransform.sizeDelta.x <= 0)
+        {
+            button.SetActive(false);
         }
     }
     public void DragMove(Vector3 mouseStartPos)
