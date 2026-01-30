@@ -55,7 +55,7 @@ public class PlayerUITest : MonoBehaviour
 
         // 残弾バーサイズ変更
         Vector3 bulletScale = bulletBar.gameObject.transform.localScale;
-        bulletScale.x = nowBullet / maxBullet;
+        if (maxBullet != 0) bulletScale.x = nowBullet / maxBullet;
         bulletBar.gameObject.transform.localScale = bulletScale;
 
     }

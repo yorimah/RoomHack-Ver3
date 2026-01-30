@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class Tutorial1_save : MonoBehaviour
+public class TutorialSaveEdittor : MonoBehaviour
 {
     [SerializeField]
     List<int> loadDeck = new List<int>();

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Tutorial1 : MonoBehaviour
 {
@@ -53,6 +54,8 @@ public class Tutorial1 : MonoBehaviour
             tutorialManager.SetStatus(tutorialDataList.dataList[0]);
             GameTimer.Instance.playTime = 1;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) SceneManager.LoadScene("Tutorial0-3_saveedit");
 
         switch (index)
         {
@@ -192,7 +195,7 @@ public class Tutorial1 : MonoBehaviour
                 }
 
                 // 説明開始条件
-                if (timer > 5) isExplain = true;
+                if (timer > 3) isExplain = true;
 
                 // 説明終了条件
                 if (timer > 6 && Input.GetKeyDown(KeyCode.Mouse0))
@@ -240,6 +243,31 @@ public class Tutorial1 : MonoBehaviour
                     //SaveManager.Instance.Save(playerSave);
 
                 }
+
+                break;
+
+            case 7:
+
+                // クリア演出
+                if (!isIndexStart)
+                {
+                    Debug.Log("おわりのはじまり");
+                    // なにかかく
+                    timer = 0;
+
+                    isIndexStart = true;
+                }
+
+                bool isClear = true;
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    if (!enemies[i].isDead) isClear = false;
+                }
+
+                Debug.Log(isClear);
+                if (isClear) timer += Time.deltaTime;
+
+                if (timer > 1.8f) SceneManager.LoadScene("Tutorial0-2_saveedit");
 
                 break;
         }

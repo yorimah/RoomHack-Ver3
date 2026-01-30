@@ -9,7 +9,9 @@ public enum GunName
     SniperRifle,
     SubMachineGun,
     ShotGun,
-    Revolver
+    Revolver,
+    nullGun,
+
 }
 [CreateAssetMenu(menuName = "GunData")]
 public class GunData : ScriptableObject

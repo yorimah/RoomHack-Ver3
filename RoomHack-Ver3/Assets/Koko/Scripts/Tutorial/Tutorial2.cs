@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using UnityEngine.SceneManagement;
 
 public class Tutorial2 : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class Tutorial2 : MonoBehaviour
     [SerializeField]
     CameraPositionController camPosCon;
 
+    [Inject]
+    IGetEnemyList enemyList;
+    List<EnemyBase> enemies = new List<EnemyBase>();
 
     private void Update()
     {
@@ -45,6 +49,8 @@ public class Tutorial2 : MonoBehaviour
             GameTimer.Instance.playTime = 1;
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape)) SceneManager.LoadScene("Tutorial0-3_saveedit");
+
         switch (index)
         {
             case 0:
@@ -65,14 +71,14 @@ public class Tutorial2 : MonoBehaviour
 
                 // アップデート
                 {
-                    timer += Time.deltaTime;
+                    if (isExplain) timer += Time.deltaTime;
                 }
 
                 // 説明開始条件
-                if (timer > 3.5) isExplain = true;
+                if (true) isExplain = true;
 
                 // 説明終了条件
-                if (timer > 4.5 && Input.anyKeyDown)
+                if (timer > 1 && Input.anyKeyDown)
                 {
                     isExplain = false;
                     isIndexStart = false;
@@ -187,7 +193,7 @@ public class Tutorial2 : MonoBehaviour
                 }
 
                 // 説明開始条件
-                if (true) isExplain = true;
+                if (ToolManager.Instance.GetHandData().Count <= 2) isExplain = true;
 
                 // 説明終了条件
                 if (timer > 1 && Input.anyKeyDown)
@@ -226,6 +232,31 @@ public class Tutorial2 : MonoBehaviour
                     isIndexStart = false;
                     index++;
                 }
+
+                break;
+
+            case 7:
+
+                // クリア演出
+                if (!isIndexStart)
+                {
+                    // なにかかく
+                    timer = 0;
+                    enemies = enemyList.GetEnemies();
+
+                    isIndexStart = true;
+                }
+
+                bool isClear = true;
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    if (!enemies[i].isDead) isClear = false;
+                }
+
+                Debug.Log(isClear);
+                if (isClear) timer += Time.deltaTime;
+
+                if (timer > 1.8f) SceneManager.LoadScene("Tutorial0-3_saveedit");
 
                 break;
         }
