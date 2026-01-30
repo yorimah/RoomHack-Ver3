@@ -34,7 +34,7 @@ public class PlayerPauseState : IPlayerState
     {
         if (playerRigidBody != null)
         {
-            playerRigidBody.linearVelocity = enterVelocity;
+            //playerRigidBody.linearVelocity = enterVelocity;
         }
     }
 }

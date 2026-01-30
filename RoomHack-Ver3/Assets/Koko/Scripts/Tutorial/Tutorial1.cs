@@ -29,6 +29,7 @@ public class Tutorial1 : MonoBehaviour
     [Inject]
     IUseableRam ram;
 
+    
 
     private void Update()
     {
@@ -233,6 +234,11 @@ public class Tutorial1 : MonoBehaviour
                     isExplain = false;
                     isIndexStart = false;
                     index++;
+
+                    //PlayerSaveData playerSave = SaveManager.Instance.Load();
+                    //playerSave.gunName = GunName.AssuleRifle;
+                    //SaveManager.Instance.Save(playerSave);
+
                 }
 
                 break;
