@@ -1,6 +1,11 @@
 ﻿Shader "Custom/WriteStencil"
 {
-    SubShader
+    Properties
+    {
+        _MainTex("Texture", 2D) = "white" {}
+    }
+
+        SubShader
     {
         Tags { "RenderType" = "Opaque" "Queue" = "Geometry+10" }
 
@@ -13,7 +18,7 @@
                 Pass replace
             }
 
-            ColorMask 0 // 色は描かない（ステンシルだけ書く）
+            ColorMask 0
         }
     }
 }

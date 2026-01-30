@@ -69,7 +69,7 @@ public class FloorInformationManager : MonoBehaviour
 
         if (floorData.isClear)
         {
-            Debug.Log("SE_FloorClear");
+           // Debug.Log("SE_FloorClear");
 
             bandScreen.gameObject.SetActive(true);
             floorText.gameObject.SetActive(true);

@@ -32,8 +32,6 @@ public class RelicUIManager : MonoBehaviour
             relicIconUIList.Add(Instantiate(relicIconPrefab, Vector2.zero, Quaternion.identity, this.transform));
         }
 
-        Debug.Log(relicEventList.Count);
-
 
         for (int i = 0; i < relicIconUIList.Count; i++)
         {
