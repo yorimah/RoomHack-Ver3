@@ -159,8 +159,11 @@ public class ToolManager : MonoBehaviour
         }
         else
         {
-            TrashRefresh();
-            DeckDraw();
+            if (deckSystem.toolTrash.Count != 0)
+            {
+                TrashRefresh();
+                DeckDraw();
+            }
         }
 
     }

@@ -246,7 +246,8 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         }
         else
         {
-            Debug.LogError("残弾が下限突破してます！ UseBullet :" + usedBullet + "NowBullet :" + BulletNow);
+            BulletNow = 0;
+            Debug.Log("残弾が下限突破してます！ UseBullet :" + usedBullet + "NowBullet :" + BulletNow);
         }
     }
 
@@ -254,7 +255,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     {
         if (_MaxBullet == 0)
         {
-            Debug.LogError("最大の弾がゼロです！ MaxBullet :" + _MaxBullet + " GunName :" + GunName.ToString());
+            Debug.Log("最大の弾がゼロです！ MaxBullet :" + _MaxBullet + " GunName :" + GunName.ToString());
         }
         else
         {
@@ -272,7 +273,8 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
         }
         else
         {
-            Debug.LogError("最大値を超えて弾を追加しようとしてます！");
+            BulletNow = BulletMax;
+            Debug.Log("最大値を超えて弾を追加しようとしてます！");
         }
     }
     public void BulletResume()

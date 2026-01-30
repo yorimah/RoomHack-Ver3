@@ -163,9 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb05c3d1b92d49047848798d83440353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tutorial1_save
-  loadDeck: 0100000001000000010000000100000001000000
-  loadGun: 0
-  loadScene: Tutorial0-1
+  loadDeck: 010000000200000004000000
+  loadGun: 6
+  loadScene: Tutorial0-2
 --- !u!1 &1223512148
 GameObject:
   m_ObjectHideFlags: 0
