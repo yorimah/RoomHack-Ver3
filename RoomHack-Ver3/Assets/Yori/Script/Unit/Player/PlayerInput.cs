@@ -26,7 +26,7 @@ public interface IPlayerInput
         return isReload;
     }
 }
-public class PlayerInput:IPlayerInput
+public class PlayerInput : IPlayerInput
 {
     private GameInputs gameInput;
 
@@ -71,7 +71,10 @@ public class PlayerInput:IPlayerInput
     }
     private void OnClick(InputAction.CallbackContext context)
     {
-        isClick = true;
+        if (GameTimer.Instance.playTime != 0)
+        {
+            isClick = true;
+        }
     }
 
     private void OffClick(InputAction.CallbackContext context)

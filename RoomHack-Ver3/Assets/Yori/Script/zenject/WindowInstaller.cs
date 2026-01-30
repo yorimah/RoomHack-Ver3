@@ -7,5 +7,9 @@ public class WindowInstaller : MonoInstaller
     {
         Container.BindInterfacesTo<WindowListHolder>().AsSingle();
         Container.BindInterfacesTo<PlayerStatus>().AsSingle();
+        Container.BindInterfacesTo<EnemyList>().AsSingle();
+        Container.BindInterfacesTo<ClearManager>().AsSingle();
+        Container.BindInterfacesTo<GunDataList>().AsSingle();
+        Container.BindInterfacesTo<GameTimeHolder>().AsSingle();
     }
 }
