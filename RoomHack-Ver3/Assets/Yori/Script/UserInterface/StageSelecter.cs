@@ -16,7 +16,7 @@ public class StageSelecter : MonoBehaviour
         foreach (var selcetButton in selectButtonList)
         {
             int rand = Random.Range(0, stageDataBank.dataList.Count);
-            selcetButton.SetScene(stageDataBank.dataList[1], 1, loader);
+            selcetButton.SetScene(stageDataBank.dataList[rand], rand, loader);
         }
     }
 }
