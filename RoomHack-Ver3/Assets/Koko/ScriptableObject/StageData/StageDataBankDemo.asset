@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageDataBank
   dataList:
   - {fileID: 11400000, guid: a37f505bc9779da45900c776a27158c9, type: 2}
-  - {fileID: 11400000, guid: a096bc49211628b49bf28bdf9f46ff82, type: 2}
+  - {fileID: 11400000, guid: f3551a7777db49d409eaf1899ec73ebd, type: 2}
+  - {fileID: 11400000, guid: f221860500b26b349bf084b7c3221481, type: 2}
+  - {fileID: 11400000, guid: 664e248893f96d848b098a3053bbed4d, type: 2}
+  - {fileID: 11400000, guid: 48afecab7157cc842a48e1ac9ea1712e, type: 2}

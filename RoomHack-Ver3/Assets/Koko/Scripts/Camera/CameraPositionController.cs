@@ -20,8 +20,6 @@ public class CameraPositionController : MonoBehaviour
 
     private GameObject insTargetAnimObj;
 
-    [SerializeField, Header("playerObj")]
-    private GameObject playerObject;
     private void Start()
     {
 
@@ -46,7 +44,7 @@ public class CameraPositionController : MonoBehaviour
             }
 
             // ロックオン時仮アニメーション再生
-            if (targetObject != playerObject.gameObject && targetObject != null)
+            if (targetObject != null)
             {
                 insTargetAnimObj.transform.position = targetObject.transform.position;
                 insTargetAnimObj.SetActive(true);
@@ -169,8 +167,7 @@ public class CameraPositionController : MonoBehaviour
 
         foreach (RaycastHit2D hit in hitsss)
         {
-            if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject)
-                || hit.collider.gameObject == playerObject)
+            if (hit.collider.gameObject.TryGetComponent<IHackObject>(out var hackObject))
             {
                 obj = hit.collider.gameObject;
             }
