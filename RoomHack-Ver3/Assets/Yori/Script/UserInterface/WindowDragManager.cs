@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 public class WindowDragManager : MonoBehaviour
 {
@@ -23,97 +24,188 @@ public class WindowDragManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetMouseButtonDown(0))
         {
-            GetMousePositionObject();
-            mouseStartPos = Input.mousePosition;
+            BeginDrag();
         }
-        if (Input.GetKey(KeyCode.Mouse0))
+
+        if (Input.GetMouseButton(0))
         {
             if (dragMove != null)
-            {
                 dragMove.DragMove(mouseStartPos);
-            }
             else if (dragScale != null)
-            {
                 dragScale.DragScale(additionVec, mouseStartPos);
-            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            dragMove = null;
+            dragScale = null;
         }
     }
     private List<IDragScaler> dragScalers = new();
-    private void GetMousePositionObject()
+
+    void BeginDrag()
     {
-        // レイ射出、一旦すべて取る
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
+        mouseStartPos = Input.mousePosition;
         additionVec = Vector2.zero;
-        dragMoves.Clear();
-        dragScalers.Clear();
         dragMove = null;
         dragScale = null;
 
-        int dragMoveHierarchy = 0;
-        int dragScaleHierarchy = 0;
-        foreach (RaycastHit2D hit in hits)
+        RaycastUI();
+
+        if (HasButtonHit(raycastResults))
+            return;
+        GetMousePositionObject();
+    }
+    readonly List<RaycastResult> raycastResults = new();
+    void RaycastUI()
+    {
+        raycastResults.Clear();
+
+        var pointer = new PointerEventData(EventSystem.current)
         {
-            // ドラッグ、スケールの中でのヒエラルキーが一番高い奴を見る
-            if (hit.collider.TryGetComponent<ICanDrag>(out var canDrag))
+            position = Input.mousePosition
+        };
+
+        EventSystem.current.RaycastAll(pointer, raycastResults);
+    }
+
+    bool HasButtonHit(List<RaycastResult> results)
+    {
+        foreach (var r in results)
+        {
+            if (r.gameObject.GetComponent<UnityEngine.UI.Button>() != null)
+                return true;
+        }
+        return false;
+    }
+    private void GetMousePositionObject()
+    {
+        {
+            //// レイ射出、一旦すべて取る
+            //RaycastHit2D[] hits = Physics2D.BoxCastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.5f, 0.5f), 0f, Vector2.down, 0.1f);
+            //additionVec = Vector2.zero;
+            //dragMoves.Clear();
+            //dragScalers.Clear();
+            //dragMove = null;
+            //dragScale = null;
+
+            //int dragMoveHierarchy = 0;
+            //int dragScaleHierarchy = 0;
+            //foreach (RaycastHit2D hit in hits)
+            //{
+            //    // ドラッグ、スケールの中でのヒエラルキーが一番高い奴を見る
+            //    if (hit.collider.TryGetComponent<ICanDrag>(out var canDrag))
+            //    {
+            //        dragMoves.Add(canDrag);
+            //        if (dragMoveHierarchy <= canDrag.Hierarchy)
+            //        {
+            //            dragMoveHierarchy = canDrag.Hierarchy;
+            //        }
+            //    }
+
+            //    if (hit.collider.TryGetComponent<IDragScaler>(out var dragScaler))
+            //    {
+            //        dragScalers.Add(dragScaler);
+            //        if (dragScaleHierarchy <= dragScaler.Hierarchy)
+            //        {
+            //            dragScaleHierarchy = dragScaler.Hierarchy;
+            //        }
+            //    }
+
+            //}
+            //// ヒエラルキーの高い方の動かす準備をする
+            //if (dragMoveHierarchy > dragScaleHierarchy)
+            //{
+            //    if (dragMoves?.Count > 0)
+            //    {
+            //        foreach (var drag in dragMoves)
+            //        {
+            //            if (dragMoveHierarchy == drag.Hierarchy)
+            //            {
+            //                dragMove = drag;
+            //            }
+            //        }
+            //        if (dragMove != null)
+            //        {
+            //            dragMove.ClickInit(allDragList.Count);
+            //            foreach (var item in allDragList)
+            //            {
+            //                item.HierarchySet();
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    if (dragScalers?.Count > 0)
+            //    {
+            //        foreach (var drag in dragScalers)
+            //        {
+            //            if (drag.Hierarchy == dragScaleHierarchy)
+            //            {
+            //                additionVec += drag.DragVec;
+            //                drag.ClickInit(allDragList.Count);
+            //                dragScale = drag;
+            //            }
+            //        }
+            //    }
+            //}
+        }
+        int bestMoveHierarchy = int.MinValue;
+        int bestScaleHierarchy = int.MinValue;
+
+        ICanDrag bestMove = null;
+        List<IDragScaler> bestScalers = new();
+
+        foreach (var result in raycastResults)
+        {
+            var go = result.gameObject;
+
+            if (go.TryGetComponent<ICanDrag>(out var move))
             {
-                dragMoves.Add(canDrag);
-                if (dragMoveHierarchy <= canDrag.Hierarchy)
+                if (move.Hierarchy > bestMoveHierarchy)
                 {
-                    dragMoveHierarchy = canDrag.Hierarchy;
+                    bestMoveHierarchy = move.Hierarchy;
+                    bestMove = move;
                 }
             }
 
-            if (hit.collider.TryGetComponent<IDragScaler>(out var dragScaler))
+            if (go.TryGetComponent<IDragScaler>(out var scaler))
             {
-                dragScalers.Add(dragScaler);
-                if (dragScaleHierarchy <= dragScaler.Hierarchy)
+                if (scaler.Hierarchy > bestScaleHierarchy)
                 {
-                    dragScaleHierarchy = dragScaler.Hierarchy;
+                    bestScaleHierarchy = scaler.Hierarchy;
+                    bestScalers.Clear();
+                    bestScalers.Add(scaler);
+                }
+                else if (scaler.Hierarchy == bestScaleHierarchy)
+                {
+                    bestScalers.Add(scaler);
                 }
             }
+        }
 
-        }
-        // ヒエラルキーの高い方の動かす準備をする
-        if (dragMoveHierarchy > dragScaleHierarchy)
+        // Move と Scale のどちらを優先するか
+        if (bestMoveHierarchy > bestScaleHierarchy)
         {
-            if (dragMoves?.Count > 0)
-            {
-                foreach (var drag in dragMoves)
-                {
-                    if (dragMoveHierarchy == drag.Hierarchy)
-                    {
-                        dragMove = drag;
-                    }
-                }
-                if (dragMove != null)
-                {
-                    dragMove.ClickInit(allDragList.Count);
-                    foreach (var item in allDragList)
-                    {
-                        item.HierarchySet();
-                    }
-                }
-            }
+            dragMove = bestMove;
+            dragMove?.ClickInit(0);
         }
-        else
+        else if (bestScalers.Count > 0)
         {
-            if (dragScalers?.Count > 0)
+            foreach (var scaler in bestScalers)
             {
-                foreach (var drag in dragScalers)
-                {
-                    if (drag.Hierarchy == dragScaleHierarchy)
-                    {
-                        additionVec += drag.DragVec;
-                        drag.ClickInit(allDragList.Count);
-                        dragScale = drag;
-                    }
-                }
+                additionVec += scaler.DragVec;
+                scaler.ClickInit(0);
             }
+            dragScale = bestScalers[0];
         }
     }
+
 }
+
 
 public class WindowListHolder : ISetWindowList, IGetWindowList
 {

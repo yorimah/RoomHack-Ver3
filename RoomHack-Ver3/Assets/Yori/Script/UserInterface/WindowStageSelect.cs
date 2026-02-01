@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
@@ -23,28 +22,27 @@ public class WindowStageSelect : WindowSystem
     StageSceneLoader loader;
 
     private int setStageNo;
-    [SerializeField, Header("windowSize")]
-    private Vector2 setWindowSize;
 
     [Inject]
     IStatusSave statusSave;
     public void SetScene(StageData setScene, int _setStageNo, StageSceneLoader _loader)
     {
+        Debug.Log("a");
         setStageNo = _setStageNo;
         loader = _loader;
         titleUpdate.delay = 3;
         explainUpdate.delay = 3;
         sceneToLoad = setScene.stageName;
+        Debug.Log($"[SetScene] sceneToLoad = {sceneToLoad}");
         stageRange = setScene.floorNum;
         titleText = titleUpdate.GetComponent<Text>();
-        explainText = titleUpdate.GetComponent<Text>();
+        explainText = explainUpdate.GetComponent<Text>();
 
         titleString = sceneToLoad + " FloorNum : " + stageRange;
         titleText.text = titleString;
         explainString = setScene.stageExplain + "\n" + "Reward : " + setScene.reward + "  Level : " + setScene.stageLevel;
         explainText.text = explainString;
     }
-
     public void Accept()
     {
         PlayerSaveData saveData = SaveManager.Instance.Load();
@@ -55,49 +53,19 @@ public class WindowStageSelect : WindowSystem
         SceneManager.LoadScene(loader.NextFloorSceneLoad());
     }
 
-    public override async UniTask PopUpWindow()
+    protected override void OnOpened()
     {
-        windowRect.sizeDelta += new Vector2(0, 10);
-        while (windowRect.rect.width < setWindowSize.x)
-        {
-            windowRect.sizeDelta += new Vector2(setWindowSize.x / 10, 0);
-            await UniTask.WaitForSeconds(waitSeconds);
-        }
-        while (windowRect.rect.height < setWindowSize.y)
-        {
-            windowRect.sizeDelta += new Vector2(0, setWindowSize.y / 10);
-            await UniTask.WaitForSeconds(waitSeconds);
-        }
-        windowRect.sizeDelta = setWindowSize;
-        dragCollider.enabled = true;
-        windowMove.ButtonSetActive(true);
         titleUpdate.inputText = titleString;
         explainUpdate.inputText = explainString;
         titleUpdate.isRunning = true;
         explainUpdate.isRunning = true;
     }
 
-    public override async UniTask FadeOutWindow()
+    protected override void OnClosed()
     {
-        windowMove.ButtonSetActive(false);
-        while (windowRect.rect.height > 100)
-        {
-            windowRect.sizeDelta -= new Vector2(0, setWindowSize.y / 10);
-            await UniTask.WaitForSeconds(waitSeconds);
-        }
-        while (windowRect.rect.width > 100)
-        {
-            windowRect.sizeDelta -= new Vector2(setWindowSize.x / 10, 0);
-            await UniTask.WaitForSeconds(waitSeconds);
-        }
         titleUpdate.inputText = " ";
         explainUpdate.inputText = " ";
         titleUpdate.isRunning = false;
         explainUpdate.isRunning = false;
-        windowMove.ButtonSetActive(false);
-        windowRect.sizeDelta = Vector2.zero;
-        windowRect.localPosition = windowInitPos;
-        isClick = false;
     }
-
 }
