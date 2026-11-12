@@ -27,7 +27,7 @@ public class GameOverSceneManager : MonoBehaviour
     private float trace;
 
     private CancellationTokenSource cancellationTokenSource;
-
+    
     float plusTrace = 10;
     private void Start()
     {

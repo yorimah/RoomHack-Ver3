@@ -173,6 +173,9 @@ public class ToolGetSceneManager : MonoBehaviour
     // 選択後の演出
     IEnumerator ToolSelected(ToolUI _toolUI)
     {
+        // 取得SE
+        SeManager.Instance.Play("ToolGet");
+
         // 取らなかったやつ移動
         for (int i = 0; i < toolUIList.Count; i++)
         {

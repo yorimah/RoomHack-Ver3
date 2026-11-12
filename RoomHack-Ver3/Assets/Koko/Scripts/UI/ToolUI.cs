@@ -28,10 +28,12 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     // 移動変数
     public Vector2 toMovePosition;
-    public bool isMove;
+    public bool isMove;         // 移動中か否か
+    float moveSpeed = 0.1f;     // 移動速度
 
     // サイズ変数
     public Vector2 toScale = new Vector2(1, 1);
+    float scaleSpeed = 0.1f;     // サイズ変更速度
 
     // マウスポインターがのってるか否か
     public bool isPointerOn = false;
@@ -167,7 +169,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         Vector2 moveVec = (toMovePosition - (Vector2)flameRect.localPosition) / 10;
 
-        flameRect.localPosition += (Vector3)moveVec;
+        flameRect.localPosition += (Vector3)moveVec * moveSpeed;
 
         // 移動してるか否か
         if (Mathf.Abs(moveVec.x) > 0.1f || Mathf.Abs(moveVec.y) > 0.1f)
@@ -184,7 +186,7 @@ public class ToolUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         Vector2 scaleVec = (new Vector2(toScale.x * reverseNum, toScale.y) - (Vector2)flameRect.localScale) / 10;
 
-        flameRect.localScale += (Vector3)scaleVec;
+        flameRect.localScale += (Vector3)scaleVec * scaleSpeed;
         //iconRect.localScale += (Vector3)scaleVec;
     }
 

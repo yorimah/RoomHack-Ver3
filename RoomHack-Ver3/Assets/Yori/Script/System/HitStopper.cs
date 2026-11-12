@@ -1,4 +1,4 @@
-﻿using Cinemachine;
+﻿
 using System.Collections;
 using UnityEngine;
 
@@ -6,12 +6,12 @@ public class HitStopper : MonoBehaviour
 {
     public static HitStopper Instance { get; private set; }
     [SerializeField, Header("cinemachine")]
-    private CinemachineVirtualCamera mainCamera;
-    private CinemachineImpulseSource cinemachineImpulse;
+    private Unity.Cinemachine.CinemachineVirtualCamera mainCamera;
+    private Unity.Cinemachine.CinemachineImpulseSource cinemachineImpulse;
     private void Awake()
     {
         Instance = this;
-        cinemachineImpulse = mainCamera.GetComponent<CinemachineImpulseSource>();
+        cinemachineImpulse = mainCamera.GetComponent<Unity.Cinemachine.CinemachineImpulseSource>();
     }
 
     public void StopTime(float duration)
