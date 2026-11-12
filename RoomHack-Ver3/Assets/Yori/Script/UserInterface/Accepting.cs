@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 public class Accepting : MonoBehaviour
 {
-    [SerializeField]
+   // [SerializeField]
     
    public void Accept()
     {
