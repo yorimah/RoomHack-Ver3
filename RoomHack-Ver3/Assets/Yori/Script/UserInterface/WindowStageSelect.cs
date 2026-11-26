@@ -27,7 +27,6 @@ public class WindowStageSelect : WindowSystem
     IStatusSave statusSave;
     public void SetScene(StageData setScene, int _setStageNo, StageSceneLoader _loader)
     {
-        Debug.Log("a");
         setStageNo = _setStageNo;
         loader = _loader;
         titleUpdate.delay = 3;

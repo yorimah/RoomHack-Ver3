@@ -422,6 +422,7 @@ public class PlayerStatus : IGetMoveSpeed, IUseableRam, IDeckList, IPosition,
     public void ReloadIntervalTimer()
     {
         ReloadTimer += GameTimer.Instance.GetScaledDeltaTime();
+        Debug.Log("リロードカウント:"+ GameTimer.Instance.GetCustomTimeScale());
     }
     public void ResetShotTimer()
     {
