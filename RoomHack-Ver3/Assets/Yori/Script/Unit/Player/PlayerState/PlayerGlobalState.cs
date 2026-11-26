@@ -24,9 +24,8 @@ public class PlayerGlobalState : IPlayerState
             playerStateContoller.ChangeState(PlayerStateType.Pause);
             return;
         }
-
+        float delta = GameTimer.Instance.GetScaledDeltaTime();
         playerShot.Shot();
-        await UniTask.Yield();
     }
 
     public void Exit()

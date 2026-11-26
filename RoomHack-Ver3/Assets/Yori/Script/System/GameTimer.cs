@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 public class GameTimer
 {
-    private static GameTimer _instance;
+    private static readonly GameTimer _instance = new GameTimer();
 
-    public static GameTimer Instance => _instance ??= new GameTimer();
+    public static GameTimer Instance => _instance;
 
     /// <summary>
     /// タイムスケールの大本、ここを1/10にすると1/10の時間の進みになる。0～5の間
