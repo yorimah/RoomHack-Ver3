@@ -21,7 +21,7 @@ public class HitStopper : MonoBehaviour
 
     private IEnumerator HitStopCoroutine(float duration)
     {
-        GameTimer.Instance.SetCustumTimeScale(0);
+        GameTimer.Instance.SetCustomTimeScale(0);
         yield return new WaitForSecondsRealtime(duration);
         if (GameTimer.Instance.IsHackTime)
         {
@@ -29,7 +29,7 @@ public class HitStopper : MonoBehaviour
         }
         else
         {
-            GameTimer.Instance.SetAcitionModeTimeScale();
+            GameTimer.Instance.SetActionModeTimeScale();
         }
     }
 }

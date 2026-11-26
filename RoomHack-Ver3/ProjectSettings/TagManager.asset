@@ -16,7 +16,7 @@ TagManager:
   - PlayerView
   - Granade
   - Effect
-  - 
+  - Wall_Window
   - 
   - 
   - 
@@ -49,3 +49,4 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
+  m_MigratedRenderPipelines: []

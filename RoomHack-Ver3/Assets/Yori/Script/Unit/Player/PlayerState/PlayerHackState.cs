@@ -31,7 +31,7 @@ public class PlayerHackState : IPlayerState
     private void ChangeState()
     {
         playerStateContoller.ChangeState(PlayerStateType.Action);
-        GameTimer.Instance.SetAcitionModeTimeScale();
+        GameTimer.Instance.SetActionModeTimeScale();
     }
 
     public void Exit()

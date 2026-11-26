@@ -36,6 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7170363196981103436
 SpriteRenderer:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -81,6 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: fb38da75d29426740ae01baced9dc3b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -90,8 +92,8 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &1965188872062390581
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +133,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6969794339605907421
 SpriteRenderer:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -176,6 +179,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: beb1afc4e763f3a45a310b2f04ae42a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -185,8 +189,8 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!114 &5031395399878127643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,12 +291,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784f4e7f822a2554abe7cb3d68797374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _event: []
   moveSpeed: 3
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
   aimTime: 0.5
+  moveCoefficient: 1
   gunData: {fileID: 11400000, guid: cd3053c612e76fc4b851e0bdec18cd69, type: 2}
   MAXBULLET: 0
   NOWBULLET: 0
@@ -303,8 +307,11 @@ MonoBehaviour:
   maxDiffusionRate: 15
   minDiffusionRate: 1
   bulletObject: {fileID: 7934828133250085043, guid: bae09c21d94cdc5408ea9036ef8103e1, type: 3}
-  died: 0
+  isDead: 0
   shotIntervalTime: 5
+  armorSerialze: 0
+  SerializeMaxHp: 0
+  rigidbody: {fileID: 0}
   diffusionRate: 0
 --- !u!1 &2350499502706115474
 GameObject:
@@ -340,6 +347,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &90392627441826676
 SpriteRenderer:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -385,6 +393,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: c5784b0aaf81ac743850cc1f0866466f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -394,5 +403,5 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []

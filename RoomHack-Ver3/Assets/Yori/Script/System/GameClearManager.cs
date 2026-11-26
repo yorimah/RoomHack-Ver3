@@ -44,11 +44,14 @@ public class GameClearManager : MonoBehaviour
          );
 
         _ = GameOverSequence(linked.Token);
+
+        SeManager.Instance.Play("StageClear");
     }
     async UniTask GameOverSequence(CancellationToken token)
     {
         try
         {
+
             await UniTask.Delay(TimeSpan.FromSeconds(skipValue), cancellationToken: token);
 
             for (int i = 0; i < 100; i++)

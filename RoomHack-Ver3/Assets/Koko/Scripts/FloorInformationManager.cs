@@ -103,7 +103,17 @@ public class FloorInformationManager : MonoBehaviour
 
         GameTimer.Instance.playTime = 0;
 
-        yield return new WaitForSeconds(3f);
+        SeManager.Instance.Play("StageAct_1");
+
+        yield return new WaitForSeconds(1f);
+
+        SeManager.Instance.Play("StageAct_2");
+
+        yield return new WaitForSeconds(1f);
+
+        SeManager.Instance.Play("StageAct_3");
+
+        yield return new WaitForSeconds(1f);
 
         readyText.GetComponent<Text>().color = new Color32(26, 215, 115, 192);
         readyText.inputText = "READY";
@@ -122,6 +132,7 @@ public class FloorInformationManager : MonoBehaviour
         EffectScreenManager.Instance.SetScreenOpacity(1, 0.25f);
         EffectScreenManager.Instance.ScreenFade(1, 0.95f);
         Debug.Log("SE_FloorStart");
+        SeManager.Instance.Play("StageAct_4");
 
         bandScreen.gameObject.SetActive(false);
 
