@@ -25,7 +25,6 @@ public class PlayerHackState : IPlayerState
         {
             ChangeState();
         }
-        await UniTask.Yield();
     }
 
     private void ChangeState()

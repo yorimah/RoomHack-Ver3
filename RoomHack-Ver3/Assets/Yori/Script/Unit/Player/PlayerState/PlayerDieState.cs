@@ -16,7 +16,7 @@ class PlayerDieState : IPlayerState
 
     public async UniTask Execute()
     {
-        await UniTask.Yield();
+        
     }
 
     public void Exit()

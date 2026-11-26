@@ -30,8 +30,6 @@ public class PlayerActionState : IPlayerState
         {
             ChangeState();
         }
-
-        await UniTask.Yield();
     }
 
     private void ChangeState()

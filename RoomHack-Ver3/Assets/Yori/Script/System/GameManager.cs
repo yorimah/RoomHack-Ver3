@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
         floorData.AddNowFloor();
         if (floorData.NowFloor == stageDataBank.dataList[floorData.SelectStageNo].floorNum)
         {
+            //  Debug.Log("floorData.NowFloor :" + floorData.NowFloor + "stageDataBank.dataList[floorData.SelectStageNo].floorNum" + stageDataBank.dataList[floorData.SelectStageNo].floorNum);
             statusSave.HitPointInit();
             SaveManager.Instance.Save(statusSave.playerSave());
             SceneManager.LoadScene("ClearDemoScene");

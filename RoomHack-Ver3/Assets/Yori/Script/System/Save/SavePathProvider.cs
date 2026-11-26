@@ -13,12 +13,16 @@ public static class SavePathProvider
         }
         return Path.Combine(editorFolder, fileName);
 #else
-        string runtimeFolder = Application.persistentDataPath;
-        if (!Directory.Exists(runtimeFolder))
+           // exeがあるフォルダ
+        string exeFolder = Path.GetDirectoryName(Application.dataPath);
+
+        string saveFolder = Path.Combine(exeFolder, "Saves");
+        if (!Directory.Exists(saveFolder))
         {
-            Directory.CreateDirectory(runtimeFolder);
+            Directory.CreateDirectory(saveFolder);
         }
-        return Path.Combine(runtimeFolder, fileName);
+
+        return Path.Combine(saveFolder, fileName);
 #endif
     }
 }

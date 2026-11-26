@@ -50,6 +50,7 @@ public class PlayerStateContoller
             {
                 await currentState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
                 await globalState.Execute().AttachExternalCancellation(cancellationTokenSource.Token);
+                await UniTask.Yield();
             }
             catch (OperationCanceledException)
             {
@@ -59,7 +60,6 @@ public class PlayerStateContoller
             {
                 cancellationTokenSource = new();
             }
-
         }
 
     }

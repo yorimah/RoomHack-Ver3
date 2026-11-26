@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// レリックの詳細を表示するウィンドウを制御するスクリプト
 /// </summary>
-public class RelicExplainWindow : MonoBehaviour
+public class RelicExplainWindow : WindowSystem
 {
     [SerializeField]
     private Image iconImage;
@@ -19,9 +19,6 @@ public class RelicExplainWindow : MonoBehaviour
     private WindowMove windowMove;
 
     private ISetWindowList setWindowList;
-    private RectTransform windowRect;
-
-    private float waitSeconds;
 
     [SerializeField]
     GeneralUpdateText relicNameUpdate;
@@ -68,30 +65,18 @@ public class RelicExplainWindow : MonoBehaviour
         }
     }
 
-    public async void Exit()
+    protected override void OnClosed()
     {
-        await FadeOutWindow();
+        base.OnClosed();
         setWindowList.RemoveWindowList(windowMove);
         Destroy(gameObject);
     }
 
-    public async UniTask FadeOutWindow()
+    protected override void OnOpened()
     {
-        windowMove.ButtonSetActive(false);
-        TextUpdateInit();
-        while (windowRect.rect.height > 10)
-        {
-            windowRect.sizeDelta -= new Vector2(0, Screen.height / 10);
-            await UniTask.WaitForSeconds(waitSeconds);
-        }
-        while (windowRect.rect.width > 10)
-        {
-            windowRect.sizeDelta -= new Vector2(Screen.width / 10, 0);
-            await UniTask.WaitForSeconds(waitSeconds);
-        }
-        windowMove.ButtonSetActive(false);
+        base.OnOpened();
+        RunningText();
     }
-
     public void TextUpdateInit()
     {
         foreach (var generalUpdateText in generalUpdateTexts)

@@ -183,6 +183,7 @@ public class PlayerShot
         if (gunData.ReloadTime <= haveGun.ReloadTimer)
         {
             haveGun.BulletAdd(gunData.MaxBullet);
+            haveGun.ResetReloadTimer();
             shotSection = ShotSection.shot;
             Debug.Log("マガジン式リロード終了 BulletNow :" + haveGun.BulletNow);
         }

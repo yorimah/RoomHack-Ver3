@@ -79,7 +79,7 @@ public class SaveManager
             {
                 1, 1, 1, 1, 2, 2, 3, 3, 4, 4
             },
-            relicEvents = new List<int> { 2,3 },
+            relicEvents = new List<int> { },
             nowFloor = 0,
             selectStageNo = 0,
             maney = 0,

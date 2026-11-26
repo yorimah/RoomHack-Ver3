@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI;
 public class WindowScaler : MonoBehaviour, IDragScaler
 {
-    BoxCollider2D dragCollider;
+    //BoxCollider2D dragCollider;
     enum DragPoint
     {
         LEFT,
@@ -21,6 +21,8 @@ public class WindowScaler : MonoBehaviour, IDragScaler
     Vector2 sizeDelta;
     Vector3 moveRect;
 
+    Image image;
+
     public void ClickInit(int hierarchy)
     {
         Hierarchy = hierarchy;
@@ -31,7 +33,7 @@ public class WindowScaler : MonoBehaviour, IDragScaler
 
     void Start()
     {
-        dragCollider = GetComponent<BoxCollider2D>();
+        image = gameObject.GetComponent<Image>();
         changeRectObj = changeRectObj.GetComponent<RectTransform>();
         switch (drag)
         {
@@ -59,32 +61,17 @@ public class WindowScaler : MonoBehaviour, IDragScaler
         {
             Hierarchy = changeRectObj.GetSiblingIndex();
         }
-        switch (drag)
+        if (changeRectObj.sizeDelta.x <= 0 && image.raycastTarget)
         {
-            case DragPoint.LEFT:
-            case DragPoint.RIGHT:
-                if (dragCollider.size.y != changeRectObj.sizeDelta.y)
-                {
-                    Vector2 parentObj = new Vector2(dragCollider.size.x, changeRectObj.sizeDelta.y);
-                    dragCollider.size = parentObj;
-                }
-                break;
-            case DragPoint.UP:
-            case DragPoint.DOWN:
-
-                if (dragCollider.size.x != changeRectObj.sizeDelta.x)
-                {
-                    Vector2 parentObj = new Vector2(changeRectObj.sizeDelta.x, dragCollider.size.y);
-                    dragCollider.size = parentObj;
-                }
-                break;
-            default:
-                break;
+            image.raycastTarget = false;
         }
-
+        if (changeRectObj.sizeDelta.x >= 0 && !image.raycastTarget)
+        {
+            image.raycastTarget = true;
+        }
     }
 
-    [SerializeField,Header("最小サイズ")]
+    [SerializeField, Header("最小サイズ")]
     private Vector2 minSize = new Vector2(150, 100);
     public void DragScale(Vector2 dragPoint, Vector3 mouseStartPos)
     {

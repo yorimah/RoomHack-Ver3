@@ -27,7 +27,6 @@ public class PlayerPauseState : IPlayerState
             GameTimer.Instance.SetHackModeTimeScale();
             playerStateContoller.ChangeState(PlayerStateType.Hack);
         }
-        await UniTask.Yield();
     }
 
     public void Exit()

@@ -743,7 +743,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 3054807541451068100}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -933,14 +933,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2166e70196c094cba65cda7deb8ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RelicBuyButtom
-  windowsObject: {fileID: 0}
+  windowRect: {fileID: 0}
+  setWindowSize: {x: 500, y: 500}
   relicNameTextBox: {fileID: 3052738464735847925}
   relicPriceTextBox: {fileID: 394729334656622309}
   relicExplainTextBox: {fileID: 6306822345228643768}
   iconImage: {fileID: 7445390798800203333}
   relicExplainObj: {fileID: 8148658199727510737, guid: 9f80521c05ba5024289bda857063190f, type: 3}
   initButtonPos: {x: 0, y: 0}
-  windowSize: {x: 500, y: 500}
   popPostion: {x: 0, y: 0}
 --- !u!114 &5890609516566582589
 MonoBehaviour:
